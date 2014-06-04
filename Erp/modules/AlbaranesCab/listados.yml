@@ -1,0 +1,374 @@
+# Module: AlbaranesCab
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Albaranes
+    order_by: >
+      albaranes_cab.Fecha ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Albaran
+        field: NumeroAlbaran
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Sucursal
+        field: IDSucursal
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Cliente
+        field: IDCliente
+        length: 36
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  - 
+    title: Albaranes X Comercial
+    order_by: >
+      albaranes_cab.IDComercial,
+      albaranes_cab.Fecha ASC
+    break_field: IDComercial
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Albaran
+        field: NumeroAlbaran
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Sucursal
+        field: IDSucursal
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Cliente
+        field: IDCliente
+        length: 36
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  - 
+    title: Albaranes X Sucursal
+    order_by: >
+      albaranes_cab.IDSucursal,
+      albaranes_cab.Fecha ASC
+    break_field: IDSucursal
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Albaran
+        field: NumeroAlbaran
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Sucursal
+        field: IDSucursal
+        length: 8
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Comercial
+        field: IDComercial
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Cliente
+        field: IDCliente
+        length: 31
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  - 
+    title: Albaranes X Cliente
+    order_by: >
+      albaranes_cab.IDCliente,
+      albaranes_cab.Fecha ASC
+    break_field: IDCliente
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Albaran
+        field: NumeroAlbaran
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Sucursal
+        field: IDSucursal
+        length: 8
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Comercial
+        field: IDComercial
+        length: 20
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      - 
+        title: Factura
+        field: IDFactura
+        length: 10
+        align: L
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Estado
+        field: IDEstado
+        length: 12
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

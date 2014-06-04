@@ -1,0 +1,12 @@
+{# TEMPLATE Existencias/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.input('Almacén','Etiqueta','text','Existencias[IDAlmacen]','Existencias_IDAlmacen',datos.IDAlmacen,'3','CampoUnidades') }}
+{{ macro.input('Artículo','Etiqueta','text','Existencias[IDArticulo]','Existencias_IDArticulo',datos.IDArticulo,'25','CampoTextoCorto') }}
+{{ macro.input('Lote','Etiqueta','text','Existencias[IDLote]','Existencias_IDLote',datos.IDLote,'25','CampoTextoCorto') }}
+{{ macro.input('Reales','Etiqueta','text','Existencias[Reales]','Existencias_Reales',datos.Reales,'10','CampoImporte') }}
+{{ macro.input('Reservadas','Etiqueta','text','Existencias[Reservadas]','Existencias_Reservadas',datos.Reservadas,'10','CampoImporte') }}
+{{ macro.input('Entrando','Etiqueta','text','Existencias[Entrando]','Existencias_Entrando',datos.Entrando,'10','CampoImporte') }}
+{{ macro.input('Máximo','Etiqueta','text','Existencias[Maximo]','Existencias_Maximo',datos.Maximo,'10','CampoImporte') }}
+{{ macro.input('Mínimo','Etiqueta','text','Existencias[Minimo]','Existencias_Minimo',datos.Minimo,'10','CampoImporte') }}
+{{ macro.input('En Deposito','Etiqueta','text','Existencias[EnDeposito]','Existencias_EnDeposito',datos.EnDeposito,'1','CampoUnidades') }}

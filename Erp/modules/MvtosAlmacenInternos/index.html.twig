@@ -1,0 +1,82 @@
+{# Template index.html.twig for MvtosAlmacenInternos #}
+{# -------------------------------------------------------#}
+{% extends layout %}
+
+{% block title parent() ~ " - " ~ values.titulo %}
+
+{% block content %}
+
+    <div class='Titulo'>{{ values.titulo }}</div>
+
+    {% block mantenimiento %}
+    <div class="FormManto">
+    <form name="manto" action="" enctype="multipart/form-data" method="POST">
+        <input name="controller" value="MvtosAlmacenInternos" type="hidden" />
+        <input name="action" id="action" value="new" type="hidden" />
+
+        <div class="Cuerpo">
+	{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+
+        <div style="float: left; width: 49%;">
+            {{ macro.select('Almacén','Etiqueta','MvtosAlmacen[IDAlmacen]','MvtosAlmacen_IDAlmacen',none,values.datos.IDAlmacen,values.almacenes,'Select',none,none,"ResetCampos();")}}
+            <div class="Item" id="div_MvtosAlmacen_IDArticulo">
+                <div class="Etiqueta">Artículo</div>
+                <input name="MvtosAlmacen[IDArticulo]" value="{{values.datos.IDArticulo}}" id="MvtosAlmacen_IDArticulo" type="hidden" />
+                <input value="{{values.datos.Codigo}}" id="Codigo" type="text" class="CampoTextoLargo"
+                       onkeyup="autoCompletar('Codigo','MvtosAlmacen_IDArticulo','Codigo','articulos',$('#MvtosAlmacen_IDAlmacen').val());"
+                       onblur="DesplegableAjax('div_MvtosAlmacen_IDLote','','','mvtosAlmacenLote',$('#MvtosAlmacen_IDAlmacen').val()+'-'+$('#MvtosAlmacen_IDArticulo').val());
+                               $('#div_MvtosAlmacen_IDUbicacion').html('');"
+                />
+            </div>
+            <div class="Item" id="div_MvtosAlmacen_IDLote">
+                <div class="Etiqueta">Lote</div>
+            </div>
+            <div class="Item" id="div_MvtosAlmacen_IDUbicacion">
+                <div class="Etiqueta">Ubicación</div>                
+            </div>
+            {{ macro.input('Unidades','Etiqueta','text','MvtosAlmacen[Unidades]','MvtosAlmacen_Unidades',values.datos.UnidadesE,'10','CampoImporte') }}
+            {{ macro.input('Pales','Etiqueta','text','MvtosAlmacen[Pales]','MvtosAlmacen_Pales',values.datos.PalesE,'10','CampoImporte') }}
+            {{ macro.input('Cajas','Etiqueta','text','MvtosAlmacen[Cajas]','MvtosAlmacen_Cajas',values.datos.CajasE,'10','CampoImporte') }}
+            {{ macro.input('Descripción Mvto','Etiqueta','text','MvtosAlmacen[Descripcion]','MvtosAlmacen_Descripcion',values.datos.Descripcion,'255','CampoTextoLargo') }}
+            <div style="margin-top: 20px;">
+                <div class="Item" id="div_MvtosAlmacen_IDUbicacion_Destino">
+                    <div class="Etiqueta">Ubicación Destino</div>                
+                </div>
+            </div>
+            
+            <div style="clear: both;"></div>
+            <div style="margin-top: 10px;">
+            <input name="accion" value="Hacer Movimiento" type="submit" class="Comando" />
+            </div>
+        </div>
+            
+        <div style="float: right; width: 49%; font-size: 10px;">
+            <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                    <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Observaciones</b></a></li>
+                </ul>
+                <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                    {{ macro.textarea(none,'Etiqueta','MvtosAlmacen[Observaciones]','MvtosAlmacen_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+                </div>
+            </div>              
+        </div>
+        </div>
+    </form>
+    </div>
+    {% endblock %}
+    
+<script>
+function ResetCampos() {
+    
+    DesplegableAjax('div_MvtosAlmacen_IDUbicacion_Destino','MvtosAlmacen_IDUbicacionDestino','MvtosAlmacen[IDUbicacionDestino]','mvtosAlmacenInternosUbicacionDestino',$('#MvtosAlmacen_IDAlmacen').val());
+    
+    $('#MvtosAlmacen_IDArticulo').val('');
+    $('#Codigo').val(''); 
+    $('#div_MvtosAlmacen_IDLote').html('');
+    $('#div_MvtosAlmacen_IDUbicacion').html('');    
+    $('#MvtosAlmacen_Unidades').val('0');
+    $('#MvtosAlmacen_Pales').val('0');     
+    $('#MvtosAlmacen_Cajas').val('0');         
+}
+</script>
+{% endblock %}

@@ -1,0 +1,82 @@
+    <div class="TotalAlbaran">Total Pedido:&nbsp;{{datos.Total}} €</div>
+    <input name="PedidosCab[Total]" value="{{datos.Total}}" type="hidden" />
+
+    <p style="margin-top: 10px; margin-bottom: 5px;">
+    Bruto:&nbsp;<input name="PedidosCab[Importe]" value="{{datos.Importe}}" class="CampoImporte" readonly>
+    Descuento:&nbsp;<input name="PedidosCab[Descuento]" value="{{datos.Descuento}}" class="CampoImporte">
+    </p>
+
+    <table align="center" witdh="80%">
+
+        <tr>
+            <td class="TitulosTotales">Bases</td>
+            <td class="TitulosTotales">IVA</td>
+            <td class="TitulosTotales">Recargo</td>
+        </tr>
+        <tr>
+            <td><input name="PedidosCab[BaseImponible1]" id="PedidosCab_BaseImponible1" type="text" value="{{datos.BaseImponible1}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="PedidosCab[Iva1]" id="PedidosCab_Iva1" type="text" value="{{datos.Iva1}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="PedidosCab[CuotaIva1]" id="PedidosCab_CuotaIva1" type="text" value="{{datos.CuotaIva1}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="PedidosCab[Recargo1]" id="PedidosCab_Recargo1" type="text" value="{{datos.Recargo1}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="PedidosCab[CuotaRecargo1]" id="PedidosCab_CuotaRecargo1" type="text" value="{{datos.CuotaRecargo1}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input name="PedidosCab[BaseImponible2]" id="PedidosCab_BaseImponible2" type="text" value="{{datos.BaseImponible2}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="PedidosCab[Iva2]" id="PedidosCab_Iva2" type="text" value="{{datos.Iva2}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="PedidosCab[CuotaIva2]" id="PedidosCab_CuotaIva2" type="text" value="{{datos.CuotaIva2}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="PedidosCab[Recargo2]" id="PedidosCab_Recargo2" type="text" value="{{datos.Recargo2}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="PedidosCab[CuotaRecargo2]" id="PedidosCab_CuotaRecargo2" type="text" value="{{datos.CuotaRecargo2}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input name="PedidosCab[BaseImponible3]" id="PedidosCab_BaseImponible3" type="text" value="{{datos.BaseImponible3}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="PedidosCab[Iva3]" id="PedidosCab_Iva3" type="text" value="{{datos.Iva3}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="PedidosCab[CuotaIva3]" id="PedidosCab_CuotaIva3" type="text" value="{{datos.CuotaIva3}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="PedidosCab[Recargo3]" id="PedidosCab_Recargo3" type="text" value="{{datos.Recargo3}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="PedidosCab[CuotaRecargo3]" id="PedidosCab_CuotaRecargo3" type="text" value="{{datos.CuotaRecargo3}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="Subtotales"><input name="PedidosCab[TotalBases]" id="PedidosCab_TotalBases" type="text" value="{{datos.TotalBases}}" readonly class='CampoImporte'></td>
+            <td class="Subtotales" align="right"><input name="PedidosCab[TotalIva]" id="PedidosCab_TotalIva" type="text" value="{{datos.TotalIva}}" readonly class='CampoImporte'></td>
+            <td class="Subtotales" align="right"><input name="PedidosCab[TotalRecargo]" id="PedidosCab_TotalRecargo" type="text" value="{{datos.TotalRecargo}}" readonly class='CampoImporte'></td>
+        </tr>
+
+    </table>

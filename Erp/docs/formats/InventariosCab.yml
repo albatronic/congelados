@@ -1,0 +1,67 @@
+# FORMATOS DE INVENTARIOS.
+# docs/docsXXX/formats/InventariosCab.yml
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 02-06-2012
+#
+---
+InventariosCab:
+  -
+    title: Iventario X Ubicaciones
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    page_break: 15
+    break_field: IDUbicacion
+    break_print:
+      - $this->Ln()
+      - $this->SetFont('Arial', 'B', '8')
+      - $this->Cell(0,4, 'Ubicación ' . $this->detail->getIDUbicacion()->getUbicacion(), 0, 1, 'L', 1)
+      - $this->SetFont('Arial', '', '8')
+    header:
+      #-- Logo --
+      - $this->Image($this->empresa->getLogo(),15,15,40,30)
+      # -- Datos de la Empresa --
+      - $this->SetXY(65,15)
+      - $this->SetFont('Arial', 'B', 10)
+      - $this->Cell(0,4,$this->empresa->getRazonSocial(), 0, 1, 'R')
+      - $this->Ln(10)
+      - $this->SetLeftMargin(65)
+      - $this->SetFont('Arial', 'B', 12)
+      - $this->Cell(0, 10, 'INVENTARIO POR UBICACIÓN', 0, 1, 'L')
+      - $this->SetFont('Arial', '', 10)
+      - $this->Cell(0, 5, 'ALMACEN ' . $this->master->getIDAlmacen(), 0, 1, 'L')
+      - $this->Cell(0, 5, 'Dia ' . $this->master->getFecha(), 0, 1, 'L')
+      - $this->SetLeftMargin(15)
+      # -- Titulos para el cuerpo --
+      - $this->SetXY(15, 55)
+      - $this->SetFont('Arial','B', 9)
+      - $this->Cell(20, 5, 'Código', 1, 0, 'C')
+      - $this->Cell(80, 5, 'Artículo', 1, 0, 'C')
+      - $this->Cell(25, 5, 'Stock', 1, 0, 'C')
+      - $this->Cell(15, 5, 'Cajas', 1, 0, 'C')
+      - $this->Cell(15, 5, 'Pales', 1, 0, 'C')
+      - $this->Cell(30, 5, 'Lote', 1, 0, 'C')
+      - $this->SetFont('Arial','', 8)
+      - $this->Ln()
+    body:
+      - $this->Cell(20, 4, $this->detail->getIDArticulo()->getCodigo(),0,0,'L')
+      - $y0 = $this->GetY()
+      - $this->MultiCell(80, 4, $this->detail->getIDArticulo()->getDescripcion(), 0, 'J')
+      - $y1 = $this->GetY()
+      - $this->SetXY(115, $y0)
+      - $this->Cell(13, 4, $this->detail->getStock(),0,0,'R')
+      - $this->Cell(12, 4, $this->detail->getIDArticulo()->getUMA(),0,0,'L')
+      - $this->Cell(15, 4, $this->detail->getCajas(),0,0,'R')
+      - $this->Cell(15, 4, $this->detail->getPales(), 0, 0, 'R')
+      - $this->Cell(30, 4, $this->detail->getIDLote()->getLote(), 0, 0, 'L')
+      - $this->SetY($y1)
+    footer:
+      - $this->SetXY(10, -10)
+      - $this->Cell(5, 4, date('d/m/Y H:i:s'))
+      - $this->Cell(0, 4, "Pag. " . $this->PageNo() . '/{nb}', 0, 0, "C")
+      - $this->Cell(0, 4, $_SESSION['USER']['user']['Nombre'], 0, 0, "R")
+

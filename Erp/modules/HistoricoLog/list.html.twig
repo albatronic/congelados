@@ -1,0 +1,20 @@
+{# Template list.html.twig for Log #}
+{# -------------------------------------------------------#}
+{% extends 'HistoricoLog/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+    <ul style="padding: 10px;">
+        {% for anio,meses in values.historico %}
+            <li>{{anio}}
+                <ul style="margin-left: 20px;">
+                    {% for key,mes in meses %}
+                        <li><a href="{{app.path}}/{{values.controller}}/Index/{{mes}}">{{key}}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

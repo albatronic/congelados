@@ -1,0 +1,89 @@
+    <div class="TotalAlbaran">Total Albarán:&nbsp;{{datos.Total}} €</div>
+    <input name="AlbaranesCab[Total]" value="{{datos.Total}}" type="hidden" />
+
+    <table align="center" witdh="80%">
+        <tr>
+            <td class="TitulosTotales">Bruto</td>
+            <td class="TitulosTotales">Dcto</td>
+            <td class="TitulosTotales">Rec. Financiero</td>
+        </tr>
+        <tr>
+            <td align="center"><input name="AlbaranesCab[Importe]" value="{{datos.Importe}}" class="CampoImporte" disabled /></td>
+            <td align="center"><input name="AlbaranesCab[Descuento]" value="{{datos.Descuento}}" class="CampoImporte" /></td>
+            <td align="center">
+                <input name="AlbaranesCab[RecargoFinanciero]" value="{{datos.RecargoFinanciero}}" class="CampoImporte" disabled />
+                <input name="AlbaranesCab[CuotaRecargoFinanciero]" value="{{datos.CuotaRecargoFinanciero}}" class="CampoImporte" disabled />
+            </td>
+        </tr>
+        <tr>
+            <td class="TitulosTotales">Bases</td>
+            <td class="TitulosTotales">IVA</td>
+            <td class="TitulosTotales">Recargo</td>
+        </tr>
+        <tr>
+            <td><input name="AlbaranesCab[BaseImponible1]" id="AlbaranesCab_BaseImponible1" type="text" value="{{datos.BaseImponible1}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="AlbaranesCab[Iva1]" id="AlbaranesCab_Iva1" type="text" value="{{datos.Iva1}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="AlbaranesCab[CuotaIva1]" id="AlbaranesCab_CuotaIva1" type="text" value="{{datos.CuotaIva1}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="AlbaranesCab[Recargo1]" id="AlbaranesCab_Recargo1" type="text" value="{{datos.Recargo1}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="AlbaranesCab[CuotaRecargo1]" id="AlbaranesCab_CuotaRecargo1" type="text" value="{{datos.CuotaRecargo1}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input name="AlbaranesCab[BaseImponible2]" id="AlbaranesCab_BaseImponible2" type="text" value="{{datos.BaseImponible2}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="AlbaranesCab[Iva2]" id="AlbaranesCab_Iva2" type="text" value="{{datos.Iva2}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="AlbaranesCab[CuotaIva2]" id="AlbaranesCab_CuotaIva2" type="text" value="{{datos.CuotaIva2}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="AlbaranesCab[Recargo2]" id="AlbaranesCab_Recargo2" type="text" value="{{datos.Recargo2}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="AlbaranesCab[CuotaRecargo2]" id="AlbaranesCab_CuotaRecargo2" type="text" value="{{datos.CuotaRecargo2}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input name="AlbaranesCab[BaseImponible3]" id="AlbaranesCab_BaseImponible3" type="text" value="{{datos.BaseImponible3}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="AlbaranesCab[Iva3]" id="AlbaranesCab_Iva3" type="text" value="{{datos.Iva3}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="AlbaranesCab[CuotaIva3]" id="AlbaranesCab_CuotaIva3" type="text" value="{{datos.CuotaIva3}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input name="AlbaranesCab[Recargo3]" id="AlbaranesCab_Recargo3" type="text" value="{{datos.Recargo3}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input name="AlbaranesCab[CuotaRecargo3]" id="AlbaranesCab_CuotaRecargo3" type="text" value="{{datos.CuotaRecargo3}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="Subtotales"><input name="AlbaranesCab[TotalBases]" id="AlbaranesCab_TotalBases" type="text" value="{{datos.TotalBases}}" readonly class='CampoImporte'></td>
+            <td class="Subtotales" align="right"><input name="AlbaranesCab[TotalIva]" id="AlbaranesCab_TotalIva" type="text" value="{{datos.TotalIva}}" readonly class='CampoImporte'></td>
+            <td class="Subtotales" align="right"><input name="AlbaranesCab[TotalRecargo]" id="AlbaranesCab_TotalRecargo" type="text" value="{{datos.TotalRecargo}}" readonly class='CampoImporte'></td>
+        </tr>
+
+    </table>

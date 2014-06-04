@@ -1,0 +1,57 @@
+{# Template detalleRecepcion.html.twig for RecepcionarLineas                     #}
+{# Muestra en ventana diálogo el detalle de la recepción de una linea de entidad #}
+{# ------------------------------------------------------------------------------#}
+
+<script language='JavaScript' type='text/javascript'>
+    $(function() {
+	$( "#dialog{{lineaEntidad.IDLinea}}" ).dialog({
+            autoOpen: false,
+            width: 800,
+            height: 200,
+            position: ['center','top'],
+            closeOnEscape: true,
+            });
+    });
+</script>
+
+<div id="dialog{{lineaEntidad.IDLinea}}" title="Detalle de la Recepción de {{lineaEntidad.Descripcion}}">
+    <div style="font-size: 11px;">
+    <div>Almacén: {{lineaEntidad.getDetalleRecepcion[0].IDAlmacen.Nombre}}</div>        
+    <div>Recepcionado por: {{lineaEntidad.getDetalleRecepcion[0].ModifiedBy.Nombre}} [{{lineaEntidad.getDetalleRecepcion[0].ModifiedAt}}]</div>
+    </div>
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item' colspan="2" style="width:55px;">{{lineaEntidad.IDArticulo.UMC}}</td>
+            <td class='Item' style="width:55px;">Pales</td>
+            <td class='Item' style="width:55px;">Dt. Pale</td>
+            <td class='Item' style="width:55px;">Cajas</td>
+            <td class='Item' style="width:55px;">Dt. Caja</td>
+            <td class='Item' style="width:55px;">Udes. Brutas</td>
+            <td class='Item' style="width:55px;">Udes. Netas</td>
+            <td class='Item'>Lote</td>
+            <td class='Item'>Ubicacion</td>
+            <td class='Item'>ºC</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in lineaEntidad.getDetalleRecepcion %}
+                <tr class="ItemListado">
+                    <td align="right">{{objeto.Unidades}}</td>
+                    <td>{{objeto.IDArticulo.UMC.UnidadMedida}}</td>
+                    <td align="right">{{objeto.Pales}}</td>
+                    <td align="right">{{objeto.DestarePale}}</td>
+                    <td align="right">{{objeto.Cajas}}</td>
+                    <td align="right">{{objeto.DestareCaja}}</td>
+                    <td align="right">{{objeto.UnidadesBrutas}}</td>
+                    <td align="right">{{objeto.UnidadesNetas}}</td>
+                    <td>{{objeto.IDLote}}</td>
+                    <td>{{objeto.IDUbicacion}}</td>
+                    <td align="right">{{objeto.Temperatura}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+</div>

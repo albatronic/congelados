@@ -1,0 +1,23 @@
+{# DashBoard #}
+{% if values.dashBoard|length %}
+<div class="dashBoard">
+    <p style="text-align: center;">DashBoard</p>
+    
+    <div style="float: left; width:50%">
+    {# Tesorería #}
+    {% include values.controller ~ '/dashBoardTesoreria.html.twig' %}
+    
+    {# Logística #}
+    {% include values.controller ~ '/dashBoardLogistica.html.twig' %}
+    </div>
+    
+    <div style="float: left; width:50%">
+    {# Top 10 #}
+    {% include values.controller ~ '/dashBoardTop10.html.twig' %}
+    
+    {# Presupuestos #}
+    {% include values.controller ~ '/dashBoardPstos.html.twig' %}    
+    </div>
+   
+</div>
+{% endif %}

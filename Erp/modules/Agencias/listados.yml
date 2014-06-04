@@ -1,0 +1,73 @@
+# Module: Agencias
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Agencias de Transporte
+    order_by: IDAgencia ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Agencia
+        field: Agencia
+        length: 30
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Telefono
+        field: Telefono
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fax
+        field: Fax
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Web
+        field: Web
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: EMail
+        field: EMail
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Coste Estd
+        field: CosteEstandar
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null

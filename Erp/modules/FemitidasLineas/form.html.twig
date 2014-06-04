@@ -1,0 +1,19 @@
+{# TEMPLATE FemitidasLineas/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.input('IDFactura','Etiqueta','text','FemitidasLineas[IDFactura]','FemitidasLineas_IDFactura',datos.IDFactura,'11','CampoImporte') }}
+{{ macro.input('IDArticulo','Etiqueta','text','FemitidasLineas[IDArticulo]','FemitidasLineas_IDArticulo',datos.IDArticulo,'25','CampoTextoCorto') }}
+{{ macro.input('Descripcion','Etiqueta','text','FemitidasLineas[Descripcion]','FemitidasLineas_Descripcion',datos.Descripcion,'255','CampoTextoLargo') }}
+{{ macro.input('Unidades','Etiqueta','text','FemitidasLineas[Unidades]','FemitidasLineas_Unidades',datos.Unidades,'10','CampoImporte') }}
+{{ macro.input('Precio','Etiqueta','text','FemitidasLineas[Precio]','FemitidasLineas_Precio',datos.Precio,'10','CampoImporte') }}
+{{ macro.input('Descuento','Etiqueta','text','FemitidasLineas[Descuento]','FemitidasLineas_Descuento',datos.Descuento,'10','CampoImporte') }}
+{{ macro.input('Importe','Etiqueta','text','FemitidasLineas[Importe]','FemitidasLineas_Importe',datos.Importe,'10','CampoImporte') }}
+{{ macro.input('ImporteCosto','Etiqueta','text','FemitidasLineas[ImporteCosto]','FemitidasLineas_ImporteCosto',datos.ImporteCosto,'10','CampoImporte') }}
+{{ macro.input('IDLote','Etiqueta','text','FemitidasLineas[IDLote]','FemitidasLineas_IDLote',datos.IDLote,'8','CampoImporte') }}
+{{ macro.input('IDAlbaran','Etiqueta','text','FemitidasLineas[IDAlbaran]','FemitidasLineas_IDAlbaran',datos.IDAlbaran,'8','CampoImporte') }}
+{{ macro.fecha('FActualizacion','Etiqueta','FemitidasLineas[FActualizacion]','FemitidasLineas_FActualizacion',datos.FActualizacion,'19','LiteralFechaHora') }}
+{{ macro.input('Iva','Etiqueta','text','FemitidasLineas[Iva]','FemitidasLineas_Iva',datos.Iva,'5','CampoUnidades') }}
+{{ macro.input('Recargo','Etiqueta','text','FemitidasLineas[Recargo]','FemitidasLineas_Recargo',datos.Recargo,'5','CampoUnidades') }}
+{{ macro.input('ComisionAgente','Etiqueta','text','FemitidasLineas[ComisionAgente]','FemitidasLineas_ComisionAgente',datos.ComisionAgente,'5','CampoUnidades') }}
+{{ macro.input('ComisionMontador','Etiqueta','text','FemitidasLineas[ComisionMontador]','FemitidasLineas_ComisionMontador',datos.ComisionMontador,'5','CampoUnidades') }}
+{{ macro.input('IDPromocion','Etiqueta','text','FemitidasLineas[IDPromocion]','FemitidasLineas_IDPromocion',datos.IDPromocion,'11','CampoImporte') }}

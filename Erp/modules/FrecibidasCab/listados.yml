@@ -1,0 +1,291 @@
+# Module: FrecibidasCab
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 18-03-2012
+#
+---
+listados:
+  -
+    title: Facturas recibidas
+    order_by: >
+      frecibidas_cab.Fecha ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Factura
+        field: NumeroFactura
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: S/Factura
+        field: SuFactura
+        length: 15
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null        
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 12
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Proveedor
+        field: IDProveedor
+        length: 36
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  -
+    title: Facturas X Sucursal
+    order_by: >
+      frecibidas_cab.IDSucursal,
+      frecibidas_cab.Fecha ASC
+    break_field: IDSucursal
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Factura
+        field: NumeroFactura
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 11
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Proveedor
+        field: IDProveedor
+        length: 48
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  -
+    title: Facturas X Proveedor
+    order_by: >
+      frecibidas_cab.IDProveedor,
+      frecibidas_cab.Fecha ASC
+    break_field: IDProveedor
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Factura
+        field: NumeroFactura
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: S/Factura
+        field: SuFactura
+        length: 15
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null          
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 30
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  -
+    title: Listado para subir facturas escaneadas
+    order_by: IDSucursal,NumeroFactura ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Id
+        field: IDFactura
+        length: 15
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Número
+        field: NumeroFactura
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 30
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Proveedor
+        field: IDProveedor
+        length: 43
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null

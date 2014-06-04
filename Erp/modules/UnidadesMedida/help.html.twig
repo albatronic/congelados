@@ -1,0 +1,27 @@
+{% extends "_help/layout.html.twig" %}
+
+{%block titulo%}<h2>Unidades de Medida</h2>{%endblock%}
+
+{% block contenido %}
+
+<h2>Objetivo</h2>
+<p>El Sistema ERP distingue entre las siguientes unidades de medida:</p>
+<ul>
+<li><b>UMB</b>: Unidad de medida base.</li>
+<p>Esta es la unidad de medida en la que se gestionan los stocks de un material. El sistema convierte todas las cantidades introducidas en otras unidades a la unidad de medida base.</p>
+
+<li><b>UMC</b>:Unidad de medida de compra.</li>
+<p>Permite que un material se pida en una unidad diferente de la unidad de medida base. La unidad de medida de pedido se propone automaticamente en las funciones de compras, donde puede ser modificada.</p>
+
+<li><b>UMV</b>:Unidad de medida de venta.</li>
+<p>Permite que un material sea vendido en una unidad diferente de la unidad de medida base. La unidad de medida de venta se propone automaticamente en los pedidos de cliente, donde puede ser modificada.</p>
+
+<li><b>UMA</b>:Unidad de medida de almacenaje.</li>
+<p>Unidad de medida en la que se gestionan los materiales en Gestión de almacenes. Para la gestión de stocks, el sistema convierte las cantidades introducidas en la unidad WM a la unidad de medida base. Por ejemplo, si un material se gestiona normalmente utilizando piezas como unidad de medida base, pero existen varios miles de piezas en una caja, puede ser más apropiado definir una unidad WM que se pueda gestionar mejor a efectos de WM.</p>
+</lu>
+
+<p>A continuación se ilustra la relación entre la unidad de medida base y las unidades de medida alternativas:</p>
+
+<img src="{{app.path}}/modules/_help/images/udes_medida.gif">
+
+{% endblock %}

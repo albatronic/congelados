@@ -1,0 +1,14 @@
+{# TEMPLATE Sms/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('CuentaSms','Etiqueta','text','Sms[CuentaSms]','Sms_CuentaSms',datos.CuentaSms,'50','CampoTextoLargo') }}
+{{ macro.input('IDUsuario','Etiqueta','text','Sms[IDUsuario]','Sms_IDUsuario',datos.IDUsuario,'4','CampoUnidades') }}
+{{ macro.fecha('Fecha','Etiqueta','Sms[Fecha]','Sms_Fecha',datos.Fecha,'19','LiteralFechaHora') }}
+{{ macro.input('Remite','Etiqueta','text','Sms[Remite]','Sms_Remite',datos.Remite,'11','CampoTextoCorto') }}
+{{ macro.textarea('Para','Etiqueta','Sms[Para]','Sms_Para',datos.Para,none,none,'TextArea')}}
+{{ macro.input('Mensaje','Etiqueta','text','Sms[Mensaje]','Sms_Mensaje',datos.Mensaje,'160','CampoTextoLargo') }}
+{{ macro.input('EnviadoOk','Etiqueta','text','Sms[EnviadoOk]','Sms_EnviadoOk',datos.EnviadoOk,'1','CampoUnidades') }}
+{{ macro.input('Resultado','Etiqueta','text','Sms[Resultado]','Sms_Resultado',datos.Resultado,'50','CampoTextoLargo') }}
+{{ macro.input('NDestinatarios','Etiqueta','text','Sms[NDestinatarios]','Sms_NDestinatarios',datos.NDestinatarios,'4','CampoUnidades') }}

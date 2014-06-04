@@ -1,0 +1,73 @@
+# Module: Etiquetas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Etiquetas
+    order_by: Id ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Id
+        field: Id
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDAgente
+        field: IDAgente
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDArticulo
+        field: IDArticulo
+        length: 25
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Descripcion
+        field: Descripcion
+        length: 30
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Unidades
+        field: Unidades
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Precio
+        field: Precio
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null

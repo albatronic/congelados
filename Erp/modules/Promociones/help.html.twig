@@ -1,0 +1,38 @@
+{# Template help.html.twig for Lotes #}
+{# -------------------------------------------------------#}
+{% extends '_help/layout.html.twig' %}
+
+{% block titulo %}<h2>{{ values.title }}</h2>{% endblock %}
+
+{% block contenido %}
+<h2>Objetivo</h2>
+El objeto de las promociones es establecer precios especiales durante un período de tiempo determinado y aplicable a un conjunto de clientes.
+<h2>Operatoria</h2>
+<p>Se pueden definir tantas promociones como sean necesarias.</p>
+<p>Una promoción es un conjunto de reglas que determinan el precio a aplicar a un producto y cliente durante un determinado período de tiempo.</p>
+<p>Una promoción se define en base a dos elementos:</p>
+<ul>
+    <li>1. ¿ Qué está en promoción, hasta cuándo y cómo ?</li>
+    <li>2. ¿ Quién se beneficia ?</li>
+</ul>
+Veamos cada punto:
+<ul>
+    <li>1. ¿ Qué está en promoción, hasta cuándo y cómo ?</li>
+    <p>Obviamente lo que se promociona son los productos. Se puede promocionar un producto concreto o bien una familia de productos entera.
+    Se ha de indicar la fecha de finalización de la promoción, los productos estarán en promoción, inclusive hasta ese día.</p>
+    <p>Existen tres tipos de promoción: en porcentaje de descuento sobre el PVP estándar, en porcentaje de margén comercial sobre el precio de costo y en precio neto.</p>
+    <p>El valor numérico que se indique en la casilla "Valor", será interpretado por el sistema como porcentaje o como precio según sea el tipo de promoción.</p>
+    
+    <li>2. ¿ Quién se beneficia ?</li>
+    Los clientes a los que se aplicará la promoción se pueden indicar de varias formas:
+    <ul>
+        <li>cliente a cliente, o</li>
+        <li>por grupos de clientes, o</li>
+        <li>de ambas formas
+    </ul>
+
+</ul>
+<h2>FAQ</h2>
+
+{{ macro.embedVideo(values.idVideo,none,none)}}
+{% endblock %}

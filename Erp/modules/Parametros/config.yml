@@ -1,0 +1,104 @@
+# Module: Parametros
+# Document : modules\Parametros\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 12.02.2012 18:52:41
+#
+---
+Parametros:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Parametros
+  id_video: parametros
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Parametros
+  table: parametros
+  primarykey: IDParametro
+  records_per_page: 20
+  order_by:
+    -
+      title: Codigo a-z
+      criteria: Codigo ASC
+    -
+      title: Codigo z-a
+      criteria: Codigo DESC
+  search_default: Codigo
+  referenced_entities:
+  columns:
+    -
+      title: IDParametro
+      field: IDParametro
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: Codigo
+      field: Codigo
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descripción
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length:
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Valor
+      field: Valor
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 
+        min: null
+        max: null
+        message: Valor Requerido

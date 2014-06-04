@@ -1,0 +1,110 @@
+{# TEMPLATE ManufacCab/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+<div>
+{% if datos.IDEstado.IDTipo == '0' %}
+    <div style="float: left; width: 49%">
+        {{ macro.fecha('Fecha Orden','Etiqueta','ManufacCab[FechaOrden]','ManufacCab_FechaOrden',datos.FechaOrden,'10','CampoFecha') }}
+        {{ macro.fecha('Fecha Envio','Etiqueta','ManufacCab[FechaEnvio]','ManufacCab_FechaEnvio',datos.FechaEnvio,'10','CampoFecha','disabled') }}
+        {{ macro.fecha('Fecha Entrega','Etiqueta','ManufacCab[FechaEntrega]','ManufacCab_FechaEntrega',datos.FechaEntrega,'10','CampoFecha','disabled') }}
+        <div class="Item" id="div_ManufacCab_RazonSocial">
+            <input name="ManufacCab[IDElaborador]" id="ManufacCab_IDElaborador" value="{{datos.IDElaborador.IDProveedor}}" type="hidden"/>
+            <div class="Etiqueta">Sala Elaboradora</div>
+            <input value="{{datos.IDElaborador.RazonSocial}}" id="RazonSocial" type="text" maxlength="50" class="CampoTextoLargo"
+               onkeyup="autoCompletar('RazonSocial','ManufacCab_IDElaborador','RazonSocial','proveedores','',['div_ManufacCab_IDFP','ManufacCab_IDFP','ManufacCab[IDFP]','formaspagoproveedor']);"/>
+        </div>
+    </div>
+    <div style="float: right; width: 49%">
+        {{ macro.select('Almacén Origen','Etiqueta','ManufacCab[IDAlmacenOrigen]','ManufacCab_IDAlmacenOrigen',none,datos.IDAlmacenOrigen.IDAlmacen,user.getAlmacenes(emp.IDEmpresa),'Select') }}
+        {{ macro.select('Almacén Destino','Etiqueta','ManufacCab[IDAlmacenDestino]','ManufacCab_IDAlmacenDestino',none,datos.IDAlmacenDestino.IDAlmacen,user.getAlmacenes(emp.IDEmpresa),'Select') }}
+        {{ macro.textarea('Descripción','Etiqueta','ManufacCab[Descripcion]','ManufacCab_Descripcion',datos.Descripcion,none,none,'TextArea')}}
+    </div>
+    {{ macro.foco('RazonSocial') }}
+{% else %}
+    <div style="float: left; width: 49%">
+        {{ macro.etiqueta('Fecha Orden','Etiqueta',datos.FechaOrden ) }}
+        {{ macro.etiqueta('Fecha Envío','Etiqueta',datos.FechaEnvio ) }}
+        {{ macro.etiqueta('Fecha Entrega','Etiqueta',datos.FechaEntrega ) }}
+        {{ macro.etiqueta('Sala Elaboradora','Etiqueta',datos.IDElaborador.RazonSocial) }}
+    </div>
+    <div style="float: right; width: 49%">
+        {{ macro.etiqueta('Almacén Origen','Etiqueta',datos.IDAlmacenOrigen.Nombre ) }}
+        {% if datos.IDEstado.IDTipo == '1' %}
+            {{ macro.select('Almacén Destino','Etiqueta','ManufacCab[IDAlmacenDestino]','ManufacCab_IDAlmacenDestino',none,datos.IDAlmacenDestino.IDAlmacen,user.getAlmacenes(emp.IDEmpresa),'Select') }}
+        {% else %}
+            {{ macro.etiqueta('Almacén Destino','Etiqueta',datos.IDAlmacenDestino.Nombre ) }}
+        {% endif %}
+        {{ macro.textarea('Descripción','Etiqueta','ManufacCab[Descripcion]','ManufacCab_Descripcion',datos.Descripcion,none,none,'TextArea')}}
+    </div>
+{% endif %}
+</div>
+
+{% if datos.IDManufac %}
+<div style="clear: both;"></div>
+<div style="font-size: 10px; margin-top: 10px;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Salida de <b>{{datos.IDAlmacenOrigen.Nombre}}</b></a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2">Entrada prevista en <b>{{datos.IDAlmacenDestino.Nombre}}</b></a></li>
+            {% if (user.Rol.IDTipo == 0) or (user.rol.IDTipo == 9) %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-3">Importes</a></li>
+            {% endif %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-4">{% if datos.Observaciones %}<b>{% endif %}Observaciones{% if datos.Observaciones %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-5">{% if datos.Incidencias %}<b>{% endif %}Incidencias{% if datos.Incidencias %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-6">Documentos</a></li>
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <iframe width="100%" height="230" scrolling="yes" style="margin-top:5px; border:0;"
+                src="{{app.path}}/ManufacLineas/list/{{datos.IDManufac}}/0">
+            </iframe>
+        </div>
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <iframe width="100%" height="230" scrolling="yes" style="margin-top:5px; border:0;"
+                src="{{app.path}}/ManufacLineas/list/{{datos.IDManufac}}/1">
+            </iframe>
+        </div>
+        {% if (user.Rol.IDTipo == 0) or (user.rol.IDTipo == 9) %}
+        <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <div style="width: 30%;float:left; margin-right: 5px;">
+            {{ macro.input('U.M.A. Origen','Etiqueta','text','ManufacCab[KilosOrigen]','ManufacCab_KilosOrigen',datos.KilosOrigen,'10','CampoImporte','disabled') }}
+            {{ macro.input('U.M.A. Obtenidos (1)','Etiqueta','text','ManufacCab[KilosDestino]','ManufacCab_KilosDestino',datos.KilosDestino,'10','CampoImporte','disabled') }}
+            </div>
+
+            <div style="width: 33%;float:left; margin-right: 5px;">
+            {{ macro.input('Coste Origen','Etiqueta','text','ManufacCab[ImporteOrigen]','ManufacCab_ImporteOrigen',datos.ImporteOrigen,'10','CampoImporte','disabled') }}
+            {{ macro.input('Coste Elaboración','Etiqueta','text','ManufacCab[ImporteDestino]','ManufacCab_ImporteDestino',datos.ImporteDestino,'10','CampoImporte','disabled') }}
+            {{ macro.input('Gastos Transporte','Etiqueta','text','ManufacCab[GastosTransporte]','ManufacCab_GastosTransporte',datos.GastosTransporte,'10','CampoImporte') }}
+            {{ macro.input('Gastos Varios','Etiqueta','text','ManufacCab[GastosVarios]','ManufacCab_GastosVarios',datos.GastosVarios,'10','CampoImporte') }}
+            {{ macro.input('Total Coste (2)','Etiqueta','text','ManufacCab[TotalCoste]','ManufacCab_TotalCoste',datos.TotalCoste,'10','CampoImporte','disabled') }}
+            </div>
+
+            <div style="width: 33%;float:left; margin-right: 5px; text-align: center;">
+                {% set costePorUMA = 0 %}
+                {% if datos.KilosDestino != 0%} {% set costePorUMA = datos.TotalCoste/datos.KilosDestino %} {% endif %}
+                {{ macro.input('Coste U.M.A. (2)/(1)','Etiqueta','text',none,none,costePorUMA|number_format(3,'.',','),10,'CampoImporte', 'disabled' ) }}
+                <p style="margin-top: 5px; font-size: 11px;text-align: left;">
+                    Una vez recepcionado el producto obtenido de la elaboración, es necesario actualizar los precios para que el sistema maneje los nuevos precios de costo de los productos obtenidos.
+                </p>
+                <p style="margin-top: 5px; font-size: 11px;text-align: left;">
+                    Los precios se recalcularán segun la política establecida con el parámetro "ACTU_PRECIOS"
+                </p>
+                {% if datos.IDEstado.IDTipo == 3 %}
+                <input value="Actualizar Precios" type="submit" onclick="$('#action').val('Cotizar');" class="Comando" style="margin-top: 10px; width: 150px;" />
+                {% endif %}
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        {% endif %}
+        <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea(none,'Etiqueta','ManufacCab[Observaciones]','ManufacCab_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+        </div>
+        <div id="tabs-5" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea(none,'Etiqueta','ManufacCab[Incidencias]','ManufacCab_Incidencias',datos.Incidencias,none,none,'TextArea')}}
+        </div>
+        <div id="tabs-6" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+    </div>
+</div>
+
+{% endif %}

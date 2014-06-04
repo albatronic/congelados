@@ -1,0 +1,393 @@
+# Module: ManufacLineas
+# Document : modules\ManufacLineas\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 23.03.2012 19:13:09
+#
+---
+ManufacLineas:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: ManufacLineas
+  id_video: manufaclineas
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: ManufacLineas
+  table: manufac_lineas
+  primarykey: IDLinea
+  records_per_page: 15
+  order_by: IDLinea
+  search_default: IDLinea
+  referenced_entities:
+    -
+      entity: ManufacCab
+    -
+      entity: Articulos
+    -
+      entity: Almacenes
+    -
+      entity: Lotes
+    -
+      entity: AlmacenesMapas
+    -
+      entity: EstadosManufac
+  columns:
+    -
+      title: IDLinea
+      field: IDLinea
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: IDManufac
+      field: IDManufac
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 1
+        caption: IDManufac
+        entity: ManufacCab
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Tipo
+      field: Tipo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 2
+        caption: Tipo
+        entity: ValoresSN
+        method: fetchAll
+        params: null
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDArticulo
+      field: IDArticulo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 3
+        caption: IDArticulo
+        entity: Articulos
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descripcion
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Unidades
+      field: Unidades
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: UnidadMedida
+      field: UnidadeMedida
+      filter: NO
+      list: NO
+      form: NO
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: UMA
+      validator:
+        nullable: NO
+        type: string
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cajas
+      field: Cajas
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Kilos
+      field: Kilos
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDAlmacen
+      field: IDAlmacen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 4
+        caption: IDAlmacen
+        entity: Almacenes
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDLote
+      field: IDLote
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 5
+        caption: IDLote
+        entity: Lotes
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDUbicacion
+      field: IDUbicacion
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 6
+        caption: IDUbicacion
+        entity: AlmacenesMapas
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Precio
+      field: Precio
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Importe
+      field: Importe
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDEstado
+      field: IDEstado
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 7
+        caption: IDEstado
+        entity: EstadosManufac
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido

@@ -1,0 +1,36 @@
+{# TEMPLATE RecibosClientes/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% set digitosCta = emp.DigitosCuentaContable %}
+
+<div class="Izquierda" style="width:51%;">
+{{ macro.select('Estado','Etiqueta','RecibosClientes[IDEstado]','RecibosClientes_IDEstado',none,datos.IDEstado.IDTipo,datos.IDEstado.fetchAll,'Select') }}
+{{ macro.input('Recibo','Etiqueta','text','RecibosClientes[Recibo]','RecibosClientes_Recibo',datos.Recibo,'4','CampoUnidades') }}
+{{ macro.etiqueta('Sucursal','Etiqueta',datos.IDSucursal.Nombre) }}
+{{ macro.etiqueta('Número Factura','Etiqueta',datos.IDFactura.NumeroFactura) }}
+{{ macro.etiqueta('Cliente','Etiqueta',datos.IDCliente.RazonSocial) }}
+{{ macro.etiqueta('Comercial','Etiqueta',datos.IDComercial.Nombre) }}
+{{ macro.etiqueta('Fecha','Etiqueta',datos.Fecha) }}
+{{ macro.fecha('Vencimiento','Etiqueta','RecibosClientes[Vencimiento]','RecibosClientes_Vencimiento',datos.Vencimiento,'10','CampoFecha') }}
+{{ macro.input('Importe','Etiqueta','text','RecibosClientes[Importe]','RecibosClientes_Importe',datos.Importe,'10','CampoImporte') }}
+{{ macro.input('Cuenta de Cargo','Etiqueta','text','RecibosClientes[CBanco]','RecibosClientes_CBanco',datos.CBanco,'20','CampoTextoLargo') }}
+{{ macro.input('Concepto','Etiqueta','text','RecibosClientes[Concepto]','RecibosClientes_Concepto',datos.Concepto,'255','CampoTextoLargo') }}
+{{ macro.input('Remesa','Etiqueta','text','RecibosClientes[IDRemesa]','RecibosClientes_IDRemesa',datos.IDRemesa,'14','CampoTextoCorto') }}
+{{ macro.select('Remesar','Etiqueta','RecibosClientes[Remesar]','RecibosClientes_Remesar',none,datos.Remesar.IDTipo,datos.Remesar.fetchAll,'Select') }}
+{{ macro.input('Cuenta Contable','Etiqueta','text','RecibosClientes[CContable]','RecibosClientes_CContable',datos.CContable,digitosCta,'CampoTextoCorto') }}
+{{ macro.input('Asiento Contable','Etiqueta','text','RecibosClientes[Asiento]','RecibosClientes_Asiento',datos.Asiento,'6','CampoUnidades') }}
+{{ macro.foco('RecibosClientes_IDEstado') }}
+</div>
+
+{% if datos.IDRecibo %}
+<div class="Derecha" style="width:49%;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Documentos</a></li>
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+    </div>
+</div>
+{% endif %}

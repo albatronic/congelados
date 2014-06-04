@@ -1,0 +1,64 @@
+# Module: Log
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Log
+    order_by: IDEvento ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDEvento
+        field: IDEvento
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Ip
+        field: Ip
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha
+        field: Fecha
+        length: null
+        align: R
+        type: datetime
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDAgente
+        field: IDAgente
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Evento
+        field: Evento
+        length: null
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

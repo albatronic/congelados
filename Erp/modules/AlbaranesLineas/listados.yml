@@ -1,0 +1,199 @@
+# Module: AlbaranesLineas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+AlbaranesLineas:
+  listado:
+    title: AlbaranesLineas
+    order_by: IDLinea ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDAlbaran
+        field: IDAlbaran
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDLinea
+        field: IDLinea
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDArticulo
+        field: IDArticulo
+        length: 25
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Descripcion
+        field: Descripcion
+        length: 255
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Unidades
+        field: Unidades
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Precio
+        field: Precio
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Descuento
+        field: Descuento
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Importe
+        field: Importe
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: ImporteCosto
+        field: ImporteCosto
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDAlmacen
+        field: IDAlmacen
+        length: 3
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Iva
+        field: Iva
+        length: 5
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Recargo
+        field: Recargo
+        length: 5
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: ComisionAgente
+        field: ComisionAgente
+        length: 5
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: ComisionMontador
+        field: ComisionMontador
+        length: 5
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDVenta
+        field: IDVenta
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Comisionar
+        field: Comisionar
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDAgente
+        field: IDAgente
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDComercial
+        field: IDComercial
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDPromocion
+        field: IDPromocion
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDEstado
+        field: IDEstado
+        length: 1
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

@@ -1,0 +1,27 @@
+{% extends "_help/layout.html.twig" %}
+
+{%block titulo%}<h2>Clientes</h2>{%endblock%}
+
+{% block contenido %}
+
+<h2>Aclaración de algunos campos</h2>
+<ul class="faq">
+    <li>Cuenta Contable</li>
+        <p>Es la cuenta contable asociada al cliente y que se utiliza para enlazar con el sistema de contabilidad. Si no se indica valor, el sistema ERP lo calculará en base la prefijo de cuenta contable de clientes indicado en el apartado de <a href="{{app.path}}/Empresas/help">Empresas/Sucursales</a>.</p>
+    <li>Vigente</li>
+        <p>Si se indica "No", el cliente quedará inhabilitado y no se le podrán realizar ventas. No obstante, el sistema lo seguirá teniendo en cuenta de cara a informes y estadísticas. En cualquier momento se puede volver a habilitar.</p>
+    <li>Sucursal</li>
+        <p>Se ha de indicar la sucursal a la que está adscrito el cliente. El cliente no es accesible para aquellos usuarios que accedan al sistema ERP desde otra sucursal. Es decir, los clientes están sectorizados por sucursales.</p>
+    <li>Zona Comercial</li>
+    <p>Es la zona geográfica a la que pertenece el cliente desde el punto de vista de actuaciones comerciales. Un conjunto de <a href="{{app.path}}/Zonas/help">zonas comerciales</a> contituyen una ruta comercial.</p>
+    <li>Factura Agrupada</li>
+        <p>Se utiliza durante el proceso de facturación. Sirve para agrupar todos los albaranes del cliente en una única factura independientemente de la dirección de entrega donde se haya servido el producto.</p>
+        <p>El valor por defecto es "Si", pero si el cliente desea que se le facturen los albaranes de forma independiente por dirección de entrega, se ha de indicar "No"</p>
+    <li>Sujeto a IVA</li>
+        <p>Si se indica "No", no se aplicará el % de IVA asociado a los productos que se le facturen. Esto es útil para aquellos clientes que están exentos de impuestos.</p>
+</ul>
+
+<h2>Preguntas Frecuentes</h2>
+
+<h2>Soluciones</h2>
+{% endblock %}

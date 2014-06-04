@@ -1,0 +1,39 @@
+{# Template list.html.twig for InventariosLineas #}
+{# -------------------------------------------------------#}
+{% extends values.controller  ~ '/index.html.twig' %}
+
+{% block listado %}
+
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item'>Stock Real</td>
+            <td class='Item'>Cajas</td>
+            <td class='Item'>Pales</td>
+            <td class='Item'>Lote</td>
+            {% if values.controlUbicaciones %}
+            <td class='Item'>Ubicación</td>
+            {% endif %}
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for objeto in values.listado.data %}
+                <tr class="ItemListado">
+                    <td>{{objeto.IDArticulo.Codigo}}</td>
+                    <td>{{objeto.Descripcion}}</td>
+                    <td align="right">{{objeto.Stock}} {{objeto.IDArticulo.UMA.UnidadMedida}}</td>
+                    <td align="right">{{objeto.Cajas}}</td>
+                    <td align="right">{{objeto.Pales}}</td>
+                    <td>{{objeto.IDLote.Lote}}</td>
+                    {% if values.controlUbicaciones %}
+                    <td>{{objeto.IDUbicacion.Ubicacion}}</td>
+                    {% endif %}
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

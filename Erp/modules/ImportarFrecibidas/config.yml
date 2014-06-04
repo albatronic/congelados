@@ -1,0 +1,25 @@
+# Module: ImportarRecibidas
+# Document : modules\ImportarRecibidas\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 22.08.2012 13:37:17
+#
+---
+ImportarFrecibidas:
+  login_required: YES
+  permission_control: NO
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Importar Facturas Recibidas desde archivo externo
+  id_video: null
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: ImportarFrecibidas
+  table:
+  primarykey:
+  records_per_page: 15
+  order_by:
+  search_default:
+  referenced_entities:
+  columns:

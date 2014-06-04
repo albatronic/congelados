@@ -1,0 +1,101 @@
+# Module: TraspasosLineas
+# Document : modules\TraspasosLineas\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 23.03.2012 19:13:09
+#
+---
+listados:
+  -
+    title: TraspasosLineas
+    order_by: IDLinea ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: IDTraspaso
+        field: IDTraspaso
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Tipo
+        field: Tipo
+        length: 1
+        align: L
+        type: tinyint
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDArticulo
+        field: IDArticulo
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripcion
+        field: Descripcion
+        length: 255
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Unidades
+        field: Unidades
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDAlmacen
+        field: IDAlmacen
+        length: 3
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Precio
+        field: Precio
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Importe
+        field: Importe
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDEstado
+        field: IDEstado
+        length: 1
+        align: L
+        type: tinyint
+        total: NO
+        formula: null
+        format: null

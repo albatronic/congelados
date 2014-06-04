@@ -1,0 +1,83 @@
+# Module: RutasRepartoDetalle
+# Document : modules\RutasRepartoDetalle\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 14.05.2012 18:12:47
+#
+---
+listados:
+  -
+    title: RutasRepartoDetalle
+    order_by: Id ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: IDRuta
+        field: IDRuta
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDRepartidor
+        field: IDRepartidor
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Dia
+        field: Dia
+        length: 1
+        align: L
+        type: tinyint
+        total: NO
+        formula: null
+        format: null
+      -
+        title: OrdenZona
+        field: OrdenZona
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDZona
+        field: IDZona
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: OrdenDirec
+        field: OrdenDirec
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDDirec
+        field: IDDirec
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

@@ -1,0 +1,56 @@
+{# TEMPLATE Proveedores/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% set digitosCta = emp.DigitosCuentaContable %}
+
+<div class="Izquierda" style="width:49%;">
+{{ macro.input('Razón Social','Etiqueta','text','Proveedores[RazonSocial]','Proveedores_RazonSocial',datos.RazonSocial,'50','CampoTextoLargo') }}
+{{ macro.input('Nombre Comercial','Etiqueta','text','Proveedores[NombreComercial]','Proveedores_NombreComercial',datos.NombreComercial,'50','CampoTextoLargo') }}
+{{ macro.cif('Cif','Etiqueta','text','Proveedores[Cif]','Proveedores_Cif',datos.Cif,'CampoCif') }}
+{{ macro.input('Dirección','Etiqueta','text','Proveedores[Direccion]','Proveedores_Direccion',datos.Direccion,'50','CampoTextoLargo') }}
+{{ macro.select('Pais','Etiqueta','Proveedores[IDPais]','Proveedores_IDPais',none,datos.IDPais.IDPais,datos.IDPais.fetchAll('Pais'),'Select') }}
+{{ macro.input('Población','Etiqueta','text','Proveedores[Poblacion]','Proveedores_Poblacion',datos.Poblacion,'30','CampoTextoLargo') }}
+{{ macro.select('Provincia','Etiqueta','Proveedores[IDProvincia]','Proveedores_IDProvincia',none,datos.IDProvincia.IDProvincia,datos.IDProvincia.fetchAll('Provincia'),'Select') }}
+{{ macro.input('Cód. Postal','Etiqueta','text','Proveedores[CodigoPostal]','Proveedores_CodigoPostal',datos.CodigoPostal,'10','CampoCPostal') }}
+{{ macro.input('Teléfono','Etiqueta','text','Proveedores[Telefono]','Proveedores_Telefono',datos.Telefono,'30','CampoTextoLargo') }}
+{{ macro.input('Fax','Etiqueta','text','Proveedores[Fax]','Proveedores_Fax',datos.Fax,'30','CampoTextoLargo') }}
+{{ macro.input('Móvil','Etiqueta','text','Proveedores[Movil]','Proveedores_Movil',datos.Movil,'30','CampoTextoLargo') }}
+{{ macro.input('E-Mail','Etiqueta','text','Proveedores[EMail]','Proveedores_EMail',datos.EMail,'50','CampoTextoLargo') }}
+{{ macro.input('Web','Etiqueta','text','Proveedores[Web]','Proveedores_Web',datos.Web,'50','CampoTextoLargo') }}
+{{ macro.input('Cta. Contable','Etiqueta','text','Proveedores[CContable]','Proveedores_CContable',datos.CContable,digitosCta,'CampoTextoCorto') }}
+{{ macro.cc('Cta. Corriente','Etiqueta','Proveedores',datos.IDBanco,datos.IDOficina,datos.Digito,datos.Cuenta) }}
+{{ macro.select('Forma de Pago','Etiqueta','Proveedores[IDFP]','Proveedores_IDFP',none,datos.IDFP.IDFP,datos.IDFP.fetchAll('Descripcion'),'Select') }}
+{{ macro.select('Sujeto a Iva','Etiqueta','Proveedores[Iva]','Proveedores_Iva',none,datos.Iva.IDTipo,datos.Iva.fetchAll('Iva',false),'Select') }}
+{{ macro.select('Vigente','Etiqueta','Proveedores[Vigente]','Proveedores_Vigente',none,datos.Vigente.IDTipo,datos.Vigente.fetchAll('',false),'Select') }}
+</div>
+
+<div class="Derecha" style="width:51%;">
+                <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                    <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Observaciones</a></li>
+                    {% if datos.IDProveedor %}
+                    <li class="ui-state-default ui-corner-top"><a href="#tabs-2" onclick="cargaVencimientos('tabs-2');">Vctos</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#tabs-3">Docs</a></li>
+                    {% endif %}
+                </ul>
+                <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                    {{ macro.textarea('Observaciones','Etiqueta','Proveedores[Observaciones]','Proveedores_Observaciones',datos.Observaciones,none,none,'TextArea')}}                </div>
+                <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+
+                </div>
+                <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+                    {{ macro.documentos(values.controller,datos.getPrimaryKeyValue) }}
+                </div>
+            </div>
+</div>
+
+{{ macro.foco('Proveedores_RazonSocial') }}
+
+<script type="text/javascript">
+
+function cargaVencimientos(idDiv) {
+
+    $('#'+idDiv).html("<iframe width='100%' height='270' scrolling='yes' style='border: 0px dotted grey;' src='{{app.path}}/Proveedores/listVencimientos/{{datos.IDProveedor}}'></iframe>");
+
+}
+</script>

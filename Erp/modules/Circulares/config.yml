@@ -1,0 +1,21 @@
+# Module: Circulares
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 16-11-2013
+#
+---
+Circulares:
+  login_required: YES
+  permission_control: YES
+  favourite_control: YES
+  help_file: help.html.twig
+  title: Generador de Circulares
+  conection: 
+  entity: 
+  table: 
+  primarykey: 
+  records_per_page: 
+  order_by:
+  search_default:
+  columns:

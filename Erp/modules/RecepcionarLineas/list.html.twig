@@ -1,0 +1,45 @@
+{# RecepcionarLineas/list.html.twig #}
+{% extends "RecepcionarLineas/index.html.twig" %}
+
+{% block listado %}
+<div class='Listado'>
+    <h3 style="padding: 5px;">Detalle de la recepción del documento {{values.objetoEntidad.getNumeroDocumento}}</h3>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item' colspan="2" style="width:55px;">Udes. Recibidas</td>
+            <td class='Item' style="width:55px;">Pales</td>
+            <td class='Item' style="width:55px;">Dt. Pale</td>
+            <td class='Item' style="width:55px;">Cajas</td>
+            <td class='Item' style="width:55px;">Dt. Caja</td>
+            <td class='Item' style="width:55px;">Udes. Brutas</td>
+            <td class='Item' style="width:55px;">Udes. Netas</td>
+            <td class='Item'>Lote</td>
+            <td class='Item'>Ubicacion</td>
+            <td class='Item'>ºC</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                <tr class="ItemListado">
+                    <td>[{{objeto.IDArticulo.Codigo}}] {{objeto.IDArticulo.Descripcion}}</td>
+                    <td align="right">{{objeto.Unidades}}</td>
+                    <td>{{objeto.UnidadMedidaArticulo}}</td>
+                    <td align="right">{{objeto.Pales}}</td>
+                    <td align="right">{{objeto.DestarePale}}</td>
+                    <td align="right">{{objeto.Cajas}}</td>
+                    <td align="right">{{objeto.DestareCaja}}</td>
+                    <td align="right">{{objeto.UnidadesBrutas}}</td>
+                    <td align="right">{{objeto.UnidadesNetas}}</td>
+                    <td>{{objeto.IDLote}}</td>
+                    <td>{{objeto.IDUbicacion}}</td>
+                    <td align="right">{{objeto.Temperatura}}</td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+{% endblock %}

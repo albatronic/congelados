@@ -1,0 +1,40 @@
+{# Template list.html.twig for ExpedirCab #}
+{# -------------------------------------------------------#}
+{% extends 'ExpedirCab/index.html.twig' %}
+
+{% block listado %}
+<div class='FormManto' style="margin-top: 10px; background-color:grey;">
+
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top">
+                <a href="#tabs-0" style="font-weight: bold;">Sin asignar</a>
+                <img style="margin: 3px; cursor: pointer;" alt="Recargar" title="Recargar día" src="{{app.path}}/images/refresh.png" onclick="RecargaDia({{0}});"></a>
+            </li>            
+            {% for dia in 1..7 %}
+            <li class="ui-state-default ui-corner-top {%if dia == 1%} ui-tabs-selected ui-state-active{%endif%}">
+                <a href="#tabs-{{dia}}">{{values.dias[dia-1].Value}}</a>
+                <img style="margin: 3px; cursor: pointer;" alt="Recargar" title="Recargar día" src="{{app.path}}/images/refresh.png" onclick="RecargaDia({{dia}});"></a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% for dia in 0..7 %}
+        <div id="tabs-{{dia}}" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <iframe class="FrameRutaDia"
+                src="{{app.path}}/ExpedirCab/listAlbaranes/{{values.idAlmacen}}/{{dia}}/{{values.listado.filter.idPeriodo}}/{{values.listado.filter.idEstado}}">
+            </iframe>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+<script>
+function RecargaDia(dia) {
+
+    var frame = "<iframe class='FrameRutaDia' src='{{app.path}}/ExpedirCab/listAlbaranes/{{values.idAlmacen}}/" + dia +"/{{values.listado.filter.idPeriodo}}/{{values.listado.filter.idEstado}}'></iframe>";
+
+    $('#tabs-'+dia).html(frame);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,7 @@
+{# TEMPLATE Zonas/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+
+<input name="Zonas[IDSucursal]" value="{{datos.IDSucursal.IDSucursal}}" type="hidden" />
+
+{{ macro.input('Zona','Etiqueta','text','Zonas[Zona]','Zonas_Zona',datos.Zona,'50','CampoTextoLargo') }}

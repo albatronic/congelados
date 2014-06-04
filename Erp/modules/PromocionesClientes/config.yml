@@ -1,0 +1,67 @@
+# Module: PromocionesClientes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+PromocionesClientes:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Clientes de la Promoción
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: PromocionesClientes
+  table: promociones_clientes
+  primarykey: Id
+  linkBy: IDPromocion
+  records_per_page: 9999
+  order_by: IDGrupo,IDCliente
+  search_default: Id
+  columns:
+    - 
+      title: Id
+      field: Id
+      filter: YES
+      list: YES
+      form: YES
+      validator: null
+    - 
+      title: IDPromocion
+      field: IDPromocion
+      filter: YES
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: IDGrupo
+      field: IDGrupo
+      filter: YES
+      list: YES
+      form: YES
+      validator:
+        nullable: YES
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: IDCliente
+      field: IDCliente
+      filter: YES
+      list: YES
+      form: YES
+      validator:
+        nullable: YES
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido

@@ -1,0 +1,35 @@
+{# Template list.html.twig for RecepcionarCab #}
+{# -------------------------------------------------------#}
+{% extends 'RecepcionarCab/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+	<div class='Titulo'>Pedidos pendientes de recepcionar</div>
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td class='Item'>N. Pedido</td>
+                <td class='Item'>Fecha Prv. Entrega</td>
+                <td class='Item'>Fecha Entrada</td>
+                <td class='Item'>Proveedor</td>
+                <td class='Item'>Estado</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            <tr class="ItemListado">
+                <td align="right">
+                    {{ macro.linkThickBox(app.path,objeto.IDPedido,'RecepcionarLineas/index/PedidosCab/'~objeto.IDPedido,'Recepcionar Pedido '~objeto.IDPedido~' '~objeto.IDProveedor.RazonSocial,400,950) }}
+                </td>
+                <td align="center">{{objeto.FechaEntrega}}</td>
+                <td align="center">{{objeto.FechaEntrada}}</td>
+                <td>{{objeto.IDProveedor}}</td>
+                <td>{{objeto.IDEstado}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="Titulo">No hay pedidos pendientes de recepcionar para el almacén indicado</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+</div>
+{% endblock %}

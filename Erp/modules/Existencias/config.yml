@@ -1,0 +1,291 @@
+# Module: Existencias
+# Document : modules\Existencias\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 18.12.2011 00:27:53
+#
+---
+Existencias:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Existencias
+  id_video: existencias
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Existencias
+  table: existencias
+  primarykey: Id
+  records_per_page: 15
+  order_by:
+    -
+      title: Articulo a-z
+      criteria: IDAlmacen,IDArticulo ASC
+    -
+      title: Articulo z-a
+      criteria: IDAlmacen,IDArticulo DESC
+  search_default: Id
+  referenced_entities:
+    -
+      entity: Almacenes
+    -
+      entity: AlmacenesMapas
+    -
+      entity: Articulos
+    -
+      entity: Lotes
+  columns:
+    -
+      title: Id
+      field: Id
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: Almacen
+      field: IDAlmacen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Ubicacion
+      field: IDUbicacion
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Articulo
+      field: IDArticulo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Lote
+      field: IDLote
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Reales
+      field: Reales
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Pales
+      field: Pales
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cajas
+      field: Cajas
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Reservadas
+      field: Reservadas
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Entrando
+      field: Entrando
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Maximo
+      field: Maximo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Minimo
+      field: Minimo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Deposito
+      field: EnDeposito
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 1
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido

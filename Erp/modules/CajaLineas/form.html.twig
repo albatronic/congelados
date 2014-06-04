@@ -1,0 +1,83 @@
+{# TEMPLATE CajaLineas/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+{% extends 'CajaLineas/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Origen</td>
+            <td class='Item'>Hora</td>
+            <td class='Item'>Concepto</td>
+            <td class='Item'>Importe</td>
+            <td class='Item'>Forma de Cobro</td>
+            <td class='Item'>Entregado</td>
+            <td class='Item'>Cambio</td>
+            <td class='Item'>Datáfono</td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                {% set puntero = key %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <form name="linea{{puntero}}" action="" method="POST">
+                <input name="controller" value="CajaLineas" type="hidden" />
+                <input name="action" id="action" value="edit" type="hidden" />
+                <input name="CajaLineas[IDArqueo]" value="{{ values.linkBy.value }}" type="hidden" />
+                <input name="CajaLineas[IDApunte]" value="{{ objeto.IDApunte }}" type="hidden" />
+                <input name="CajaLineas[IDAgente]" value="{{ objeto.IDAgente.IDAgente }}" type="hidden" />
+                <input name="accion" id="accion{{puntero}}" value="" type="hidden" />
+
+            <tr class='{{classFila}}'>
+                {% if objeto.IDApunte == 0 %}
+                    <td colspan="3">
+                        <p style="width:475px;">
+                        Indique si se trata de un movimiento manual o de apertura de caja:
+                        <select name="CajaLineas[Origen]" id="CajaLineas_Origen" class="Select">
+                            <option value="1">Manual</option>
+                            <option value="0">Apertura</option>
+                        </select>
+                        <input name="CajaLineas[Concepto]" id="CajaLineas_Concepto{{puntero}}" value="{{objeto.Concepto}}" type="text" maxlength="255" style="width:461px;"  />
+                        </p>
+                    </td>
+                    <td><input name="CajaLineas[Importe]" value="{{objeto.Importe}}" type="text" style="width:60px;text-align:right;" /></td>
+                    <td>{{ macro.select(none,'Etiqueta','CajaLineas[IDFP]','CajaLineas_IDFP',none,objeto.IDFP.IDFP,objeto.IDFP.fetchAll('Descripcion'),'Select100')}}</td>
+                    <td colspan="3"></td>
+                    <td align="center">
+                        <input type="image" src="{{app.path}}/images/nuevo.png" onclick="getElementById('action').value='new';" alt="Nuevo" title="Crear Linea" />
+                    </td>
+                {% else %}
+                    <td>
+                        {% if objeto.Entidad %}
+                            <a href="{{app.path}}/{{objeto.Entidad}}/edit/{{objeto.IDEntidad}}" title="Ver detalle..." target="_blank">
+                                {{objeto.Origen}}
+                            </a>
+                        {% else %}
+                            {{objeto.Origen}}
+                        {% endif %}
+                    </td>
+                    <td>{{objeto.getHora}}</td>
+                    <td><input name="CajaLineas[Concepto]" id="CajaLineas_Concepto{{puntero}}" value="{{objeto.Concepto}}" type="text" maxlength="255" style="width:343px;"  /></td>
+                    <td><input name="CajaLineas[Importe]" value="{{objeto.Importe}}" type="text" style="width:60px;text-align:right;" /></td>
+                    <td>{{ macro.select(none,'Etiqueta','CajaLineas[IDFP]','CajaLineas_IDFP',none,objeto.IDFP.IDFP,objeto.IDFP.fetchAll('Descripcion'),'Select100')}}</td>
+                    <td align="right">{{objeto.Entregado}}</td>
+                    <td align="right">{{objeto.Cambio}}</td>
+                    <td>{{objeto.IDDatafono.Datafono}}</td>
+                    <td align="center"></td>
+                {% endif %}
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{{ macro.foco('CajaLineas_Concepto0') }}
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{# Template detalleExpedicion.html.twig for ExpedirLineas                         #}
+{# Muestra en ventana diálogo el detalle de la expedición de una linea de entidad #}
+{# -------------------------------------------------------------------------------#}
+
+<script language='JavaScript' type='text/javascript'>
+    $(function() {
+	$( "#dialog{{lineaEntidad.IDLinea}}" ).dialog({
+            autoOpen: false,
+            width: 600,
+            height: 200,
+            position: ['center','top'],
+            closeOnEscape: true,
+            });
+    });
+</script>
+
+<div id="dialog{{lineaEntidad.IDLinea}}" title="Detalle de la Expedición de {{lineaEntidad.Descripcion}}">
+    <div style="font-size: 11px;">
+    <div>Almacén: {{lineaEntidad.getDetalleExpedicion[0].IDAlmacen.Nombre}}</div>
+    <div>Expedido por: {{lineaEntidad.getDetalleExpedicion[0].ModifiedBy.Nombre}} [{{lineaEntidad.getDetalleExpedicion[0].ModifiedAt}}]</div>
+    </div>
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item' colspan="2" style="width:55px;">{{lineaEntidad.IDArticulo.UMV}}</td>
+            <td class='Item' style="width:55px;">Pales</td>
+            <td class='Item' style="width:55px;">Cajas</td>
+            {% if lineaEntidad.IDArticulo.Trazabilidad.IDTipo %}<td class='Item'>Lote</td>{% endif %}
+            {% if lineaEntidad.IDAlmacen.ControlUbicaciones.IDTipo %}<td class='Item'>Ubicacion</td>{% endif %}
+            <td class='Item'>ºC</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in lineaEntidad.getDetalleExpedicion %}
+                <tr class="ItemListado">
+                    <td align="right">{{objeto.Unidades}}</td>
+                    <td>{{objeto.IDLineaPedido.IDArticulo.UMC.UnidadMedida}}</td>
+                    <td align="right">{{objeto.Pales}}</td>
+                    <td align="right">{{objeto.Cajas}}</td>
+                    {% if lineaEntidad.IDArticulo.Trazabilidad.IDTipo %}<td>{{objeto.IDLote}}</td>{% endif %}
+                    {% if lineaEntidad.IDAlmacen.ControlUbicaciones.IDTipo %}<td>{{objeto.IDUbicacion}}</td>{% endif %}
+                    <td align="right">{{objeto.Temperatura}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+</div>

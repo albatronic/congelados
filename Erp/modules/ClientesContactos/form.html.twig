@@ -1,0 +1,11 @@
+{# TEMPLATE ClientesContactos/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('Cargo','Etiqueta','text','ClientesContactos[Cargo]','ClientesContactos_Cargo',datos.Cargo,'20','CampoTextoMedio') }}
+{{ macro.input('Nombre','Etiqueta','text','ClientesContactos[Nombre]','ClientesContactos_Nombre',datos.Nombre,'50','CampoTextoMedio') }}
+{{ macro.input('Teléfono','Etiqueta','text','ClientesContactos[Telefono]','ClientesContactos_Telefono',datos.Telefono,'20','CampoTextoMedio') }}
+{{ macro.input('Fax','Etiqueta','text','ClientesContactos[Fax]','ClientesContactos_Fax',datos.Fax,'20','CampoTextoMedio') }}
+{{ macro.input('Móvil','Etiqueta','text','ClientesContactos[Movil]','ClientesContactos_Movil',datos.Movil,'20','CampoTextoMedio') }}
+{{ macro.input('EMail','Etiqueta','text','ClientesContactos[EMail]','ClientesContactos_EMail',datos.EMail,'50','CampoTextoMedio') }}

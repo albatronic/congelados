@@ -1,0 +1,120 @@
+{# Template list.html.twig for Facturacion #}
+{# -------------------------------------------------------#}
+{% extends 'Facturacion/index.html.twig' %}
+
+{% block listado %}
+	{% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+	{% include "_global/alertas.html.twig" with {'errores': values.errores} %}
+<div id='Listado' class='Listado' style="width: 63%; float: left;">
+    <div class="SubtituloFacturacion">Albaranes pendientes de <b>{{values.cliente.RazonSocial}}</b> ({{values.cliente.NombreComercial}})</div>
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td class='Item'>Albarán</td>
+                <td class='Item'>Fecha Entrega</td>
+                <td class='Item'>Forma de Pago</td>
+                <td class='Item'>Base</td>
+                <td class='Item'>Total</td>
+                <td class='Item'>Facturar</td>
+            </tr>
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <form name="linea{{key}}" action="" method="POST">
+                <input name="controller" value="facturacion" type="hidden" />
+                <input name="action" value="cambia" type="hidden" />
+                <input name="idAlbaran" value="{{objeto.IDAlbaran}}" type="hidden" />
+                <input name="filtro[idSucursal]" value="{{values.filtro.idSucursal}}" type="hidden" />
+                <input name="filtro[desdeFecha]" value="{{values.filtro.desdeFecha}}" type="hidden" />
+                <input name="filtro[hastaFecha]" value="{{values.filtro.hastaFecha}}" type="hidden" />
+                <input name="filtro[idCliente]" value="{{values.filtro.idCliente}}" type="hidden" />
+            <tr class="{{classFila}}">
+                <td><a href='{{app.path}}/AlbaranesCab/Edit/{{objeto.IDAlbaran}}' target="_blank" title='Ver Albaran ...'>{{objeto.NumeroAlbaran}}</a></td>
+                <td align="center">{{objeto.FechaEntrega}}</td>
+                <td>
+                    <select name="idFormaPago" style="width: 250px;" onchange="submit();">
+                        {% for item in objeto.IDFP.fetchAll('Descripcion') %}
+                        <option value="{{ item.Id }}" {% if item.Id == objeto.IDFP.IDFP %} SELECTED {% endif %}>{{ item.Value }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td align="right">{{objeto.TotalBases|number_format}}</td>
+                <td align="right">{{objeto.Total|number_format}}</td>
+                <td align="center">
+                    <input name="sino" type="checkbox" {% if (objeto.FlagFacturar.IDTipo) %} checked {% endif %} onclick="submit();">
+                </td>
+            </tr>
+            </form>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 150px; font-weight: bold;">
+            <div>
+                <div style="float: left; width: 100px;">Total:</div>
+                <div style="float: left; width: 50px; text-align: right;">{{values.totales.facturable|number_format}}</div>
+            </div>
+            <div style="clear: both;">
+                <div style="float: left; width: 100px;">Selección:</div>
+                <div style="float: left; width: 50px; text-align: right;">{{values.totales.seleccion|number_format}}</div>
+            </div>
+        </div>
+</div>
+
+
+<div style="width: 350px; float: left; margin-bottom: 5px; margin-left: 3px;">
+{% if values.totales.albaranesSeleccionados %}
+        <div class="SubtituloFacturacion">Condiciones Facturación</div>
+        <form name="linea{{key}}" action="" method="POST">
+            <input name="controller" value="facturacion" type="hidden" />
+            <input name="action" value="facturar" type="hidden" />
+            <input name="filtro[idSucursal]" value="{{values.filtro.idSucursal}}" type="hidden" />
+            <input name="filtro[desdeFecha]" value="{{values.filtro.desdeFecha}}" type="hidden" />
+            <input name="filtro[hastaFecha]" value="{{values.filtro.hastaFecha}}" type="hidden" />
+            <input name="filtro[idCliente]" value="{{values.filtro.idCliente}}" type="hidden" />
+
+            <div style="margin-top: 10px;">
+            <div style="float: left;">
+                {{ macro.fecha('Fecha Factura','Etiqueta','fecha','fecha',none,'10') }}
+            </div>
+            <div style="float: left; margin-left: 10px;">
+                {{ macro.select('Serie','Etiqueta','idContador','idContador',none,none,values.contador.fetchAll(values.filtro.idSucursal,2),'Select') }}
+            </div>
+            </div>
+
+            <div style="clear: both;"></div>
+
+            <div style="margin-top: 10px;">
+                <div style="float: left; width: 115px;">Tipo Facturación</div>
+                <div style="float: left;">
+                    <select name="tipo">
+                        <option value="1">Agrupada</option>
+                        <option value="0">Separada</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="clear: both;"></div>
+
+            <div style="margin-top: 10px;">
+                <div style="float: left; width: 115px;">Imprimir factura(s)</div>
+                <div style="float: left;"><input name="imprimir" type="checkbox" checked /></div>
+            </div>
+
+            <div style="clear: both;"></div>
+
+            <div style="margin-top: 10px; text-align: center;" id="div_botonFacturar">
+                <input type="submit" value="Facturar" class="Comando" onClick="$('#div_botonFacturar').html('<img src={{app.path}}/images/loading.gif>'); submit();"/>
+            </div>
+        </form>
+{% endif %}
+
+{% if values.archivo %}
+    <iframe width="100%" height="400" src="{{app.path}}/{{values.archivo}}"></iframe>
+{% endif %}
+</div>
+
+{% endblock %}

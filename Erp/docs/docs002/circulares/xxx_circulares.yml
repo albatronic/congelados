@@ -1,0 +1,35 @@
+circulares:
+  -
+    title: 'Reclamación de morosos'
+    comment: "Carta de reclamación de deuda. Para cada cliente se relacionan los recibos pendientes de pago\n"
+    idPerfil: ''
+    plantilla: prueba.rtf
+    formatos:
+      - 'el de origen'
+      - Pdf
+    archivosSeparados: true
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    queryMaster: 'SELECT c.IDCliente,c.RazonSocial,c.NombreComercial,c.Cif,c.Direccion,c.CodigoPostal,p.Provincia from DBNAME.clientes c LEFT JOIN interpra_ppuemp.provincias p ON c.IDProvincia=p.IDProvincia LEFT JOIN DBNAME.recibos_clientes r on c.IDCliente=r.IDCliente WHERE r.IDEstado=''ESTADO'' AND r.Vencimiento BETWEEN ''DESDEFECHA'' AND ''HASTAFECHA'''
+    queryDetail: 'select DATE_FORMAT(f.Fecha,''%d-%m-%Y'') AS Fecha,DATE_FORMAT(r.Vencimiento,''%d-%m-%Y'') AS Vencimiento,f.Total,r.Importe,f.NumeroFactura from DBNAME.recibos_clientes r LEFT JOIN DBNAME.clientes c ON r.IDCliente=c.IDCliente LEFT JOIN DBNAME.femitidas_cab f on r.IDFactura=f.IDFactura WHERE r.IDCliente=''LINKVALUE'' and r.IDEstado=''ESTADO'' AND r.Vencimiento BETWEEN ''DESDEFECHA'' AND ''HASTAFECHA'''
+    linkColumn: IDCliente
+    filters:
+      - { field: SUCURSAL, caption: Sucursal, entity: Sucursales, method: getSucursalesUsuario, params: null, type: select, default: '1' }
+      - { field: DESDEFECHA, caption: 'Desde Fecha Vcto.', entity: null, method: null, params: null, type: date, default: 01-01-2013 }
+      - { field: HASTAFECHA, caption: 'Hasta Fecha Vcto.', entity: null, method: null, params: null, type: date, default: 31-12-2013 }
+      - { field: ESTADO, caption: 'Estado recibos', entity: EstadosRecibos, method: fetchAll, params: null, type: select, default: 2 }
+    columnsMaster:
+      - { title: RazonSocial, field: RazonSocial, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: NombreComercial, field: NombreComercial, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Direccion, field: Direccion, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Cif, field: Cif, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: 'Codigo Postal', field: CodigoPostal, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Provincia, field: Provincia, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+    columnsDetail:
+      - { title: NumeroFactura, field: NumeroFactura, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Fecha, field: Fecha, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Vencimiento, field: Vencimiento, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Importe, field: Importe, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Pendiente, field: Pendiente, length: 13, align: L, type: string, total: NO, formula: null, format: null }

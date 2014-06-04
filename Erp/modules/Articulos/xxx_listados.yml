@@ -1,0 +1,464 @@
+# Module: Articulos
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  -
+    title: Listado de Artículos X Familias
+    order_by: >
+      articulos.IDFamilia,articulos.Codigo
+      ASC
+    break_field: IDFamilia
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Código
+        field: Codigo
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripción
+        field: Descripcion
+        length: 35
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Subfamilia
+        field: IDSubfamilia
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pvp
+        field: Pvp
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Iva
+        field: IDIva
+        length: 5
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMB
+        field: UMB
+        length: 5
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMC
+        field: UMC
+        length: 5
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMA
+        field: UMA
+        length: 5
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMV
+        field: UMV
+        length: 5
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+  -
+    title: Listado Precios Punteo
+    order_by: >
+      articulos.IDFamilia,articulos.Descripcion
+      ASC
+    break_field: IDFamilia
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Código
+        field: Codigo
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripción
+        field: Descripcion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pvd
+        field: Pvd
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: % Margen
+        field: Margen
+        length: 6
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pvp
+        field: Pvp
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Iva
+        field: IDIva
+        length: 5
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+  -
+    title: Listado Subir Fotos
+    order_by: articulos.IDFamilia,articulos.Codigo ASC
+    break_field: IDFamilia
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Id
+        field: IDArticulo
+        length: 15
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Código
+        field: Codigo
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripción
+        field: Descripcion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+  -
+    title: Listado Punteo Packing
+    order_by: >
+      articulos.IDFamilia,articulos.Codigo
+      ASC
+    break_field: IDFamilia
+    idPerfil: null
+    orientation: L
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Código
+        field: Codigo
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripción
+        field: Descripcion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pvp
+        field: Pvp
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMB
+        field: UMB
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMC
+        field: UMC
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: CUMC
+        field: CUMC
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pack Comp.
+        field: PackingCompras
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMV
+        field: UMV
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: CUMV
+        field: CUMV
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pack Vent.
+        field: PackingVentas
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+  -
+    title: Listado Tarifa Precios
+    order_by: >
+      articulos.IDFamilia ASC, Descripcion ASC
+    break_field: IDFamilia
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, B, 9
+    columns:
+      -
+        title: Código
+        field: Codigo
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripción
+        field: Descripcion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMV
+        field: UMV
+        length: 7
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: CUMV
+        field: CUMV
+        length: 7
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMB
+        field: UMB
+        length: 7
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pvp
+        field: PrecioVenta
+        length: 8
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: Pvp C/I
+        field: PrecioVentaConImpuestos
+        length: 8
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: %01.2f
+  -
+    title: Listado Tarifa Precios Unidad Básica
+    order_by: >
+      articulos.IDFamilia,articulos.Descripcion
+      ASC
+    break_field: IDFamilia
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, B, 9
+    columns:
+      -
+        title: Código
+        field: Codigo
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripción
+        field: Descripcion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMV
+        field: UMV
+        length: 7
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: CUMV
+        field: CUMV
+        length: 7
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UMB
+        field: UMB
+        length: 7
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pvp
+        field: PrecioVenta
+        params: UMB
+        length: 8
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: Pvp C/I
+        field: PrecioVentaConImpuestos
+        params: UMB
+        length: 8
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: %01.2f
+

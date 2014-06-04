@@ -1,0 +1,34 @@
+{# Template listManufac.html.twig for ExpedirCab  #}
+{# -----------------------------------------------#}
+{% extends 'ExpedirCab/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+	<div class='Titulo'>Elaboraciones pendientes de Expedir</div>
+
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td class='Item'>N.Elaboración</td>
+                <td class='Item'>Fecha Orden</td>
+                <td class='Item'>Sala de Elaboración</td>
+                <td class='Item'>Descripción</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            <tr class="ItemListado">
+                <td>
+                    {{ macro.linkThickBox(app.path,objeto.IDManufac,'ExpedirLineas/index/ManufacCab/'~objeto.IDManufac,'Expedir Elaboracion '~objeto.IDManufac~' '~objeto.IDElaborador.RazonSocial,350,950) }}
+                </td>
+                <td>{{objeto.FechaOrden}}</td>
+                <td>{{objeto.IDElaborador.RazonSocial}}</td>
+                <td>{{objeto.Descripcion|slice(0,40)}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="Titulo">No hay elaboraciones pendientes de expedir para el almacén</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

@@ -1,0 +1,191 @@
+# Module: Existencias
+# Document : modules\Existencias\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 18.12.2011 00:27:53
+#
+---
+listados:
+  -
+    title: Existencias
+    order_by: IDAlmacen,IDArticulo ASC
+    break_field: IDAlmacen
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Artículo
+        field: IDArticulo
+        length: 35
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Lote
+        field: IDLote
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Ubicación
+        field: IDUbicacion
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Reales
+        field: Reales
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: UMA
+        field: UMA
+        length: 6
+        align: L
+        type: string
+        total: NO
+        formula: null
+      -
+        title: Pales
+        field: Pales
+        length: 7
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cajas
+        field: Cajas
+        length: 7
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Reservadas
+        field: Reservadas
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Entrando
+        field: Entrando
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Depósito
+        field: EnDeposito
+        length: 1
+        align: L
+        type: tinyint
+        total: NO
+        formula: null
+        format: null
+  -
+    title: Existencias Agrupado
+    order_by: IDAlmacen,IDArticulo ASC
+    break_field: IDAlmacen
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Artículo
+        field: IDArticulo
+        length: 50
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Reales
+        field: Reales
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: UMA
+        field: UMA
+        length: 6
+        align: L
+        type: string
+        total: NO
+        formula: null
+      -
+        title: Pales
+        field: Pales
+        length: 7
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cajas
+        field: Cajas
+        length: 7
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Reservadas
+        field: Reservadas
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Entrando
+        field: Entrando
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Depósito
+        field: EnDeposito
+        length: 1
+        align: L
+        type: tinyint
+        total: NO
+        formula: null
+        format: null        

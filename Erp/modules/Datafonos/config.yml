@@ -1,0 +1,84 @@
+# Module: Datafonos
+# Document : modules\Datafonos\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 15.04.2012 00:54:30
+#
+---
+Datafonos:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Datafonos
+  id_video: datafonos
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Datafonos
+  table: datafonos
+  primarykey: IDDatafono
+  records_per_page: 15
+  order_by:
+    -
+      title: Datafono a-z
+      criteria: Datafono ASC
+    -
+      title: Datafono z-a
+      criteria: Datafono DESC
+  search_default: IDDatafono
+  referenced_entities:
+  columns:
+    -
+      title: IDDatafono
+      field: IDDatafono
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: Datafono
+      field: Datafono
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Comision
+      field: Comision
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido

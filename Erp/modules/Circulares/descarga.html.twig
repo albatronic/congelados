@@ -1,0 +1,20 @@
+{# DESCARGA DE ARCHIVOS GENERADOS #}
+
+<div class="informesParametros">
+    <p style="text-align: center;">Descarga de archivos generados</p>
+    <div>
+        <ul>
+        {% for archivo in values.archivos %}
+            <li style="float: left;width: 49%; margin-left: 5px;">
+                <a href="{{app.path}}/docs/docs{{emp.IDEmpresa}}/circulares/circulares/{{archivo}}">{{archivo}}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    <div>
+
+    {% if values.archivos %}
+    <div class="salto" style="border-top: 30px; text-align: center;">
+        <span><a href="{{app.path}}/{{values.controller}}/Borrar" class="Comando">Borrar todos los archivos</a></span>
+    </div>
+    {% endif %}
+</div>

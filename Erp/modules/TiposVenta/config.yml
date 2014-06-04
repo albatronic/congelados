@@ -1,0 +1,58 @@
+# Module: TiposVenta
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+TiposVenta:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Tipos de Venta
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: TiposVenta
+  table: tipos_venta
+  primarykey: IDVenta
+  records_per_page: 10
+  order_by:
+    -
+      title: Tipo Venta a-z
+      criteria: TipoVenta ASC
+    -
+      title: Tipo Venta z-a
+      criteria: TipoVenta DESC
+  search_default: IDVenta
+  columns:
+    - 
+      title: IDVenta
+      field: IDVenta
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: Tipo de Venta
+      field: TipoVenta
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido

@@ -1,0 +1,224 @@
+# Module: CajaArqueos
+# Document : modules\CajaArqueos\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 15.04.2012 00:47:17
+#
+---
+CajaArqueos:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Arqueos de Caja
+  id_video: cajaarqueos
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: CajaArqueos
+  table: caja_arqueos
+  primarykey: IDArqueo
+  records_per_page: 15
+  order_by:
+    -
+      title: Sucursal,Tpv,Dia z-a
+      criteria: IDSucursal,IDTpv,Dia DESC
+    -
+      title: Sucursal,Tpv,Dia a-z
+      criteria: IDSucursal,IDTpv,Dia ASC
+  search_default: IDArqueo
+  referenced_entities:
+    -
+      entity: Sucursales
+    -
+      entity: Tpvs
+    -
+      entity: ValoresSN
+  columns:
+    -
+      title: IDArqueo
+      field: IDArqueo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: Sucursal
+      field: IDSucursal
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: Tpv
+      field: IDTpv
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 0
+        caption: Fecha
+        entity: null
+        type: input
+        default: 0
+        operator: '>='
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: Dia
+      field: Dia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      aditional_filter:
+        order: 1
+        caption: Fecha
+        entity: null
+        type: range
+        default: '<?php echo '01/01/'.date('Y').',31/12/'.date('Y');?>'
+        operator: '>='
+      validator:
+        nullable: NO
+        type: date
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cerrada
+      field: CajaCerrada
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: SaldoApertura
+      field: SaldoApertura
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Suma Mvtos
+      field: SumaMvtos
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: SaldoCierre
+      field: SaldoCierre
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Observaciones
+      field: Observaciones
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: YES
+        type: string
+        length: 
+        min: null
+        max: null
+        message: Valor Requerido

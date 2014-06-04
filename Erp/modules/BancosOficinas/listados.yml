@@ -1,0 +1,73 @@
+# Module: BancosOficinas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Oficinas Bancarias
+    order_by: IDBanco,ID ASC
+    break_field: IDBanco
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Oficina
+        field: IDOficina
+        length: 7
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Direccion
+        field: Direccion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Poblacion
+        field: Poblacion
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Provincia
+        field: IDProvincia
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: C.P.
+        field: CodigoPostal
+        length: 6
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Telefono
+        field: Telefono
+        length: 9
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

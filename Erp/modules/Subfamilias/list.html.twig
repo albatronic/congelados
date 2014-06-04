@@ -1,0 +1,25 @@
+{# Template list.html.twig for Subfamilias #}
+{# -------------------------------------------------------#}
+{% extends 'Subfamilias/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td class='Item'>SubFamilia</td>
+                <td class='Item'>Publicar Web</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            <tr class="ItemListado">
+                <td><a href="{{app.path}}/Subfamilias/edit/{{objeto.IDSubfamilia}}/{{objeto.IDFamilia.IDFamilia}}" title="Editar...">{{objeto.Subfamilia}}</a></td>
+                <td align="center">{{objeto.PublicarWeb}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+/* 
+    Document   : ticket
+    Created on : 04-ago-2013, 17:42:25
+    Author     : sergio
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.ticket {
+    width: 860px; 
+    overflow: hidden; 
+    margin: 5px; 
+    padding: 5px; 
+    font-size: 14px; 
+    background-color: white;  
+}
+.ticketCabecera {
+    float: left;
+    padding: 5px;    
+}
+.ticketLogo {
+    float:left;    
+}
+.ticketNumero {
+    width: 150px;
+    text-align: center;
+}
+.ticketDatosCabecera {
+    float: left; 
+    margin-left: 20px;
+    width: 510px;
+}
+.ticketBotonesNavegador {
+    margin-left: 10px;
+    margin-right: 10px; 
+    float:left; 
+}
+.ticketBotoneraIzq {
+    float: left;
+}
+.ticketBotoneraDcha {
+    float: left;
+    margin-left: 10px;
+}
+.ticketBotonNavegador { 
+    margin-top: 5px;
+    width: 70px; 
+    height: 40px; 
+    font-weight: bold;
+}
+.ticketCuerpo {
+    float: left;    
+    margin-top: 10px; 
+    font-size: 14px; 
+    padding: 5px;
+    background-color: whitesmoke;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;      
+}
+.ticketTituloCorto {
+    float: left;
+    margin-left: 5px;
+    width: 60px;
+    text-align: center;
+}
+.ticketTituloLargo {
+    float: left;
+    margin-left: 5px;
+    width: 430px;
+    text-align: center;    
+}
+
+.ticketPie{
+    float: left;
+    padding: 5px;  
+    width: 100%;
+    margin: 10px 5px; 
+    font-size: 14px; 
+    background-color: whitesmoke;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;    
+}
+
+.oculto {
+    display: none;
+}
+
+.visible {
+    display: block;
+}

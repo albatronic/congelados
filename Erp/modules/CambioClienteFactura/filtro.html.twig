@@ -1,0 +1,49 @@
+{# Template filtro.html.twig for CambioClienteFactura     #}
+{# -------------------------------------------------------#}
+
+<div class='Filtro'>
+    <p style="margin-top: 10px; font-size: 12px;">
+        Mediante ésta opción podrá cambiar el cliente de una factura emitida.
+    </p>
+    <p style="margin-top: 10px; font-size: 12px;">
+        No se cambiará el cliente de las facturas que estén traspasadas a contabilidad.
+    </p>
+    <p style="margin-top: 10px; font-size: 12px;">
+        Al cambiar el cliente de una factura, también se cambiará en el/los albaran/es y recibos relacionados con dicha factura.
+    </p>
+
+   <form name='filtro' id='filtro' action='' method='POST'>
+	<input name='controller' value='{{values.controller}}' type='hidden' />
+	<input name='action' id="action" value='' type='hidden' />
+
+        <div style="float: left;">
+
+        <div style="margin-top: 30px;">
+            Indique el Nº de factura:
+            <input name="idClienteAnterior" value="{{values.factura.IDCliente.IDCliente}}" type="hidden" />
+            <input name="idFactura" value="{{values.factura.IDFactura}}" type="hidden" />
+            <input name="numeroFactura" type="text" value="{{values.factura.NumeroFactura}}" style="width: 120px;" />
+            <input type="submit" value="Buscar" onclick="$('#action').val('Buscar');" class="Comando" style="width: 100px; font-weight: bold; margin-left: 20px;" />
+        </div>
+            
+        {% if values.factura.IDCliente != '' %}
+
+            <p style="font-weight: bold;">Cliente actual: {{ values.factura.IDCliente.RazonSocial }}</p>
+            <p style="font-weight: bold;">Fecha: {{ values.factura.Fecha }}</p>
+            <p style="font-weight: bold;">Importe: {{ values.factura.Total }}</p>
+            
+            <div style="margin-top: 20px;">
+            Indique el nuevo cliente:
+            <input name="idClienteNuevo" id="idClienteNuevo" value="" type="hidden"/>
+            <input id="RazonSocial" value="" type="text" maxlength="50" style="width: 390px;"
+               onkeyup="autoCompletar('RazonSocial','idClienteNuevo','RazonSocial','clientes','');"/>
+            </div>
+
+        {% endif %}
+           
+        {% if values.factura.IDCliente.IDCliente != '' %}         
+            <input type="submit" value="Cambiar" onclick="$('#action').val('Cambiar');" class="Comando" style="width: 100px; font-weight: bold; margin-top: 20px;" />
+        {% endif %}
+        </div>
+    </form>
+</div>

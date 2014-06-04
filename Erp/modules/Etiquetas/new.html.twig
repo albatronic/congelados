@@ -1,0 +1,28 @@
+{# Template new.html.twig for Etiquetas #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends 'Etiquetas/index.html.twig' %}
+
+{% block navegador %}{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+	<form name="manto" action="" method="POST">
+		<div class='Comandos'>
+			                    {% if values.permisos['I'] %}
+			<input type="submit" name="accion" value="Crear" class="Comando"/>
+			<hr>
+                    {% endif %}
+		</div>
+
+		<div class="Cuerpo">
+			<input name="controller" value="Etiquetas" type="hidden" />
+			<input name="action" value="new" type="hidden" />
+			<input name="Etiquetas[Id]" value="{{ values.datos.Id }}" type="hidden" />
+			{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+			{% include "Etiquetas/form.html.twig" with {'datos': values.datos} %}
+		</div>
+	</form>
+</div>
+{% endblock %}

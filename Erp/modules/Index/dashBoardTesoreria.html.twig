@@ -1,0 +1,64 @@
+{# Tesorería #}
+{% set item = values.dashBoard.tesoreria %}
+
+{% if item %}
+<div id="tesoreria" class="dashBoard item">
+    <p>Tesorería</p>
+    <div><h3>Comprometido (-6m <-> +6m)</h3>
+        <div>
+        <table>
+            <tr><td>Mes</td><td>Cobros</td><td>Pagos</td><td>Balance</td></tr>
+            {% set comprometido = item.comprometido %}            
+            {% for key,mes in comprometido.detalle %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+                <tr class="{{classFila}}">
+                    <td>{{key}}</td>
+                    <td>{{mes.cobros|number_format}}</td>
+                    <td>{{mes.pagos|number_format}}</td>
+                    <td>{{(mes.cobros-mes.pagos)|number_format}}</td>
+                </tr>
+            {% endfor %}
+            <tr class="{{classFila}}">
+                <td>Total periodo</td>
+                <td>{{comprometido.resumen.cobros|number_format}}</td>                
+                <td>{{comprometido.resumen.pagos|number_format}}</td>   
+                <td>{{(comprometido.resumen.cobros-comprometido.resumen.pagos)|number_format}}</td>                        
+            </tr>                
+        </table>
+        Recibos pendientes de cobro y pago en el periodo de 6 meses antes y después del día actual
+        </div>
+    </div>  
+    
+    <div><h3>Previsión</h3>
+        <div>
+        <table>
+            <tr><td>Cobros</td><td>Pagos</td><td>Balance</td></tr>
+            {% set prevision = item.prevision %}              
+            <tr class="{{classFila}}">
+                <td>{{prevision.cobro|number_format}}</td>
+                <td>{{prevision.pago|number_format}}</td>
+                <td>{{(prevision.cobro-prevision.pago)|number_format}}</td>
+            </tr>               
+        </table>
+        Previsión de cobros y pagos en base a los albaranes confirmados sin expedir/facturar y los pedidos de compra confirmados sin recibir y/o sin facturar
+        </div>        
+    </div>
+</div>
+
+<script type="text/javascript"> 
+$(function(){
+    $("#tesoreria")
+    .accordion({
+        header: "> div > h3",
+        collapsible: true,
+        autoHeight: false,
+        active: false,
+    });    
+    $("#tesoreria").draggable({ cursor: "crosshair" });    
+});
+</script>
+{% endif %}

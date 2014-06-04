@@ -1,0 +1,266 @@
+# Module: RecibosClientes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Recibos X Clientes
+    order_by: recibos_clientes.IDCliente,Vencimiento ASC
+    break_field: IDCliente
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Recibo
+        field: Recibo
+        length: 4
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: N.Factura
+        field: IDFactura
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha
+        field: Fecha
+        length: 11
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha Vcto
+        field: Vencimiento
+        length: 11
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Importe
+        field: Importe
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: null
+      - 
+        title: Cta. Banco
+        field: CBanco
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Concepto
+        field: Concepto
+        length: 25
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Estado
+        field: IDEstado
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Asto
+        field: Asiento
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+  -
+    title: Recibos de Clientes
+    order_by: Vencimiento ASC
+    break_field: IDSucursal
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: N.Factura
+        field: IDFactura
+        length: 9
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cliente
+        field: IDCliente
+        length: 32
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 11
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha Vcto
+        field: Vencimiento
+        length: 11
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Importe
+        field: Importe
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: null
+      -
+        title: Concepto
+        field: Concepto
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Estado
+        field: IDEstado
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Asto
+        field: Asiento
+        length: 5
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+  - 
+    title: Recibos X Estado
+    order_by: recibos_clientes.IDEstado,Vencimiento ASC
+    break_field: IDEstado
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Recibo
+        field: Recibo
+        length: 4
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: N.Factura
+        field: IDFactura
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha
+        field: Fecha
+        length: 11
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha Vcto
+        field: Vencimiento
+        length: 11
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Cliente
+        field: IDCliente
+        length: 32
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Importe
+        field: Importe
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: null
+      - 
+        title: Concepto
+        field: Concepto
+        length: 25
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Asto
+        field: Asiento
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

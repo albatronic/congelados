@@ -1,0 +1,43 @@
+{# Template list.html.twig for TraspasosLineas #}
+{# -------------------------------------------------------#}
+{% extends values.controller  ~ '/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item'>Cantidad</td>
+            {% if (user.Rol.IDTipo == 0) or (user.rol.IDTipo == 9) %}
+            <td class='Item'>Precio</td>
+            <td class='Item'>Importe</td>
+            {% endif %}
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                <tr class="ItemListado">
+                    <td>{{objeto.IDArticulo.Codigo}}</td>
+                    <td>{{objeto.Descripcion|slice(0,30)}}</td>
+                    <td>
+                        {{objeto.Unidades}} {{objeto.UnidadMedidaArticulo}}
+                        {% if ( (objeto.Unidades != 0) and (objeto.IDArticulo.Inventario.IDTipo) and (objeto.IDEstado.IDTipo >= 2) ) %}
+                            {% if objeto.Tipo == 0 %}
+                                {{ macro.detalleExpedicionLinea(app.path,objeto) }}
+                            {% else %}
+                                {{ macro.detalleRecepcionLinea(app.path,objeto) }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    {% if (user.Rol.IDTipo == 0) or (user.rol.IDTipo == 9) %}
+                    <td align="right">{{objeto.Precio}}</td>
+                    <td align="right">{{objeto.Importe}}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

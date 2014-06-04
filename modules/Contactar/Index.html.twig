@@ -1,0 +1,30 @@
+{% extends "_global/layout.html.twig" %}
+
+{% block content %}
+
+<div class="panel1">
+<div style="float:left;">
+<p id="titulo">Contactar</p>
+<p style="padding-left:35px;padding-top:10px;">Avd. Blas Otero, 10 local 1<br>18200 - Maracena (Granada)</p>
+<p style="padding-left:35px;padding-top:5px;">Tlf +34 958410343<br>Fax +34 958421504</p>
+<p style="padding-left:35px;padding-top:5px;padding-bottom:20px;"><a href="mailto:info@albatronic.com">info@albatronic.com</a></p>
+<p>{{ values.mensaje }}</p>
+<form name="contact_us" action="index.php" method="post">
+    <input name="controller" value="Contactar" type="hidden">
+    <input name="accion" value="contactar" type="hidden">
+    <p style="margin:2px;">Escriba su nombre y apellidos:</p><input type="text" name="nombre" size="40" value="{{ values.nombre }}">
+    <p style="margin:2px;">Direcci&oacute;n E-Mail:</p><input type="text" name="email" size="50" value="{{ values.email }}">
+    <p style="margin:2px;">Consulta:</p><textarea name="consulta" cols="60" rows="5">{{ values.consulta }}</textarea>
+    <p><input name="accion" type="submit" class="submit" value="Enviar"></p>
+</form>
+</div>
+
+<div style="float:right; margin-left: 100px;">
+<iframe width="347" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.es/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=av+blas+otero,+10+maracena+granada&amp;sll=37.208388,-3.627656&amp;sspn=0.008118,0.019205&amp;g=av+blas+otero,+10+maracena+granada&amp;ie=UTF8&amp;hq=&amp;hnear=Av+de+Blas+de+Otero,+10,+18200+Maracena,+Granada,+Andaluc%C3%ADa&amp;t=h&amp;ll=37.208234,-3.630209&amp;spn=0.005981,0.00912&amp;z=16&amp;iwloc=A&amp;output=embed"></iframe>
+<br/>
+<small>
+    <a href="http://maps.google.es/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q=av+blas+otero,+10+maracena+granada&amp;sll=37.208388,-3.627656&amp;sspn=0.008118,0.019205&amp;g=av+blas+otero,+10+maracena+granada&amp;ie=UTF8&amp;hq=&amp;hnear=Av+de+Blas+de+Otero,+10,+18200+Maracena,+Granada,+Andaluc%C3%ADa&amp;t=h&amp;ll=37.208234,-3.630209&amp;spn=0.005981,0.00912&amp;z=16&amp;iwloc=A" style="color:#0000FF;text-align:left">Ampliar</a>
+</small>
+</div>
+</div>
+{% endblock %}

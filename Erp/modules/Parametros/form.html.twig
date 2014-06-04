@@ -1,0 +1,6 @@
+{# TEMPLATE Parametros/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{{ macro.input('Código','Etiqueta','text','Parametros[Codigo]','Parametros_Codigo',datos.Codigo,'15','CampoTextoMedio') }}
+{{ macro.textarea('Descripción','Etiqueta','Parametros[Descripcion]','Parametros_Descripcion',datos.Descripcion,none,none,'TextArea') }}
+{{ macro.textarea('Valor','Etiqueta','Parametros[Valor]','Parametros_Valor',datos.Valor,none,none,'TextArea')}}

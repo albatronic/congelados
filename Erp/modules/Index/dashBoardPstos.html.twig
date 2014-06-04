@@ -1,0 +1,41 @@
+{# Presupuestos #}
+{% set item = values.dashBoard.presupuestos %}
+
+{% if item %}
+<div id="presupuestos" class="dashBoard item">
+    <p>Presupuestos</p>
+    <table>
+        <tr><td>Mes</td><td colspan=2>Pendientes</td><td colspan=2>Aprobados</td><td>Éxito</td></tr>
+        {% for key,mes in item.detalle %}
+            {% if (key is even) %}
+                {% set classFila = 'Impar' %}
+            {% else %}
+                {% set classFila = 'Par' %}
+            {% endif %}
+            {# el porcentaje de éxito. los aprobados del mes respecto al total del mes#}
+            {% set exito = 100*mes[1].importe/(mes[0].importe+mes[1].importe)%}
+            <tr class="{{classFila}}">
+                <td>{{key}}</td>
+                <td>{{mes[0].N}}</td>
+                <td>{{mes[0].importe|number_format}}</td>
+                <td>{{mes[1].N}}</td>
+                <td>{{mes[1].importe|number_format}}</td>
+                <td>{{exito|number_format(2,',','.')}}%</td>
+            </tr>
+        {% endfor %}
+        {# el porcentaje de éxito. los aprobados totales respecto al total#}
+        {% set exito = 100*item.resumen[1].importe/(item.resumen[0].importe+item.resumen[1].importe)%}            
+        <tr class="{{classFila}}">
+            <td>Total periodo</td>
+            <td>{{item.resumen[0].N}}</td><td>{{item.resumen[0].importe|number_format}}</td>
+            <td>{{item.resumen[1].N}}</td><td>{{item.resumen[1].importe|number_format}}</td>        
+            <td>{{exito|number_format(2,',','.')}}%</td>                
+        </tr>                
+    </table>
+</div>
+<script type="text/javascript"> 
+$(function(){
+    $("#presupuestos").draggable({ cursor: "crosshair" });    
+});
+</script>
+{% endif %}

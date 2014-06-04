@@ -1,0 +1,13 @@
+{# TEMPLATE Listas/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('Descripcion','Etiqueta','text','Listas[Descripcion]','Listas_Descripcion',datos.Descripcion,'50','CampoTextoLargo') }}
+{{ macro.fecha('Vigencia','Etiqueta','Listas[Vigencia]','Listas_Vigencia',datos.Vigencia,'10','CampoFecha') }}
+{{ macro.input('Periodicidad','Etiqueta','text','Listas[Periodicidad]','Listas_Periodicidad',datos.Periodicidad,'4','CampoUnidades') }}
+{{ macro.fecha('UltimoEnvio','Etiqueta','Listas[UltimoEnvio]','Listas_UltimoEnvio',datos.UltimoEnvio,'10','CampoFecha') }}
+{{ macro.fecha('ProximoEnvio','Etiqueta','Listas[ProximoEnvio]','Listas_ProximoEnvio',datos.ProximoEnvio,'10','CampoFecha') }}
+{{ macro.input('Tabla','Etiqueta','text','Listas[Tabla]','Listas_Tabla',datos.Tabla,'50','CampoTextoLargo') }}
+{{ macro.textarea('Condiciones','Etiqueta','Listas[Condiciones]','Listas_Condiciones',datos.Condiciones,none,none,'TextArea')}}
+{{ macro.textarea('Columnas','Etiqueta','Listas[Columnas]','Listas_Columnas',datos.Columnas,none,none,'TextArea')}}

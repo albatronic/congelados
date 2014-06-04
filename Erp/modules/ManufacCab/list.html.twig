@@ -1,0 +1,51 @@
+{# Template list.html.twig for ManufacCab #}
+{# -----------------------------------------#}
+{% extends values.controller  ~ '/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+    {% include '_global/paginacion.html.twig' with {'filter': values.listado.filter, 'controller': values.controller, 'position': 'izq'}%}
+    <div id="Listado">
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td width='16px'>&nbsp;</td>
+                <td class='Item'>Número</td>
+                <td class='Item'>Almacen Origen</td>
+                <td class='Item'>Almacen Destino</td>
+                <td class='Item'>Fecha Orden</td>
+                <td class='Item'>Fecha Envío</td>
+                <td class='Item'>Fecha Entrega</td>
+                <td class='Item'>Descripción</td>
+                <td class='Item'>Estado</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            <tr class="ItemListado">
+                <td>
+                    <a href='{{app.path}}/ManufacCab/Edit/{{objeto.IDManufac}}' title='Editar ...'>
+                        <img src="{{app.path}}/images/botoneditar.png" width="16px" height="16px" />
+                    </a>
+                </td>
+                <td align="left">
+                    <a href='{{app.path}}/ManufacCab/Edit/{{objeto.IDManufac}}' title='Editar ...'>{{objeto.IDManufac}}</a>
+                </td>
+                <td>{{objeto.IDAlmacenOrigen.Nombre|slice(0,20)}}</td>
+                <td>{{objeto.IDAlmacenDestino.Nombre|slice(0,20)}}</td>
+                <td>{{objeto.FechaOrden}}</td>
+                <td>{{objeto.FechaEnvio}}</td>
+                <td>{{objeto.FechaEntrega}}</td>
+                <td>{{objeto.Descripcion|slice(0,25)}}</td>
+                <td align="center">
+                    {% if objeto.IDEstado.IDTipo == '0' %}{% set img = "botonrojoparpadea.gif" %}{% endif %}
+                    {% if objeto.IDEstado.IDTipo == '1' %}{% set img = "bolanaranja.gif" %}{% endif %}
+                    {% if objeto.IDEstado.IDTipo >= '2' %}{% set img = "bolaverde.gif" %}{% endif %}
+                    <img src='{{app.path}}/images/{{img}}' width="10px" height="10px" alt='{{objeto.IDEstado}}' title='{{objeto.IDEstado}}'/>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

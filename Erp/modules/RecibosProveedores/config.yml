@@ -1,0 +1,306 @@
+# Module: RecibosProveedores
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+RecibosProveedores:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Cartera de Proveedores
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: RecibosProveedores
+  table: recibos_proveedores
+  primarykey: IDRecibo
+  linkBy: IDCliente
+  records_per_page: 15
+  order_by:
+    -
+      title: Vencimiento z-a
+      criteria: Vencimiento DESC
+    -
+      title: Vencimiento a-z
+      criteria: Vencimiento ASC
+    -
+      title: Factura a-z
+      criteria: IDFactura ASC
+    -
+      title: Factura z-a
+      criteria: IDFactura DESC
+  search_default: IDRecibo
+  columns:
+    -
+      title: IDRecibo
+      field: IDRecibo
+      filter: NO
+      list: YES
+      form: YES
+    -
+      title: Recibo
+      field: Recibo
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Sucursal
+      field: IDSucursal
+      filter: NO
+      list: YES
+      form: YES
+      aditional_filter:
+        order: 0
+        caption: Sucursal
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getSucursales
+        type: select
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Factura
+      field: IDFactura
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 1
+        caption: N. Factura (%)
+        entity: FemitidasCab
+        method: null
+        params: NumeroFactura
+        type: input
+        event: null
+    -
+      title: Proveedor
+      field: IDProveedor
+      filter: NO
+      list: YES
+      form: YES
+      aditional_filter:
+        order: 2
+        caption: Proveedor (%)
+        entity: Proveedores
+        method: null
+        params: RazonSocial
+        type: input
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha
+      field: Fecha
+      filter: NO
+      list: YES
+      form: YES
+      default: 0000-00-00
+      validator:
+        nullable: NO
+        type: date
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 3
+        caption: Fecha Ftra
+        entity: null
+        type: range
+        operator: '>='
+        default: '<?php echo '01/01/'.date('Y').',31/12/'.date('Y');?>'        
+    -
+      title: Vencimiento
+      field: Vencimiento
+      filter: NO
+      list: YES
+      form: YES
+      default:
+      validator:
+        nullable: NO
+        type: date
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 5
+        caption: Fecha Vcto
+        entity: null
+        type: range
+        default: '<?php echo '01/01/'.date('Y').',31/12/'.date('Y');?>'
+        operator: '>='
+    -
+      title: Importe
+      field: Importe
+      filter: NO
+      list: YES
+      form: YES
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Banco
+      field: CBanco
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Asiento
+      field: Asiento
+      filter: YES
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Concepto
+      field: Concepto
+      filter: YES
+      list: YES
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Estado
+      field: IDEstado
+      filter: NO
+      list: YES
+      form: YES
+      aditional_filter:
+        order: 7
+        caption: Estado
+        entity: EstadosRecibos
+        method: fetchAll
+        params: Tipo
+        type: select
+        event: null
+        default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Remesa
+      field: IDRemesa
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 14
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 8
+        caption: Remesa
+        entity: null
+        method: null
+        params: null
+        type: input
+        event: null
+    -
+      title: Remesar
+      field: Remesar
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: CContable
+      field: CContable
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+      referenced_entities:
+        referenced:
+          conection: null
+          entity: null
+          key: null
+      dependent_entities:
+        dependency:
+          conection: null
+          entity: null
+          key: null

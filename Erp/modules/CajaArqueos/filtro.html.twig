@@ -1,0 +1,78 @@
+{# Template filtro.html.twig for CajaArqueos #}
+{# -------------------------------------------------------#}
+
+{% if (values.listado.filter.valuesSelected[0] == '') %}
+    {% set IDSucursal = suc %}
+{% else %}
+    {% set IDSucursal = values.listado.filter.valuesSelected[0] %}
+{% endif %}
+
+<div class='Filtro'>
+   <form name='filtro' id='filtro' action='' method='POST'>
+	<input name='controller' value='{{values.controller}}' type='hidden' />
+	<input name='action' value='list' type='hidden' />
+
+        <div style="float: left;">
+
+        <div id="div_IDSucursal" style="float:left;">
+            Sucursal:
+            <input name="filter[columnsSelected][0]" value="IDSucursal" type="hidden" />
+            <select name="filter[valuesSelected][0]" id="IDSucursal" style="width: 170px;" onchange="DesplegableAjax('div_IDTpv','IDTpv','filter[valuesSelected][1]','tpvs',this.value);">
+            {% for sucursal in user.getSucursales(emp.IDEmpresa,1) %}
+                <option value="{{sucursal.Id}}" {% if sucursal.Id == IDSucursal %} SELECTED {% endif%} >{{sucursal.Value}}</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div id="div_IDTpv" style="float:left; margin-left: 10px;">
+            Tpv:
+            <input name="filter[columnsSelected][1]" value="IDTpv" type="hidden" />
+            <select name="filter[valuesSelected][1]" id="IDTpv" style="width: 100px;">
+            {% for tpv in values.tpvs %}
+                <option value="{{tpv.Id}}" {% if tpv.Id == values.listado.filter.valuesSelected[1] %} SELECTED {% endif%} >{{tpv.Value}}</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div id="div_DiaDesde" style="float:left; margin-left: 10px;">
+            <input name="filter[columnsSelected][2]" value="Dia" type="hidden" />
+            {{ macro.fecha('Desde Día','Etiqueta','filter[valuesSelected][2]','DiaDesde',values.listado.filter.valuesSelected[2],'10','CampoFecha') }}
+        </div>
+
+        <div id="div_DiaHasta" style="float:left; margin-left: 10px;">
+            <input name="filter[columnsSelected][3]" value="Dia" type="hidden" />
+            {{ macro.fecha('Hasta Día','Etiqueta','filter[valuesSelected][3]','DiaHasta',values.listado.filter.valuesSelected[3],'10','CampoFecha') }}
+        </div>
+
+        <div id="div_IDTpv" style="float:left; margin-left: 10px;">
+            Cerrada:
+            <input name="filter[columnsSelected][4]" value="CajaCerrada" type="hidden" />
+            <select name="filter[valuesSelected][4]" id="Cerrada">
+            {% for key,value in {'0':'No','1':'Si','%':'Todas'} %}
+                <option value="{{key}}" {% if key == values.listado.filter.valuesSelected[4] %} SELECTED {% endif %}>{{value}}</option>
+            {% endfor %}
+            </select>
+        </div>
+            </div>
+
+        <div style="float:right;">
+            Orden:
+            <select name="filter[orderBy]" id="OrderBy">
+            {% for key,value in {'IDSucursal,IDTpv,Dia DESC':'Dia z-a','IDSucursal,IDTpv,Dia ASC':'Dia a-z'} %}
+                <option value="{{key}}" {% if key == values.listado.filter.orderBy %} SELECTED {% endif %}>{{value}}</option>
+            {% endfor %}
+            </select>
+        Mostrar:
+        <input name="filter[recordsPerPage]" value="{{values.listado.filter.recordsPerPage}}" type="text" size="3" value="20" style="width: 25px;">
+        <input name="filter[page]" value="{{values.listado.filter.page}}" type="hidden"/>
+        &nbsp;<input type="image" src="{{app.path}}/images/lupa.png" width="16px" height="16px" alt="Consulta"/>
+        </div>
+    </form>
+</div>
+
+{# MENSAJES DE ALERTA INDICANDO LAS CAJAS QUE HAN SIDO CERRADAS #}
+<div>
+    {% for alerta in alertas %}
+        <h3>{{alerta}}</h3>
+    {% endfor %}
+</div>

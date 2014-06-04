@@ -1,0 +1,35 @@
+{# MAPEO DE VARIABLES #}
+
+<div class="salto" style="margin-top: 30px;">
+    <div style="width:49%;float:left;">
+        <article>Variables disponibles en la base de datos y que pueden ser utilizadas en el documento</article>
+        <table style="width:100%">
+            <tr><th>Nombre Variable</th><th>Campo Base de Datos</th></tr>
+            {% for key,variable in values.variables.disponibles %}
+            <tr>
+                <td>{{key}}</td><td>{{variable}}</td>
+                <input name="variables[db][{{key}}]" value="{{variable}}" type="hidden"/>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% if values.variables.libres %}
+    <div style="width:49%;float:right;">
+        <article>Variables libres, que existen en el documento pero no se corresponde con la base de datos</article>
+        <ul>
+            {% for key,variable in values.variables.libres %}
+            <li>
+                <div class="salto">
+                    <div><span class="etiquetaCircular">{{key}}</span></div>
+                    <div><input name="variables[libres][{{key}}]" type="text" value=""/></div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+
+

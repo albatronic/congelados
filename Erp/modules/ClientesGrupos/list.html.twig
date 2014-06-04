@@ -1,0 +1,28 @@
+{# Template list.html.twig for ClientesGrupos #}
+{# -------------------------------------------------------#}
+{% extends 'ClientesGrupos/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td class='Item'>Grupo</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr class="{{classFila}}">
+                <td><a href="{{app.path}}/ClientesGrupos/edit/{{objeto.IDGrupo}}" title="Editar...">{{objeto.Grupo}}</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

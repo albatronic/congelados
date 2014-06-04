@@ -1,0 +1,46 @@
+# Module: Submenu
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Opciones de Menu y Submenu
+    order_by: IDOpcion,Orden ASC
+    break_field: IDOpcion
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Orden
+        field: Orden
+        length: 5
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Titulo
+        field: Titulo
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Controller
+        field: Script
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

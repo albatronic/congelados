@@ -1,0 +1,10 @@
+{
+    "require": {
+        "symfony/routing": "2.0.15",
+        "symfony/class-loader" : "2.0.15",
+        "symfony/templating" : "2.0.14",
+        "symfony/twig-bundle" : "2.0.15",
+        "symfony/yaml" : "2.0.15",        
+        "symfony/config" : "2.0.14"       
+    }
+}

@@ -1,0 +1,350 @@
+# Module: Recepciones
+# Document : modules\Recepciones\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 25.02.2012 20:14:14
+#
+---
+Recepciones:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Recepciones
+  id_video: recepciones
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Recepciones
+  table: recepciones
+  primarykey: IDLinea
+  records_per_page: 15
+  order_by: IDLinea
+  search_default: IDLinea
+  referenced_entities:
+    -
+      entity: PedidosCab
+    -
+      entity: PedidosLineas
+    -
+      entity: Almacenes
+    -
+      entity: Agentes
+    -
+      entity: Lotes
+    -
+      entity: AlmacenesMapas
+  columns:
+    -
+      title: IDLinea
+      field: IDLinea
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: IDPedido
+      field: IDPedido
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDLineaPedido
+      field: IDLineaPedido
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDAlmacen
+      field: IDAlmacen
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDAlmacenero
+      field: IDAlmacenero
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Unidades
+      field: Unidades
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Unidades Brutas
+      field: UnidadesBrutas
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cajas
+      field: Cajas
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Pales
+      field: Pales
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: DestareCaja
+      field: DestareCaja
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: DestarePale
+      field: DestarePale
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Unidades Netas
+      field: UnidadesNetas
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDLote
+      field: IDLote
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDUbicacion
+      field: IDUbicacion
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 8
+        min: 1
+        max: 999999
+        message: Valor Requerido
+    -
+      title: Temperatura
+      field: Temperatura
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: -20.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Recepcionada
+      field: Recepcionada
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: decimal
+        length: 1
+        min: 0
+        max: 1
+        message: Valor Requerido

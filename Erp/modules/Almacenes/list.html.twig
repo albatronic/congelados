@@ -1,0 +1,44 @@
+{# Template list.html.twig for Almacenes #}
+{# -------------------------------------------------------#}
+{% extends 'Almacenes/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+	{% include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller':'Almacenes','position':'izq'}%}
+
+        <table width="100%">
+            <tr class='Titulos'>
+                <td class='Item'>Nombre</td>
+                <td class='Item'>Direcci&oacute;n</td>
+                <td class='Item'>Poblaci&oacute;n</td>
+                <td class='Item'>Provincia</td>
+                <td class='Item'>Tel&eacute;fono</td>
+                <td class='Item'>Tipo</td>
+                <td class='Item'>Ubicaciones</td>
+            </tr>
+
+            <tbody class='Cuerpo'>
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr onclick="location.href='{{app.path}}/{{values.controller}}/edit/{{objeto.IDAlmacen}}'" class='{{classFila}}'>
+                <td class='Item'><a href="{{app.path}}/Almacenes/edit/{{objeto.IDAlmacen}}" title="Editar...">{{objeto.Nombre|slice(0,40)}}</a></td>
+                <td class='Item'>{{objeto.Direccion|slice(0,40)}}</td>
+                <td class='Item'>{{objeto.Poblacion|slice(0,30)}}</td>
+                <td class='Item'>{{objeto.IDProvincia.Provincia}}</td>
+                <td class='Item'>{{objeto.Telefono}}</td>
+                <td class="Item">{{objeto.Tipo.Descripcion}}</td>
+                <td class="Item" align="center">{{objeto.ControlUbicaciones.Descripcion}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan='2'>No hay informaci&oacute;n que cumpla esos criterios</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

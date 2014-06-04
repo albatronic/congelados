@@ -1,0 +1,38 @@
+# Module: AlmacenesMapas
+# Document : modules\AlmacenesMapas\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 17.12.2011 19:00:12
+#
+---
+listados:
+  -
+    title: AlmacenesMapas
+    order_by: IDUbicacion ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: IDAlmacen
+        field: IDAlmacen
+        length: 3
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Ubicacion
+        field: Ubicacion
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

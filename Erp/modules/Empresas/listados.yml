@@ -1,0 +1,73 @@
+# Module: Empresas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Empresas
+    order_by: IDEmpresa ASC
+    break_field: null
+    idPerfil: null
+    orientation: L
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Razon Social
+        field: RazonSocial
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Cif
+        field: Cif
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Direccion
+        field: Direccion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Poblacion
+        field: Poblacion
+        length: 25
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Provincia
+        field: IDProvincia
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Cod.Postal
+        field: CodigoPostal
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

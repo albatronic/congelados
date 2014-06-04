@@ -1,0 +1,37 @@
+{# Template list.html.twig for PromocionesClientes #}
+{# -------------------------------------------------------#}
+{% extends 'PromocionesClientes/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+    <table width='100%'>
+            <tr class='Titulos'>
+                <td class='Item'>&nbsp;</td>
+                <td class='Item'>Grupo</td>
+                <td class='Item'>Cliente</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            <tr class="ItemListado">
+                <td>
+                    <a href="{{app.path}}/PromocionesClientes/edit/{{objeto.Id}}/{{objeto.IDPromocion.IDPromocion}}" title="Editar...">
+                        <img src="{{app.path}}/images/botoneditar.png" border="0" width="16px" height="16px"/>
+                    </a>
+                </td>
+                <td>{{objeto.IDGrupo.Grupo}}</td>
+                <td>
+                    {% if objeto.IDCliente.IDCliente != '' %}
+                        {{objeto.IDCliente.RazonSocial}}
+                    {% else %}
+                        <b>** TODO EL GRUPO **</b>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+
+</div>
+{% endblock %}

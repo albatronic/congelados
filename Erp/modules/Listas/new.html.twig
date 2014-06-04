@@ -1,0 +1,23 @@
+{# Template new.html.twig for Listas #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends 'Listas/index.html.twig' %}
+
+{% block navegador %}{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" method="POST">
+        <input name="controller" value="Listas" type="hidden" />
+        <input name="action" value="new" type="hidden" />
+        <input name="Listas[IDLista]" value="{{ values.datos.IDLista }}" type="hidden" />
+        {% include '_global/comandosCreate.html.twig' %}
+
+        <div class="Cuerpo">
+	{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+	{% include "Listas/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

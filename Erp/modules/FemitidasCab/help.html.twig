@@ -1,0 +1,18 @@
+{% extends "_help/layout.html.twig" %}
+
+{%block titulo%}<h2>Facturas Emitidas</h2>{%endblock%}
+
+{% block contenido %}
+
+<h2>Objetivo</h2>
+<p>
+    Mediante este proceso podemos gestionar las facturas emitidas. No se pueden crear facturas manuales. Las facturas son generadas desde el proceso de albaranes, o bien, desde el proceso de facturación.
+</p>
+
+<h2>Operatoria</h2>
+<p>Se pueden borrar facturas, teniendo en cuenta que también se eliminarán de forma automática sus eventuales los recibos (en cualquier estado)</p>
+<p>Se puede cambiar la fecha de factura.</p>
+<p>Se puede cambiar la forma de pago, teniendo en cuenta que se eliminarán los eventuales recibos y se volverán a generar en base a la nueva forma de pago.</p>
+<p>Se puede cambiar la Cuenta Contable de Ventas</p>
+
+{% endblock %}

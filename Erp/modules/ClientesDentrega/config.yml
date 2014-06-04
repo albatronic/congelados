@@ -1,0 +1,223 @@
+# Module: ClientesDentrega
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+ClientesDentrega:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Direcciones de Entrega
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: ClientesDentrega
+  table: clientes_dentrega
+  primarykey: IDDirec
+  linkBy: IDCliente
+  records_per_page: 9999
+  order_by: IDDirec
+  search_default: IDDirec
+  columns:
+    - 
+      title: IDDirec
+      field: IDDirec
+      filter: YES
+      list: YES
+      form: YES
+      validator: null
+    - 
+      title: Cliente
+      field: IDCliente
+      filter: YES
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Nombre
+      field: Nombre
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Direccion
+      field: Direccion
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Pais
+      field: IDPais
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    - 
+      title: Población
+      field: Poblacion
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Provincia
+      field: IDProvincia
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 2
+        min: 1
+        max: 999
+        message: Valor Requerido
+    - 
+      title: Código Postal
+      field: CodPostal
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Teléfono
+      field: Telefono
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Móvil
+      field: Movil
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido        
+    - 
+      title: Fax
+      field: Fax
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: EMail
+      field: EMail
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Responsable
+      field: Responsable
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Horario
+      field: Horario
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Comercial
+      field: IDComercial
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    - 
+      title: Zona Reparto
+      field: IDZona
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: 1
+        max: 9999
+        message: Valor Requerido

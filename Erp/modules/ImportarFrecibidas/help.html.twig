@@ -1,0 +1,43 @@
+{# Template help.html.twig for ImportarFrecibidas #}
+{# ----------------------------------------------#}
+{% extends '_help/layout.html.twig' %}
+
+{% block titulo %}<h2>{{ values.title }}</h2>{% endblock %}
+
+{% block contenido %}
+<h2>Objetivo</h2>
+Se ha habilitado un proceso de carga masiva de facturas provenientes de otros sistemas. Dado que dicho proceso es "delicado" debe ser realizado con precaución por el administrador del sistema en base a los siguientes criterios:
+
+<h2>Operatoria</h2>
+
+<ul>
+    <li>Estructura del fichero</li>
+    <p>Se debe generar <b>un fichero por cada sucursal</b>. La importación se realizará en la sucursal en curso.</p>
+    <p>El fichero conteniendo la información debe ser de tipo texto y con las columnas separadas por el carácter tabulador. Para los valores númericos se ha de utilizar el punto (.) como carácter de separación de decimales, y no indicar ningún carácter para los millares.</p>
+    <table style="border: dotted 1px;">
+        <tr><td>Columna</td><td>Valor</td><td>Observaciones</td></tr>
+        <tr><td>1</td><td>Número Factura</td><td>El número de factura</td></tr>
+        <tr><td>2</td><td>Fecha</td><td>La fecha de la factura en formato dd-mm-aa</td></tr>
+        <tr><td>3</td><td>Cuenta Contable</td><td>La Cuenta Contable asignada al proveedor en el sistema ERP</td></tr>
+        <tr><td>4</td><td>Cuenta Contable del sistema externo</td><td>No se utiliza</td></tr>
+        <tr><td>5</td><td>Razón Social del proveedor</td><td>No se utiliza</td></tr>
+        <tr><td>6</td><td>Base Imponible1</td><td>Base Imponible1</td></tr>
+        <tr><td>7</td><td>% Iva1</td><td>Porcentaje de Iva1</td></tr>
+        <tr><td>8</td><td>% Recargo1</td><td>Porcentaje de Recargo de Equivalencia1</td></tr>
+        <tr><td>9</td><td>Base Imponible2</td><td>Base Imponible2</td></tr>
+        <tr><td>10</td><td>% Iva2</td><td>Porcentaje de Iva2</td></tr>
+        <tr><td>11</td><td>% Recargo2</td><td>Porcentaje de Recargo de Equivalencia2</td></tr>
+    </table>
+    <p></p>
+    <li>Proceso de carga</li>
+    <p>Se aconseja revisar los valores de los <a href="{{app.path}}/Contadores/Help">contadores</a> de facturas recibidas antes de lanzar el proceso</p>
+    <p>Todas las facturas serán cargadas en la empresa y sucursal en curso. Igualmente, a todas se les aplicará la forma de pago indicada y el sistema generará los eventuales vencimientos según la forma de pago.</p>
+    <p>El número de factura indicado en la primera columna del archivo, se copiará al campo "Su Factura" y además será el que se utilice para crear la factura en el caso que se haya marcado la casilla "Respetar los números de factura..."</p>
+    <p>Si dicha casilla no fuese marcada, el número de factura se calculará en base al contador.</p>
+    <p>En todas las facturas importadas, se podrán en el campo "Referencia" el texto "Import " y la fecha de importación.</p>
+</ul>
+
+<h2>FAQ</h2>
+
+{{ macro.embedVideo(values.idVideo,none,none)}}
+{% endblock %}

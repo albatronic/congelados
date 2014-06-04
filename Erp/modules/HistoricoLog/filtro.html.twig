@@ -1,0 +1,34 @@
+{# Template filtro.html.twig for Log #}
+{# -------------------------------------------------------#}
+<div class='Filtro'>
+    <form name='filtro' id='filtro' action='' method='POST'>
+        <input name='controller' value='{{values.controller}}' type='hidden' />
+        <input name='action' value='list' type='hidden' />
+        <div>
+            <div style="float:left;">
+                Año:
+                <select name="filter[columnsSelected][0]">
+                {% for index,column in filter.columns %}
+                    <option value="{{ index }}" {% if (index == filter.columnsSelected[0])%} SELECTED {%endif%}>{{column}}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div style="float:left;">
+                Mes:
+                <select name="filter[columnsSelected][0]">
+                {% for index,column in filter.columns %}
+                    <option value="{{ index }}" {% if (index == filter.columnsSelected[0])%} SELECTED {%endif%}>{{column}}</option>
+                {% endfor %}
+                </select>
+            </div>
+
+            <div style="float:right;">
+                <input style="margin-left: 5px;" type="image" src="{{app.path}}/images/lupa.png" width="16px" height="16px" alt="Consulta" title="Consultar"
+                       onclick="$('#div_listado').html('<div class=ListadoAnimation><img src={{app.path}}/images/loadingAnimation.gif /></div>');"/>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+
+        {{ macro.foco('filter[valuesSelected][0]') }}
+    </form>
+</div>

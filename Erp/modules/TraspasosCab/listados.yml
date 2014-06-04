@@ -1,0 +1,92 @@
+# Module: TraspasosCab
+# Document : modules\TraspasosCab\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 22.03.2012 19:21:54
+#
+---
+listados:
+  -
+    title: Traspasos entre almacenes
+    order_by: FechaOrden DESC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Número
+        field: NumeroTraspaso
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: F. Orden
+        field: FechaOrden
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Almacén Origen
+        field: IDAlmacenOrigen
+        length: 17
+        align: L
+        type: text
+        total: NO
+        formula: null
+        format: null
+      -
+        title: F. Salida
+        field: FechaSalida
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Almacén Destino
+        field: IDAlmacenDestino
+        length: 17
+        align: L
+        type: text
+        total: NO
+        formula: null
+        format: null
+      -
+        title: F. Entrada
+        field: FechaEntrada
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripcion
+        field: Descripcion
+        length: 20
+        align: L
+        type: text
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Estado
+        field: IDEstado
+        length: 15
+        align: L
+        type: tinyint
+        total: NO
+        formula: null
+        format: null

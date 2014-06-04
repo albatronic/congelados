@@ -1,0 +1,133 @@
+{# Template list.html.twig for RecibosProveedores #}
+{# -----------------------------------------------#}
+{% extends 'RecibosProveedores/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+	{% include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller':'RecibosProveedores','position':'izq'}%}
+	{% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+       <table width='100%'>
+            <tr class='Titulos'>
+                <td></td>
+                <td class='Item'>Factura</td>
+                <td class='Item'>Fecha</td>
+                <td class='Item'>Vencimiento</td>
+                <td class='Item'>Proveedor</td>
+                <td class='Item'>Importe</td>
+                <td class='Item'>C/C</td>
+                <td class='Item'>Concepto</td>
+                <td class='Item'>Remesa</td>
+                <td class='Item'>Estado</td>
+                <td></td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            <form name="recibos" id="recibos" action="" method="POST">
+                <input name="controller" value="RecibosProveedores" type="hidden" />
+                <input name="action" id="action" value="guardar" type="hidden" />
+                <input name="idReciboDesdoblar" id="idReciboDesdoblar" value="" type="hidden" />
+                <input name="idRemesaPagar" id="idRemesaCobrar" value="{{values.filtroRemesa}}" type="hidden" />
+                <input name="idFP" id="idFP" type="hidden" />
+                <input name="fechaPago" id="fechaPago" type="hidden" />
+                {% include "_global/FiltroOculto.html.twig" with {'filter': values.listado.filter} %}
+
+            {% set suma = 0%}
+
+            {% for key,objeto in values.listado.data %}
+                {% set suma = suma + objeto.Importe %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr class="{{classFila}}">
+                <td>
+                    <input name="RecibosProveedores[{{key}}][IDRecibo]" value="{{objeto.IDRecibo}}" type="hidden" />
+                    <a href='{{app.path}}/RecibosProveedores/Edit/{{objeto.IDRecibo}}' title='Editar Recibo ...'>
+                        <img src="{{app.path}}/images/botoneditar.png" width="16px" height="16px"/>
+                    <a>
+                </td>
+                <td><a href="{{app.path}}/FrecibidasCab/edit/{{objeto.IDFactura.IDFactura}}" target="_blank" title="Editar Factura ...">{{objeto.IDFactura.NumeroFactura}}</a></td>
+                <td>{{objeto.Fecha}}</td>
+                <td>{{ macro.fecha(none,none,'RecibosProveedores['~key~'][Vencimiento]','RecibosProveedores_Vencimiento'~key,objeto.Vencimiento) }}</td>
+                <td>{{objeto.IDProveedor.RazonSocial|slice(0,21)}}</td>
+                <td align="right"><input name="RecibosProveedores[{{key}}][Importe]" id="RecibosProveedores_Importe{{key}}" value="{{objeto.Importe}}" class="CampoImporte"/></td>
+                <td><input name="RecibosProveedores[{{key}}][CBanco]" id="RecibosProveedores_CBanco{{key}}" value="{{objeto.CBanco}}" maxlength="20" class="CampoTextoMedio" style="width: 145px;" /></td>
+                <td><input name="RecibosProveedores[{{key}}][Concepto]" id="RecibosProveedores_Concepto{{key}}" value="{{objeto.Concepto}}" maxlength="255" class="CampoTextoMedio" style="width: 145px;" /></td>
+                <td>
+                    <input name="RecibosProveedores[{{key}}][IDRemesa]" id="RecibosProveedores_IDRemesa{{key}}" value="{{objeto.IDRemesa}}" maxlength="14" class="CampoImporte" />
+                    {% if objeto.IDRemesa %}
+                    <img src="{{app.path}}/images/clip.png" style="cursor: pointer;" title="Agrupar para pagar"
+                         onclick="
+                             $('#filter_valuesSelected_9').val('{{objeto.IDRemesa}}');
+                             $('#filtro').submit();
+                         "/>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user.Rol.IDTipo == '9' %}
+                        {{ macro.select(none,none,'RecibosProveedores['~key~'][IDEstado]','RecibosProveedores_IDEstado'~key,none,objeto.IDEstado.IDTipo,objeto.IDEstado.fetchAll,'Select60') }}
+                    {% else %}
+                        <input name="RecibosProveedores[{{key}}][IDEstado]" value="{{objeto.IDEstado.IDTipo}}" type="hidden"/>
+                        {{objeto.IDEstado.Descripcion}}
+                    {% endif %}
+                </td>                
+                <td>
+                    <input type="image" src="{{app.path}}/images/detalle.png" alt="Desdoblar" title="Desdoblar Recibo ..."
+                           onclick="
+                               $('#action').val('Desdoblar');
+                               $('#idReciboDesdoblar').val('{{objeto.IDRecibo}}');
+                               $('#recibos').submit();
+                           "
+                    />
+                </td>
+            </tr>
+            {% endfor %}
+
+            {% if values.listado.data is not empty %}
+            <tr><td colspan="6" align="right"><b>{{ suma }}</b></td></tr>
+            <tr><td colspan="11" align="center">
+                    <input value="Guardar" class="Comando" type="submit" style="mouse: pointer;" title="Guardar Cambios" />
+                    {% if values.filtroRemesa %}
+                    <input value="Pagar" class="Comando" type="buttom" style="mouse: pointer;" title="Pagar Remesa"
+                           onclick="$('#dialogPagar').dialog('open');"/>
+                    <div id="dialogPagar" title="Pagar Remesa">
+                        {{ macro.select('Forma de Pago','Etiqueta','idFormaPago','idFormaPago',none,none,values.formasPago.fetchAll('Descripcion'),'Select') }}
+                        <div style="margin-top: 10px;"></div>
+                        {{ macro.fecha('Fecha de Pago','Etiqueta','FechaCobro','FechaCobro',none,'10','CampoFecha') }}
+                        <input type="submit" value="Pagar" class="Comando" style="margin-top: 20px;" alt="Pagar" title="Pagar Remesa"
+                            onclick=" if ( $('#idFormaPago').val() !== '' ) {
+                                $('#action').val('Pagar');
+                                $('#idFP').val( $('#idFormaPago').val() );
+                                $('#fechaPago').val( $('#FechaCobro').val() );
+                                $('#recibos').submit();
+                                } else return false;
+                            "
+                        />
+                    </div>
+                    {% endif %}
+            </td></tr>
+            {% endif %}
+
+            </form>
+            </tbody>
+        </table>
+
+</div>
+
+<script language='JavaScript' type='text/javascript'>
+    $(function() {
+        $( "#dialogPagar" ).dialog({
+            autoOpen: false,
+            width: 330,
+            height: 200,
+            position: ['center'],
+            closeOnEscape: true,
+            resizable: false,
+            draggable:false,
+            show: "slide",
+            });
+    });
+</script>
+{% endblock %}

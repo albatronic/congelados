@@ -1,0 +1,77 @@
+{% extends "_help/layout.html.twig" %}
+
+{%block titulo%}<h2>{{ values.title }}</h2>{%endblock%}
+
+{% block contenido %}
+
+<h2>Creación de Albarán</h2>
+<embed bgcolor="#505050" height="350px" type="application/x-shockwave-flash" allowScriptAccess="always" width="450px" src="http://goview.com/flash/goldwyn/Player.swf" pluginspage="http://www.adobe.com/go/getflashplayer" allowFullScreen="true" name="1.3204546820546707E12" flashvars="rtmpServerHosts=stream.goview.com&storageServerHosts=goview.com&recordingUrl=http://goview.com/storageserver/recordings/363891dc-eecc-4309-8c3d-dc5fc839dabd/meeting.svg&rtmpServerContextPath=/fms&storageServerPort=80&recordingId=363891dc-eecc-4309-8c3d-dc5fc839dabd" quality="best" id="1.3204546820546707E12"></embed>
+<p style="text-align: justify;">
+Un albarán es el documento de partida de cualquier venta. En el se refleja toda la información necesaria para el proceso de venta:
+cliente, forma de pago, datos de envío, comercial, almacén que servirá el producto y la relación de los productos, cantidades y precios solicitados.
+</p>
+<p style="text-align: justify;">El sistema no contempla el concepto de "Pedido" ya que éste es un albarán en el estado pendiente de confirmación.</p>
+<p style="text-align: justify;">A medida que el albarán avanza por sus estados, podrá ser accedido o no por los diferentes departamentos de la empresa como se detalla más abajo.</p>
+</br>
+<p style="text-align: justify;">Estados del ciclo de vida del albarán:</p>
+<ul>
+    <li>Pte. Confirmar</li>
+    <p style="text-align: justify;">Es el estado inicial cuando se crea. Pasará a ser corfirmado cuando el comercial así lo indique.
+        Mientras tanto, <b>no</b> provoca ninguna <b>reserva</b> de mercancía y no será visible por el personal de almacén</p>
+
+    <li>Confirmado</li>
+    <p style="text-align: justify;">Una vez confirmado por el comercial ya no podrá ser modificado, aunque podrá anular la confirmación.</p>
+    <p style="text-align: justify;">El sistema reservará la mercancía.
+        El personal de almacén tendrá acceso a él para preparar el envío de la mercancía a la dirección de entrega del cliente, pudiendo modificar manualmente los lotes asignados.
+        En el caso de no existir suficiente stock para un producto:
+        <ul>
+            <li>Si el producto NO bloquea stock</li>
+            <p>Se podrá indicar la cantidad que se desee teniendo en cuenta que las existencias quedarán negativas</p>
+            <li>Si el producto SI bloquea stock</li>
+            <p>El sistema propondrá la existencias que hayan y si no hubiese ninguna no permitirá expedir el producto</p>
+        </ul>
+    </p>
+
+    <li>Expedido</li>
+    <p style="text-align: justify;">Se alcanza cuando el personal de almacén finaliza su preparación y le da salida al producto.
+        Quedando el albarán en condiciones de ser facturado por el Dpto. de administración.</p>
+
+    <li>Facturado</li>
+    <p style="text-align: justify;">Éste es el último estado en el ciclo de vida del albarán. Al alcanzarlo, se "marca" con el nº de factura asignado.
+       El albarán podrá ser facturado individualmente o por agrupación con otros del mismo cliente y forma de pago.</p>
+</ul>
+</br>
+
+<h2>Introducción de líneas de Albarán</h2>
+<p style="text-align: justify;">Estarán disponibles sólo los artículos pertenecientes a la sucursal indicada en la cabecera del albarán</p>
+
+<p style="text-align: justify;">El sistema realiza diferentes comprobaciones durante la introducción/modificación de líneas:</p>
+
+<ul style="text-align: justify;">
+    <p>No se admiten unidades de venta (UV) inferiores a la unidad mínima de venta del artículo (PackingVentas).
+       Las UVs indicadas tienen que ser múltiplo del packing de ventas. Por ejemplo, si el packing de ventas de un artículo es 5, el sistema admitirá sólo valores múltiplos de 5.
+       Se emite una alerta indicando esta situación.</p>
+    <p>La casilla "DESCRIPCION" será rellenada con la descripción del producto, pudiendo ser alterada por el usuario.</p>
+    <p>En la casilla "CANTIDAD" se debe indicar la cantidad de producto expresada en la <a href="{{app.path}}/UnidadesMedida/help">Unidad de Medida de Venta (UMV)</a> del producto y que el sistema muestra a la derecha a modo informativo.
+       Cada producto tendrá su propia unidad de venta: unidades, cajas, estuches, kilos, etc.
+    </p>
+    <p>El PRECIO y DCTO se calculan automáticos en base a las eventuales <a href="{{app.path}}/Promociones/help">promociones</a> vigentes y en su defecto a la <a href="{{app.path}}/Tarifas/help">tarifa</a> asociada al cliente, prevaleciendo las promociones sobre la tarifa.
+       Se debe tener en cuenta que si existe una promoción aplicable, el sistema no respetará las cantidades introducidas en las casillas de PRECIO y DCTO, sino que forzará a los valores que indique la promoción.
+    </p>
+    <p>Si no hay promoción aplicable, el sistema respeta el precio y descuento introducido manualmente, permitiendo así, hacer excepciones.</p>
+    <p>Si el importe resultante de la línea (después de aplicar el descuento) fuese inferior al precio de costo, el sistema emitirá una alerta pero permite introducir la línea.</p>
+    <p>El sistema tiene en cuenta si el cliente está sujeto a iva o no y se está sujeto a recargo de equivalencia o no y así lo aplica. Está información se indica en la ficha del <a href="{{app.path}}/Clientes/help">cliente</a>.</p>
+    <p>Se pueden introducir artículos cuyos tipos de iva sean diferentes hasta un máximo de tres.</p>
+    <p>Por último, se emitirá una alerta en el caso de no disponiblidad suficiente de stock para el almacén y producto indicado.
+       En la alerta se informa de la cantidad disponible, de la reservada por otros albaranes confirmados pero no expedidos aún, y de la estimación de entrada por pedidos de compra aún no recepcionados.
+       No obstante, dejará introducir la línea, pero el comercial queda avisado de esta circunstancia, y será el personal de almacén el que retendrá el albarán hasta que haya stock suficiente.</p>
+
+</ul>
+</br>
+
+<h2>Entidades relacionadas</h2>
+<a href="{{app.path}}/Clientes/help">Clientes</a>
+<a href="{{app.path}}/Tarifas/help">Tarifas</a>
+<a href="{{app.path}}/Promociones/help">Promociones</a>
+<a href="{{app.path}}/UnidadesMedida/help">Unidad de Medida de Venta (UMV)</a>
+{% endblock %}

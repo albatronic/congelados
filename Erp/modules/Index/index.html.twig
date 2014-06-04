@@ -1,0 +1,46 @@
+{# Index/index.html.twig #}
+{% extends layout %}
+
+{% block title %}
+    {{ parent() }} - Inicio
+{% endblock %}
+
+{% block content %}
+    
+    {% if not tpv.IDTpv %}
+        <form name="setTpv" id="setTpv" method="POST">
+            <input name="controller" value="{{values.controller}}" type="hidden" />
+            <input name="action" id="action" type="hidden" />
+            <input name="IDTpv" id="IDTpv" value="{{tpv.IDTpv}}" type="hidden" />
+            <div id="dialogConfirmar" title="Identifique TPV">
+                {{ macro.select('Indique Tpv','Etiqueta','dialogIDTpv','dialogIDTpv',none,none,values.sucursal.getTpvs,'Select') }}
+                <input type="submit" value="Aceptar" class="Comando" style="margin-top: 20px;" alt="Aceptar" title="Aceptar"
+                    onclick="if ( $('#dialogIDTpv').val() !== '' ) {
+                               $('#action').val('setTpv');
+                               $('#IDTpv').val( $('#dialogIDTpv').val() );
+                               $('#setTpv').submit();
+                             } else return false;"
+                />
+            </div>
+        </form>
+    {% else %}
+        {% include values.controller ~ '/dashBoardMain.html.twig' %}    
+    {% endif %}
+
+<script language='JavaScript' type='text/javascript'>
+    $(function() {
+        $( "#dialogConfirmar" ).dialog({
+            autoOpen: true,
+            modal: true,
+            width: 230,
+            height: 150,
+            position: ['center'],
+            closeOnEscape: false,
+            resizable: false,
+            draggable:false,
+            show: "slide",
+            beforeclose :function(event,ui){ if ( $('#dialogIDTpv').val() !== '' ) return false;}
+            });
+    });
+</script>
+{% endblock %}

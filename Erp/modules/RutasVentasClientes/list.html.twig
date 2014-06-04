@@ -1,0 +1,82 @@
+{# Template list.html.twig for RutasVentasClientes #}
+{# --------------------------------------------#}
+{% extends 'RutasVentasClientes/index.html.twig' %}
+
+{% block listado %}
+
+    <form name="form" method="POST">
+        <input name="controller" value="RutasVentasClientes" type="hidden" />
+        <input name="action" value="new" type="hidden" />
+        <input name="accion" value="" type="hidden" />
+        <input name="IDComercial" value="{{values.linkBy.value}}" type="hidden" />
+        <input name="dia" value="{{values.listado.dia}}" type="hidden" />
+        <div style="text-align:center;font-weight:bold;">{{values.listado.nClientes}} Clientes</div>
+        
+        <div style="margin-left: 30px;">
+        <div style="float: left;">
+            Cliente:
+            <select id="IDCliente" name="IDCliente" onchange="accion.value='cliente';submit();" style="width:165px;" >
+                {% for key,objeto in values.listado.clientes %}
+                <option value="{{objeto.Id}}">{{objeto.Value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="float:right; margin-right: 20px;">
+            Zona:
+            <select id="IDZona" name="IDZona" onchange="accion.value='zona';submit();" style="width:165px;" >
+                {% for key,objeto in values.listado.zonas %}
+                <option value="{{objeto.Id}}">{{objeto.Value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        </div>
+        <div style="clear: both; margin-bottom:10px;"></div>
+    </form>
+
+<div id='accordion' class="Listado" style="margin-top:10px;">
+
+    {% set zona = 0 %}
+    {% for key,objeto in values.listado.data %}
+        {% if objeto.IDCliente.IDZona.IDZona != zona %}
+        {% if zona != 0 %}</p></div>{%endif%}
+        <h3>
+        <form name="form" method="POST">
+            <input name="controller" value="RutasVentasClientes" type="hidden" />
+            <input name="action" id="action" value="cambiarOrdenZona" type="hidden" />
+            <input name="Id" value="{{objeto.Id}}" type="hidden" />
+            <input name="IDComercial" value="{{values.linkBy.value}}" type="hidden" />
+            <input name="dia" value="{{values.listado.dia}}" type="hidden" />
+            <div style="margin-left: 20px;">
+                <div style="float:left;margin-left: 10px;margin-right: 10px;">
+                    <input type="image" src="{{app.path}}/images/botonborrar.png" title="Quitar Zona"
+                           onclick="if (!confirm('¿Desea eliminar la zona {{objeto.IDCliente.IDZona.Zona}}?')) {return false;} else {getElementById('action').value='borrarZona';submit();}"                                                          
+                    />
+                </div>
+                <div style="font-weight:bold;">{{objeto.IDCliente.IDZona.Zona}}</div>
+                <div style="clear:both;"></div>
+            </div>
+        </form>
+        </h3>
+        <div><p>
+        {% endif %}
+        {% set zona = objeto.IDCliente.IDZona.IDZona %}
+
+        <form name="form" method="POST">
+            <input name="controller" value="RutasVentasClientes" type="hidden" />
+            <input name="action" value="" type="hidden" />
+            <input name="Id" value="{{objeto.Id}}" type="hidden" />
+            <input name="IDComercial" value="{{values.linkBy.value}}" type="hidden" />
+            <input name="dia" value="{{values.listado.dia}}" type="hidden" />
+            
+            <div style="margin-left:40px;">
+                <div style="float:left;margin-right: 10px;"><input type="image" src="{{app.path}}/images/botonborrar.png" title="Quitar Cliente" onclick="action.value='borrarCliente';submit();"/></div>
+                <div style="float:left;margin-right: 10px;"><input name="OrdenCliente" value="{{objeto.OrdenCliente}}" type="text" maxlength="3" style="width:22px;" onchange="action.value='cambiarOrdenCliente';submit();"/></div>
+                <div style="float:left;color:black;">{{objeto.IDCliente}}</div>
+                <div style="clear:both;"></div>
+            </div>
+        </form>
+    {% endfor %}
+    {% if zona != 0 %}</p></div>{%endif%}
+</div>
+
+{% endblock %}

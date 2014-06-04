@@ -1,0 +1,294 @@
+# FORMATOS DE ALBARANES DE VENTA.
+# docs/docsXXX/formats/AlbaranesCab.yml
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 05-12-2011
+#
+---
+AlbaranesCab:
+  -
+    title: Albaran Valorado
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    page_break: 65
+    header:
+      # -- Logo --
+      - $this->Image($this->empresa->getLogo(),15,15,40,30)
+
+      # -- Datos de la Empresa --
+      - $this->SetXY(65,15)
+      - $this->SetFont('Arial', 'B', 12)
+      - $this->Cell(0,4,$this->empresa->getRazonSocial(), 0, 1, 'R')
+      - $this->SetFont('Arial','', 8)
+      - $this->SetLeftMargin(65)
+      - $this->Cell(0, 4, $this->empresa->getCif(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getDireccion(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getCodigoPostal() . ' ' . $this->empresa->getPoblacion(), 0, 1, 'R')
+      - $this->Cell(0, 4, 'Tlf ' . $this->empresa->getTelefono() . ' Fax ' . $this->empresa->getFax(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getWeb(), 0, 1, 'R', 0, 'http://' . $this->empresa->getWeb())
+      - $this->Cell(0, 4, $this->empresa->getEMail(), 0, 1, 'R')
+
+      # -- Datos Cliente --
+      - $this->SetLeftMargin(15)
+      - $this->SetXY(15, 50)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(0, 5, 'Cliente', 0, 1)
+      - $this->Rect(15, 55, 85, 25)
+      - $this->SetXY(15, 55)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(0, 5, $this->DecodificaTexto($this->master->getIDCliente()->getRazonSocial(),37), 0, 1)
+      - $this->SetFont('Arial','',10)
+      - $this->Cell(0, 5, $this->DecodificaTexto($this->master->getIDCliente()->getNombreComercial(),37), 0, 1)
+      - $this->Cell(85, 5, $this->DecodificaTexto($this->master->getIDCliente()->getDireccion(),37), 0, 1, 'L')
+      - $this->Cell(85, 5, $this->master->getIDCliente()->getCodigoPostal() . ' ' . $this->master->getIDCliente()->getPoblacion() . ' ' . $this->master->getIDCliente()->getIDProvincia()->getProvincia(), 0, 1, 'L')
+      - $this->Cell(85, 5, 'CIF ' . $this->master->getIDCliente()->getCif() . ' Tlf ' . $this->master->getIDCliente()->getTelefono() . ' ' . $this->master->getIDCliente()->getMovil(), 0, 1, 'L')
+
+      # -- Datos Direccion de Entrega --
+      - $this->SetXY(105, 50)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(0, 5, 'Direccion de entrega', 0, 1)
+      - $this->Rect(105, 55, 90, 25)
+      - $this->SetXY(105, 55)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(90, 5, $this->DecodificaTexto($this->master->getIDDirec()->getNombre(),37), 0, 1)
+      - $this->SetLeftMargin(105)
+      - $this->SetFont(Arial,'',10)
+      - $this->Cell(90, 5, $this->DecodificaTexto($this->master->getIDDirec()->getDireccion(),37), 0, 1)
+      - $this->Cell(90, 5, $this->master->getIDDirec()->getCodPostal() . ' ' . $this->master->getIDDirec()->getPoblacion() . ' (' . $this->master->getIDDirec()->getIDProvincia()->getProvincia() . ')', 0, 1)
+      - $this->Cell(90, 5, 'Tlfs ' . $this->master->getIDDirec()->getTelefono() . ' ' . $this->master->getIDDirec()->getMovil(), 0, 1)
+      - $this->Cell(90, 5, 'Horario ' . $this->master->getIDDirec()->getHorario(), 0, 1)
+      - $this->SetLeftMargin(15)
+
+      # -- Varios --
+      - $this->SetY(85)
+      - $this->Rect(15, 85, 180, 10)
+      - $this->SetXY(15, 85)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(20, 5, 'N. Albaran', 1, 0, 'C')
+      - $this->Cell(20, 5, 'Fecha', 1, 0, 'C')
+      - $this->Cell(20, 5, 'Cod.Cliente', 1, 0, 'C')
+      - $this->Cell(44, 5, 'Comercial', 1, 0, 'C')
+      - $this->Cell(66, 5, 'Forma de Pago', 1, 0, 'C')
+      - $this->Cell(10, 5, 'Pag.', 1, 1, 'C')
+      - $this->SetFont('Arial','',10)
+      - $this->Cell(20, 5, $this->master->getNumeroAlbaran(), 1, 0, 'R')
+      - $this->Cell(20, 5, $this->master->getFechaEntrega(), 1, 0, 'C')
+      - $this->Cell(20, 5, $this->master->getIDCliente()->getIDCliente(), 1, 0, 'L')
+      - $this->Cell(44, 5, $this->DecodificaTexto($this->master->getIDComercial()->getNombre(),20), 1, 0, 'L')
+      - $this->Cell(66, 5, $this->DecodificaTexto($this->master->getIDFP()->getDescripcion(),30) . ' Vcto ' . $this->master->getVencimiento(), 1, 0, 'L')
+      - $this->Cell(10, 5, $this->PageNo() . '/{nb}', 1, 1, 'C')
+
+      # -- Titulos para el cuerpo --
+      - $this->SetXY(15, 100)
+      - $this->SetFont('Arial','B', 10)
+      #- $this->Cell(25, 5, 'Codigo', 1, 0, 'C')
+      - $this->Cell(110, 5, 'Descripcion', 1, 0, 'C')
+      #- $this->Cell(25, 5, 'Lotes', 1, 0, 'C')
+      - $this->Cell(25, 5, 'Cantidad', 1, 0, 'C')
+      - $this->Cell(15, 5, 'Precio', 1, 0, 'C')
+      - $this->Cell(10, 5, 'Dcto', 1, 0, 'C')
+      - $this->Cell(20, 5, 'Importe', 1, 1, 'C')
+      - $this->SetFont('Arial','', 8)
+    body:
+      #- $this->Cell(25, 4, $this->detail->getIDArticulo()->getCodigo(), 0, 0, 'L')
+      #- $y0 = $this->GetY()
+      #- $this->MultiCell(85, 4, $this->detail->getDescripcion(), 0, 'J')
+      #- $y1 = $this->GetY()
+      #- $this->SetXY(100, $y0)
+      - $this->Cell(110, 4, $this->detail->getDescripcion(), 0, 0, 'L')      
+      #- $y0 = $this->GetY()
+      #- $this->MultiCell(25, 4, $this->detail->getLotes(), 0, 'J')
+      #- $y1 = $this->GetY()
+      #- $this->SetXY(125, $y0)
+      #- $this->Cell(25, 4, $this->detail->getLotes(), 0, 0, 'L')
+      - $this->Cell(12, 4, $this->detail->getUnidades(), 0, 0, 'R')
+      - $this->Cell(13, 4, $this->detail->getIDArticulo()->getUMV()->getUnidadMedida(), 0, 0, 'L')
+      - $this->Cell(15, 4, $this->detail->getPrecio(), 0, 0, 'R')
+      - $this->Cell(10, 4, $this->detail->getDescuento(), 0, 0, 'R')
+      - $this->Cell(20, 4, $this->detail->getImporte(), 0, 1, 'R')
+      #- $this->SetY($y1)
+      - $this->SetFont('Arial', 'I', '6')      
+      - if ($this->detail->getIDArticulo()->getTrazabilidad()->getIDTipo()) $this->Cell(25, 4, 'Lotes ' . $this->detail->getLotes(), 0, 1, 'L') 
+      - $this->SetFont('Arial', '', '8')  
+    footer:
+      - $this->SetX(230)
+      - $this->Rect(15, 230, 180, 20)
+      - $this->SetXY(15, 230)
+      - $this->SetFont('Arial', 'B', 10)
+      - $this->Cell(22, 5, "Bruto", 1, 0, "C")
+      - $this->Cell(22, 5, "Descuentos", 1, 0, "C")
+      - $this->Cell(22, 5, "Bases", 1, 0, "C")
+      - $this->Cell(25, 5, "Iva", 1, 0, "C")
+      - $this->Cell(25, 5, "Recargo", 1, 0, "C")
+      - $this->Cell(28, 5, "Rec Financiero", 1, 0, "C")
+      - $this->Cell(36, 5, "TOTAL ALBARAN", 1, 1, "C")
+      - $this->SetFont('Arial', '', 8)
+      - $this->Cell(22, 15, $this->master->getImporte(), 1, 0, "R")
+      - $this->Cell(22, 15, $this->master->getDescuento(), 1, 0, "R")
+      - $this->SetXY(59, 236)
+      - $this->Cell(22, 3, $this->master->getBaseImponible1(), 0, 0, "R")
+      - $this->SetXY(59, 239)
+      - $this->Cell(22, 3, $this->master->getBaseImponible2(), 0, 0, "R")
+      - $this->SetXY(59, 242)
+      - $this->Cell(22, 3, $this->master->getBaseImponible3(), 0, 0, "R")
+
+      - $this->SetXY(59, 247)
+      - $this->SetFont('Arial', 'B', 8)
+      - $this->Cell(22, 3, $this->master->getTotalBases(), 0, 0, "R")
+
+      - $this->SetFont('Arial', '', 8)
+      - $this->SetXY(81, 236)
+      - $this->Rect(81, 235, 25, 15)
+      - $this->Cell(10, 3, $this->master->getIva1(), 0, 0, "R")
+      - $this->Cell(15, 3, $this->master->getCuotaIva1(), 0, 0, "R")
+
+      - $this->SetXY(81, 239)
+      - $this->Cell(10, 3, $this->master->getIva2(), 0, 0, "R")
+      - $this->Cell(15, 3, $this->master->getCuotaIva2(), 0, 0, "R")
+
+      - $this->SetXY(81, 242)
+      - $this->Cell(10, 3, $this->master->getIva3(), 0, 0, "R")
+      - $this->Cell(15, 3, $this->master->getCuotaIva3(), 0, 0, "R")
+
+      - $this->SetFont('Arial', 'B', 8)
+      - $this->SetXY(81, 247)
+      - $this->Cell(25, 3, $this->master->getTotalIva(), 0, 0, "R")
+
+      - $this->SetFont('Arial', '', 8)
+      - $this->SetXY(106, 236)
+
+      - $this->Cell(10, 3, $this->master->getRecargo1(), 0, 0, "R")
+      - $this->Cell(15, 3, $this->master->getCuotaRecargo1(), 0, 1, "R")
+
+      - $this->SetXY(106, 239)
+      - $this->Cell(10, 3, $this->master->getRecargo2(), 0, 0, "R")
+      - $this->Cell(15, 3, $this->master->getCuotaRecargo2(), 0, 0, "R")
+
+      - $this->SetXY(106, 242)
+      - $this->Cell(10, 3, $this->master->getRecargo3(), 0, 0, "R")
+      - $this->Cell(15, 3, $this->master->getCuotaRecargo3(), 0, 0, "R")
+
+      - $this->SetFont('Arial', 'B', 8)
+      - $this->SetXY(106, 247)
+      - $this->Cell(25, 3, $this->master->getTotalRecargo(), 0, 0, "R")
+
+      - $this->SetFont('Arial', '', 8)
+      - $this->SetXY(131, 235)
+      - $this->Cell(28, 15, "", 1, 0, "R")
+
+      - $this->SetFont('Arial', 'B', 12)
+      - $this->Cell(36, 15, $this->master->getTotal(), 1, 1, "R")
+
+      - $this->SetXY(15, 255)
+      - $this->SetFont('Arial', '', 8)
+      - $this->Cell(0, 5, "Observaciones:", 0, 1)
+      - $this->MultiCell(100, 3, $this->master->getObservaciones())
+
+      # Mostrar Pendiente de cobro
+      - $pteCobro = $this->master->getIDCliente()->getPteCobro();
+      - if ($pteCobro['Importe']>0){ $this->SetXY(120, 255); $this->Cell(0, 5, "El saldo pendiente de cobro al " . date('d/m/Y') . " es de " .$pteCobro['Importe'] . " euros",0,0,L);}
+      
+      - $this->SetY(-15)
+      - $this->SetFont('Arial', '', 7)
+      - $this->Cell(0, 5, "OPERACIÓN ASEGURADA POR CRÉDITO Y CAUCIÓN", 0, 1, "C")
+      - $this->Cell(0, 5, $this->empresa->getRegistroMercantil(), 0, 1, "C")
+  -
+    title: Albaran sin Valorar
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    page_break: 20
+    header:
+      #-- Logo --
+      - $this->Image($this->empresa->getLogo(),15,15,40,30)
+      # -- Datos de la Empresa --
+      - $this->SetXY(65,15)
+      - $this->SetFont('Arial', 'B', 12)
+      - $this->Cell(0,4,$this->empresa->getRazonSocial(), 0, 1, 'R')
+      - $this->SetFont('Arial','', 8)
+      - $this->SetLeftMargin(65)
+      - $this->Cell(0, 4, $this->empresa->getCif(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getDireccion(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getCodigoPostal() . ' ' . $this->empresa->getPoblacion(), 0, 1, 'R')
+      - $this->Cell(0, 4, 'Tlf ' . $this->empresa->getTelefono() . ' Fax ' . $this->empresa->getFax(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getWeb(), 0, 1, 'R', 0, 'http://' . $this->empresa->getWeb())
+      - $this->Cell(0, 4, $this->empresa->getEMail(), 0, 1, 'R')
+      #-- Datos Cliente --
+      - $this->SetLeftMargin(15)
+      - $this->SetXY(15, 50)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(0, 5, 'Cliente', 0, 1)
+      - $this->Rect(15, 55, 85, 25)
+      - $this->SetXY(15, 55)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(0, 5, $this->master->getIDCliente()->getRazonSocial(), 0, 1)
+      - $this->SetFont('Arial','',10)
+      - $this->Cell(0, 5, $this->master->getIDCliente()->getNombreComercial(), 0, 1)
+      - $this->Cell(85, 5, $this->master->getIDCliente()->getDireccion(), 0, 1, 'L')
+      - $this->Cell(85, 5, $this->master->getIDCliente()->getCodigoPostal() . ' ' . $this->master->getIDCliente()->getPoblacion() . ' ' . $this->master->getIDCliente()->getIDProvincia()->getProvincia(), 0, 1, 'L')
+      - $this->Cell(85, 5, 'CIF ' . $this->master->getIDCliente()->getCif() . 'Telf ' .$this->master->getIDCliente()->getTelefono(), 0, 1, 'L')
+      # -- Datos Direccion de Entrega --
+      - $this->SetXY(105, 50)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(0, 5, 'Direccion de entrega', 0, 1)
+      - $this->Rect(105, 55, 90, 25)
+      - $this->SetXY(105, 55)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(90, 5, $this->master->getIDDirec()->getNombre(), 0, 1)
+      - $this->SetLeftMargin(105)
+      - $this->SetFont(Arial,'',10)
+      - $this->Cell(90, 5, $this->master->getIDDirec()->getDireccion(), 0, 1)
+      - $this->Cell(90, 5, $this->master->getIDDirec()->getCodPostal() . ' ' . $this->master->getIDDirec()->getPoblacion() . ' (' . $this->master->getIDDirec()->getIDProvincia()->getProvincia() . ')', 0, 1)
+      - $this->Cell(90, 5, 'Tlfs ' . $this->master->getIDDirec()->getTelefono(), 0, 1)
+      - $this->Cell(90, 5, 'Horario ' . $this->master->getIDDirec()->getHorario(), 0, 1)
+      - $this->SetLeftMargin(15)
+      # -- Varios --
+      - $this->SetY(85)
+      - $this->Rect(15, 85, 180, 10)
+      - $this->SetXY(15, 85)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(20, 5, 'N. Albaran', 1, 0, 'C')
+      - $this->Cell(20, 5, 'Fecha', 1, 0, 'C')
+      - $this->Cell(20, 5, 'Cod.Cliente', 1, 0, 'C')
+      - $this->Cell(44, 5, 'Comercial', 1, 0, 'C')
+      - $this->Cell(66, 5, 'Forma de Pago', 1, 0, 'C')
+      - $this->Cell(10, 5, 'Pag.', 1, 1, 'C')
+      - $this->SetFont('Arial','',10)
+      - $this->Cell(20, 5, $this->master->getNumeroAlbaran(), 1, 0, 'R')
+      - $this->Cell(20, 5, $this->master->getFechaEntrega(), 1, 0, 'C')
+      - $this->Cell(20, 5, $this->master->getIDCliente()->getIDCliente(), 1, 0, 'L')
+      - $this->Cell(44, 5, $this->DecodificaTexto($this->master->getIDComercial()->getNombre(),20), 1, 0, 'L')
+      - $this->Cell(66, 5, $this->DecodificaTexto($this->master->getIDFP()->getDescripcion(),30), 1, 0, 'L')
+      - $this->Cell(10, 5, $this->PageNo() . '/{nb}', 1, 1, 'C')
+      # -- Titulos para el cuerpo --
+      - $this->SetXY(15, 100)
+      - $this->SetFont('Arial','B', 10)
+      #- $this->Cell(25, 5, 'Codigo', 1, 0, 'C')
+      - $this->Cell(155, 5, 'Descripcion', 1, 0, 'C')
+      #- $this->Cell(25, 5, 'Lotes', 1, 0, 'C')
+      - $this->Cell(25, 5, 'Cantidad', 1, 1, 'C')
+      - $this->SetFont('Arial','', 8)
+    body:
+      #- $this->Cell(25, 4, $this->detail->getIDArticulo()->getCodigo(), 0, 0, 'L')
+      #- $y0 = $this->GetY()
+      #- $this->MultiCell(85, 4, $this->detail->getDescripcion(), 0, 'J')
+      #- $y1 = $this->GetY()
+      #- $this->SetXY(100, $y0)
+      - $this->Cell(155, 4, $this->detail->getDescripcion(), 0, 0, 'L')      
+      #- $y0 = $this->GetY()
+      #- $this->MultiCell(25, 4, $this->detail->getLotes(), 0, 'J')
+      #- $y1 = $this->GetY()
+      #- $this->SetXY(125, $y0)
+      #- $this->Cell(25, 4, $this->detail->getLotes(), 0, 0, 'L')
+      - $this->Cell(12, 4, $this->detail->getUnidades(), 0, 0, 'R')
+      - $this->Cell(13, 4, $this->detail->getIDArticulo()->getUMV()->getUnidadMedida(), 0, 1, 'L')
+      #- $this->SetY($y1)
+      - $this->SetFont('Arial', 'I', '6')      
+      - if ($this->detail->getIDArticulo()->getTrazabilidad()->getIDTipo()) $this->Cell(25, 4, 'Lotes ' . $this->detail->getLotes(), 0, 1, 'L') 
+      - $this->SetFont('Arial', '', '8')        

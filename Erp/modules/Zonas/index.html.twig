@@ -1,0 +1,21 @@
+{# Template index.html.twig for Zonas #}
+{# -------------------------------------------------------#}
+{% extends layout %}
+
+{% block title parent() ~ " - Zonas" %}
+
+{% block content %}
+        {% include '_global/TituloGenerico.html.twig' with {'controller':  values.controller, 'linkValue': values.linkBy.value} %}
+
+	{% block filtro %}
+		{% include 'Zonas/filtro.html.twig' with {'filter':values.listado.filter} %}
+	{% endblock %}
+
+        <div id="div_listado">
+        {% block listado %}
+	{% endblock %}
+        </div>
+
+	{% block mantenimiento %}
+	{% endblock %}
+{% endblock %}

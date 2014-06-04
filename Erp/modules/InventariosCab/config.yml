@@ -1,0 +1,156 @@
+# Module: InventariosCab
+# Document : modules\InventariosCab\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 31.05.2012 23:22:38
+#
+---
+InventariosCab:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Inventarios
+  id_video: inventarioscab
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: InventariosCab
+  table: inventarios_cab
+  primarykey: IDInventario
+  records_per_page: 15
+  order_by:
+    -
+      title: Fecha z-a
+      criteria: Fecha DESC    
+    -
+      title: Fecha a-z
+      criteria: Fecha ASC
+    -
+      title: Número z-a
+      criteria: IDInventario DESC
+    -
+      title: Número a-z
+      criteria: IDInventario ASC
+  search_default: IDInventario
+  referenced_entities:
+    -
+      entity: Almacenes
+    -
+      entity: ValoresSN
+  columns:
+    -
+      title: Inventario
+      field: IDInventario
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: Almacén
+      field: IDAlmacen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 1
+        caption: Almacén
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getAlmacenes
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha
+      field: Fecha
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 2
+        caption: Fecha
+        type: range
+        operator: >=
+      validator:
+        nullable: NO
+        type: date
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cerrado
+      field: Cerrado
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 4
+        caption: Cerrado
+        entity: ValoresSN
+        method: fetchAll
+        params: null
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Comentarios
+      field: Comentarios
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 
+        min: null
+        max: null
+        message: Valor Requerido

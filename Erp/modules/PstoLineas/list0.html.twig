@@ -1,0 +1,44 @@
+{# TEMPLATE AlbaranesLineas/listEstandar.html.twig #}
+{# LISTADO DE LINEAS DE ALBARAN VERSION ESTANDAR   #}
+{% extends 'PstoLineas/index.html.twig' %}
+
+{% block listado %}
+{% set estadoAlbaran = values.listado.data[0].IDAlbaran.IDEstado.IDTipo %}
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item' colspan="2">Cantidad</td>
+            <td class='Item'>Precio</td>
+            <td class='Item'>Dcto</td>
+            <td class='Item'>Iva</td>
+            <td class='Item'>Importe</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                <tr class="ItemListado">
+                    <td>
+                        <a href="javascript:;" onClick="window.open('{{app.path}}/_Emergente/HistoricoVentas/{{objeto.IDArticulo.IDArticulo}}/{{objeto.IDPsto.IDCliente.IDCliente}}','HistoricoVentas','width=450,height=500,resizable=yes,scrollbars=yes');">
+                            <img src="{{app.path}}/images/botonreport.png" width="16px" height="16px" alt="Historico" title="Historico...">
+                        </a>
+                        {{objeto.IDArticulo.Codigo}}
+                        {% if objeto.IDPromocion.IDPromocion %}
+                            {% include "_Emergente/dialogoPromocion.html.twig" with {'linea': objeto} %}
+                        {% endif %}
+                    </td>
+                    <td>{{objeto.Descripcion}}</td>
+                    <td align="right">{{objeto.Unidades}}</td>
+                    <td>{{objeto.IDArticulo.UMV.UnidadMedida}} ({{objeto.IDArticulo.CUMV}})</td>
+                    <td align="right">{{objeto.Precio}}</td>
+                    <td align="right">{{objeto.Descuento}}</td>
+                    <td align="right">{{objeto.Iva}}</td>
+                    <td align="right">{{objeto.Importe}}</td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

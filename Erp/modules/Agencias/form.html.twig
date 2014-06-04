@@ -1,0 +1,20 @@
+{# TEMPLATE Agencias/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.input('Agencia','Etiqueta','text','Agencias[Agencia]','Agencias_Agencia',datos.Agencia,'50','CampoTextoLargo') }}
+{{ macro.input('Teléfono','Etiqueta','text','Agencias[Telefono]','Agencias_Telefono',datos.Telefono,'30','CampoTextoLargo') }}
+{{ macro.input('Fax','Etiqueta','text','Agencias[Fax]','Agencias_Fax',datos.Fax,'30','CampoTextoLargo') }}
+{{ macro.input('Web','Etiqueta','text','Agencias[Web]','Agencias_Web',datos.Web,'50','CampoTextoLargo') }}
+{{ macro.input('E-Mail','Etiqueta','text','Agencias[EMail]','Agencias_EMail',datos.EMail,'50','CampoTextoLargo') }}
+{{ macro.input('Coste Estándar','Etiqueta','text','Agencias[CosteEstandar]','Agencias_CosteEstandar',datos.CosteEstandar,'10','CampoImporte') }}
+
+{% if datos.IDAgencia %}
+
+<div style="margin-top: 5px;">
+    <div style="width: 100%; text-align: center; font-weight: bold;">TARIFA DE PORTES POR ZONAS Y TRAMOS DE KILOS</div>
+    <iframe width="100%" height="240px" scrolling="yes" style="border: 0px;"
+        src="{{app.path}}/TablaPortes/list/{{datos.IDAgencia}}">
+    </iframe>
+</div>
+
+{% endif %}

@@ -1,0 +1,46 @@
+# Module: Familias
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Favoritos
+    order_by: Titulo ASC
+    break_field: IDAgente
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 13, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Titulo
+        field: Titulo
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Url
+        field: Url
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Accesos
+        field: Accesos
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

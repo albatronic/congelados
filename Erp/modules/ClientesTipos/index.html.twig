@@ -1,0 +1,24 @@
+{# Template index.html.twig for ClientesTipos #}
+{# -------------------------------------------------------#}
+{% extends popup %}
+
+{% block title parent() ~ " - " ~ values.titulo %}
+
+{% block content %}
+	<div class='Titulo'>{{ values.titulo }}
+	{% block navegador %}
+            {% include '_global/comandosNew.html.twig' with {'controller':values.controller} %}
+	{% endblock %}
+        </div>
+
+	{% block filtro %}
+	{% endblock %}
+
+        <div id="div_listado">
+        {% block listado %}
+	{% endblock %}
+        </div>
+
+	{% block mantenimiento %}
+	{% endblock %}
+{% endblock %}

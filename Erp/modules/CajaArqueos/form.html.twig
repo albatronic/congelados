@@ -1,0 +1,55 @@
+{# TEMPLATE CajaArqueos/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{% if (not datos.IDSucursal.IDSucursal) %}
+    {% set IDSucursal = suc %}
+{% else %}
+    {% set IDSucursal = datos.IDSucursal.IDSucursal %}
+{% endif %}
+
+<div>
+{% if datos.IDArqueo %}
+    {{ macro.etiqueta('Sucursal','Etiqueta',datos.IDSucursal)}}
+    {{ macro.etiqueta('Tpv','Etiqueta',datos.IDTpv)}}
+    {{ macro.etiqueta('Día','Etiqueta',datos.Dia)}}
+{% else %}
+    {{ macro.select('Sucursal','Etiqueta','CajaArqueos[IDSucursal]','CajaArqueos_IDSucursal',none,IDSucursal,user.getSucursales,'Select',none,"DesplegableAjax('div_CajaArqueos_IDTpv','CajaArqueos_IDTpv','CajaArqueos[IDTpv]','tpvs',this.value);")}}
+    {{ macro.select('Tpv','Etiqueta','CajaArqueos[IDTpv]','CajaArqueos_IDTpv',none,datos.IDTpv.IDTpv,datos.IDTpv.fetchAll,'Select')}}
+    {{ macro.fecha('Día','Etiqueta','CajaArqueos[Dia]','CajaArqueos_Dia',datos.Dia,'10','CampoFecha') }}
+{% endif %}
+</div>
+
+{% if datos.IDArqueo %}
+<div style="margin-top: 10px; font-size:11px;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Movimientos</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2">Arqueo</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-3">{% if datos.Observaciones %}<b>{% endif %}Observaciones{% if datos.Observaciones %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-4">Documentos</a></li>
+            {% if not datos.CajaCerrada.IDTipo %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-5">Traspaso</a></li>
+            {% endif %}
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <iframe width="100%" height="250" scrolling="yes" style="margin-top:5px; border:0;"
+                    src="{{app.path}}/CajaLineas/list/{{datos.IDArqueo}}">
+            </iframe>
+        </div>
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            {% include values.controller ~ "/arqueo.html.twig" with {'datos': datos}%}
+        </div>
+        <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea(none,'Etiqueta','CajaArqueos[Observaciones]','CajaArqueos_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+        </div>
+        <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+        {% if not datos.CajaCerrada.IDTipo %}
+        <div id="tabs-5" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {% include values.controller ~ "/traspaso.html.twig" with {'datos': datos}%}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

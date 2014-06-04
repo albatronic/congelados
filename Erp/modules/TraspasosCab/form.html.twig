@@ -1,0 +1,133 @@
+{# TEMPLATE TraspasosCab/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{% if not datos.IDTraspaso %}
+    {% set sucursalDefecto = suc %}
+{% else %}
+    {% set sucursalDefecto = datos.IDSucursal.IDSucursal %}
+{% endif %}
+
+<div>
+{% if datos.IDEstado.IDTipo == '0' %}
+    <div style="float: left; width: 49%">
+    {% if datos.IDTraspaso %}
+    {{ macro.etiqueta('Sucursal','Etiqueta',datos.IDSucursal.Nombre) }}
+    {% else %}
+    <div class="Item" id="div_TraspasosCab_IDSucursal">
+        <div class="Etiqueta">Sucursal</div>
+        <select name="TraspasosCab[IDSucursal]" id="TraspasosCab_IDSucursal" size="1" class="Select"
+                onchange="DesplegableAjax('div_TraspasosCab_IDContador','TraspasosCab_IDContador','TraspasosCab[IDContador]','contadorTraspasos',this.value);"
+        >
+        {% for value in user.getSucursales(emp.IDEmpresa) %}
+            <option value="{{ value.Id }}" {% if (value.Id==sucursalDefecto) %} SELECTED {%endif%}>{{value.Value}}</option>
+        {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    {% if not datos.IDTraspaso %}
+    {{ macro.select('Serie','Etiqueta','TraspasosCab[IDContador]','TraspasosCab_IDContador',none,datos.IDContador.IDContador,datos.IDContador.fetchAll(sucursalDefecto,3),'Select') }}
+    {% endif %}
+
+        {{ macro.fecha('Fecha Orden','Etiqueta','TraspasosCab[FechaOrden]','TraspasosCab_FechaOrden',datos.FechaOrden,'10','CampoFecha') }}
+        {{ macro.fecha('Fecha Salida','Etiqueta','TraspasosCab[FechaSalida]','TraspasosCab_FechaSalida',datos.FechaSalida,'10','CampoFecha','disabled') }}
+        {{ macro.fecha('Fecha Entrada','Etiqueta','TraspasosCab[FechaEntrada]','TraspasosCab_FechaEntrada',datos.FechaEntrada,'10','CampoFecha','disabled') }}
+    </div>
+    <div style="float: right; width: 49%">
+        {{ macro.select('Almacén Origen','Etiqueta','TraspasosCab[IDAlmacenOrigen]','TraspasosCab_IDAlmacenOrigen',none,datos.IDAlmacenOrigen.IDAlmacen,user.getAlmacenes(emp.IDEmpresa),'Select') }}
+        {{ macro.select('Almacén Destino','Etiqueta','TraspasosCab[IDAlmacenDestino]','TraspasosCab_IDAlmacenDestino',none,datos.IDAlmacenDestino.IDAlmacen,user.getAlmacenes(emp.IDEmpresa),'Select') }}
+        {{ macro.textarea('Motivo','Etiqueta','TraspasosCab[Descripcion]','TraspasosCab_Descripcion',datos.Descripcion,none,none,'TextArea')}}
+    </div>
+{% else %}
+    <div style="float: left; width: 49%">
+        {{ macro.etiqueta('Fecha Orden','Etiqueta',datos.FechaOrden ) }}
+        {{ macro.etiqueta('Fecha Salida','Etiqueta',datos.FechaSalida ) }}
+        {{ macro.etiqueta('Fecha Entrada','Etiqueta',datos.FechaEntrada ) }}
+    </div>
+    <div style="float: right; width: 49%">
+        {{ macro.etiqueta('Almacén Origen','Etiqueta',datos.IDAlmacenOrigen.Nombre ) }}
+        {% if datos.IDEstado.IDTipo == '1' %}
+            {{ macro.select('Almacén Destino','Etiqueta','TraspasosCab[IDAlmacenDestino]','TraspasosCab_IDAlmacenDestino',none,datos.IDAlmacenDestino.IDAlmacen,user.getAlmacenes(emp.IDEmpresa),'Select') }}
+        {% else %}
+            {{ macro.etiqueta('Almacén Destino','Etiqueta',datos.IDAlmacenDestino.Nombre ) }}
+        {% endif %}
+        {{ macro.textarea('Motivo','Etiqueta','TraspasosCab[Descripcion]','TraspasosCab_Descripcion',datos.Descripcion,none,none,'TextArea')}}
+    </div>
+{% endif %}
+</div>
+
+{% if datos.IDTraspaso %}
+<div style="clear: both;"></div>
+<div style="font-size: 10px; margin-top: 10px;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Salida de <b>{{datos.IDAlmacenOrigen.Nombre}}</b></a></li>
+
+            {% if (datos.IDEstado.IDTipo == 3) %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2">Entrada en <b>{{datos.IDAlmacenDestino.Nombre}}</b></a></li>
+            {% endif %}
+
+            {% if (user.Rol.IDTipo == 0) or (user.rol.IDTipo == 9) %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-3">Importes</a></li>
+            {% endif %}
+
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-4">{% if datos.Observaciones %}<b>{% endif %}Observaciones{% if datos.Observaciones %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-5">{% if datos.Incidencias %}<b>{% endif %}Incidencias{% if datos.Incidencias %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-6">Documentos</a></li>
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <iframe width="100%" height="230" scrolling="yes" style="margin-top:5px; border:0;"
+                src="{{app.path}}/TraspasosLineas/list/{{datos.IDTraspaso}}/0">
+            </iframe>
+        </div>
+        {% if (datos.IDEstado.IDTipo == 3) %}
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <iframe width="100%" height="230" scrolling="yes" style="margin-top:5px; border:0;"
+                src="{{app.path}}/TraspasosLineas/list/{{datos.IDTraspaso}}/1">
+            </iframe>
+        </div>
+        {% endif %}
+        {% if (user.Rol.IDTipo == 0) or (user.rol.IDTipo == 9) %}
+        <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <div style="width: 30%;float:left; margin-right: 5px;">
+            {{ macro.input('U.M.A. Origen','Etiqueta','text','TraspasosCab[KilosOrigen]','TraspasosCab_KilosOrigen',datos.KilosOrigen,'10','CampoImporte','disabled') }}
+            {{ macro.input('U.M.A. Obtenidos (1)','Etiqueta','text','TraspasosCab[KilosDestino]','TraspasosCab_KilosDestino',datos.KilosDestino,'10','CampoImporte','disabled') }}
+            </div>
+
+            <div style="width: 33%;float:left; margin-right: 5px;">
+            {{ macro.input('Coste Origen','Etiqueta','text','TraspasosCab[ImporteOrigen]','TraspasosCab_ImporteOrigen',datos.ImporteOrigen,'10','CampoImporte','disabled') }}
+            {{ macro.input('Coste Elaboración','Etiqueta','text','TraspasosCab[ImporteDestino]','TraspasosCab_ImporteDestino',datos.ImporteDestino,'10','CampoImporte','disabled') }}
+            {{ macro.input('Gastos Transporte','Etiqueta','text','TraspasosCab[GastosTransporte]','TraspasosCab_GastosTransporte',datos.GastosTransporte,'10','CampoImporte') }}
+            {{ macro.input('Gastos Varios','Etiqueta','text','TraspasosCab[GastosVarios]','TraspasosCab_GastosVarios',datos.GastosVarios,'10','CampoImporte') }}
+            {{ macro.input('Total Coste (2)','Etiqueta','text','TraspasosCab[TotalCoste]','TraspasosCab_TotalCoste',datos.TotalCoste,'10','CampoImporte','disabled') }}
+            </div>
+
+            <div style="width: 33%;float:left; margin-right: 5px; text-align: center;">
+                {% set costePorUMA = 0 %}
+                {% if datos.KilosDestino != 0%} {% set costePorUMA = datos.TotalCoste/datos.KilosDestino %} {% endif %}
+                {{ macro.input('Coste U.M.A. (2)/(1)','Etiqueta','text',none,none,costePorUMA|number_format(3,'.',','),10,'CampoImporte', 'disabled' ) }}
+                <p style="margin-top: 5px; font-size: 11px;text-align: left;">
+                    Una vez recepcionado el producto obtenido de la elaboración, es necesario actualizar los precios para que el sistema maneje los nuevos precios de costo de los productos obtenidos.
+                </p>
+                <p style="margin-top: 5px; font-size: 11px;text-align: left;">
+                    Los precios se recalcularán segun la política establecida con el parámetro "ACTU_PRECIOS"
+                </p>
+                {% if datos.IDEstado.IDTipo == 3 %}
+                <input value="Actualizar Precios" type="submit" onclick="$('#action').val('Cotizar');" class="Comando" style="margin-top: 10px; width: 150px;" />
+                {% endif %}
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        {% endif %}
+        <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea(none,'Etiqueta','TraspasosCab[Observaciones]','TraspasosCab_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+        </div>
+        <div id="tabs-5" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea('Incidencias Recep.','Etiqueta','TraspasosCab[Incidencias]','TraspasosCab_Incidencias',datos.Incidencias,none,none,'TextArea')}}
+        </div>
+        <div id="tabs-6" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+    </div>
+</div>
+
+{% endif %}

@@ -1,0 +1,74 @@
+# Module: CajaArqueos
+# Document : modules\CajaArqueos\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 15.04.2012 00:47:17
+#
+---
+listados:
+  -
+    title: Arqueos de Caja
+    order_by: IDSucursal,IDTpv,Dia DESC
+    break_field: IDSucursal
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Sucursal / Tpv
+        field: IDTpv
+        length: 60
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Dia
+        field: Dia
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Apertura
+        field: SaldoApertura
+        length: 9
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Mvtos
+        field: SumaMvtos
+        length: 12
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cierre
+        field: SaldoCierre
+        length: 9
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cerrada
+        field: CajaCerrada
+        length: 7
+        align: C
+        type: tinyint
+        total: NO
+        formula: null
+        format: null

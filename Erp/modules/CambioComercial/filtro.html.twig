@@ -1,0 +1,53 @@
+{# Template filtro.html.twig for CambioComercial          #}
+{# -------------------------------------------------------#}
+
+<div class='Filtro'>
+    <p style="margin-top: 10px; font-size: 12px;">
+        Mediante ésta opción podrá reasignar los clientes de un comercial a otro.
+    </p>
+    <p style="margin-top: 10px; font-size: 12px;">
+        La información relativa a las operaciones comerciales realizadas anteriores a este cambio no se verá alterada.
+    </p>
+
+   <form name='filtro' id='filtro' action='' method='POST'>
+	<input name='controller' value='{{values.controller}}' type='hidden' />
+	<input name='action' value='cambiar' type='hidden' />
+
+        <div style="float: left;">
+
+        <div style="margin-top: 30px;">
+            Cambiar los clientes del comercial:
+            <select name="ComercialOrigen" id="ComercialOrigen" style="width: 170px;">
+            {% for comercial in values.comerciales %}
+                <option value="{{comercial.Id}}">{{comercial.Value}}</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div style="margin-top: 10px;">
+            y zona comercial:
+            <select name="Zona" id="Zona" style="width: 170px;">
+            {% for zona in values.zonas %}
+                <option value="{{zona.Id}}">{{zona.Value}}</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div style="margin-top: 10px;">
+            al comercial:
+            <select name="ComercialDestino" id="ComercialDestino" style="width: 170px;">
+            {% for comercial in values.comerciales %}
+                <option value="{{comercial.Id}}">{{comercial.Value}}</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div style="margin-top: 10px;">
+            Realizar el cambio también en las direcciones de entrega:
+            <input name="Dentrega" id="Dentrega" type="checkbox" />
+        </div>            
+
+        <input type="submit" value="Cambiar" class="Comando" style="width: 100px; font-weight: bold; margin-top: 20px;" />
+        </div>
+    </form>
+</div>

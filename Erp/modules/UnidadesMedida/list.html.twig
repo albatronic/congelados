@@ -1,0 +1,12 @@
+{# Template list.html.twig for UnidadesMedida #}
+{# -------------------------------------------------------#}
+{% extends 'UnidadesMedida/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+	{% include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller':'UnidadesMedida','position':'izq'}%}
+	{% include '_global/listGenerico.html.twig' with {'listado': values.listado, 'controller': values.controller} %}
+
+</div>
+{% endblock %}

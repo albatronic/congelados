@@ -1,0 +1,16 @@
+{# Template index.html.twig for RutasVentasClientes #}
+{# -------------------------------------------------------#}
+{% extends popup %}
+
+{% block content %}
+    {% include "_global/errores.html.twig" with {'errores': values.errores} %}
+    {% include "_global/alertas.html.twig" with {'alertas': values.alertas} %}
+
+        <div id="div_listado">
+        {% block listado %}
+	{% endblock %}
+        </div>
+
+
+    <div id="notificacion"></div>
+{% endblock %}

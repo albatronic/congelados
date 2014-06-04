@@ -1,0 +1,81 @@
+{# Template edit.html.twig for AlbaranesCab #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends values.controller ~ '/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" enctype="multipart/form-data" method="POST">
+        <input name="controller" value="{{ values.controller }}" type="hidden" />
+        <input name="action" id="action" value="edit" type="hidden" />
+        <input name="accion" id="accion" value="" type="hidden" />
+        <input name="AlbaranesCab[IDAlbaran]" id="AlbaranesCab_IDAlbaran" value="{{ values.datos.IDAlbaran }}" type="hidden" />
+        <input name="AlbaranesCab[IDSucursal]" id="AlbaranesCab_IDSucursal" value="{{ values.datos.IDSucursal.IDSucursal }}" type="hidden" />
+        <input name="AlbaranesCab[IDContador]" id="AlbaranesCab_IDContador" value="{{ values.datos.IDContador }}" type="hidden" />
+        <input name="AlbaranesCab[NumeroAlbaran]" id="AlbaranesCab_NumeroAlbaran" value="{{ values.datos.NumeroAlbaran }}" type="hidden" />
+        <input name="AlbaranesCab[IDEstado]" id="AlbaranesCab_IDEstado" value="{{ values.datos.IDEstado.IDTipo }}" type="hidden" />
+        <input name="AlbaranesCab[IDFactura]" id="AlbaranesCab_IDFactura" value="{{ values.datos.IDFactura.IDFactura }}" type="hidden" />
+        <div class='Comandos'>
+            <div class="Titulo">
+                Albarán: {{values.datos.NumeroAlbaran}} [{{values.datos.IDEstado.Descripcion}}
+                {% if values.datos.IDFactura.IDFactura %}
+                    <a href="{{app.path}}/FemitidasCab/Edit/{{values.datos.IDFactura.IDFactura}}" title='Editar Factura'>
+                        {{values.datos.IDFactura.NumeroFactura}}
+                    </a>
+                {% endif %}
+                ]
+                {# MUESTRA EL BOTON DE EXPEDIR SI:
+                    NO ESTÁ FACTURADO Y NO ESTÁ EXPEDIDO Y TIENE PERMISO DE ACTUALIZACION
+                    Y NO ES COMERCIAL NI ES REPARTIDOR)
+                #}
+                {% if (values.datos.IDFactura.IDFactura == '0' and values.datos.IDEstado.IDTipo == '1' and values.permisos['A'] and user.Rol.IDTipo != 1 and user.Rol.IDTipo != 2) %}
+                    <a href="javascript:;" target="_blank" onClick="window.open('{{app.path}}/ExpedirLineas/index/AlbaranesCab/{{values.datos.IDAlbaran}}/{{values.datos.IDRepartidor.IDAgente}}','Expedir','width=850,height=500,resizable=yes,scrollbars=yes');">
+                        <img src="{{app.path}}/images/expedir_cmd.png" alt="Expedir" title="Expedir...">
+                    </a>
+                {% endif %}
+
+                {% if values.datos.IDFactura.IDFactura == '0' and values.datos.IDEstado.IDTipo == '2' and values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/invoice_cmd.png" width="24px" onclick="if (!confirm('¿Desea facturar el albarán {{values.datos.NumeroAlbaran}}?')) {return false;} else {getElementById('action').value='Facturar'; submit();}" alt="Facturar" title="Facturar Albarán" />
+                {% endif %}
+
+                {% if values.datos.IDEstado.IDTipo < '2' %}
+                {% if values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/save_cmd.png" width="24px" onclick="getElementById('accion').value='Guardar';" alt="Guardar" title="Guardar" />
+                {% endif %}
+                {% endif %}
+
+                {% if values.datos.IDEstado.IDTipo == '0' %}
+                {% if values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/confirm_cmd.png" width="24px" onclick="if (!confirm('¿Desea confirmar el albarán {{values.datos.NumeroAlbaran}}?')) {return false;} else {getElementById('action').value='Confirmar';}" alt="Confirmar" title="Confirmar Albarán" />
+                {% endif %}
+                {% if values.permisos['B'] %}
+                <input type="image" src="{{app.path}}/images/trash_cmd.png" width="24px" onclick="if (!confirm('¿Desea borrar el albarán {{values.datos.NumeroAlbaran}}?')) {return false;} else {getElementById('accion').value='Borrar';}" alt="Borrar" title="Borrar Albarán" />
+                {% endif %}
+                {% endif %}
+
+                {% if values.datos.IDEstado.IDTipo == '1' and values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/cancel_cmd.png" width="24px" onclick="if (!confirm('¿Desea anular la confirmación del albarán {{values.datos.NumeroAlbaran}}?')) {return false;} else {getElementById('action').value='Anular';}" alt="Anular" title="Anular Confirmación" />
+                {% endif %}
+
+                {% if values.permisos['C'] %}
+                {{ macro.botonDocumento(app.path,values.controller,values.datos.getPrimaryKeyValue)}}
+                <input type="image" src="{{app.path}}/images/send_cmd.png" width="24px" onclick="getElementById('action').value='Enviar';" alt="Enviar" title="Enviar" />
+                {% endif %}
+
+                {% if values.permisos['I'] %}
+                <input type="image" src="{{app.path}}/images/duplicar_cmd.png" width="24px" onclick="getElementById('action').value='Duplicar';" alt="Duplicar" title="Duplicar" />
+                {% endif %}
+
+                {% include '_global/comandosAuditoria.html.twig' with {'controller': values.controller} %}
+            </div>
+        </div>
+
+        <div class='Cuerpo'>
+        {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+        {% include "_global/alertas.html.twig" with {'alertas': values.alertas} %}
+	{% include values.controller ~ "/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

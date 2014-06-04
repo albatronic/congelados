@@ -1,0 +1,79 @@
+{# AlbaranesLineas/form0.html.twig #}
+{# TEMPLATE PARA LAS LINEAS DE ALBARANES EN LA VERSION ESTANDAR #}
+{% extends 'AlbaranesLineas/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+    <div style="position: fixed; z-index:1000; height: 16px; width: 100%; background:whitesmoke;clear:both;">
+        <div style="float:right;">
+            <input name="precios" id="precios" size="30" value="" disabled/>
+        </div>
+    </div>
+
+    <div style="position:relative; top:18px;clear:both;">
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item'>Cantidad</td>
+            <td class='Item'>Precio</td>
+            <td class='Item'>Dcto</td>
+            <td class='Item'>Iva</td>
+            <td class='Item'>Importe</td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            {% set puntero = key %}
+            {% set beneficioLinea = objeto.Importe - objeto.ImporteCosto %}
+            <form name="linea{{puntero}}" action="" method="POST">
+                <input name="controller" value="AlbaranesLineas" type="hidden" />
+                <input name="action" id="action" value="edit" type="hidden" />
+                <input name="AlbaranesLineas[IDAlbaran]" value="{{ values.linkBy.value }}" type="hidden" />
+                <input name="AlbaranesLineas[IDLinea]" value="{{ objeto.IDLinea }}" type="hidden" />
+                <input name="AlbaranesLineas[IDEstado]" value="{{ objeto.IDEstado.IDTipo }}" type="hidden" />
+                <input name="AlbaranesLineas[IDAgente]" value="{{ objeto.IDAgente.IDAgente }}" type="hidden" />
+                <input name="accion" id="accion{{puntero}}" value="" type="hidden" />
+                <tr class="ItemListado"
+                    onmouseover="getElementById('precios').value='[{{objeto.Importe}}][{{objeto.ImporteCosto}}][{{beneficioLinea}}]';"
+                    onmouseout="getElementById('precios').value='';" >
+                    <td>
+                        <input name="AlbaranesLineas[IDArticulo]" value="{{objeto.IDArticulo.IDArticulo}}" id="AlbaranesLineas_IDArticulo{{puntero}}" type="hidden" />
+                        <input value="{{objeto.IDArticulo.Codigo}}" id="Codigo{{puntero}}" type="text" maxlength="25" style="width:100px;"
+                        onkeyup="autoCompletar('Codigo{{puntero}}','AlbaranesLineas_IDArticulo{{puntero}}','AlbaranesLineas_Descripcion{{puntero}}','articulos','','');"/>
+
+                        {% if objeto.IDArticulo.IDArticulo %}
+                            {{ macro.historicoVentas(app.path,objeto.IDArticulo.IDArticulo,objeto.IDAlbaran.IDCliente.IDCliente) }}
+                        {% endif %}
+                        {% if objeto.IDPromocion.IDPromocion %}
+                            {% include "_Emergente/dialogoPromocion.html.twig" with {'linea': objeto} %}
+                        {% endif %}
+                    </td>
+                    <td><input name="AlbaranesLineas[Descripcion]" id="AlbaranesLineas_Descripcion{{puntero}}" value="{{objeto.Descripcion}}" type="text" maxlength="255" style="width:370px;"  /></td>
+                    <td>
+                        <input name="AlbaranesLineas[Unidades]" value="{{objeto.Unidades}}" type="text" style="width:50px;text-align:right;" />
+                        {{objeto.UnidadMedidaArticulo}}
+                    </td>
+                    <td><input name="AlbaranesLineas[Precio]" value="{{objeto.Precio}}" type="text" style="width:65px;text-align:right;" /></td>
+                    <td><input name="AlbaranesLineas[Descuento]" value="{{objeto.Descuento}}" type="text" style="width:40px;text-align:right;" /></td>
+                    <td><input name="AlbaranesLineas[Iva]" value="{{objeto.Iva}}" type="text" style="width:35px;text-align:right;" /></td>
+                    <td><input name="AlbaranesLineas[Importe]" value="{{objeto.Importe}}" type="text" style="width:65px;text-align:right;" disabled /></td>
+                    <td align="center">
+                        {% if objeto.IDLinea > 0 %}
+                        <input type="image" src="{{app.path}}/images/botonsave.png" onclick="getElementById('accion{{puntero}}').value='G';" alt="Guardar" title="Guardar Linea" />
+                        <input type="image" src="{{app.path}}/images/papelera.gif" onclick="if (!confirm('Desea eliminar la línea?')) {return false;} else {getElementById('accion{{puntero}}').value='B';}" alt="Borrar" title="Borrar Linea" />
+                        {% else %}
+                        <input type="image" src="{{app.path}}/images/nuevo.png" onclick="getElementById('action').value='new';" alt="Nuevo" title="Crear Linea" />
+                        {% endif %}
+                    </td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+{{ macro.foco('Codigo0') }}
+{% endblock %}

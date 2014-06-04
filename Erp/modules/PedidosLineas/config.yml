@@ -1,0 +1,386 @@
+# Module: PedidosLineas
+# Document : modules\PedidosLineas\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 26.12.2011 21:24:42
+#
+---
+PedidosLineas:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: PedidosLineas
+  id_video: pedidoslineas
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: PedidosLineas
+  table: pedidos_lineas
+  primarykey: IDLinea
+  linkBy: IDPedido
+  records_per_page: 15
+  order_by: IDLinea
+  search_default: IDLinea
+  referenced_entities:
+    -
+      entity: PedidosCab
+    -
+      entity: Articulos
+    -
+      entity: EstadosLineasPedidos
+    -
+      entity: Almacenes
+    -
+      entity: AlmacenesMapas
+    -
+      entity: Lotes
+  columns:
+    -
+      title: IDPedido
+      field: IDPedido
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 1
+        caption: IDPedido
+        entity: PedidosCab
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDLinea
+      field: IDLinea
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: IDArticulo
+      field: IDArticulo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 2
+        caption: IDArticulo
+        entity: Articulos
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descripcion
+      field: Descripcion
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Unidades
+      field: Unidades
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 1.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: UnidadMedida
+      field: UnidadMedida
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: UMC
+      validator:
+        nullable: NO
+        type: string
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Precio
+      field: Precio
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descuento
+      field: Descuento
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Importe
+      field: Importe
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Iva
+      field: Iva
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Recargo
+      field: Recargo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: UnidadesRecibidas
+      field: UnidadesRecibidas
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: UnidadesPtesFacturar
+      field: UnidadesPtesFacturar
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDEstado
+      field: IDEstado
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 3
+        caption: IDEstado
+        entity: EstadosLineasPedidos
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDAgente
+      field: IDAgente
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDAlmacen
+      field: IDAlmacen
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 4
+        caption: IDAlmacen
+        entity: Almacenes
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido

@@ -1,0 +1,106 @@
+{% extends "_global/layout.html.twig" %}
+
+{% block title parent() ~ " - Gesnet" %}
+
+{% block content %}
+<div class="panel1">
+        <p id="titulo1">GESNET</p>
+        <p>
+            GESNET es un sistema ERP que permite la gesti&oacute;n integral de los procesos de negocio de cualquier PYME.
+            Se trata de un producto robusto, de altas prestaciones y f&aacute;cil manejo creado en base a nuestro profundo conocimiento
+            del sector.
+        </p>
+        <p>Las principales funcionalidades son:</p>
+        <ul>
+            <li>Diferentes perfiles de usuarios: todos a acceden, pero no a todo</li>
+            <li>Multi sucursal: gesti&oacute;n integrada pero diferenciando las eventuales delegaciones/sucursales de la empresa</li>
+            <li>Multi Idioma</li>
+        </ul>
+
+        <div id="cajagesnetficheros">
+            <p id="titulo1">Ficheros base</p>
+            <ul id="funcionalidades">
+                <li>Cat&aacute;logo de productos con descripci&oacute;n ampliada, foto y datos log&iacute;sticos</li>
+                <li>Familias y subfamilias</li>
+                <li>Fabricantes</li>
+                <li>Proveedores</li>
+                <li>Clientes: datos fiscales, personas de contacto y diferentes direcciones de entrega</li>
+                <li>Formas de pago</li>
+                <li>Tarifas seg&uacute;n varios criterios: porcentaje de descuento sobre PVP o marg&eacute;n comercial sobre PVD</li>
+                <li>Agencias y zonas de transporte</li>
+                <li>Tabla de portes</li>
+            </ul>
+        </div>
+
+        <div id="cajagesnetventas">
+            <p id="titulo1">Gesti&oacute;n de Ventas</p>
+            <ul id="funcionalidades">
+                <li>Presupuestos y Facturas proforma</li>
+                <li>Definici&oacute;n de promociones: fecha de vigencia, condiciones econ&oacute;micas, clientes y art&iacute;culos a los que se aplica</li>
+                <li>Albaranes de venta</li>
+                <li>Partes de trabajo con asignaci&oacute;n de t&eacute;cnico y control de duraci&oacute;n del trabajo realizado</li>
+                <li>Expedici&oacute;n de mercarc&iacute;as</li>
+                <li>C&aacute;lculo del coste de agencia en base a la direcci&oacute;n de entrega y peso del env&iacute;o</li>
+                <li>Gesti&oacute;n de facturas emitidas y facturas rectificativas</li>
+                <li>Facturaci&oacute;n individual o agrupada</li>
+                <li>Gesti&oacute;n de la cartera de recibos y previsi&oacute;n de cobro</li>
+                <li>Generaci&oacute;n de remesas bancarias (Cuaderno 19)</li>
+                <li>Impresi&oacute;n de recibos</li>
+                <li>Opciones de TPV: tickets de ventas de mostrador y arqueo de caja</li>
+            </ul>
+        </div>
+
+        <div id="cajagesnetcompras">
+            <p id="titulo1">Gesti&oacute;n de Compras</p>
+            <ul id="funcionalidades">
+                <li>Pedidos a proveedores</li>
+                <li>Recepci&oacute;n de mercanc&iacute;a e impresi&oacute;n de etiquetas del producto recepcionado</li>
+                <li>Conformaci&oacute;n de facturas individuales o agrupadas</li>
+                <li>Gesti&oacute;n de precios</li>
+                <li>C&aacute;lculo del precio medio de costo</li>
+                <li>Gesti&oacute;n de cartera de pendiente de pago y previsi&oacute;n de pagos</li>
+            </ul>
+        </div>
+
+        <div id="cajagesnetalmacen">
+            <p id="titulo1">Gesti&oacute;n de Almac&eacute;n</p>
+            <ul id="funcionalidades">
+                <li>Definici&oacute;n de m&aacute;ximos y m&iacute;nimos</li>
+                <li>Consulta de existencias desglosando sucursales o de forma consolidada</li>
+                <li>Traspasos entre almacenes</li>
+                <li>Generaci&oacute;n de inventarios manuales o wifi con codigo de barras</li>
+                <li>Inventario valorado</li>
+                <li>Informe de ventas diarias para reposici&oacute;n de stock</li>
+            </ul>
+        </div>
+
+        <div id="cajagesnetinformes">
+            <p id="titulo1">Informes, Listados y estad&iacute;sticas</p>
+            <ul id="funcionalidades">
+                <li>Ventas de art&iacute;culos por cliente</li>
+                <li>Ventas a clientes por art&iacute;culo</li>
+                <li>Ventas por agente comercial</li>
+                <li>Compras por proveedor</li>
+                <li>ABC de art&iacute;culos</li>
+                <li>ABC de clientes</li>
+                <li>ABC de sucursales</li>
+                <li>Resumen de ventas</li>
+                <li>Comparativa mensual</li>
+                <li>Informe de capital circulante</li>
+                <li>Modelo 347</li>
+            </ul>
+        </div>
+
+        <div id="cajagesnetmarketing">
+            <p id="titulo1">Acciones de marketing</p>
+            <ul id="funcionalidades">
+                <li>Definici&oacute;n de listas de clientes</li>
+                <li>Generaci&oacute;n de boletines promocionales de productos (newsletter)</li>
+                <li>Generaci&oacute;n de circulares</li>
+                <li>Impresi&oacute;n de etiquetas de producto en diferentes formatos</li>
+                <li>Env&iacute;o de email y sms desde la misma plataforma</li>
+            </ul>
+        </div>
+
+</div>
+{% endblock%}

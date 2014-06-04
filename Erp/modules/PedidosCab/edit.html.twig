@@ -1,0 +1,97 @@
+{# Template edit.html.twig for PedidosCab #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends 'PedidosCab/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" id="manto_PedidosCab" action=""enctype="multipart/form-data" method="POST">
+        <input name="controller" value="PedidosCab" type="hidden" />
+        <input name="action" id="action" value="edit" type="hidden" />
+        <input name="accion" id="accion" value="" type="hidden" />
+        <input name="PedidosCab[IDPedido]" value="{{ values.datos.IDPedido }}" type="hidden" />
+        <input name="PedidosCab[IDEstado]" value="{{ values.datos.IDEstado.IDTipo }}" type="hidden" />
+        <input name="Factura_FechaFactura" id="PedidosCab_FechaFactura" value="" type="hidden" />
+        <input name="Factura_SuFactura" id="PedidosCab_SuFactura" value="" type="hidden" />
+        <div class='Comandos'>
+            <div class="Titulo">
+                Pedido: {{values.datos.IDPedido}} [{{values.datos.IDEstado.Descripcion}}
+                {% if values.datos.IDFactura.IDFactura %}
+                    <a href="{{app.path}}/FrecibidasCab/Edit/{{values.datos.IDFactura.IDFactura}}" title='Editar Factura'>
+                        {{values.datos.IDFactura.NumeroFactura}}
+                    </a>
+                {% endif %}
+                ]
+                {% if values.datos.IDEstado.IDTipo == '0' %}
+                    {% if values.permisos['A'] %}
+                        <input type="image" src="{{app.path}}/images/save_cmd.png" width="24px" onclick="getElementById('accion').value='Guardar';" alt="Guardar" title="Guardar" />
+                        <input type="image" src="{{app.path}}/images/confirm_cmd.png" width="24px" onclick="if (!confirm('¿Desea confirmar el pedido {{values.datos.IDPedido}}?')) {return false;} else {getElementById('action').value='Confirmar';}" alt="Confirmar" title="Confirmar Pedido" />
+                    {% endif %}
+                    {% if values.permisos['B'] %}
+                        <input type="image" src="{{app.path}}/images/trash_cmd.png" width="24px" onclick="if (!confirm('¿Desea borrar el pedido {{values.datos.IDPedido}}?')) {return false;} else {getElementById('accion').value='Borrar';}" alt="Borrar" title="Borrar Pedido" />
+                    {% endif %}
+                {% endif %}
+
+                {% if values.datos.IDEstado.IDTipo == '1' and values.permisos['A'] %}
+                    <input type="image" src="{{app.path}}/images/cancel_cmd.png" width="24px" onclick="if (!confirm('¿Desea anular la confirmación del pedido {{values.datos.IDPedido}}?')) {return false;} else {getElementById('action').value='Anular';}" alt="Anular" title="Anular Confirmación" />
+                    <a href="javascript:;" target="_blank" onClick="window.open('{{app.path}}/RecepcionarLineas/index/PedidosCab/{{values.datos.IDPedido}}','Recepcionar','width=910,height=600,resizable=yes,scrollbars=yes');">
+                        <img src="{{app.path}}/images/expedir_cmd.png" alt="Recepcionar" title="Recepcionar...">
+                    </a>
+                {% endif %}
+
+                {% if values.datos.IDEstado.IDTipo == '2' and values.permisos['A'] %}
+                    <img src="{{app.path}}/images/invoice_cmd.png" style="width: 24px; cursor: pointer;" onclick="$('#dialogFacturar').dialog('open');" alt="Facturar" title="Facturar" />
+                    <div id="dialogFacturar" title="Conformar Pedido">
+                        {{ macro.input('Su Factura','Etiqueta','text','SuFactura','SuFactura',none,'15','CampoTextoMedio') }}
+                        {{ macro.fecha('Fecha Factura','Etiqueta','FechaFactura','FechaFactura',none,'10','CampoFecha') }}
+                        <input type="submit" value="Conformar" class="Comando" style="margin-top: 20px;" alt="Facturar" title="Facturar Pedido"
+                            onclick=" if ( $('#SuFactura').val() != '' ) {
+                                $('#action').val('Facturar');
+                                $('#PedidosCab_FechaFactura').val( $('#FechaFactura').val() );
+                                $('#PedidosCab_SuFactura').val( $('#SuFactura').val() );
+                                $('#manto_PedidosCab').submit();
+                                } else return false;
+                            "
+                        />
+                    </div>
+                {% endif %}
+
+                {% if values.permisos['C'] %}
+                    {{ macro.botonDocumento(app.path,values.controller,values.datos.getPrimaryKeyValue)}}
+                    <input type="image" src="{{app.path}}/images/send_cmd.png" width="24px" onclick="getElementById('action').value='Enviar';" alt="Enviar" title="Enviar" />
+                {% endif %}
+
+                {% if values.permisos['I'] %}
+                <input type="image" src="{{app.path}}/images/duplicar_cmd.png" width="24px" onclick="getElementById('action').value='Duplicar';" alt="Duplicar" title="Duplicar" />
+                {% endif %}
+
+                {% include '_global/comandosAuditoria.html.twig' with {'controller': values.controller} %}
+            </div>
+
+        </div>
+
+        <div class='Cuerpo'>
+        {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+        {% include "_global/alertas.html.twig" with {'alertas': values.alertas} %}
+	{% include "PedidosCab/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+
+<script language='JavaScript' type='text/javascript'>
+    $(function() {
+        $( "#dialogFacturar" ).dialog({
+            autoOpen: false,
+            width: 230,
+            height: 200,
+            position: ['center'],
+            closeOnEscape: true,
+            resizable: false,
+            draggable:false,
+            show: "slide",
+            });
+    });
+</script>
+
+{% endblock %}

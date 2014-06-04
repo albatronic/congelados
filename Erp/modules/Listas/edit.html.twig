@@ -1,0 +1,29 @@
+{# Template edit.html.twig for Listas #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends 'Listas/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+	<form name="manto" action="" method="POST">
+		<div class='Comandos'>
+						{% if values.permisos['A'] %}
+                            <input type="submit" name="accion" value="Guardar" class="Comando"/>
+                        {% endif %}
+			{% if values.permisos['B'] %}
+			<input type="submit" name="accion" value="Borrar" class="Comando" onclick="return confirm('¿Desea borrar el registro?');"/>
+                        {% endif %}
+                        <hr>
+		</div>
+
+		<div class='Cuerpo'>
+			<input name="controller" value="Listas" type="hidden" />
+			<input name="action" value="edit" type="hidden" />
+			<input name="Listas[IDLista]" value="{{ values.datos.IDLista }}" type="hidden" />
+			{% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+			{% include "Listas/form.html.twig" with {'datos': values.datos} %}
+		</div>
+	</form>
+</div>
+{% endblock %}

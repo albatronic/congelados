@@ -1,0 +1,8 @@
+{# TEMPLATE TiposIva/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+
+{{ macro.input('Tipo','Etiqueta','text','TiposIva[Tipo]','TiposIva_Tipo',datos.Tipo,'30','CampoTextoLargo') }}
+{{ macro.input('Iva','Etiqueta','text','TiposIva[Iva]','TiposIva_Iva',datos.Iva,'5','CampoUnidades') }}
+{{ macro.input('Recargo','Etiqueta','text','TiposIva[Recargo]','TiposIva_Recargo',datos.Recargo,'5','CampoUnidades') }}
+{{ macro.input('Retención','Etiqueta','text','TiposIva[Retencion]','TiposIva_Retencion',datos.Retencion,'5','CampoUnidades') }}

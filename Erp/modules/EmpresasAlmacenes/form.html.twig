@@ -1,0 +1,4 @@
+{# TEMPLATE EmpresasAlmacenes/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.select('Almacén','Etiqueta','EmpresasAlmacenes[IDAlmacen]','EmpresasAlmacenes_IDAlmacen',none,datos.IDAlmacen.IDAlmacen,datos.IDAlmacen.fetchAll('','Nombre'),'Select') }}

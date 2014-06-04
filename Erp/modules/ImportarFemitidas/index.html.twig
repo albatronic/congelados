@@ -1,0 +1,28 @@
+{# Template index.html.twig for ImportarFemitidas #}
+{# -----------------------------------------------#}
+{% extends layout %}
+
+{% block title parent() ~ ' - '  ~ values.titulo %}
+
+{% block content %}
+	<div class='Titulo'>{{ values.titulo }}
+	{% block navegador %}
+	{% endblock %}
+        {% include '_global/comandosHelp.html.twig' with {'controller':values.controller} %}
+        </div>
+
+        {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+
+        {% if values.mensaje %}
+        <div style="font-size: 14px; font-weight: bold; padding: 10px;">
+            {% for mensaje in values.mensaje %}
+             <p>{{mensaje}}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+	{% block filtro %}
+            {% include 'ImportarFemitidas/form.html.twig' with {'values':values} %}
+	{% endblock %}
+
+{% endblock %}

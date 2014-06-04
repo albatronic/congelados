@@ -1,0 +1,46 @@
+# Module: EmpresasAlmacenes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: EmpresasAlmacenes
+    order_by: Id ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Id
+        field: Id
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDEmpresa
+        field: IDEmpresa
+        length: 3
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDAlmacen
+        field: IDAlmacen
+        length: 3
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

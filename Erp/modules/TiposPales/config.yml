@@ -1,0 +1,120 @@
+# Module: TiposPales
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 06-12-2011
+#
+TiposPales:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Tipos de Palés
+  id_video: null
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: TiposPales
+  table: tipos_pales
+  primarykey: Id
+  records_per_page: '15'
+  order_by:
+    -
+      title: Descripcion a-z
+      criteria: Descripcion ASC
+    -
+      title: Descripcion z-a
+      criteria: Descripcion DESC
+  search_default: Id
+  referenced_entities: {  }
+  columns:
+    -
+      title: Id
+      field: Id
+      filter: NO
+      list: NO
+      form: YES
+      default: null
+    -
+      title: Descripcion
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: 'Valor Requerido'
+    -
+      title: Ancho (mm)
+      field: Ancho
+      filter: YES
+      list: YES
+      form: YES
+      default: '0.00'
+      validator:
+        nullable: NO
+        type: decimal
+        length: '7'
+        min: null
+        max: null
+        message: 'Valor Requerido'
+    -
+      title: Fondo (mm)
+      field: Fondo
+      filter: YES
+      list: YES
+      form: YES
+      link: { route: null, param: null, title: null, target: null }
+      default: '0.00'
+      validator:
+        nullable: NO
+        type: decimal
+        length: '7'
+        min: null
+        max: null
+        message: 'Valor Requerido'
+    -
+      title: Alto (mm)
+      field: Alto
+      filter: YES
+      list: YES
+      form: YES
+      default: '0.00'
+      validator:
+        nullable: NO
+        type: decimal
+        length: '7'
+        min: null
+        max: null
+        message: 'Valor Requerido'
+    -
+      title: Cubicaje (mts3)
+      field: Cubicaje
+      filter: YES
+      list: YES
+      form: YES
+      default: '0.00'
+      validator:
+        nullable: NO
+        type: decimal
+        length: '7'
+        min: null
+        max: null
+        message: 'Valor Requerido'
+    -
+      title: Tara (Kg)
+      field: Tara
+      filter: YES
+      list: YES
+      form: YES
+      default: '0.00'
+      validator:
+        nullable: NO
+        type: decimal
+        length: '7'
+        min: null
+        max: null
+        message: 'Valor Requerido'

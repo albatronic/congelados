@@ -1,0 +1,324 @@
+# Module: TraspasosCab
+# Document : modules\TraspasosCab\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 22.03.2012 19:21:54
+#
+---
+TraspasosCab:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Traspasos entre almacenes
+  id_video: traspasoscab
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: TraspasosCab
+  table: traspasos_cab
+  primarykey: IDTraspaso
+  records_per_page: 15
+  order_by:
+    -
+      title: Numero z-a
+      criteria: NumeroTraspaso DESC
+    -
+      title: Numero a-z
+      criteria: NumeroTraspaso ASC
+    -
+      title: F. Orden z-a
+      criteria: FechaOrden DESC
+    -
+      title: F. Orden a-z
+      criteria: FechaOrden ASC
+    -
+      title: F. Salida z-a
+      criteria: FechaSalida DESC
+    -
+      title: F. Salida a-z
+      criteria: FechaSalida ASC
+  search_default: IDTraspaso
+  referenced_entities:
+    -
+      entity: EstadosTraspasos
+    -
+      entity: Almacenes
+  columns:
+    -
+      title: Número
+      field: NumeroTraspaso
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+    -
+      title: Almacen Origen
+      field: IDAlmacenOrigen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 0
+        caption: Almacén Origen
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getAlmacenes
+        params: null
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Almacen Destino
+      field: IDAlmacenDestino
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 1
+        caption: Almacén Destino
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getAlmacenes
+        params: null
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha Orden
+      field: FechaOrden
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 2
+        caption: Fecha Orden
+        type: range
+        default: '<?php echo '01/01/'.date('Y').',31/12/'.date('Y');?>'
+        operator: >=
+      validator:
+        nullable: NO
+        type: date
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha Salida
+      field: FechaSalida
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 4
+        caption: Fecha Envío
+        type: range
+        default: 
+        operator: >=
+      validator:
+        nullable: NO
+        type: date
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha Entrada
+      field: FechaEntrada
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 6
+        caption: Fecha Entrega
+        type: range
+        operator: >=
+      validator:
+        nullable: NO
+        type: date
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descripcion
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Estado
+      field: IDEstado
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 9
+        caption: Estado
+        entity: EstadosTraspasos
+        method: fetchAll
+        params: true
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Gastos Transporte
+      field: GastosTransporte
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Gastos Varios
+      field: GastosVarios
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Total Gastos
+      field: TotalGastos
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Total Costo
+      field: TotalCosto
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido

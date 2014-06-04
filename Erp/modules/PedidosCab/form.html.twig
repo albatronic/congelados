@@ -1,0 +1,70 @@
+{# TEMPLATE PedidosCab/form.html.twig       #}
+{# Muestra los campos editables de la entidad #}
+
+<div class="CajaIzquierda" style="height: 218px;">
+
+{% if datos.IDEstado.IDTipo == '0' %}
+    {{ macro.fecha('Fecha Pedido','Etiqueta','PedidosCab[Fecha]','PedidosCab_Fecha',datos.Fecha,'10','CampoFecha') }}
+    {{ macro.fecha('Fecha Prev. Entrega','Etiqueta','PedidosCab[FechaEntrega]','PedidosCab_FechaEntrega',datos.FechaEntrega,'10','CampoFecha') }}
+    {{ macro.fecha('Fecha Recepción','Etiqueta','PedidosCab[FechaEntrada]','PedidosCab_FechaEntrada',datos.FechaEntrada,'10','CampoFecha','disabled') }}
+    {{ macro.select('Sucursal','Etiqueta','PedidosCab[IDSucursal]','PedidosCab_IDSucursal',none,datos.IDSucursal.IDSucursal,datos.IDAgente.getSucursales(emp.IDEmpresa),'Select') }}
+    {{ macro.select('Almacén','Etiqueta','PedidosCab[IDAlmacen]','PedidosCab_IDAlmacen',none,datos.IDAlmacen.IDAlmacen,datos.IDAgente.getAlmacenes(emp.IDEmpresa),'Select') }}
+    <div class="Item" id="div_PedidosCab_RazonSocial">
+        <input name="PedidosCab[IDProveedor]" id="PedidosCab_IDProveedor" value="{{datos.IDProveedor.IDProveedor}}" type="hidden"/>
+        <div class="Etiqueta">Proveedor</div>
+        <input value="{{datos.IDProveedor.RazonSocial}}" id="RazonSocial" type="text" maxlength="50" class="CampoTextoLargo"
+               onkeyup="autoCompletar('RazonSocial','PedidosCab_IDProveedor','RazonSocial','proveedores','',['div_PedidosCab_IDFP','PedidosCab_IDFP','PedidosCab[IDFP]','formaspagoproveedor']);"/>
+        {% if datos.IDProveedor.IDProveedor %}
+        {{ macro.historicoCompras(app.path,0,datos.IDProveedor.IDProveedor) }}
+        {% endif %}
+    </div>
+    {{ macro.select('Forma de Pago','Etiqueta','PedidosCab[IDFP]','PedidosCab_IDFP',none,datos.IDFP.IDFP,datos.IDFP.fetchAll('Descripcion'),'Select') }}
+    {{ macro.select('Agencia Tpte.','Etiqueta','PedidosCab[IDAgencia]','PedidosCab_IDAgencia',none,datos.IDAgencia.IDAgencia,datos.IDAgencia.fetchAll('Agencia'),'Select') }}
+    {{ macro.input('Su Pedido','Etiqueta','text','PedidosCab[SuPedido]','PedidosCab_SuPedido',datos.SuPedido,'15','CampoTextoMedio') }}
+    {{ macro.input('Referencia','Etiqueta','text','PedidosCab[Referencia]','PedidosCab_Referencia',datos.Referencia,'15','CampoTextoMedio') }}
+    {{ macro.select('Depósito','Etiqueta','PedidosCab[Deposito]','PedidosCab_Deposito',none,datos.Deposito.IDTipo,datos.Deposito.fetchAll,'Select') }}
+    {{ macro.foco('RazonSocial') }}
+{% else %}
+    {{ macro.etiqueta('Fecha','Etiqueta',datos.Fecha ) }}
+    {{ macro.etiqueta('Fecha Prev. Entrega','Etiqueta',datos.FechaEntrega ) }}
+    {{ macro.etiqueta('Fecha Recepcion','Etiqueta',datos.FechaEntrada ) }}
+    {{ macro.etiqueta('Sucursal','Etiqueta',datos.IDSucursal.Nombre) }}
+    {{ macro.etiqueta('Almacén','Etiqueta',datos.IDAlmacen.Nombre) }}
+    {{ macro.etiqueta('Proveedor','Etiqueta',datos.IDProveedor.RazonSocial) }}
+    {{ macro.etiqueta('Forma de Pago','Etiqueta',datos.IDFP.Descripcion ) }}
+    {{ macro.etiqueta('Agencia Tpte.','Etiqueta',datos.IDAgencia.Agencia ) }}
+    {{ macro.etiqueta('Su Pedido','Etiqueta',datos.SuPedido ) }}
+    {{ macro.etiqueta('Referencia','Etiqueta',datos.Referencia ) }}
+    {{ macro.etiqueta('Depósito','Etiqueta',datos.Deposito ) }}
+{% endif %}
+</div>
+
+{% if datos.IDPedido %}
+<div class="CajaTotales" style="height: 218px;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Importes</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2">{% if datos.Observaciones %}<b>{% endif %}Observaciones{% if datos.Observaciones %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-3">{% if datos.Incidencias %}<b>{% endif %}Incidencias{% if datos.Incidencias %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-4">Docs</a></li>
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            {% include values.controller ~ "/totales.html.twig" with {'datos': datos}%}
+        </div>
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea('Observaciones','Etiqueta','PedidosCab[Observaciones]','PedidosCab_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+        </div>
+        <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.etiqueta('Incidencias Recep.','Etiqueta',datos.Incidencias) }}
+            <div style="clear: both;"></div>
+        </div>
+        <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+    </div>
+</div>
+
+<iframe width="100%" height="327" scrolling="yes" style="margin-top:5px; border:0;"
+    src="{{app.path}}/PedidosLineas/list/{{datos.IDPedido}}">
+</iframe>
+{% endif %}

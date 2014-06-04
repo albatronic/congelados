@@ -1,0 +1,6 @@
+{# TEMPLATE TiposVenta/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('Tipo de Venta','Etiqueta','text','TiposVenta[TipoVenta]','TiposVenta_TipoVenta',datos.TipoVenta,'50','CampoTextoLargo') }}

@@ -1,0 +1,100 @@
+# Module: FormasPago
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Listado de Formas de Pago
+    order_by: Descripcion ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Descripcion
+        field: Descripcion
+        length: 45
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: N.Vctos
+        field: NumeroVctos
+        length: 7
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Primer Vcto
+        field: DiaPrimerVcto
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Intervalo
+        field: DiasIntervalo
+        length: 9
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: C.Contable
+        field: CContable
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Caja
+        field: AnotarEnCaja
+        length: 4
+        align: C
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: E.Recibo
+        field: EstadoRecibo
+        length: 7
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Recargo
+        field: RecargoFinanciero
+        length: 7
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Dcto F.
+        field: DescuentoFinanciero
+        length: 7
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null

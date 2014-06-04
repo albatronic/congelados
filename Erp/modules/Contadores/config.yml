@@ -1,0 +1,183 @@
+# Module: Contadores
+# Document : modules\Contadores\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 15.02.2012 12:41:19
+#
+---
+Contadores:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Series y Contadores
+  id_video: contadores
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Contadores
+  table: contadores
+  primarykey: IDContador
+  records_per_page: 15
+  order_by:
+    -
+      title: Sucursal a-z
+      criteria: IDSucursal ASC
+    -
+      title: Sucursal z-a
+      criteria: IDSucursal DESC
+    -
+      title: Tipo a-z
+      criteria: IDTipo ASC
+    -
+      title: Tipo z-a
+      criteria: IDTipo DESC
+  search_default: IDContador
+  referenced_entities:
+    -
+      entity: Sucursales
+    -
+      entity: TiposContadores
+    -
+      entity: ValoresSN
+  columns:
+    -
+      title: Contador
+      field: IDContador
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+    -
+      title: Sucursal
+      field: IDSucursal
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      aditional_filter:
+        order: 1
+        caption: Sucursal
+        entity: Sucursales
+        method: fetchAll
+        params: '<?php echo $_SESSION['emp'];?>'
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 45
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: Tipo
+      field: IDTipo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      aditional_filter:
+        order: 2
+        caption: Tipo
+        entity: TiposContadores
+        method: fetchAll
+        params: Descripcion
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Serie
+      field: Serie
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type:
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Contador
+      field: Contador
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: decimal
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Predefinido
+      field: Predefinido
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 3
+        caption: Predefinido
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido

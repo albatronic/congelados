@@ -1,0 +1,57 @@
+{# TEMPLATE AlmacenesMapas/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{% extends 'AlmacenesMapas/index.html.twig' %}
+
+{% set puntero = 0 %}
+
+{% block listado %}
+
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Ubicación</td>
+            <td class='Item' colspan="3">Coordenadas (X,Y,Z)</td>
+            <td class='Item' colspan="3">Dimensiones (Alto,Ancho,Fondo)</td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                {% set puntero = key %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+
+            <form name="linea{{puntero}}" action="" method="POST">
+            <input name="controller" value="AlmacenesMapas" type="hidden" />
+            <input name="action" id="action" value="edit" type="hidden" />
+            <input name="AlmacenesMapas[IDAlmacen]" value="{{ values.linkBy.value }}" type="hidden" />
+            <input name="AlmacenesMapas[IDUbicacion]" value="{{ objeto.IDUbicacion }}" type="hidden" />
+            <input name="accion" id="accion{{puntero}}" value="" type="hidden" />
+            <tr class='{{classFila}}'>
+                <td align="center">{{ macro.input(none,'Etiqueta','text','AlmacenesMapas[Ubicacion]','AlmacenesMapas_Ubicacion' ~ puntero,objeto.Ubicacion,'15','CampoTextoCorto') }}</td>
+                <td align="center">{{ macro.input(none,'Etiqueta','text','AlmacenesMapas[X]','AlmacenesMapas_X' ~ puntero,objeto.X,'5','CampoImporte') }}</td>
+                <td align="center">{{ macro.input(none,'Etiqueta','text','AlmacenesMapas[Y]','AlmacenesMapas_Y' ~ puntero,objeto.Y,'5','CampoImporte') }}</td>
+                <td align="center">{{ macro.input(none,'Etiqueta','text','AlmacenesMapas[Z]','AlmacenesMapas_Z' ~ puntero,objeto.Z,'5','CampoImporte') }}</td>
+                <td align="center">{{ macro.input(none,'Etiqueta','text','AlmacenesMapas[Alto]','AlmacenesMapas_Alto' ~ puntero,objeto.Alto,'5','CampoImporte') }}</td>
+                <td align="center">{{ macro.input(none,'Etiqueta','text','AlmacenesMapas[Ancho]','AlmacenesMapas_Ancho' ~ puntero,objeto.Ancho,'5','CampoImporte') }}</td>
+                <td align="center">{{ macro.input(none,'Etiqueta','text','AlmacenesMapas[Fondo]','AlmacenesMapas_Fondo' ~ puntero,objeto.Fondo,'5','CampoImporte') }}</td>
+                <td align="center">
+                    {% if objeto.IDUbicacion > 0 %}
+                    <input type="image" src="{{app.path}}/images/botonsave.png" onclick="getElementById('accion{{puntero}}').value='G';" alt="Guardar" title="Guardar Linea" />
+                    <input type="image" src="{{app.path}}/images/papelera.gif" onclick="if (!confirm('Desea eliminar la línea?')) {return false;} else {getElementById('accion{{puntero}}').value='B';}" alt="Borrar" title="Borrar Linea" />
+                        {% else %}
+                    <input type="image" src="{{app.path}}/images/nuevo.png" onclick="getElementById('action').value='new';" alt="Nuevo" title="Crear Linea" />
+                    {% endif %}
+                </td>
+            </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{{ macro.foco('AlmacenesMapas_Ubicacion0') }}
+{% endblock %}

@@ -1,0 +1,242 @@
+# Module: InventariosLineas
+# Document : modules\InventariosLineas\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 31.05.2012 23:27:24
+#
+---
+InventariosLineas:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: InventariosLineas
+  id_video: inventarioslineas
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: InventariosLineas
+  table: inventarios_lineas
+  primarykey: IDLinea
+  linkBy: IDInventario
+  records_per_page: 15
+  order_by: IDLinea
+  search_default: IDLinea
+  referenced_entities:
+    -
+      entity: InventariosCab
+    -
+      entity: Articulos
+    -
+      entity: Lotes
+    -
+      entity: AlmacenesMapas
+  columns:
+    -
+      title: IDLinea
+      field: IDLinea
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: Inventario
+      field: IDInventario
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 1
+        caption: IDInventario
+        entity: InventariosCab
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Artículo
+      field: IDArticulo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 2
+        caption: IDArticulo
+        entity: Articulos
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Descripción
+      field: Descripcion
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Lote
+      field: IDLote
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 3
+        caption: IDLote
+        entity: Lotes
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: YES
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Ubicación
+      field: IDUbicacion
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 4
+        caption: IDUbicacion
+        entity: AlmacenesMapas
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: YES
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Stock
+      field: Stock
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: 0
+        max: 999999
+        message: Valor Requerido
+    -
+      title: Cajas
+      field: Cajas
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: 0
+        max: 999999
+        message: Valor Requerido
+    -
+      title: Pales
+      field: Pales
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: 0
+        max: 999999
+        message: Valor Requerido

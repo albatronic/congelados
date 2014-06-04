@@ -1,0 +1,23 @@
+{# Template new.html.twig for RecibosClientes #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends 'RecibosClientes/index.html.twig' %}
+
+{% block navegador %}{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" method="POST">
+        <input name="controller" value="RecibosClientes" type="hidden" />
+        <input name="action" value="new" type="hidden" />
+        <input name="RecibosClientes[IDRecibo]" value="{{ values.datos.IDRecibo }}" type="hidden" />
+        {% include '_global/comandosCreate.html.twig' %}
+
+        <div class="Cuerpo">
+	{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+	{% include "RecibosClientes/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

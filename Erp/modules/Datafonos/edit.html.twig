@@ -1,0 +1,27 @@
+{# Template edit.html.twig for Datafonos #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends values.controller  ~ '/index.html.twig' %}
+
+{% block navegador %}
+{% include "_global/comandosList.html.twig" with {'controller': values.controller, 'linkValue': values.linkBy.value} %}
+{% include "_global/comandosNew.html.twig" with {'controller': values.controller, 'linkValue': values.linkBy.value} %}
+{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" id="manto_{{ values.controller }}" action="" method="POST">
+        <input name="controller" value="{{ values.controller }}" type="hidden" />
+        <input name="action" id="action" value="edit" type="hidden" />
+        <input name="{{ values.controller }}[IDDatafono]" value="{{ values.datos.IDDatafono }}" type="hidden" />
+	{% include "_global/comandosSaveDelete.html.twig" %}
+
+        <div class='Cuerpo'>
+            {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+            {% include "_global/alertas.html.twig" with {'alertas': values.alertas} %}
+            {% include values.controller ~ "/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

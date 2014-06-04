@@ -1,0 +1,58 @@
+{# Template list.html.twig for FrecibidasLineas #}
+{# -------------------------------------------------------#}
+{% extends 'FrecibidasLineas/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item' colspan="2">Udes</td>
+            <td class='Item'>Precio</td>
+            <td class='Item'>Dcto</td>
+            <td class='Item'>Iva</td>
+            <td class='Item'>Importe</td>
+            <td class='Item'>N. Pedido</td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            <form name="linea{{key}}" action="" method="POST">
+                <input name="controller" value="FrecibidasLineas" type="hidden" />
+                <input name="action" id="action" value="edit" type="hidden" />
+                <input name="accion" id="accion{{key}}" value="" type="hidden" />
+                <input name="FrecibidasLineas[IDLinea]" value="{{ objeto.IDLinea }}" type="hidden" />
+                <input name="FrecibidasLineas[IDFactura]" value="{{ values.linkBy.value }}" type="hidden" />
+
+                <tr class="ItemListado">
+                    <td>
+                        {{ macro.historicoCompras(app.path,objeto.IDArticulo.IDArticulo,objeto.IDFactura.IDProveedor.IDProveedor) }}
+                        {{objeto.IDArticulo.Codigo}}
+                    </td>
+                    <td>{{objeto.Descripcion}}</td>
+                    <td align="right">{{objeto.Unidades}}</td>
+                    <td>
+                        {{objeto.IDArticulo.UMC.UnidadMedida}}
+                        {% if objeto.Unidades != 0%}
+                            {{ macro.detalleRecepcionlinea(app.path,objeto.IDLineaPedido) }}
+                        {% endif %}
+                    </td>
+                    <td align="center"><input name="FrecibidasLineas[Precio]" value="{{objeto.Precio}}" type="text" style="width:65px;text-align:right;" /></td>
+                    <td align="center"><input name="FrecibidasLineas[Descuento]" value="{{objeto.Descuento}}" type="text" style="width:40px;text-align:right;" /></td>
+                    <td align="right"><input name="FrecibidasLineas[Iva]" value="{{objeto.Iva}}" type="text" style="width:40px;text-align:right;" /></td>
+                    <td align="right">{{objeto.Importe}}</td>
+                    <td align="right">
+                        <a href="{{app.path}}/PedidosCab/edit/{{objeto.IDPedido}}" target="_blank" title="Ver Pedido...">{{objeto.IDPedido}}</a>
+                    </td>
+                    <td align="center">
+                        <input type="image" src="{{app.path}}/images/botonsave.png" onclick="getElementById('accion{{key}}').value='G';" alt="Guardar" title="Guardar Linea" />
+                    </td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

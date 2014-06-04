@@ -1,0 +1,30 @@
+{# TEMPLATE RutasReparto/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+<input name="RutasReparto[IDSucursal]" value="{{datos.IDSucursal.IDSucursal}}" type="hidden" />
+{{ macro.input('Descripción','Etiqueta','text','RutasReparto[Descripcion]','RutasReparto_Descripcion',datos.Descripcion,'50','CampoTextoLargo') }}
+{{ macro.foco('RutasReparto_Descripcion') }}
+
+{% if datos.IDRuta %}
+<div class='FormManto' style="margin-top: 10px; background-color:grey;">
+
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            {% for i in 1..7 %}
+            <li class="ui-state-default ui-corner-top {%if i == 1%} ui-tabs-selected ui-state-active{%endif%}">
+                <a href="#tabs-{{i}}">{{values.dias[i-1].Value}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% for i in 1..7 %}
+        <div id="tabs-{{i}}" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <iframe class="FrameRutaDia"
+                src="{{app.path}}/RutasRepartoDetalle/list/{{datos.IDRuta}}/{{i}}">
+            </iframe>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %}

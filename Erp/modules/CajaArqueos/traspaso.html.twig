@@ -1,0 +1,45 @@
+{# TRAPASO #}
+
+<div class="FormManto">
+    <input name="IDSucursalOrigen" value="{{ values.datos.IDSucursal.IDSucursal }}" type="hidden" />
+    <input name="IDTpvOrigen" value="{{ values.datos.IDTpv.IDTpv }}" type="hidden" />
+
+    <div style="font-size: 11px; float: left; width: 50%; padding: 5px;">
+    {{ macro.select('Sucursal Destino','Etiqueta','IDSucursalDestino','IDSucursalDestino',none,suc,values.sucursalesDestino,'Select',none,"DesplegableAjax('div_IDTpvDestino','IDTpvDestino','IDTpvDestino','tpvs',this.value);")}}
+    {{ macro.select('Tpv Destino','Etiqueta','IDTpvDestino','IDTpvDestino',none,datos.IDTpv.IDTpv,datos.IDTpv.fetchAll,'Select')}}
+    <div style="text-align: left; font-weight: bold; margin-top: 15px; margin-bottom: 5px;">Indique los importes a traspasar por forma de cobro:</div>
+    {% set saldo = 0 %}
+    {% for value in datos.getResumen %}
+        {% set saldo = saldo + value.Importe %}
+        {% if value.Importe > 0 %}
+        <div style="float: left; font-size: 11px; clear: both;">
+            <div style="float: left; width: 200px; border-bottom: 1px dotted;">{{value.Descripcion}}</div>
+            <div style="float: left; width: 70px; margin-left: 5px; text-align: right;">{{value.Importe}}</div>
+            <div style="float: left; width: 70px; margin-left: 5px; text-align: right;">
+                <input name="traspaso[{{value.IDFP}}][importeOrigen]" id="importeOrigen{{value.IDFP}}" value="{{value.Importe}}" type="hidden" />
+                <input name="traspaso[{{value.IDFP}}][importeDestino]" id="importeDestino{{value.IDFP}}" value="" type="text" style="width:60px;text-align:right;">
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    <div style="clear: both;"></div>
+
+    {% if saldo > 0 %}
+    <div style="margin-top: 5px;"><input type="submit" onclick="getElementById('action').value='Traspasar';" value="Traspasar" class="Comando"/></div>
+    {% endif %}
+
+    </div>
+
+    <div style="float:right; width: 46%; padding: 5px;">
+        <p style="text-align: left;">
+            Mediante esta opción puede realizar traspasos de importes entre cajas, incluso de distintas sucursales.
+        </p>
+        <p style="text-align: left; margin-top: 5px;">
+            Tenga en cuenta que tanto la caja origen como la destino NO deben estar CERRADAS y que el traspaso se hará en el día actual.
+        </p>
+        <p style="text-align: left; margin-top: 5px;">
+            Si la caja destino no está abierta, se producirá la apertura automática.
+        </p>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+# Module: CambioProveedorFactura
+# Document : modules\CambioProveedorFactura\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 29.05.2014 00:47:17
+#
+---
+CambioProveedorFactura:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Cambio de Proveedor Factura
+  id_video: cambioclientefactura
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: CambioProveedorFactura
+  table:
+  primarykey:
+  records_per_page: 15
+  order_by:
+  search_default:
+  referenced_entities:
+  columns:

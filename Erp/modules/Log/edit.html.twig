@@ -1,0 +1,29 @@
+{# Template edit.html.twig for Log #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends 'Log/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+	<form name="manto" action="" method="POST">
+		<div class='Comandos'>
+						{% if values.permisos['A'] %}
+                            <input type="submit" name="accion" value="Guardar" class="Comando"/>
+                        {% endif %}
+			{% if values.permisos['B'] %}
+			<input type="submit" name="accion" value="Borrar" class="Comando" onclick="return confirm('¿Desea borrar el registro?');"/>
+                        {% endif %}
+                        <hr>
+		</div>
+
+		<div class='Cuerpo'>
+			<input name="controller" value="Log" type="hidden" />
+			<input name="action" value="edit" type="hidden" />
+			<input name="Log[IDEvento]" value="{{ values.datos.IDEvento }}" type="hidden" />
+			{% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+			{% include "Log/form.html.twig" with {'datos': values.datos} %}
+		</div>
+	</form>
+</div>
+{% endblock %}

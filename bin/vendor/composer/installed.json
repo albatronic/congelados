@@ -1,0 +1,397 @@
+[
+    {
+        "name": "symfony/routing",
+        "version": "v2.0.15",
+        "version_normalized": "2.0.15.0",
+        "target-dir": "Symfony/Component/Routing",
+        "time": "2012-05-21 14:25:19",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Routing",
+            "reference": "v2.0.15"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/symfony/Routing/zipball/v2.0.15",
+            "reference": "v2.0.15",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "suggest": {
+            "symfony/config": "v2.0.15",
+            "symfony/yaml": "v2.0.15"
+        },
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Symfony Community",
+                "email": null,
+                "homepage": "http://symfony.com/contributors",
+                "role": null
+            }
+        ],
+        "description": "Symfony Routing Component",
+        "homepage": "http://symfony.com",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Routing": ""
+            }
+        }
+    },
+    {
+        "name": "symfony/class-loader",
+        "version": "v2.0.15",
+        "version_normalized": "2.0.15.0",
+        "target-dir": "Symfony/Component/ClassLoader",
+        "time": "2012-04-22 23:37:21",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/ClassLoader",
+            "reference": "v2.0.13"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/symfony/ClassLoader/zipball/v2.0.13",
+            "reference": "v2.0.13",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Symfony Community",
+                "email": null,
+                "homepage": "http://symfony.com/contributors",
+                "role": null
+            }
+        ],
+        "description": "Symfony ClassLoader Component",
+        "homepage": "http://symfony.com",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\ClassLoader": ""
+            }
+        }
+    },
+    {
+        "name": "symfony/templating",
+        "version": "v2.0.14",
+        "version_normalized": "2.0.14.0",
+        "target-dir": "Symfony/Component/Templating",
+        "time": "2012-05-15 10:56:32",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Templating",
+            "reference": "v2.0.14"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/symfony/Templating/zipball/v2.0.14",
+            "reference": "v2.0.14",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Symfony Community",
+                "email": null,
+                "homepage": "http://symfony.com/contributors",
+                "role": null
+            }
+        ],
+        "description": "Symfony Templating Component",
+        "homepage": "http://symfony.com",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Templating": ""
+            }
+        }
+    },
+    {
+        "name": "twig/twig",
+        "version": "v1.8.3",
+        "version_normalized": "1.8.3.0",
+        "time": "2012-06-17 14:48:16",
+        "source": {
+            "type": "git",
+            "url": "git://github.com/fabpot/Twig.git",
+            "reference": "v1.8.3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/fabpot/Twig/zipball/v1.8.3",
+            "reference": "v1.8.3",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.4"
+        },
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.8-dev"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "BSD-3"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Armin Ronacher",
+                "email": "armin.ronacher@active-4.com",
+                "homepage": null,
+                "role": null
+            }
+        ],
+        "description": "Twig, the flexible, fast, and secure template language for PHP",
+        "homepage": "http://twig.sensiolabs.org",
+        "keywords": [
+            "templating"
+        ],
+        "autoload": {
+            "psr-0": {
+                "Twig_": "lib/"
+            }
+        }
+    },
+    {
+        "name": "symfony/twig-bridge",
+        "version": "v2.0.15",
+        "version_normalized": "2.0.15.0",
+        "target-dir": "Symfony/Bridge/Twig",
+        "time": "2012-05-18 13:00:00",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/TwigBridge",
+            "reference": "v2.0.15"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/symfony/TwigBridge/zipball/v2.0.15",
+            "reference": "v2.0.15",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2",
+            "twig/twig": ">=1.1,<2.0-dev"
+        },
+        "suggest": {
+            "symfony/form": "v2.0.15",
+            "symfony/routing": "v2.0.15",
+            "symfony/translation": "v2.0.15",
+            "symfony/yaml": "v2.0.15"
+        },
+        "type": "symfony-bridge",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Symfony Community",
+                "email": null,
+                "homepage": "http://symfony.com/contributors",
+                "role": null
+            }
+        ],
+        "description": "Symfony Twig Bridge",
+        "homepage": "http://symfony.com",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Bridge\\Twig": ""
+            }
+        }
+    },
+    {
+        "name": "symfony/twig-bundle",
+        "version": "v2.0.15",
+        "version_normalized": "2.0.15.0",
+        "target-dir": "Symfony/Bundle/TwigBundle",
+        "time": "2012-05-24 10:44:41",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/TwigBundle",
+            "reference": "v2.0.15"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/symfony/TwigBundle/zipball/v2.0.15",
+            "reference": "v2.0.15",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2",
+            "symfony/twig-bridge": "self.version"
+        },
+        "type": "symfony-bundle",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Symfony Community",
+                "email": null,
+                "homepage": "http://symfony.com/contributors",
+                "role": null
+            }
+        ],
+        "description": "Symfony TwigBundle",
+        "homepage": "http://symfony.com",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Bundle\\TwigBundle": ""
+            }
+        }
+    },
+    {
+        "name": "symfony/yaml",
+        "version": "v2.0.15",
+        "version_normalized": "2.0.15.0",
+        "target-dir": "Symfony/Component/Yaml",
+        "time": "2012-05-18 15:37:58",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Yaml",
+            "reference": "v2.0.15"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/symfony/Yaml/zipball/v2.0.15",
+            "reference": "v2.0.15",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Symfony Community",
+                "email": null,
+                "homepage": "http://symfony.com/contributors",
+                "role": null
+            }
+        ],
+        "description": "Symfony Yaml Component",
+        "homepage": "http://symfony.com",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Yaml": ""
+            }
+        }
+    },
+    {
+        "name": "symfony/config",
+        "version": "v2.0.14",
+        "version_normalized": "2.0.14.0",
+        "target-dir": "Symfony/Component/Config",
+        "time": "2012-05-16 07:53:50",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Config",
+            "reference": "v2.0.15"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/symfony/Config/zipball/v2.0.15",
+            "reference": "v2.0.15",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Symfony Community",
+                "email": null,
+                "homepage": "http://symfony.com/contributors",
+                "role": null
+            }
+        ],
+        "description": "Symfony Config Component",
+        "homepage": "http://symfony.com",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Config": ""
+            }
+        }
+    }
+]

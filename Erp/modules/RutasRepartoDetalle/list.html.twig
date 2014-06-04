@@ -1,0 +1,100 @@
+{# Template list.html.twig for RutasRepartoDetalle #}
+{# -------------------------------------------------#}
+{% extends 'RutasRepartoDetalle/index.html.twig' %}
+
+{% block listado %}
+
+    <form name="form" method="POST">
+        <input name="controller" value="RutasRepartoDetalle" type="hidden" />
+        <input name="action" id="action" value="new" type="hidden" />
+        <input name="accion" value="" type="hidden" />
+        <input name="IDRuta" value="{{values.linkBy.value}}" type="hidden" />
+        <input name="dia" value="{{values.listado.dia}}" type="hidden" />
+
+        <div style="margin: 10px;">
+        <div style="float: left;">
+            Repartidor habitual:
+            <select id="IDRepartidor" name="IDRepartidor" onchange="" style="width:190px;" >
+                {% for repartidor in user.getRepartidores %}
+                <option value="{{repartidor.Id}}" {% if repartidor.Id == values.listado.IDRepartidor %} SELECTED {% endif %}>{{repartidor.Value}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" class="Comando" value="Cambiar Repartidor" onclick="getElementById('action').value='cambiarRepartidor';" />
+        </div>
+        <div style="text-align:right;font-weight:bold;margin-right: 10px;">{{values.listado.nDirecciones}} Direcciones</div>
+        </div>
+
+        <div style="clear: both;"></div>
+        
+        <div style="margin-left: 5px;">
+
+        <div style="float: left; margin-left: 10px;">
+            Dirección de Entrega:
+            <select id="IDDirec" name="IDDirec" onchange="accion.value='direccion';submit();" style="width:190px;" >
+                {% for objeto in values.listado.direcciones %}
+                <option value="{{objeto.Id}}">{{objeto.Value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="float:right; margin-right: 10px;">
+            Zona de Reparto:
+            <select id="IDZona" name="IDZona" onchange="accion.value='zona';submit();" style="width:165px;" >
+                {% for objeto in values.listado.zonas %}
+                <option value="{{objeto.Id}}">{{objeto.Value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        </div>
+        <div style="clear: both; margin-bottom:10px;"></div>
+    </form>
+
+<div id='accordion' class="Listado" style="margin-top:10px;">
+
+    {% set zona = 0 %}
+    {% for key,objeto in values.listado.data %}
+        {% if objeto.IDDirec.IDZona.IDZona != zona %}
+        {% if zona != 0 %}</p></div>{%endif%}
+        <h3>
+            <form name="form" method="POST">
+            <input name="controller" value="RutasRepartoDetalle" type="hidden" />
+            <input name="action" id="actionZona{{key}}" value="" type="hidden" />
+            <input name="Id" value="{{objeto.Id}}" type="hidden" />
+            <input name="IDRuta" value="{{values.linkBy.value}}" type="hidden" />
+            <input name="IDZona" value="{{objeto.IDZona.IDZona}}" type="hidden" />
+            <input name="dia" value="{{values.listado.dia}}" type="hidden" />
+            <div style="margin-left: 20px;">
+                <div style="float:left;margin-left: 10px;margin-right: 10px;">
+                    <input type="image" src="{{app.path}}/images/botonborrar.png" title="Quitar Zona"
+                           onclick="if (!confirm('¿Desea eliminar la zona {{objeto.IDDirec.IDZona.Zona}}?')) {return false;} else {getElementById('actionZona{{key}}').value='borrarZona';submit();}"
+                    />
+                </div>
+                <div style="font-weight:bold;">{{objeto.IDDirec.IDZona.Zona}}</div>
+                <div style="clear:both;"></div>
+            </div>
+            </form>
+        </h3>
+        <div><p>
+        {% endif %}
+        {% set zona = objeto.IDDirec.IDZona.IDZona %}
+
+        <form name="form" method="POST">
+            <input name="controller" value="RutasRepartoDetalle" type="hidden" />
+            <input name="action" id="actionDirec{{key}}" value="" type="hidden" />
+            <input name="Id" value="{{objeto.Id}}" type="hidden" />
+            <input name="IDRuta" value="{{values.linkBy.value}}" type="hidden" />
+            <input name="dia" value="{{values.listado.dia}}" type="hidden" />
+
+            <div style="margin-left:40px;">
+                <div style="float:left;margin-right: 10px;"><input type="image" src="{{app.path}}/images/botonborrar.png" title="Quitar Direccion" onclick="getElementById('actionDirec{{key}}').value='borrarDireccion';submit();"/></div>
+                <div style="float:left;margin-right: 10px;"><input name="OrdenDirec" value="{{objeto.OrdenDirec}}" type="text" maxlength="3" style="width:22px;" onchange="getElementById('actionDirec{{key}}').value='cambiarOrdenDirec';submit();"/></div>
+                <div style="float:left;color:black;">{{objeto.IDDirec.Nombre}} - {{objeto.IDDirec.IDCliente.NombreComercial}}</div>
+                <div style="clear:both;"></div>
+            </div>
+        </form>
+    {% endfor %}
+    {% if zona != 0 %}</p></div>{%endif%}
+</div>
+
+{% endblock %}

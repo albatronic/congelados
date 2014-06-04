@@ -1,0 +1,171 @@
+# Module: Promociones
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Promociones:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Promociones
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Promociones
+  table: promociones
+  primarykey: IDPromocion
+  records_per_page: 15
+  order_by:
+    -
+      title: Fin Promocion a-z
+      criteria: FinPromocion ASC
+    -
+      title: Fin Promocion z-a
+      criteria: FinPromocion DESC
+    -
+      title: Titulo a-z
+      criteria: Titulo ASC
+    -
+      title: Titulo z-a
+      criteria: Titulo DESC
+  search_default: Titulo
+  columns:
+    -
+      title: IDPromocion
+      field: IDPromocion
+      filter: NO
+      list: NO
+      form: YES
+      validator: null
+    -
+      title: Titulo
+      field: Titulo
+      filter: YES
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Familia
+      field: IDFamilia
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: YES
+        type: integer
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 1
+        caption: Familia
+        entity: Familias
+        method: fetchAll
+        params: Familia
+        type: select
+    -
+      title: Articulo
+      field: IDArticulo
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 3
+        caption: Artículo(%)
+        entity: Articulos
+        method:
+        params: Descripcion
+        type: input
+    -
+      title: Fin Promocion
+      field: FinPromocion
+      filter: YES
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: date
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Ctd Minima
+      field: CantidadMinima
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: YES
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Tipo
+      field: TipoPromocion
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 4
+        caption: Tipo
+        entity: PromocionesTipos
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Valor
+      field: Valor
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Forma de Pago
+      field: IDFP
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: YES
+        type: integer
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 5
+        caption: Forma de Pago
+        entity: FormasPago
+        method: fetchAll
+        params: Descripcion
+        type: select

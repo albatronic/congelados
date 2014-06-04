@@ -1,0 +1,36 @@
+{# Template edit.html.twig for RecepcionarCab #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends 'RecepcionarCab/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+	<form name="manto" action="" method="POST">
+		<input name="controller" value="RecepcionarCab" type="hidden" />
+		<div class='Comandos'>
+                    <p class="Titulo">
+                    Pedido: {{values.datos.IDPedido}} [{{values.datos.IDEstado.Descripcion}}]
+
+                    {% if values.datos.IDEstado.IDTipo == '1' %}
+                        {% if values.permisos['A'] %}
+                            <input type="submit" name="action" value="Recepcionar" class="Comando" onclick="return confirm('¿Desea recepcionar el pedido {{values.datos.IDPedido}}?');"/>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if values.datos.IDEstado.IDTipo == '2' and values.permisos['A'] %}
+                        <input type="submit" name="action" value="Anular" class="Comando" onclick="return confirm('¿Desea anular la recepción del pedido {{values.datos.IDPedido}}?');"/>
+                    {% endif %}
+                    </p>
+
+		</div>
+
+		<div class='Cuerpo'>
+			<input name="RecepcionarCab[IDPedido]" value="{{ values.datos.IDPedido }}" type="hidden" />
+			<input name="RecepcionarCab[IDEstado]" value="{{ values.datos.IDEstado.IDTipo }}" type="hidden" />
+                        {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+			{% include "RecepcionarCab/form.html.twig" with {'datos': values.datos} %}
+		</div>
+	</form>
+</div>
+{% endblock %}

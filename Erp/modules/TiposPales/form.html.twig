@@ -1,0 +1,9 @@
+{# TEMPLATE TiposPales/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{{ macro.input('Descripción','Etiqueta','text','TiposPales[Descripcion]','TiposPales_Descripcion',datos.Descripcion,'50','CampoTextoLargo') }}
+{{ macro.input('Ancho (mm)','Etiqueta','text','TiposPales[Ancho]','TiposPales_Ancho',datos.Ancho,'5','CampoUnidades') }}
+{{ macro.input('Fondo (mm)','Etiqueta','text','TiposPales[Fondo]','TiposPales_Fondo',datos.Fondo,'5','CampoUnidades') }}
+{{ macro.input('Alto (mm)','Etiqueta','text','TiposPales[Alto]','TiposPales_Alto',datos.Alto,'5','CampoUnidades') }}
+{{ macro.input('Cubicaje (mts3)','Etiqueta','text','TiposPales[Cubicaje]','TiposPales_Cubicaje',datos.Cubicaje,'5','CampoUnidades', 'readonly') }}
+{{ macro.input('Tara (Kgr)','Etiqueta','text','TiposPales[Tara]','TiposPales_Tara',datos.Tara,'5','CampoUnidades') }}

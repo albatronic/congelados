@@ -1,0 +1,8 @@
+{# TEMPLATE TiposMvtosAlmacen/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{{ macro.select('Signo','Etiqueta','TiposMvtosAlmacen[Signo]','TiposMvtosAlmacen_Signo',none,datos.Signo.IDTipo,datos.Signo.fetchAll,'Select',none) }}
+{{ macro.select('Uso','Etiqueta','TiposMvtosAlmacen[Uso]','TiposMvtosAlmacen_Uso',none,datos.Uso.IDTipo,datos.Uso.fetchAll,'Select',none) }}
+{{ macro.input('Descripción','Etiqueta','text','TiposMvtosAlmacen[Descripcion]','TiposMvtosAlmacen_Descripcion',datos.Descripcion,'50','CampoTextoLargo') }}
+{{ macro.input('Tipo Documento','Etiqueta','text','TiposMvtosAlmacen[TipoDocumento]','TiposMvtosAlmacen_TipoDocumento',datos.TipoDocumento,'50','CampoTextoLargo') }}
+{{ macro.foco('TiposMvtosAlmacen_Signo') }}

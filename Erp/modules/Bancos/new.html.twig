@@ -1,0 +1,24 @@
+{# Template new.html.twig for Bancos #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends 'Bancos/index.html.twig' %}
+
+{% block navegador %}{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" method="POST">
+        <input name="controller" value="Bancos" type="hidden" />
+        <input name="action" value="new" type="hidden" />
+        <input name="Bancos[IDBanco]" value="{{ values.datos.IDBanco }}" type="hidden" />
+	{% include '_global/comandosCreate.html.twig' %}
+
+        <div class="Cuerpo">
+	{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+        {{ macro.input('Código Banco','Etiqueta','text','Bancos[CodigoBanco]','Bancos_CodigoBanco',values.datos.CodigoBanco,'4','CampoTextoCorto') }}
+	{% include "Bancos/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

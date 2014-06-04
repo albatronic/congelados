@@ -1,0 +1,95 @@
+{# PstoLineas/formCristal.html.twig #}
+{# TEMPLATE PARA LAS LINEAS DE PRESUPUESTOS EN LA VERSION CRISTAL #}
+{% extends 'PstoLineas/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+    <div style="position: fixed; z-index:1000; height: 16px; width: 100%; background:whitesmoke;clear:both;">
+        <div style="float:right;">
+            <input name="precios" id="precios" size="30" value="" disabled/>
+        </div>
+    </div>
+
+    <div style="position:relative; top:18px;clear:both;">
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td colspan="3"></td>
+            <td colspan="3" align="center">Almacén</td>
+            <td colspan="3" align="center">Factura</td>
+            <td colspan="5"></td>
+        </tr>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item'>Udes</td>
+            <td class='Item'>Alto</td>
+            <td class='Item'>Ancho</td>
+            <td class='Item'>Mts</td>
+            <td class='Item'>Alto</td>
+            <td class='Item'>Ancho</td>
+            <td class='Item'>Mts</td>
+            <td class='Item'>Precio</td>
+            <td class='Item'>Dcto</td>
+            <td class='Item'>Iva</td>
+            <td class='Item'>Importe</td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            {% set puntero = key %}
+            {% set beneficioLinea = objeto.Importe - objeto.ImporteCosto %}
+            <form name="linea{{puntero}}" action="" method="POST">
+                <input name="controller" value="PstoLineas" type="hidden" />
+                <input name="action" id="action" value="edit" type="hidden" />
+                <input name="PstoLineas[IDPsto]" value="{{ values.linkBy.value }}" type="hidden" />
+                <input name="PstoLineas[IDLinea]" value="{{ objeto.IDLinea }}" type="hidden" />
+                <input name="PstoLineas[IDEstado]" value="{{ objeto.IDEstado.IDTipo }}" type="hidden" />
+                <input name="PstoLineas[IDAgente]" value="{{ objeto.IDAgente.IDAgente }}" type="hidden" />
+                <input name="accion" id="accion{{puntero}}" value="" type="hidden" />
+                <tr class="ItemListado"
+                    onmouseover="getElementById('precios').value='V{{objeto.Importe}}|C{{objeto.ImporteCosto}}|B{{beneficioLinea}}';"
+                    onmouseout="getElementById('precios').value='';" >
+                    <td>
+                        <input name="PstoLineas[IDArticulo]" value="{{objeto.IDArticulo.IDArticulo}}" id="PstoLineas_IDArticulo{{puntero}}" type="hidden" />
+                        <input value="{{objeto.IDArticulo.Codigo}}" id="Codigo{{puntero}}" type="text" maxlength="25" style="width:100px;"
+                               onkeyup="autoCompletar('Codigo{{puntero}}','PstoLineas_IDArticulo{{puntero}}','PstoLineas_Descripcion{{puntero}}','articulos','','');"/>
+
+                        {% if objeto.IDArticulo.IDArticulo %}
+                            {{ macro.historicoVentas(app.path,objeto.IDArticulo.IDArticulo,objeto.IDPsto.IDCliente.IDCliente) }}
+                        {% endif %}
+                        {% if objeto.IDPromocion.IDPromocion %}
+                            {% include "_Emergente/dialogoPromocion.html.twig" with {'linea': objeto} %}
+                        {% endif %}
+                    </td>
+                    <td><input name="PstoLineas[Descripcion]" id="PstoLineas_Descripcion{{puntero}}" value="{{objeto.Descripcion}}" type="text" maxlength="255" style="width:200px;"  /></td>
+                    <td><input name="PstoLineas[Unidades]" value="{{objeto.Unidades}}" type="text" style="width:50px;text-align:right;" /></td>
+                    <td><input name="PstoLineas[AltoAl]" value="{{objeto.AltoAl}}" type="text" style="width:45px;text-align:right;" /></td>
+                    <td><input name="PstoLineas[AnchoAl]" value="{{objeto.AnchoAl}}" type="text" style="width:45px;text-align:right;" /></td>
+                    <td><input name="PstoLineas[MtsAl]" value="{{objeto.MtsAl}}" type="text" style="width:45px;text-align:right;" disabled /></td>
+                    <td><input name="PstoLineas[AltoFa]" value="{{objeto.AltoFa}}" type="text" style="width:45px;text-align:right;" disabled /></td>
+                    <td><input name="PstoLineas[AnchoFa]" value="{{objeto.AnchoFa}}" type="text" style="width:45px;text-align:right;" disabled /></td>
+                    <td><input name="PstoLineas[MtsFa]" value="{{objeto.MtsFa}}" type="text" style="width:45px;text-align:right;" disabled /></td>
+
+                    <td><input name="PstoLineas[Precio]" value="{{objeto.Precio}}" type="text" style="width:55px;text-align:right;" /></td>
+                    <td><input name="PstoLineas[Descuento]" value="{{objeto.Descuento}}" type="text" style="width:40px;text-align:right;" /></td>
+                    <td><input name="PstoLineas[Iva]" value="{{objeto.Iva}}" type="text" style="width:35px;text-align:right;" /></td>
+                    <td><input name="PstoLineas[Importe]" value="{{objeto.Importe}}" type="text" style="width:60px;text-align:right;" disabled /></td>
+                    <td align="center">
+                        {% if objeto.IDLinea > 0 %}
+                        <input type="image" src="{{app.path}}/images/botonsave.png" onclick="getElementById('accion{{puntero}}').value='G';" alt="Guardar" title="Guardar Linea" />
+                        <input type="image" src="{{app.path}}/images/papelera.gif" onclick="if (!confirm('Desea eliminar la línea?')) {return false;} else {getElementById('accion{{puntero}}').value='B';}" alt="Borrar" title="Borrar Linea" />
+                        {% else %}
+                        <input type="image" src="{{app.path}}/images/nuevo.png" onclick="getElementById('action').value='new';" alt="Nuevo" title="Crear Linea" />
+                        {% endif %}
+                    </td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+{{ macro.foco('Codigo0') }}
+{% endblock %}

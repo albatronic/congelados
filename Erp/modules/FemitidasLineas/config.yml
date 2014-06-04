@@ -1,0 +1,549 @@
+# Module: FemitidasLineas
+# Document : modules\FemitidasLineas\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 14.02.2012 11:40:03
+#
+---
+FemitidasLineas:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: FemitidasLineas
+  id_video: femitidaslineas
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: FemitidasLineas
+  table: femitidas_lineas
+  primarykey: IDLinea
+  records_per_page: 15
+  order_by: IDLinea
+  search_default: IDLinea
+  referenced_entities:
+    -
+      entity: Articulos
+    -
+      entity: AlbaranesCab
+    -
+      entity: TiposVenta
+    -
+      entity: ValoresSN
+    -
+      entity: Agentes
+    -
+      entity: Promociones
+  columns:
+    -
+      title: IDFactura
+      field: IDFactura
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDLinea
+      field: IDLinea
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: IDArticulo
+      field: IDArticulo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descripcion
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Unidades
+      field: Unidades
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 1.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Precio
+      field: Precio
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descuento
+      field: Descuento
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Importe
+      field: Importe
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: ImporteCosto
+      field: ImporteCosto
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDAlbaran
+      field: IDAlbaran
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 00000000000
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDLineaAlbaran
+      field: IDLineaAlbaran
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Iva
+      field: Iva
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Recargo
+      field: Recargo
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: ComisionAgente
+      field: ComisionAgente
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: ComisionMontador
+      field: ComisionMontador
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDVenta
+      field: IDVenta
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Comisionar
+      field: Comisionar
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDAgente
+      field: IDAgente
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDComercial
+      field: IDComercial
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDPromocion
+      field: IDPromocion
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: AltoAl
+      field: AltoAl
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: AnchoAl
+      field: AnchoAl
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: MtsAl
+      field: MtsAl
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: AltoFa
+      field: AltoFa
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: AnchoFa
+      field: AnchoFa
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: MtsFa
+      field: MtsFa
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido

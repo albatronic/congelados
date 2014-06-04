@@ -1,0 +1,52 @@
+{# Template detalle.html.twig for Log #}
+{# -------------------------------------------------------#}
+{% extends 'HistoricoLog/index.html.twig' %}
+
+{% set totalAccesos = values.detalle|length %}
+
+{% block listado %}
+
+<a href="{{app.path}}/{{values.controller}}/Index">Volver</a>
+
+<div class='Listado'>
+        <div id="Listado">
+        <table width="100%">
+            <tr class='Titulos'>
+                <td class='Item' colspan='8'>Total accesos {{totalAccesos}} ({{values.fileLog}})</td>
+            </tr>
+            <tr class='Titulos'>
+                <td class='Item'>Ip</td>
+                <td class='Item'>Fecha/Hora</td>
+                <td class='Item'>Id/Usuario/Rol</td>
+                <td class='Item'>Controller</td>
+                <td class='Item'>Action</td>
+                <td class='Item'>Accion</td>
+                <td class='Item'>Más</td>
+                <td class='Item'>METHOD</td>
+            </tr>
+
+            <tbody class='Cuerpo'>
+            {% for key,objeto in values.detalle %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr class='{{classFila}}'>
+                <td class='Item'>{{objeto.ip}}</td>
+                <td class='Item'>{{objeto.fecha}}</td>
+                <td class='Item'>{{objeto.usuario.Id}} {{objeto.usuario.Nombre}} {{objeto.usuario.IDPerfil}} {{objeto.usuario.idRol}}</td>
+                <td class='Item'>{{objeto.controller}}</td>
+                <td class='Item'>{{objeto.action}}</td>
+                <td class='Item'>{{objeto.accion}}</td>
+                <td class='Item'><textarea rows=2 columns=60>{{objeto.mas}}</textarea></p></td>
+                <td class='Item'>{{objeto.metodo}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan='2'>No hay informaci&oacute;n que cumpla esos criterios</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+</div>
+{% endblock %}

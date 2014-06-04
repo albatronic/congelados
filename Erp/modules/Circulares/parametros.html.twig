@@ -1,0 +1,146 @@
+{# empty Twig template #}
+<div class="informesParametros">
+    <p style="text-align: center;">{{values.circular.title}}</p>
+
+{% if not values.circular is empty %}
+    <div style="margin-bottom: 10px;">{{ values.circular.comment}}</div>
+
+    <form name="formCircular" id="formCircular" method="POST">
+        <input name="controller" value="{{values.controller}}" type="hidden"/>
+        <input name="action" id="circular_action" value="" type="hidden" />
+        <input name="accion" id="circular_accion" value="Generar" type="hidden" />
+        <input name="idCircular" value="{{values.circular.idCircular}}" type="hidden" />
+
+        <div class="salto">
+            <div class="etiquetaCircular">Plantilla:</div>
+            <div>
+            {% if values.plantillas %}                    
+            <select name="plantilla" id="plantilla">
+                {% for plantilla in values.plantillas %}
+                <option value="{{plantilla}}" {%if plantilla==values.circular.plantilla%} SELECTED{%endif%}>{{plantilla}}</option>
+                {% endfor %}
+            </select>
+            <img id="botonPreview" src="{{app.path}}/images/lupa.png" title="Ver plantilla" alt="Ver plantilla" style="cursor: pointer;"/>
+            {% else %}
+                <span>No hay plantillas, súbalas para poder generar circulares en base a las mismas.</span>
+            {% endif %}
+            </div>                
+        </div>
+        <div class="salto">
+            <div class="etiquetaCircular">Formato destino:</div>
+            <div>
+            <select name="formato">
+                {% for key,formato in values.circular.formatos %}
+                <option value="{{key}}">{{formato}}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+        <div class="salto">
+            <div class="etiquetaCircular">Archivos Separados:</div>
+            <div><input name="archivosSeparados" type="checkbox" {%if values.circular.archivosSeparados%}checked="checked"{%endif%}/></div>
+        </div>
+
+    {% for key,value in values.circular.filters %}
+        {% if filter.valuesSelected[key] %}
+            {% set valor = filter.valuesSelected[i] %}
+        {% else %}
+            {% set valor = value.default %}
+        {% endif %}
+
+        <div class="salto">
+            <div class="etiquetaCircular">{{value.caption}}:</div>
+
+            <div style="float: left;">
+            {% if value.type == 'select' %}
+                <input name="filter[columnsSelected][{{key}}]" value="{{value.field}}" type="hidden"/>
+                <select name="filter[valuesSelected][{{key}}]" {{ value.event }} style="width: 200px;">
+                    {% for objeto in value.values  %}
+                        <option value="{{ objeto.Id }}" {% if objeto.Id == valor %} SELECTED {% endif %}>{{ objeto.Value }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+
+            {% if value.type == 'input' %}
+               <input name="filter[columnsSelected][{{key}}]" value="{{value.field}}" type="hidden"/>
+               <input name="filter[valuesSelected][{{key}}]" value ="{{ valor }}" type="text" size="10" {{ value.event }}/>
+            {% endif %}
+
+            {% if value.type == 'date' %}
+                <input name="filter[columnsSelected][{{key}}]" value="{{value.field}}" type="hidden"/>
+                {{ macro.fecha(none,none,"filter[valuesSelected]["~key~"]","filter_valuesSelected_"~key,valor) }}
+            {% endif %}
+
+            {% if value.type == 'check' %}
+                <input name="filter[columnsSelected][{{key}}]" value="{{value.field}}" type="hidden"/>
+                <input name="filter[valuesSelected][{{key}}]"
+               {% if  valor != '' %}
+               {% if  valor == '1' %}
+               checked="checked"
+               {% endif %}
+               {%else%}
+               {% if  value.default == 'on' %}
+                checked="checked"
+               {% endif %}
+               {% endif %}
+               type="checkbox" {{ value.event }}/>
+               {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if values.variables %}
+        {% include values.controller ~ '/mapeo.html.twig' %}
+    {% endif %}
+
+    <div class="salto" style="margin-top: 20px;" id="div_botonGenerar">            
+    {% if values.plantillas %}
+        <input id="botonGenerar" value="{% if values.variables%}Generar{%else%}Mapear{%endif%}" type="submit" class="Comando" style="margin-top: 10px; width: 150px;" />
+    {% endif %}
+    </div>            
+
+    </form>
+
+{% endif %}
+
+</div>
+
+<div id="dialogoPreview" title="Vista Previa"></div>
+
+<script>
+$(function(){
+    $('#botonGenerar').click(function(){
+        if ($('#plantilla').val() !== '') {
+            var html = "<img src='"+appPath+"/images/loadingAnimation.gif'>";
+            $('#circular_action').val( $('#botonGenerar').val() );            
+            //$('#div_botonGenerar').html(html);
+            $('#formCircular').submit();
+        } else {
+            return false;
+        }
+    });
+    
+    $('#plantilla').change(function(){
+        $('#circular_action').val('Mapear');
+        $('#formCircular').submit();
+    });
+    
+    $('#botonPreview').click(function(){
+        var url = "http://docs.google.com/gview?url=www.interpral.com{{app.path}}/docs/docs{{emp.IDEmpresa}}/circulares/plantillas/"+$('#plantilla').val()+"&embedded=true";
+        var html = "<iframe src='"+url+"' style='width:530px; height:530px;' frameborder='0'></iframe>";
+
+        $('#dialogoPreview').html(html);
+        $('#dialogoPreview').dialog("open");
+    });
+    
+    $('#dialogoPreview').dialog({
+        autoOpen: false,
+        modal: false,
+        width: 570,
+        height: 500,
+        resizable: true,
+        position: ['center','center'],
+        closeOnEscape: true      
+    });
+});
+</script>

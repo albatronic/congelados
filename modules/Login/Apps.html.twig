@@ -1,0 +1,18 @@
+{# Login/Apps.html.twig #}
+{% extends "_global/layout.html.twig" %}
+
+{% block title parent() ~ " - Apps" %}
+
+{% block login %}{% endblock %}
+
+{% block content %}
+<div id="titulo"><p>APLICACIONES DISPONIBLES</p></div>
+
+<div class="apps">
+<ul>
+{% for app in values.apps %}
+    <li><a href="{{ app.url }}">{{ app.title}}</a></li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

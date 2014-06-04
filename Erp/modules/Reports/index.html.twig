@@ -1,0 +1,104 @@
+{# empty Twig template #}
+{% extends layout %}
+
+{% block title parent() ~ " - " ~ values.titulo %}
+
+{% block content %}
+
+<div class='Titulo'>{{ values.titulo }}
+    {% include '_global/comandosHelp.html.twig' with {'controller': values.controller} %}
+</div>
+
+<div class="FormManto">
+
+<div class="Cuerpo">
+
+    <div class="CajaIzquierda" id="div_izquierda" style="font-size: 12px; float: left; width: 30%;">
+        <ul>
+            {% for key,report in values.reports %}
+            <li style="margin-bottom: 5px; font-weight: bold;">
+            <a href="{{app.path}}/Reports/select/{{key}}">{{report.title}}</a>
+            <p id="{{key}}" style="font-size: 11px; font-weight: normal; padding: 10px; display: none;">{{report.comment}}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div id="comment" class="CajaTotales" style="font-size: 11px; float: left; margin-left: 5px; width: 67%">
+        
+    {% if not values.report is empty %}
+        <div style="font-weight: bold; margin-bottom: 10px;">{{values.report.title}}</div>
+        <div style="margin-bottom: 10px;">{{ values.report.comment}}</div>
+
+        <form name="informe" id="informe" method="POST">
+            <input name="controller" value="{{values.controller}}" type="hidden"/>
+            <input name="action" value="makeReport" type="hidden" />
+            <input name="idReport" value="{{values.report.idReport}}" type="hidden" />
+
+        {% for key,value in values.report.filters %}
+            {% if filter.valuesSelected[key] %}
+                {% set valor = filter.valuesSelected[i] %}
+            {% else %}
+                {% set valor = value.default %}
+            {% endif %}
+
+            <div>
+                <div style="float: left; width: 90px; border-bottom: 1px dotted grey; margin-right: 3px;">{{value.caption}}:</div>
+
+                <div style="float: left;">
+                {% if value.type == 'select' %}
+                    <input name="filter[columnsSelected][{{key}}]" value="{{value.field}}" type="hidden"/>
+                    <select name="filter[valuesSelected][{{key}}]" {{ value.event }} style="width: 200px;">
+                        {% for objeto in value.values  %}
+                            <option value="{{ objeto.Id }}" {% if objeto.Id == valor %} SELECTED {% endif %}>{{ objeto.Value }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+
+                {% if value.type == 'input' %}
+                   <input name="filter[columnsSelected][{{key}}]" value="{{value.field}}" type="hidden"/>
+                   <input name="filter[valuesSelected][{{key}}]" value ="{{ valor }}" type="text" size="10" {{ value.event }}/>
+                {% endif %}
+
+                {% if value.type == 'date' %}
+                    <input name="filter[columnsSelected][{{key}}]" value="{{value.field}}" type="hidden"/>
+                    {{ macro.fecha(none,none,"filter[valuesSelected]["~key~"]","filter_valuesSelected_"~key,valor) }}
+                {% endif %}
+
+                {% if value.type == 'check' %}
+                    <input name="filter[columnsSelected][{{key}}]" value="{{value.field}}" type="hidden"/>
+                    <input name="filter[valuesSelected][{{key}}]"
+                   {% if  valor != '' %}
+                   {% if  valor == '1' %}
+                   checked="checked"
+                   {% endif %}
+                   {%else%}
+                   {% if  value.default == 'on' %}
+                    checked="checked"
+                   {% endif %}
+                   {% endif %}
+                   type="checkbox" {{ value.event }}/>
+                   {% endif %}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        {% endfor %}
+
+            <div style="margin-top: 10px;" id="div_botonGenerar">
+                <input name="accion" value="Generar" type="submit" class="Comando" style="margin-top: 10px; width: 150px;" onClick="$('#div_botonGenerar').html('<img src={{app.path}}/images/loading.gif>'); $('#informe').submit();" />
+            </div>
+        </form>
+        
+    {% endif %}
+        
+    <div style="width: 100%">
+    {% block listado %}
+    {% endblock %}
+    </div>            
+        
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

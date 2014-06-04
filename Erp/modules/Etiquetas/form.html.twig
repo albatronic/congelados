@@ -1,0 +1,10 @@
+{# TEMPLATE Etiquetas/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('IDAgente','Etiqueta','text','Etiquetas[IDAgente]','Etiquetas_IDAgente',datos.IDAgente,'4','CampoUnidades') }}
+{{ macro.input('IDArticulo','Etiqueta','text','Etiquetas[IDArticulo]','Etiquetas_IDArticulo',datos.IDArticulo,'25','CampoTextoCorto') }}
+{{ macro.input('Descripcion','Etiqueta','text','Etiquetas[Descripcion]','Etiquetas_Descripcion',datos.Descripcion,'30','CampoTextoLargo') }}
+{{ macro.input('Unidades','Etiqueta','text','Etiquetas[Unidades]','Etiquetas_Unidades',datos.Unidades,'11','CampoImporte') }}
+{{ macro.input('Precio','Etiqueta','text','Etiquetas[Precio]','Etiquetas_Precio',datos.Precio,'10','CampoImporte') }}

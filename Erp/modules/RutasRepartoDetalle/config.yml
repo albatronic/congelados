@@ -1,0 +1,232 @@
+# Module: RutasRepartoDetalle
+# Document : modules\RutasRepartoDetalle\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 14.05.2012 18:12:47
+#
+---
+RutasRepartoDetalle:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: RutasRepartoDetalle
+  id_video: rutasrepartodetalle
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: RutasRepartoDetalle
+  table: rutas_reparto_detalle
+  primarykey: Id
+  linkBy: IDRuta
+  records_per_page: 15
+  order_by: Id
+  search_default: Id
+  referenced_entities:
+    -
+      entity: RutasReparto
+    -
+      entity: Agentes
+    -
+      entity: Zonas
+    -
+      entity: ClientesDentrega
+  columns:
+    -
+      title: Id
+      field: Id
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: Ruta
+      field: IDRuta
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 1
+        caption: IDRuta
+        entity: RutasReparto
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Repartidor
+      field: IDRepartidor
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 2
+        caption: IDRepartidor
+        entity: Agentes
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Dia
+      field: Dia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 3
+        caption: Dia
+        entity: ValoresSN
+        method: fetchAll
+        params: null
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: OrdenZona
+      field: OrdenZona
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDZona
+      field: IDZona
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 4
+        caption: IDZona
+        entity: Zonas
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: OrdenDirec
+      field: OrdenDirec
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDDirec
+      field: IDDirec
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 5
+        caption: IDDirec
+        entity: ClientesDentrega
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido

@@ -1,0 +1,19 @@
+{# empty Twig template #}
+
+<div style="font-size: 11px; float: left; width: 30%; padding: 5px; border: 1px dotted;">
+    {{ macro.etiqueta('Saldo Apertura','Etiqueta',datos.SaldoApertura)}}
+    {{ macro.etiqueta('Suma Mvtos','Etiqueta',datos.SumaMvtos)}}
+    {{ macro.etiqueta('Saldo Cierre','Etiqueta',datos.SaldoCierre)}}
+</div>
+
+<div style="float:right; width: 65%; padding: 5px; border: 1px dotted;">
+    <div style="text-align: center; font-weight: bold; margin-bottom: 5px;">Desglose por forma de cobro</div>
+    {% for value in datos.getResumen %}
+        <div style="float: left; font-size: 11px; clear: both;">
+            <div style="float: left; width: 300px; border-bottom: 1px dotted;">{{value.Descripcion}}</div>
+            <div style="float: left; width: 70px; margin-left: 5px; text-align: right;">{{value.Importe}}</div>
+        </div>
+    {% endfor %}
+</div>
+
+<div style="clear: both;"></div>

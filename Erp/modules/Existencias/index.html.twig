@@ -1,0 +1,25 @@
+{# Template index.html.twig for Existencias #}
+{# -------------------------------------------------------#}
+{% extends layout %}
+
+{% block title parent() ~ " - " ~ values.titulo %}
+
+{% block content %}
+	<div class='Titulo'>{{ values.titulo }}
+	{% block navegador %}
+	{% endblock %}
+        {% include '_global/comandosHelp.html.twig' with {'controller':values.controller} %}
+        </div>
+
+	{% block filtro %}
+        {% if values.permisos['C'] %}
+            {% include 'Existencias/filtro.html.twig' with {'filter':values.listado.filter} %}
+        {%endif%}
+	{% endblock %}
+
+        <div id="div_listado">
+        {% block listado %}
+	{% endblock %}
+        </div>
+
+{% endblock %}

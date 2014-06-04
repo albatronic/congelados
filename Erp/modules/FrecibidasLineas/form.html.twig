@@ -1,0 +1,13 @@
+{# TEMPLATE FrecibidasLineas/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.input('IDFactura','Etiqueta','text','FrecibidasLineas[IDFactura]','FrecibidasLineas_IDFactura',datos.IDFactura,'11','CampoImporte') }}
+{{ macro.input('IDArticulo','Etiqueta','text','FrecibidasLineas[IDArticulo]','FrecibidasLineas_IDArticulo',datos.IDArticulo,'25','CampoTextoCorto') }}
+{{ macro.input('Descripcion','Etiqueta','text','FrecibidasLineas[Descripcion]','FrecibidasLineas_Descripcion',datos.Descripcion,'255','CampoTextoLargo') }}
+{{ macro.input('Unidades','Etiqueta','text','FrecibidasLineas[Unidades]','FrecibidasLineas_Unidades',datos.Unidades,'10','CampoImporte') }}
+{{ macro.input('Precio','Etiqueta','text','FrecibidasLineas[Precio]','FrecibidasLineas_Precio',datos.Precio,'10','CampoImporte') }}
+{{ macro.input('Descuento','Etiqueta','text','FrecibidasLineas[Descuento]','FrecibidasLineas_Descuento',datos.Descuento,'10','CampoImporte') }}
+{{ macro.input('Importe','Etiqueta','text','FrecibidasLineas[Importe]','FrecibidasLineas_Importe',datos.Importe,'10','CampoImporte') }}
+{{ macro.input('Iva','Etiqueta','text','FrecibidasLineas[Iva]','FrecibidasLineas_Iva',datos.Iva,'5','CampoUnidades') }}
+{{ macro.input('IDPedido','Etiqueta','text','FrecibidasLineas[IDPedido]','FrecibidasLineas_IDPedido',datos.IDPedido,'8','CampoImporte') }}
+{{ macro.input('IDLineaPedido','Etiqueta','text','FrecibidasLineas[IDLineaPedido]','FrecibidasLineas_IDLineaPedido',datos.IDLineaPedido,'8','CampoImporte') }}

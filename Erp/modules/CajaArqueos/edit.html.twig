@@ -1,0 +1,42 @@
+{# Template edit.html.twig for CajaArqueos #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends values.controller  ~ '/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" id="manto_{{ values.controller }}" enctype="multipart/form-data" action="" method="POST">
+        <input name="controller" value="{{ values.controller }}" type="hidden" />
+        <input name="action" id="action" value="edit" type="hidden" />
+        <input name="accion" id="accion" value="" type="hidden" />
+        <input name="{{ values.controller }}[IDArqueo]" value="{{ values.datos.IDArqueo }}" type="hidden" />
+        <div class='Comandos'>
+            <div class="Titulo">
+                Arqueo: [Cerrado {{values.datos.CajaCerrada.Descripcion}}]
+                {% if values.datos.CajaCerrada.IDTipo == '0' %}
+                {% if values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/save_cmd.png" width="24px" onclick="getElementById('accion').value='Guardar';" alt="Guardar" title="Guardar" />
+                <input type="image" src="{{app.path}}/images/candado.gif" width="24px" onclick="if (!confirm('¿Desea cerrar la caja?')) {return false;} else {getElementById('action').value='Cerrar';}" alt="Cerrar" title="Cerrar Caja" />
+                {% endif %}
+                {% if values.permisos['B'] %}
+                <input type="image" src="{{app.path}}/images/trash_cmd.png" width="24px" onclick="if (!confirm('¿Desea borrar el arqueo?')) {return false;} else {getElementById('accion').value='Borrar';}" alt="Borrar" title="Borrar Arqueo" />
+                {% endif %}
+                {% endif %}
+
+                {% if values.permisos['C'] %}
+                {{ macro.botonDocumento(app.path,values.controller,values.datos.getPrimaryKeyValue)}}
+                {% endif %}
+
+                {% include '_global/comandosAuditoria.html.twig' with {'controller': values.controller} %}
+            </div>
+        </div>
+
+        <div class='Cuerpo'>
+            {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+            {% include "_global/alertas.html.twig" with {'alertas': values.alertas} %}
+            {% include values.controller ~ "/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

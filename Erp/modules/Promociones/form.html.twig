@@ -1,0 +1,57 @@
+{# TEMPLATE Promociones/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+<div class="Izquierda" style="width:49%;">
+{{ macro.input('Titulo','Etiqueta','text','Promociones[Titulo]','Promociones_Titulo',datos.Titulo,'255','CampoTextoLargo') }}
+{{ macro.select('Familia','Etiqueta','Promociones[IDFamilia]','Promociones_IDFamilia',none,datos.IDFamilia.IDFamilia,datos.IDFamilia.fetchAll('Familia'),'Select','','mostrarOcultar();') }}
+<div class="Item" id="div_Promociones_Descripcion">
+    {{ macro.label('Articulo') }}
+    <input name="Promociones[IDArticulo]" value="{{datos.IDArticulo.IDArticulo}}" id="Promociones_IDArticulo" type="hidden" />
+    <input value="{{datos.IDArticulo.Descripcion}}" id="Descripcion" type="text" maxlength="255" style="width:330px;"
+           onkeyup="autocompletarArticulos();"
+    />
+</div>
+{{ macro.fecha('Fin Promocion','Etiqueta','Promociones[FinPromocion]','Promociones_FinPromocion',datos.FinPromocion,'10','CampoFecha') }}
+{{ macro.input('Cantidad Minima','Etiqueta','text','Promociones[CantidadMinima]','Promociones_CantidadMinima',datos.CantidadMinima,'6','CampoUnidades') }}
+{{ macro.select('Tipo','Etiqueta','Promociones[TipoPromocion]','Promociones_TipoPromocion',none,datos.TipoPromocion.IDTipo,datos.TipoPromocion.fetchAll('Descripcion'),'Select') }}
+{{ macro.input('Valor','Etiqueta','text','Promociones[Valor]','Promociones_Valor',datos.Valor,'10','CampoImporte') }}
+{{ macro.select('Forma de Pago','Etiqueta','Promociones[IDFP]','Promociones_IDFP',none,datos.IDFP.IDFP,values.formasPago,'Select') }}
+
+{% if promoAplicada > 0 %}
+<div style="clear: both; height: 20px;"></div>
+<h3>Esta promoción está aplicada en varias ventas.</h3>
+<h3>No se pueden modificar. Sólo se puden añadir o quitar clientes.</h3>
+{% endif %}
+</div>
+
+<div class="Derecha" style="width:51%;">
+    {% if datos.IDPromocion %}
+    <iframe width="100%" height="420" scrolling="yes" style="border:0px;margin-bottom:10px;"
+            src="{{app.path}}/PromocionesClientes/list/{{datos.IDPromocion}}">
+    </iframe>
+    {% endif %}
+</div>
+
+<script>
+function autocompletarArticulos() {
+
+    if ($('#Promociones_IDFamilia').val() != '') {
+        autoCompletar('Descripcion','Promociones_IDArticulo','Descripcion','articulosFamilia',$('#Promociones_IDFamilia').val(),'');
+    } else {
+        autoCompletar('Descripcion','Promociones_IDArticulo','Descripcion','articulos','','');
+    }
+
+}
+
+function mostrarOcultar() {
+    if ($('#Promociones_IDFamilia').val() != '') {
+        $('#Promociones_IDArticulo').val('');
+        $('#Descripcion').val('');
+        $('#div_Promociones_Descripcion').hide();
+    } else {
+        $('#div_Promociones_Descripcion').show();
+    }
+}
+</script>

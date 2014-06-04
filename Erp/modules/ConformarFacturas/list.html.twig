@@ -1,0 +1,108 @@
+{# Template list.html.twig for ConformarFacturas #}
+{# -------------------------------------------------------#}
+{% extends 'ConformarFacturas/index.html.twig' %}
+
+{% if values.filtro.idSucursal == ''%}
+    {% set idSucursal = suc %}
+{% else %}
+    {% set idSucursal = values.filtro.idSucursal %}
+{% endif %}
+
+{% block listado %}
+	{% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+	{% include "_global/alertas.html.twig" with {'errores': values.errores} %}
+<div id='Listado' class='Listado' style="width: 70%; float: left;">
+    <div class="SubtituloFacturacion">Pedidos pendientes de <b>{{values.proveedor.RazonSocial}}</b></div>
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td class='Item'>N.Pedido</td>
+                <td class='Item'>Su Pedido</td>
+                <td class='Item'>Fecha Entrada</td>
+                <td class='Item'>Forma de Pago</td>
+                <td class='Item'>Base</td>
+                <td class='Item'>Total</td>
+                <td class='Item'>Facturar</td>
+            </tr>
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+
+            <form name="linea{{key}}" action="" method="POST">
+                <input name="controller" value="{{values.controller}}" type="hidden" />
+                <input name="action" value="cambia" type="hidden" />
+                <input name="idPedido" value="{{objeto.IDPedido}}" type="hidden" />
+                <input name="filtro[idSucursal]" value="{{values.filtro.idSucursal}}" type="hidden" />
+                <input name="filtro[desdeFecha]" value="{{values.filtro.desdeFecha}}" type="hidden" />
+                <input name="filtro[hastaFecha]" value="{{values.filtro.hastaFecha}}" type="hidden" />
+                <input name="filtro[idProveedor]" value="{{values.filtro.idProveedor}}" type="hidden" />
+            <tr class="{{classFila}}">
+                <td align="right"><a href='{{app.path}}/PedidosCab/Edit/{{objeto.IDPedido}}' target="_blank" title='Ver Pedido ...'>{{objeto.IDPedido}}</a></td>
+                <td>{{objeto.SuPedido}}</td>
+                <td align="center">{{objeto.Fecha}}</td>
+                <td>
+                    <select name="idFormaPago" style="width: 240px;" onchange="submit();">
+                        {% for item in objeto.IDFP.fetchAll('Descripcion') %}
+                        <option value="{{ item.Id }}" {% if item.Id == objeto.IDFP.IDFP %} SELECTED {% endif %}>{{ item.Value }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td align="right">{{objeto.TotalBases|number_format}}</td>
+                <td align="right">{{objeto.Total|number_format}}</td>
+                <td align="center">
+                    <input name="sino" type="checkbox" {% if (objeto.FlagFacturar.IDTipo) %} checked {% endif %} onclick="submit();">
+                </td>
+            </tr>
+            </form>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 150px; font-weight: bold;">
+            <div>
+                <div style="float: left; width: 100px;">Total:</div>
+                <div style="float: left; width: 50px; text-align: right;">{{values.totales.facturable|number_format}}</div>
+            </div>
+            <div style="clear: both;">
+                <div style="float: left; width: 100px;">Selección:</div>
+                <div style="float: left; width: 50px; text-align: right;">{{values.totales.seleccion|number_format}}</div>
+            </div>
+        </div>
+</div>
+
+
+<div style="width: 29%; float: left; margin-bottom: 5px; margin-left: 3px;">
+{% if values.totales.pedidosSeleccionados > 0 %}
+        <div class="SubtituloFacturacion">Condiciones Facturación</div>
+        <form name="linea{{key}}" action="" method="POST">
+            <input name="controller" value="{{values.controller}}" type="hidden" />
+            <input name="action" value="Conformar" type="hidden" />
+            <input name="filtro[idSucursal]" value="{{values.filtro.idSucursal}}" type="hidden" />
+            <input name="filtro[desdeFecha]" value="{{values.filtro.desdeFecha}}" type="hidden" />
+            <input name="filtro[hastaFecha]" value="{{values.filtro.hastaFecha}}" type="hidden" />
+            <input name="filtro[idProveedor]" value="{{values.filtro.idProveedor}}" type="hidden" />
+
+            <div style="margin-top: 10px;">
+            <div style="float: left;">
+                {{ macro.fecha('Fecha Factura','Etiqueta','fecha','fecha',none,'10') }}
+            </div>
+            <div style="float: left; margin-left: 10px;">
+                {{ macro.select('Serie','Etiqueta','idContador','idContador',none,none,values.contador.fetchAll(idSucursal,4),'Select') }}
+            </div>
+            </div>
+
+            <div style="clear: both;"></div>
+            {{ macro.input('Su N. Factura','Etiqueta','text','suFactura','suFactura',none,'15','CampoTextoMedio') }}
+            <div style="clear: both;"></div>
+
+            <div style="margin-top: 10px; text-align: center;" id="div_botonFacturar">
+                <input type="submit" value="Facturar" class="Comando" onClick="$('#div_botonFacturar').html('<img src={{app.path}}/images/loading.gif>'); submit();"/>
+            </div>
+        </form>
+{% endif %}
+</div>
+
+{% endblock %}

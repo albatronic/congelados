@@ -1,0 +1,60 @@
+{# TEMPLATE AlbaranesLineas/listCristal.html.twig #}
+{# LISTADO DE LINEAS DE ALBARAN VERSION CRISTAL   #}
+
+{% block listado %}
+
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td colspan="3"></td>
+            <td colspan="3" align="center">Almacén</td>
+            <td colspan="3" align="center">Factura</td>
+            <td colspan="4"></td>
+        </tr>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item'>Ctdad</td>
+            <td class='Item'>Alto</td>
+            <td class='Item'>Ancho</td>
+            <td class='Item'>Mts</td>
+            <td class='Item'>Alto</td>
+            <td class='Item'>Ancho</td>
+            <td class='Item'>Mts</td>
+            <td class='Item'>Precio</td>
+            <td class='Item'>Dcto</td>
+            <td class='Item'>Iva</td>
+            <td class='Item'>Importe</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in data %}
+                <tr class="ItemListado">
+                    <td>
+                        <a href="javascript:;" onClick="window.open('{{app.path}}/_Emergente/HistoricoVentas/{{objeto.IDArticulo.IDArticulo}}/{{objeto.IDAlbaran.IDCliente.IDCliente}}','HistoricoVentas','width=650,height=500,resizable=yes,scrollbars=yes');">
+                            <img src="{{app.path}}/images/historico.png" width="16px" height="16px" alt="Historico" title="Historico...">
+                        </a>
+                        {{objeto.IDArticulo.Codigo}}
+                        {% if objeto.IDPromocion.IDPromocion %}
+                            {% include "_Emergente/dialogoPromocion.html.twig" with {'linea': objeto} %}
+                        {% endif %}
+                    </td>
+                    <td>{{objeto.Descripcion}}</td>
+                    <td align="right">{{objeto.Unidades}}</td>
+                    <td align="right">{{objeto.AltoAl}}</td>
+                    <td align="right">{{objeto.AnchoAl}}</td>
+                    <td align="right">{{objeto.MtsAl}}</td>
+                    <td align="right">{{objeto.AltoFa}}</td>
+                    <td align="right">{{objeto.AnchoFa}}</td>
+                    <td align="right">{{objeto.MtsFa}}</td>
+                    <td align="right">{{objeto.Precio}}</td>
+                    <td align="right">{{objeto.Descuento}}</td>
+                    <td align="right">{{objeto.Iva}}</td>
+                    <td align="right">{{objeto.Importe}}</td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

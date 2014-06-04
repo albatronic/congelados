@@ -1,0 +1,73 @@
+# Module: Menu
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Menu
+    order_by: IDOpcion ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDOpcion
+        field: IDOpcion
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Script
+        field: Script
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Titulo
+        field: Titulo
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Orden
+        field: Orden
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Administrador
+        field: Administrador
+        length: 1
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Icono
+        field: Icono
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

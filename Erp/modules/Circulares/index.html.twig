@@ -1,0 +1,64 @@
+{# empty Twig template #}
+{% extends layout %}
+
+{% block title parent() ~ " - " ~ values.titulo %}
+
+{% block content %}
+
+<div class='Titulo'>{{ values.titulo }}
+    {% include '_global/comandosHelp.html.twig' with {'controller': values.controller} %}
+</div>
+
+<div class="Cuerpo">
+    {% include "_global/alertas.html.twig" with {'alertas': values.alertas,'errores': values.errores} %}
+    
+    <div class="informesTipos">
+        <p>Tipos de circulares</p>
+        <ul>
+            {% for key,circular in values.circulares %}
+            <li style="margin-bottom: 5px; font-weight: bold;">
+            <a href="{{app.path}}/{{values.controller}}/select/{{key}}">{{circular.title}}</a>
+            <p id="{{key}}" style="font-size: 11px; font-weight: normal; padding: 10px; display: none;">{{circular.comment}}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        <div style="margin-top:20px;">        
+            <p>Subir plantillas</p>
+            <div style="margin-top: 10px;">
+            <span>Seleccione los documentos tipo (plantillas) que desea usar para generar las circulares. Tenga en cuenta que los formatos permitidos son txt,rtf y html. Los documentos word no están permitidos, pero puede usarlos convirtiéndolos a formato rtf mediante la opción "Archivo/Guardar como" de microsoft word.</span>
+            </div>
+            <div style="margin-top: 10px;">
+            <form name="formSubirPlantilla" id="formSubirPlantilla" action="" enctype="multipart/form-data" method="POST">
+                <input name="controller" value="{{values.controller}}" type="hidden"/>
+                <input name="action" id="plantilla_action" value="SubirPlantilla" type="hidden" />
+                <input name="MAX_FILE_SIZE" type="hidden"/>
+                <input name="filePlantilla" id="filePlantilla" type="file"/>
+                <div id="divMensajeSubirPlantilla"></div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    {% block izquierda %}
+    
+    {% if values.circular.title %}
+        {% include values.controller ~ "/parametros.html.twig" %}
+    {% else %}
+        {% include values.controller ~ "/descarga.html.twig" %}    
+    {% endif %}
+    
+    {% endblock %}
+
+
+</div>
+
+<script>
+$(function(){
+    $('#filePlantilla').change(function(){
+        var html = "<img src='"+appPath+"/images/loadingAnimation.gif'>";
+        $('#divMensajeSubirPlantilla').html(html);
+        $('#formSubirPlantilla').submit();        
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{# Template edit.html.twig for MvtosAlmacen #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends 'MvtosAlmacen/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" enctype="multipart/form-data"  method="POST">
+        <input name="controller" value="{{values.controller}}" type="hidden" />
+        <input name="action" id="action" value="edit" type="hidden" />
+        <input name="MvtosAlmacen[Id]" value="{{ values.datos.Id }}" type="hidden" />
+        {% include "_global/comandosSaveDelete.html.twig" %}
+
+        <div class='Cuerpo'>
+	{% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+	{% include "MvtosAlmacen/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

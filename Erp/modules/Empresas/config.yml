@@ -1,0 +1,382 @@
+# Module: Empresas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Empresas:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Empresas
+  conection: empresas
+  entity: Empresas
+  table: empresas
+  primarykey: IDEmpresa
+  records_per_page: 10
+  order_by:
+    -
+      title: Razón Social a-z
+      criteria: RazonSocial ASC
+    -
+      title: Razón Social z-a
+      criteria: RazonSocial DESC
+  search_default: RazonSocial
+  columns:
+    - 
+      title: Código
+      field: IDEmpresa
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: Razón Social
+      field: RazonSocial
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Cif
+      field: Cif
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Dirección
+      field: Direccion
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Población
+      field: Poblacion
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Provincia
+      field: IDProvincia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: null
+        length: 2
+        min: 1
+        max: 999
+        message: Valor Requerido
+    - 
+      title: Código Postal
+      field: CodigoPostal
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Teléfono
+      field: Telefono
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Fax
+      field: Fax
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: E-Mail
+      field: EMail
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Web
+      field: Web
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Banco
+      field: IDBanco
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000
+      validator:
+        nullable: NO
+        type: string
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Oficina
+      field: IDOficina
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000
+      validator:
+        nullable: NO
+        type: string
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Digito
+      field: Digito
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 00
+      validator:
+        nullable: NO
+        type: null
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Cuenta
+      field: Cuenta
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Sufijo
+      field: Sufijo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 000
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Digitos Cta Contable
+      field: DigitosCuentaContable
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 10
+      validator:
+        nullable: NO
+        type: integer
+        length: 2
+        min: 0
+        max: 10
+        message: Valor Requerido
+    - 
+      title: Version
+      field: Version
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: ESTANDAR
+      validator: null
+    - 
+      title: RegistroMercantil
+      field: RegistroMercantil
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: EORI
+      field: EORI
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null

@@ -1,0 +1,19 @@
+# Module: ConformarFactuas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 10-junio-2012
+#
+---
+ConformarFacturas:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Conformar Facturas de Proveedores
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: PedidosCab
+  table: pecidods_cab
+  primarykey: IDPedido
+  records_per_page: 20
+  order_by: Fecha
+  search_default: IDPedido

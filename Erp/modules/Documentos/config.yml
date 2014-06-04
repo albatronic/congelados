@@ -1,0 +1,184 @@
+# Module: Documentos
+# Document : modules\Documentos\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 16.04.2012 00:18:47
+#
+---
+Documentos:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Documentos
+  id_video: documentos
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Documentos
+  table: documentos
+  primarykey: Id
+  records_per_page: 15
+  order_by:
+    -
+      title: Entidad a-z
+      criteria: Entidad ASC
+    -
+      title: Entidad z-a
+      criteria: Entidad DESC
+  search_default: Id
+  referenced_entities:
+  columns:
+    -
+      title: Id
+      field: Id
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+    -
+      title: Entidad
+      field: Entidad
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IdEntidad
+      field: IdEntidad
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Orden
+      field: Orden
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: PathName
+      field: PathName
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Texto Pie
+      field: TextoPie
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type: string
+        length:
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Title
+      field: Title
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Alt
+      field: Alt
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido

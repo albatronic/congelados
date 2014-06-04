@@ -1,0 +1,23 @@
+{# Template new.html.twig for TablaPortes #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends 'TablaPortes/index.html.twig' %}
+
+{% block navegador %}{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" method="POST">
+        <input name="controller" value="TablaPortes" type="hidden" />
+        <input name="action" value="new" type="hidden" />
+        <input name="TablaPortes[Id]" value="{{ values.datos.Id }}" type="hidden" />
+        {% include '_global/comandosCreate.html.twig' %}
+
+        <div class="Cuerpo">
+	{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+	{% include "TablaPortes/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

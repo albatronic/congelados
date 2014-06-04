@@ -1,0 +1,47 @@
+{# Template form.html.twig for ImportarRecibidas #}
+{# ----------------------------------------------#}
+
+<div class='Filtro'>
+    <p style="margin-top: 10px; font-size: 12px;">
+        Mediante ésta opción podrá cargar facturas recibidas provinientes de sistemas externos.
+    </p>
+    <p style="margin-top: 10px; font-size: 12px;">
+        Las facturas serán cargadas en la empresa y sucursal en curso.
+    </p>
+
+    <p style="margin-top: 10px; font-size: 12px;">
+        Para que la importación se realice correctamente, el archivo a importar debe tener una estructura determinada, para más información consulte la ayuda.
+    </p>
+
+   <form name='filtro' id='filtro' action='' enctype="multipart/form-data" method='POST'>
+	<input name='controller' value='{{values.controller}}' type='hidden' />
+	<input name='action' value='upload' type='hidden' />
+
+        <div style="float: left;">
+
+        <div style="margin-top: 10px;">
+            Archivo a importar:
+            <div>
+                <input name="importar" type="file" id="importar" size="20" class="Comando">
+                <input name="accion" type="submit" value="Cargar" class="Comando" onclick="$('#action').val('Importar')">
+            </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+            Forma de pago que se le asignara a las facturas:
+            <select name="IDFP" id="IDFP" style="width: 190px;">
+            {% for formaPago in values.formasPago %}
+                <option value="{{formaPago.Id}}">{{formaPago.Value}}</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div style="margin-top: 10px;">
+            Respetar los números de factura que vienen en el archivo:
+            <input name="RespectarNumerosFactura" id="RespectarNumerosFactura" type="checkbox" />
+        </div>
+
+        <input type="submit" value="Importar" class="Comando" style="width: 100px; font-weight: bold; margin-top: 20px;" />
+        </div>
+    </form>
+</div>

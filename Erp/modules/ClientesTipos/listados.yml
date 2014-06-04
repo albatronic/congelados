@@ -1,0 +1,37 @@
+# Module: ClientesTipos
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: ClientesTipos
+    order_by: IDTipo ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDTipo
+        field: IDTipo
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Tipo
+        field: Tipo
+        length: 30
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

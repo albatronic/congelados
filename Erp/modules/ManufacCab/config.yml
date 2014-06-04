@@ -1,0 +1,408 @@
+# Module: ManufacCab
+# Document : modules\ManufacCab\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 22.03.2012 19:21:54
+#
+---
+ManufacCab:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Elaboraciones
+  id_video: manufaccab
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: ManufacCab
+  table: manufac_cab
+  primarykey: IDManufac
+  records_per_page: 15
+  order_by:
+    -
+      title: Numero a-z
+      criteria: IDManufac ASC
+    -
+      title: Numero z-a
+      criteria: IDManufac DESC
+    -
+      title: F. Orden a-z
+      criteria: FechaOrden ASC
+    -
+      title: F. Orden z-a
+      criteria: FechaOrden DESC
+    -
+      title: F. Entrega a-z
+      criteria: FechaEntrega ASC
+    -
+      title: F. Entrega z-a
+      criteria: FechaEntrega DESC
+  search_default: IDManufac
+  referenced_entities:
+    -
+      entity: Proveedores
+    -
+      entity: EstadosManufac
+    -
+      entity: Almacenes
+  columns:
+    -
+      title: Número
+      field: IDManufac
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+    -
+      title: Almacen Origen
+      field: IDAlmacenOrigen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 0
+        caption: Almacén Origen
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getAlmacenes
+        params: null
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Almacen Destino
+      field: IDAlmacenDestino
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 1
+        caption: Almacén Destino
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getAlmacenes
+        params: null
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha Orden
+      field: FechaOrden
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      aditional_filter:
+        order: 2
+        caption: Fecha Orden
+        type: range
+        default: '<?php echo '01/01/'.date('Y').',31/12/'.date('Y');?>'
+        operator: >=
+      validator:
+        nullable: NO
+        type: date
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha Envío
+      field: FechaEnvio
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      aditional_filter:
+        order: 4
+        caption: Fecha Envío
+        type: range
+        operator: >=
+      validator:
+        nullable: NO
+        type: date
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha Entrega
+      field: FechaEntrega
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      aditional_filter:
+        order: 6
+        caption: Fecha Entrega
+        type: range
+        operator: >=
+      validator:
+        nullable: NO
+        type: date
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Elaborador
+      field: IDElaborador
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      aditional_filter:
+        order: 8
+        caption: Elaborador (%)
+        entity: Proveedores
+        method: fetchAll
+        params: RazonSocial
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descripcion
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Estado
+      field: IDEstado
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 9
+        caption: Estado
+        entity: EstadosManufac
+        method: fetchAll
+        params: Descripcion
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: KilosOrigen
+      field: KilosOrigen
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: ImporteOrigen
+      field: ImporteOrigen
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: KilosDestino
+      field: KilosDestino
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: ImporteDestino
+      field: ImporteDestino
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: GastosTransporte
+      field: GastosTransporte
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: GastosVarios
+      field: GastosVarios
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Observaciones
+      field: Observaciones
+      filter: NO
+      list: NO
+      form: YES
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido

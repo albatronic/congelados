@@ -1,0 +1,52 @@
+# Module: ClientesGrupos
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+ClientesGrupos:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Grupos de Clientes
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: ClientesGrupos
+  table: clientes_grupos
+  primarykey: IDGrupo
+  records_per_page: 9999
+  order_by: Grupo
+  search_default: Grupo
+  columns:
+    - 
+      title: Grupo
+      field: IDGrupo
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: Grupo
+      field: Grupo
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido

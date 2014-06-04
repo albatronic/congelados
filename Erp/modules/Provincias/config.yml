@@ -1,0 +1,102 @@
+# Module: Provincias
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Provincias:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Provincias
+  conection: empresas
+  entity: Provincias
+  table: provincias
+  primarykey: IDProvincia
+  records_per_page: 15
+  order_by:
+    -
+      title: Codigo a-z
+      criteria: Codigo ASC
+    -
+      title: Codigo z-a
+      criteria: Codigo DESC
+    -
+      title: Provincia a-z
+      criteria: Provincia ASC
+    -
+      title: Provincia z-a
+      criteria: Provincia DESC
+  search_default: Provincia
+  columns:
+    -
+      title: Provincia
+      field: IDProvincia
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    -
+      title: Codigo
+      field: Codigo
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Provincia
+      field: Provincia
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Zona
+      field: IDZona
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 15
+        min: 0
+        max: 999
+        message: Valor Requerido

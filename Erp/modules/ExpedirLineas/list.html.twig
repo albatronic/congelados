@@ -1,0 +1,41 @@
+{# Template list.html.twig for ExpedirLineas #}
+{# ------------------------------------------#}
+
+{% extends 'ExpedirLineas/index.html.twig' %}
+
+{% block listado %}
+
+<div class='Listado'>
+    <h3 style="padding: 5px;">Detalle de la expedición del documento {{values.objetoEntidad.getNumeroDocumento}} {{ macro.botonDocumento(app.path,values.objetoEntidad.getClassName,values.objetoEntidad.getprimaryKeyValue)}}</h3>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item' colspan="2">Cantidad</td>
+            <td class='Item'>Kgrs.</td>
+            <td class='Item'>Pales</td>
+            <td class='Item'>Cajas</td>
+            <td class='Item'>Lote</td>
+            <td class='Item'>Ubicación</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                <tr class="ItemListado">
+                    <td>{{objeto.IDArticulo.Codigo}}</td>
+                    <td>{{objeto.IDLineaEntidad.IDArticulo.Descripcion}}</td>
+                    <td align="right">{{objeto.Unidades}}</td>
+                    <td>{{objeto.UnidadMedidaArticulo}} ({{objeto.IDArticulo.convertUnit(objeto.UnidadMedida,'UMA',objeto.Unidades)}} {{objeto.IDArticulo.UMA}})</td>
+                    <td>{{objeto.Kilos}}</td>
+                    <td>{{objeto.Pales}}</td>
+                    <td>{{objeto.Cajas}}</td>
+                    <td>{{objeto.IDLote}}</td>
+                    <td>{{objeto.IDUbicacion}}</td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

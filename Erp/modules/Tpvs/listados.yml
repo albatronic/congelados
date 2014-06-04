@@ -1,0 +1,74 @@
+# Module: Tpvs
+# Document : modules\Tpvs\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 15.04.2012 00:56:41
+#
+---
+listados:
+  -
+    title: Tpvs
+    order_by: IDSucursal,IDTpv ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 22
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Nombre
+        field: Nombre
+        length: 33
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: DataFono1
+        field: IDDataFono1
+        length: 12
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: DataFono2
+        field: IDDataFono2
+        length: 12
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: DataFono3
+        field: IDDataFono3
+        length: 12
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: DataFono4
+        field: IDDataFono4
+        length: 12
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null

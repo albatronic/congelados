@@ -1,0 +1,43 @@
+{# TEMPLATE Almacenes/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all" style="font-size: 11px;">
+ 
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Almacén</a></li>
+        {% if datos.IDAlmacen and datos.ControlUbicaciones.IDTipo %}
+        <li class="ui-state-default ui-corner-top"><a href="#tabs-2">Ubicaciones de {{datos.Nombre}}</a></li>
+        {% endif %}
+        {% if datos.IDAlmacen %}
+        <li class="ui-state-default ui-corner-top"><a href="#tabs-3">Documentos de {{datos.Nombre}}</a></li>
+        {% endif %}
+    </ul>
+
+    <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+        {{ macro.input('Nombre','Etiqueta','text','Almacenes[Nombre]','Almacenes_Nombre',datos.Nombre,'50','CampoTextoLargo') }}
+        {{ macro.input('Dirección','Etiqueta','text','Almacenes[Direccion]','Almacenes_Direccion',datos.Direccion,'50','CampoTextoLargo') }}
+        {{ macro.input('Población','Etiqueta','text','Almacenes[Poblacion]','Almacenes_Poblacion',datos.Poblacion,'30','CampoTextoLargo') }}
+        {{ macro.select('Provincia','Etiqueta','Almacenes[IDProvincia]','Almacenes_IDProvincia',none,datos.IDProvincia.IDProvincia,datos.IDProvincia.fetchAll('Provincia'),'Select') }}
+        {{ macro.input('Código Postal','Etiqueta','text','Almacenes[CodigoPostal]','Almacenes_CodigoPostal',datos.CodigoPostal,'10','CampoCPostal') }}
+        {{ macro.input('Teléfono','Etiqueta','text','Almacenes[Telefono]','Almacenes_Telefono',datos.Telefono,'30','CampoTextoLargo') }}
+        {{ macro.input('Fax','Etiqueta','text','Almacenes[Fax]','Almacenes_Fax',datos.Fax,'30','CampoTextoLargo') }}
+        {{ macro.input('E-Mail','Etiqueta','text','Almacenes[EMail]','Almacenes_EMail',datos.EMail,'50','CampoTextoLargo') }}
+        {{ macro.select('Tipo','Etiqueta','Almacenes[Tipo]','Almacenes_Tipo',none,datos.Tipo.IDTipo,datos.Tipo.fetchAll,'Select') }}
+        {{ macro.select('Control Ubicaciones','Etiqueta','Almacenes[ControlUbicaciones]','Almacenes_ControlUbicaciones',none,datos.ControlUbicaciones.IDTipo,datos.ControlUbicaciones.fetchAll,'Select') }}
+    </div>
+
+    {% if datos.IDAlmacen and datos.ControlUbicaciones.IDTipo %}
+    <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+        <iframe width="100%" height="330" scrolling="yes" style="margin-top:5px; border:0;"
+            src="{{app.path}}/AlmacenesMapas/list/{{datos.IDAlmacen}}">
+        </iframe>
+    </div>
+    {% endif %}
+
+    {% if datos.IDAlmacen %}
+    <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+        {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+    </div>
+    {% endif %}
+
+</div>

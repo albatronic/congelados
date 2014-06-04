@@ -1,0 +1,65 @@
+# Module: Contadores
+# Document : modules\Contadores\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 15.02.2012 12:41:19
+#
+---
+listados:
+  -
+    title: Series y Contadores
+    order_by: IDSucursal,IDTipo ASC
+    break_field: IDSucursal
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Tipo
+        field: IDTipo
+        length: 25
+        align: L
+        type: tinyint
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Serie
+        field: Serie
+        length: 7
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Contador
+        field: Contador
+        length: 10
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Predefinido
+        field: Predefinido
+        length: 12
+        align: C
+        type: tinyint
+        total: NO
+        formula: null
+        format: null

@@ -1,0 +1,86 @@
+# FORMATOS DE ARQUEOS DE CAJA.
+# docs/docsXXX/formats/cajaArqueos.yml
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 20-04-2012
+#
+---
+cajaArqueos:
+  -
+    title: Arqueo de Caja
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    page_break: 15
+    break_field: IDAgente
+    break_print:
+      - $this->Ln()
+      - $this->SetFont('Arial', 'B', '8')
+      - $this->Cell(0,4, "Usuario " . $this->detail->getIDAgente()->getNombre(), 0, 1)
+      - $this->SetFont('Arial', '', '8')
+    header:
+      #-- Logo --
+      - $this->Image($this->empresa->getLogo(),15,15,40,30)
+      # -- Datos de la Empresa --
+      - $this->SetXY(65,15)
+      - $this->SetFont('Arial', 'B', 10)
+      - $this->Cell(0,4,$this->empresa->getRazonSocial(), 0, 1, 'R')
+      - $this->Ln(10)
+      - $this->SetLeftMargin(65)
+      - $this->SetFont('Arial', 'B', 12)
+      - $this->Cell(0, 10, 'ARQUEO DE CAJA', 0, 1, 'L')
+      - $this->SetFont('Arial', '', 10)
+      - $this->Cell(0, 5, 'SUCURSAL ' . $this->master->getIDSucursal(), 0, 1, 'L')
+      - $this->Cell(0, 5, 'TPV ' . $this->master->getIDTpv()->getNombre(), 0, 1, 'L')
+      - $this->Cell(0, 5, 'Dia ' . $this->master->getDia(), 0, 1, 'L')
+      - $this->SetLeftMargin(15)
+      # -- Titulos para el cuerpo --
+      - $this->SetXY(15, 55)
+      - $this->SetFont('Arial','B', 9)
+      - $this->Cell(12, 5, 'Hora', 1, 0, 'C')
+      - $this->Cell(65, 5, 'Concepto', 1, 0, 'C')
+      - $this->Cell(15, 5, 'Importe', 1, 0, 'C')
+      - $this->Cell(15, 5, 'Entrega', 1, 0, 'C')
+      - $this->Cell(15, 5, 'Cambio', 1, 0, 'C')
+      - $this->Cell(40, 5, 'F. Cobro', 1, 0, 'C')
+      - $this->Cell(20, 5, 'Origen', 1, 1, 'C')
+      - $this->SetFont('Arial','', 8)
+    body:
+      - $this->Cell(12, 4, $this->detail->getHora(),0,0,'L')
+      - $y0 = $this->GetY()
+      - $this->MultiCell(65, 4, $this->detail->getConcepto(), 0, 'J')
+      - $y1 = $this->GetY()
+      - $this->SetXY(92, $y0)
+      - $this->Cell(15, 4, $this->detail->getImporte(),0,0,'R')
+      - $this->Cell(15, 4, $this->detail->getEntregado(),0,0,'R')
+      - $this->Cell(15, 4, $this->detail->getCambio(), 0, 0, 'R')
+      - $this->Cell(40, 4, $this->detail->getIDFP()->getDescripcion(), 0, 0, 'L')
+      - $this->Cell(20, 4, $this->detail->getOrigen(), 0, 1, 'L')
+      - $this->SetY($y1)
+    footer:
+      - $this->Ln(5)
+      - $y = $this->GetY()
+      - $this->SetFont('Arial','B', 9)
+      - $this->Cell(20, 4, 'Resumen',0,1)
+      - $this->SetFont('Arial','', 9)
+      - $this->Cell(20, 4, 'Apertura',0,0)
+      - $this->Cell(20, 4, $this->master->getSaldoApertura(),0,1,'R')
+      - $this->Cell(20, 4, 'Suma Mvtos',0,0)
+      - $this->Cell(20, 4, $this->master->getSumaMvtos(),0,1,'R')
+      - $this->Cell(20, 4, 'Cierre',0,0)
+      - $this->Cell(20, 4, $this->master->getSaldoCierre(),0,1,'R')
+      - $this->SetY($y)
+      - $this->SetLeftMargin(100)
+      - $this->SetFont('Arial','B', 9)
+      - $this->Cell(20, 4, 'Desglose por forma de cobro',0,1)
+      - $this->SetFont('Arial','', 9)
+      - foreach ($this->master->getResumen() as $formaPago){ $this->Cell(70,4, $formaPago[Descripcion],0,0); $this->Cell(10,4, $formaPago[Importe],0,1,'R');}
+      - $this->SetFont('Arial', '', 8)
+      - $this->SetXY(10, -10)
+      - $this->Cell(5, 4, date('d/m/Y H:i:s'))
+      - $this->Cell(0, 4, "Pag. " . $this->PageNo() . '/{nb}', 0, 0, "C")
+      - $this->Cell(0, 4, $_SESSION['USER']['user']['Nombre'], 0, 0, "R")
+

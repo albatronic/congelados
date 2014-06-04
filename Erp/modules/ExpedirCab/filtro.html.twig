@@ -1,0 +1,52 @@
+{# Template filtro.html.twig for ExpedirCab #}
+{# -----------------------------------------#}
+<div class='Filtro'>
+    <form name='filtro' id='filtro' action='' method='POST'>
+	<input name='controller' value='ExpedirCab' type='hidden' />
+	<input name='action' value='list' type='hidden' />
+        <input name="page" value="1" type="hidden"/>
+        <div>
+        <div style="float: left;">
+        Almacén:
+        <select name="idAlmacen" class="Select">
+            {% for almacen in user.getAlmacenes %}
+            <option value="{{almacen.Id}}" {% if almacen.Id == values.listado.filter.idAlmacen %} SELECTED {% endif%} >{{almacen.Value}}</option>
+            {% endfor %}
+        </select>
+        </div>
+
+        <div style="float: left; margin-left: 20px;">
+        Tipo:
+        <select name="idTipo" class="Select" onchange="submit();">
+            {% for tipo in values.tipos %}
+            <option value="{{tipo.Id}}" {% if tipo.Id == values.listado.filter.idTipo %} SELECTED {% endif%} >{{tipo.Value}}</option>
+            {% endfor %}
+        </select>
+        </div>
+
+        <div style="float: left; margin-left: 20px;">
+        Periodo:
+        <select name="idPeriodo" class="Select" onchange="submit();">
+            {% for periodo in values.periodos %}
+            <option value="{{periodo.Id}}" {% if periodo.Id == values.listado.filter.idPeriodo %} SELECTED {% endif%} >{{periodo.Value}}</option>
+            {% endfor %}
+        </select>
+        </div>
+
+        <div style="float: left; margin-left: 20px;">
+        Estado:
+        <select name="idEstado" class="Select" onchange="submit();">
+            {% for estado in values.estados %}
+            <option value="{{estado.Id}}" {% if estado.Id == values.listado.filter.idEstado %} SELECTED {% endif%} >{{estado.Value}}</option>
+            {% endfor %}
+        </select>
+        </div>
+
+        <div style="float: left; margin-left: 20px;">
+            <input type="image" src="{{app.path}}/images/lupa.png" width="16px" height="16px" alt="Consulta"/>
+        </div>
+
+        <div style="clear: both;"></div>
+        </div>
+    </form>
+</div>

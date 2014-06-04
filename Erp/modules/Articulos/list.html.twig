@@ -1,0 +1,57 @@
+{# Template list.html.twig for Articulos #}
+{# -------------------------------------------------------#}
+{% extends 'Articulos/index.html.twig' %}
+
+
+{# MI AMIGA KAREM DICE QUE SOLO DEBEN VER EL PVD LOS USUARIOS DEL ROL 9 #}
+
+{% block listado %}
+<div class='Listado'>
+
+	{% include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller': values.controller,'position':'izq'}%}
+
+        <table width="100%">
+            <tr class='Titulos'>
+                <td class='Item'>Código</td>
+                <td class='Item'>Descripción</td>
+                <td class='Item'>Familia</td>
+                <td class='Item'>Subfamilia</td>
+                {% if user.Rol.IDTipo == '9'%}
+                <td class='Item'>PVD</td>
+                {% endif %}
+                <td class='Item'>PVP</td>
+                <td class='Item'>IVA</td>
+                <td class='Item'>Estado</td>
+                <td class='Item'>Fotos</td>
+            </tr>
+
+            <tbody class='Cuerpo'>
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr onclick="location.href='{{app.path}}/{{values.controller}}/edit/{{objeto.IDArticulo}}'" class='{{classFila}}'>
+                <td class='Item'><a href="{{app.path}}/Articulos/edit/{{objeto.IDArticulo}}" title="Editar...">{{objeto.Codigo}}</a></td>
+                <td class='Item'>{{objeto.Descripcion|slice(0,40)}}</td>
+                <td class='Item'>{{objeto.IDFamilia.Familia|slice(0,30)}}</td>
+                <td class='Item'>{{objeto.IDSubfamilia.Subfamilia}}</td>
+                {% if user.Rol.IDTipo == '9'%}
+                <td class='Item' align="right">
+                    {{objeto.Pvd}}
+                </td>
+                {% endif %}
+                <td class="Item" align="right">{{objeto.Pvp}}</td>
+                <td class="Item" align="right">{{objeto.IDIva.Iva}}</td>
+                <td class="Item">{{objeto.IDEstado.Estado}}</td>
+                <td class="Item" align="right">{{objeto.getNumberOfDocuments}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan='2'>No hay informaci&oacute;n que cumpla esos criterios</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

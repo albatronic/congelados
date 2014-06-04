@@ -1,0 +1,76 @@
+# PARAMETROS DE CONFIGURACION GLOBAL DE LA APLICACION
+---
+config:
+  debug_mode: false
+  # Para mostrar o no los botones de auditoria de los formularios
+  audit_mode: true
+  # FORMATOS DE EXPORTACION DE INFORMACION
+  export_types:
+    - xls
+    - xml
+    - cvs
+    - Yaml
+  # ENTORNO DE LA APLICACION
+  app:
+    name: ERP Albatronic
+    url: http://www.congeladosytransacciones.com/
+    path: /Erp
+    framework: ../bin/albatronic/
+  # CONEXIONES A LAS BASES DE DATOS
+  conections:
+    empresas:
+      dbEngine: mysql
+      host: www.interpral.com
+      user: interpra_erp
+      password: albatronic
+      database: interpra_ppuemp
+    datos001:
+      dbEngine: mysql
+      host: www.interpral.com
+      user: interpra_erp
+      password: albatronic
+      database: interpra_ppuerp001
+    datos002:
+      dbEngine: mysql
+      host: www.interpral.com
+      user: interpra_erp
+      password: albatronic
+      database: interpra_ppuerp002
+    datos003:
+      dbEngine: mysql
+      host: www.interpral.com
+      user: interpra_erp
+      password: albatronic
+      database: interpra_ppuerp003
+  # MOTOR DE ENVIO DE CORREOS
+  mailer:
+    plugin_dir: ../bin/PHPMailer_v2.0.0/
+    plugin_file: PhpMailer.class.php
+    motor: PhpMailer
+    socket: smtp
+    host: mail.interpral.com
+    smtp_auth: true
+    user_name: info@interpral.com
+    password: i1234o
+    from: info@interpral.com
+    from_name: CONGELADOS Y TRANSACCIONES
+    timeout: 30
+  # MOTOR PARA DOCUMENTOS EXCEL
+  excel: ../bin/PHPExcel/PHPExcel.php
+  # MOTOR PARA GENERAR DOCUMENTOS PDF
+  pdf: ../bin/pdf/fpdf.class.php
+  # MOTOR PARA GRAFICOS DE BARRAS
+  graph:
+    -
+      ../bin/jpgraph/src/jpgraph.php
+    -
+      ../bin/jpgraph/src/jpgraph_line.php
+    -
+      ../bin/jpgraph/src/jpgraph_bar.php
+  # MOTOR DE TEMPLATES
+  twig:
+    motor: ../bin/Twig-1.7.0/lib/Twig/Autoloader.php
+    templates_folder: modules
+    debug_mode: true
+    cache_folder: tmp
+    charset: null

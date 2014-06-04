@@ -1,0 +1,92 @@
+{# empty Twig template #}
+{% extends popup %}
+
+{% block content %}
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Albarán</td>
+            <td class='Item'>Fecha</td>
+            <td class='Item'>Dirección de Entrega</td>
+            <td class='Item'>Comercial</td>
+            <td class='Item'>Repartidor</td>
+            <td class='Item'>Estado</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% set rutaAnterior = '' %}
+            {% for key,objeto in values.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+
+            <form name="linea{{key}}" action="" method="POST">
+                <input name="controller" value="ExpedirCab" type="hidden" />
+                <input name="action" value="CambiaRepartidor" type="hidden" />
+                <input name="idAlmacen" value="{{objeto.IDAlmacen.IDAlmacen}}" type="hidden" />
+                <input name="idTipo" value="AlbaranesCab" type="hidden" />
+                <input name="idAlbaran" value="{{objeto.IDAlbaran}}" type="hidden" />
+                <input name="idDia" value="{{values.idDia}}" type="hidden" />
+            {% if objeto.IDRutaReparto.IDRuta != rutaAnterior %}
+                <tr class="ItemListado">
+                    <td colspan="6" class="InterLinea">
+                        <p style="font-weight: bold;">
+                            <a href="{{app.path}}/ExpedirCab/listado/{{objeto.IDAlmacen.IDAlmacen}}/{{values.idDia}}/{{values.idPeriodo}}/{{values.idEstado}}/{{objeto.IDRutaReparto.IDRuta}}" title= "Imprimir Ruta" target="_blank">
+                                <img src="{{app.path}}/images/print_cmd.png" width="24px" height="24px" alt="Imprimir" />
+                            </a>
+                            Ruta {{objeto.IDRutaReparto.Descripcion}}
+                        </p>
+                    </td>
+                </tr>
+                {% set rutaAnterior = objeto.IDRutaReparto.IDRuta %}
+            {% endif %}
+
+            <tr class="{{classFila}}">
+                <td>
+                    {% if objeto.DiaReparto.IDTipo %}
+                    {{ macro.linkThickBox(app.path,objeto.NumeroAlbaran,'ExpedirLineas/index/AlbaranesCab/'~objeto.IDAlbaran~'/'~objeto.IDRepartidor.IDAgente,'Expedir Albarán '~objeto.NumeroAlbaran~' '~objeto.IDCliente.RazonSocial,310,850) }}
+                    {% else %}
+                        {{objeto.NumeroAlbaran}}
+                    {% endif %}
+                </td>
+                <td>{{objeto.Fecha}}</td>
+                <td>
+                    <div>{{objeto.IDCliente.NombreComercial}} ({{objeto.IDDirec.Nombre}})</div>
+                    <div>{{objeto.IDDirec.Direccion}} - {{objeto.IDDirec.Poblacion}}</div>
+                </td>
+                <td>{{objeto.IDComercial.Nombre|slice(0,30)}}</td>
+                <td align="center">
+                    {% if objeto.IDEstado.IDTipo == '1' %}
+                    <select name="idRepartidor" style="width: 150px;" onchange="submit();">
+                        {% for item in objeto.IDRepartidor.getRepartidores %}
+                        <option value="{{ item.Id }}" {% if item.Id == objeto.IDRepartidor.IDAgente %} SELECTED {% endif %}>{{ item.Value }}</option>
+                        {% endfor %}
+                    </select>
+                    {% else %}
+                        {{ objeto.IDRepartidor.Nombre }}
+                    {% endif %}
+                </td>
+                <td align="center">
+                    {% if objeto.IDEstado.IDTipo == '0' %}{% set img = "botonrojoparpadea.gif" %}{% endif %}
+                    {% if objeto.IDEstado.IDTipo == '1' %}{% set img = "bolanaranja.gif" %}{% endif %}
+                    {% if objeto.IDEstado.IDTipo >= '2' %}{% set img = "bolaverde.gif" %}{% endif %}
+                    <img src='{{app.path}}/images/{{img}}' width="10px" height="10px" alt='{{objeto.IDEstado}}' title='{{objeto.IDEstado}}'/>
+                    {% if objeto.IDEstado.IDTipo > '1' %}
+                        {{ macro.botonDocumento(app.path,'AlbaranesCab',objeto.getPrimaryKeyValue)}}
+                        {% if objeto.PrintedBy.IDAgente != 0 %}
+                            <img src="{{app.path}}/images/confirm_cmd.png" width="10px" height="10px" alt="Impreso por {{objeto.PrintedBy}} el {{objeto.PrintedAt}}" title="Impreso por {{objeto.PrintedBy}} el {{objeto.PrintedAt}}" />
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            </form>
+            {% else %}
+            <tr><td colspan="6" class="Titulo">No hay albaranes pendientes de expedir para este día</td></tr>
+            {% endfor %}
+            </div>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

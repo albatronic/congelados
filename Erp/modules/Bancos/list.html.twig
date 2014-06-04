@@ -1,0 +1,35 @@
+{# Template list.html.twig for Bancos #}
+{# -------------------------------------------------------#}
+{% extends 'Bancos/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+    {% include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller':'Bancos','position':'izq'}%}
+
+    <table width="50%">
+        <tr class='Titulos'>
+            <td class='Item'>Codigo Banco</td>
+            <td class='Item'>Banco</td>
+        </tr>
+
+        <tbody class='Cuerpo'>
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr onclick="location.href='{{app.path}}/{{values.controller}}/edit/{{objeto.IDBanco}}'" class='{{classFila}}'>
+
+                <td class='Item' align='center'><a href="{{app.path}}/Bancos/edit/{{objeto.IDBanco}}" title="Editar...">{{objeto.CodigoBanco}}</a></td>
+                <td class='Item' style="padding-left:30px;">{{objeto.Banco}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan='2'>No hay informaci&oacute;n que cumpla esos criterios</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

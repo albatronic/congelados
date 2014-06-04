@@ -1,0 +1,50 @@
+{# Template list.html.twig for PedidosLineas #}
+{# -------------------------------------------#}
+{% extends 'PedidosLineas/index.html.twig' %}
+
+{% block listado %}
+
+<div class='Listado'>
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Artículo</td>
+            <td class='Item'>Descripción</td>
+            <td class='Item' colspan="2">Udes. Pedidas</td>
+            <td class='Item' colspan="2">Udes. Recibidas</td>
+            <td class='Item' colspan="2">Pte. Facturar</td>
+            <td class='Item'>Precio</td>
+            <td class='Item'>Dcto</td>
+            <td class='Item'>Iva</td>
+            <td class='Item'>Importe</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                <tr class="ItemListado">
+                    <td>
+                        {{ macro.historicoCompras(app.path,objeto.IDArticulo.IDArticulo,objeto.IDPedido.IDProveedor.IDProveedor) }}
+                        {{objeto.IDArticulo.Codigo}}
+                    </td>
+                    <td>{{objeto.Descripcion}}</td>
+                    <td align="right">{{objeto.Unidades}} {{objeto.UnidadMedidaArticulo}}</td>
+                    <td>({{objeto.IDArticulo.convertUnit(objeto.UnidadMedida,'UMA',objeto.Unidades)}} {{objeto.IDArticulo.UMA}})</td>
+                    <td align="right">{{objeto.UnidadesRecibidas}}</td>
+                    <td>
+                        {{objeto.IDArticulo.UMC}}
+                        {% if objeto.UnidadesRecibidas != 0%}
+                            {{ macro.detalleRecepcionLinea(app.path,objeto) }}
+                        {% endif %}
+                    </td>
+                    <td align="right">{{objeto.UnidadesPtesFacturar}}</td>
+                    <td>{{objeto.IDArticulo.UMC.UnidadMedida}}</td>
+                    <td align="right">{{objeto.Precio}}</td>
+                    <td align="right">{{objeto.Descuento}}</td>
+                    <td align="right">{{objeto.Iva}}</td>
+                    <td align="right">{{objeto.Importe}}</td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

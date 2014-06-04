@@ -1,0 +1,26 @@
+{# Template new.html.twig for BancosOficinas #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends 'BancosOficinas/index.html.twig' %}
+
+{% block navegador %}
+    {% include '_global/comandosList.html.twig' with {'controller':'BancosOficinas','linkValue':values.linkBy.value} %}
+{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" method="POST">
+        <input name="controller" value="BancosOficinas" type="hidden" />
+        <input name="action" value="new" type="hidden" />
+        <input name="BancosOficinas[ID]" value="{{ values.datos.ID }}" type="hidden" />
+        <input name="BancosOficinas[IDBanco]" value="{{ values.linkBy.value }}" type="hidden" />
+	{% include '_global/comandosCreate.html.twig' %}
+
+        <div class="Cuerpo">
+	{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+	{% include "BancosOficinas/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

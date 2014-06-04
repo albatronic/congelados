@@ -1,0 +1,30 @@
+{# Template list.html.twig for EmpresasAlmacenes #}
+{# -------------------------------------------------------#}
+{% extends 'EmpresasAlmacenes/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+        <table width="100%">
+            <tr class='Titulos'>
+                <td class='Item' align="left">Almacenes de la Empresa</td>
+            </tr>
+
+            <tbody class='Cuerpo'>
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr class="{{classFila}}">
+                <td class='Item'><a href="{{app.path}}/EmpresasAlmacenes/edit/{{objeto.Id}}/{{objeto.IDEmpresa.IDEmpresa}}" title="Editar...">{{objeto.IDAlmacen.Nombre}}</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan='2'>No hay información que cumpla esos criterios</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

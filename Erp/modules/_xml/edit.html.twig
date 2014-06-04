@@ -1,0 +1,87 @@
+{# Template edit.html.twig for _xml #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends '_global/xml.html.twig' %}
+
+{%block content%}
+<div class="FormManto">
+    <div class="Cuerpo">
+            <div class="Item">
+        <form name="form" method="POST">
+            <input type="hidden" name="controller" value="_xml"/>
+            <input type="hidden" name="modulo" id="modulo" value="{{values.xml.entity}}" />
+
+            <input type="hidden" name="action" value="edit"/>
+            <input type="submit" name="accion" value="Guardar" class="Comando"/>
+            <hr>
+            {{ macro.input('login_required','Etiqueta','text','_xml[login_required]','_xml_login_required',values.xml.login_required,none,'CampoLargo') }}
+            {{ macro.input('permission_control','Etiqueta','text','_xml[permission_control]','_xml_permission_control',values.xml.permission_control,none,'CampoLargo') }}
+            {{ macro.input('help_file','Etiqueta','text','_xml[help_file]','_xml_help_file',values.xml.help_file,none,'CampoLargo') }}
+            {{ macro.input('title','Etiqueta','text','_xml[title]','_xml_title',values.xml.title,none,'CampoLargo') }}
+            {{ macro.input('conection','Etiqueta','text','_xml[conection]','_xml_conection',values.xml.conection,none,'CampoLargo') }}
+            {{ macro.input('entity','Etiqueta','text','_xml[entity]','_xml_entity',values.xml.entity,none,'CampoLargo') }}
+            {{ macro.input('table','Etiqueta','text','_xml[table]','_xml_table',values.xml.table,none,'CampoLargo') }}
+            {{ macro.input('primarykey','Etiqueta','text','_xml[primarykey]','_xml_primarykey',values.xml.primarykey,none,'CampoLargo') }}
+            {{ macro.input('linkBy','Etiqueta','text','_xml[linkBy]','_xml_linkBy',values.xml.linkBy,none,'CampoLargo') }}
+            {{ macro.input('records_per_page','Etiqueta','text','_xml[records_per_page]','_xml_records_per_page',values.xml.records_per_page,none,'CampoLargo') }}
+            {{ macro.input('order_by','Etiqueta','text','_xml[order_by]','_xml_order_by',values.xml.order_by,none,'CampoLargo') }}
+            {{ macro.input('search_default','Etiqueta','text','_xml[search_default]','_xml_search_default',values.xml.search_default,none,'CampoLargo') }}
+
+
+
+            columns</br>
+            <table border="1" >
+                <tr>
+                {% for key,columna in values.xml.columns.column %}
+                    <td>
+                               <div style="padding:3px">
+                                   {{ macro.input('title','Etiqueta','text','_xml[columns][column][title]','_xml_columns_title',columna.title,none,'CampoLargo') }}
+                                   {{ macro.input('field','Etiqueta','text','_xml[columns][column][field]','_xml_columns_field',columna.field,none,'CampoLargo') }}
+                                   {{ macro.input('filter','Etiqueta','text','_xml[columns][column][filter]','_xml_columns_filter',columna.filter,none,'CampoLargo') }}
+                                   {{ macro.input('list','Etiqueta','text','_xml[columns][column][list]','_xml_columns_list',columna.list,none,'CampoLargo') }}
+                                   {{ macro.input('form','Etiqueta','text','_xml[columns][column][form]','_xml_columns_form',columna.form,none,'CampoLargo') }}
+                                   link
+                                   <div style="padding-left:20px">
+                                        {{ macro.input('route','Etiqueta','text','_xml[columns][column][link][route]','_xml_columns_column_link_route',columna.link.route,none,'CampoLargo') }}
+                                        {{ macro.input('param','Etiqueta','text','_xml[columns][column][link][param]','_xml_columns_column_link_param',columna.link.param,none,'CampoLargo') }}
+                                        {{ macro.input('title','Etiqueta','text','_xml[columns][column][link][title]','_xml_columns_column_link_title',columna.link.title,none,'CampoLargo') }}
+                                        {{ macro.input('target','Etiqueta','text','_xml[columns][column][link][target]','_xml_columns_column_link_target',columna.link.target,none,'CampoLargo') }}
+                                   </div>
+                                   {{ macro.input('default','Etiqueta','text','_xml[default]','_xml_default',columna.default,none,'CampoLargo') }}
+                                   validator
+                                   <div style="padding-left:20px">
+                                   {{ macro.input('null','Etiqueta','text','_xml[columns][column][validator][null]','_xml_columns_column_validator_null',columna.validator.null,none,'CampoLargo') }}
+                                   {{ macro.input('type','Etiqueta','text','_xml[columns][column][validator][type]','_xml_columns_column_validator_type',columna.validator.type,none,'CampoLargo') }}
+                                   {{ macro.input('length','Etiqueta','text','_xml[columns][column][validator][length]','_xml_columns_column_validator_length',columna.validator.length,none,'CampoLargo') }}
+                                   {{ macro.input('min','Etiqueta','text','_xml[columns][column][validator][min]','_xml_columns_column_validator_min',columna.validator.min,none,'CampoLargo') }}
+                                   {{ macro.input('max','Etiqueta','text','_xml[columns][column][validator][max]','_xml_columns_column_validator_max',columna.validator.max,none,'CampoLargo') }}
+                                   {{ macro.input('message','Etiqueta','text','_xml[columns][column][validator][message]','_xml_columns_column_validator_message',columna.message.length,none,'CampoLargo') }}
+                                   </div>
+
+                                   referenced_entities
+                                    <div style="padding-left:20px">referenced</div>
+                                       <div style="padding-left:30px">
+                                            {{ macro.input('route','Etiqueta','text','_xml[columns][column][referenced_entities][referenced][conection]','_xml_columns_column_referenced_entities_referenced_route',columna.link.route,none,'CampoLargo') }}
+                                            {{ macro.input('param','Etiqueta','text','_xml[columns][column][referenced_entities][referenced][entity]','_xml_columns_column_referenced_entities_referenced_param',columna.link.param,none,'CampoLargo') }}
+                                            {{ macro.input('title','Etiqueta','text','_xml[columns][column][referenced_entities][referenced][key]','_xml_columns_column_referenced_entities_referenced_title',columna.link.title,none,'CampoLargo') }}
+                                       </div>
+                                   dependent_entities
+                                    <div style="padding-left:20px">dependency</div>
+                                       <div style="padding-left:30px">
+                                            {{ macro.input('route','Etiqueta','text','_xml[columns][column][dependent_entities][dependency][conection]','_xml_columns_column_dependent_entities_dependency_route',columna.link.route,none,'CampoLargo') }}
+                                            {{ macro.input('param','Etiqueta','text','_xml[columns][column][dependent_entities][dependency][entity]','_xml_columns_column_dependent_entities_dependency_param',columna.link.param,none,'CampoLargo') }}
+                                            {{ macro.input('title','Etiqueta','text','_xml[columns][column][dependent_entities][dependency][key]','_xml_columns_column_dependent_entities_dependency_title',columna.link.title,none,'CampoLargo') }}
+                                       </div>
+                               </div>
+                    </td>
+
+                {% endfor %}
+                </tr>
+            </table>
+        </form>
+        </div>
+    </div>
+</div>
+
+    {% endblock %}

@@ -1,0 +1,61 @@
+{# TEMPLATE FrecibidasCab/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% set digitosCta = emp.DigitosCuentaContable %}
+
+<div class="CajaIzquierda" style="height: 220px;">
+    {{ macro.etiqueta('Sucursal','Etiqueta',datos.IDSucursal.Nombre) }}
+    {{ macro.fecha('Fecha','Etiqueta','FrecibidasCab[Fecha]','FrecibidasCab_Fecha',datos.Fecha,'10','CampoFecha') }}
+    {{ macro.etiqueta('Proveedor','Etiqueta',datos.IDProveedor.RazonSocial) }}
+    {{ macro.select('Forma de Pago','Etiqueta','FrecibidasCab[IDFP]','FrecibidasCab_IDFP',none,datos.IDFP.IDFP,datos.IDFP.fetchAll('Descripcion'),'Select',none,"if (!confirm('Si cambia la forma de pago, se regeneraran los vencimientos')) {return false;} else {getElementById('accion').value='Guardar';}") }}
+    {{ macro.input('Su N. Factura','Etiqueta','text','FrecibidasCab[SuFactura]','FrecibidasCab_SuFactura',datos.SuFactura,'15','CampoTextoMedio') }}
+    {{ macro.input('Referencia','Etiqueta','text','FrecibidasCab[Referencia]','FrecibidasCab_Referencia',datos.Referencia,'15','CampoTextoMedio') }}
+    {{ macro.input('Asiento Contable','Etiqueta','text','FrecibidasCab[Asiento]','FrecibidasCab_Asiento',datos.Asiento,'10','CampoUnidades') }}
+    {{ macro.input('Cuenta de Compras','Etiqueta','text','FrecibidasCab[CuentaCompras]','FrecibidasCab_CuentaCompras',datos.CuentaCompras,digitosCta,'CampoTextoCorto') }}
+</div>
+
+<div class="CajaTotales" style="height: 220px;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Importes</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2" onclick="cargaVencimientos('tabs-2');">Vctos</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-3">Env&iacute;o</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-4">{% if datos.Observaciones %}<b>{% endif %}Observaciones{% if datos.Observaciones %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-5">Dctos</a></li>
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            {% include values.controller ~ "/totales.html.twig" with {'datos': datos}%}
+        </div>
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+
+        </div>
+        <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+                {{ macro.etiqueta('Agencia Tpte.','Etiqueta',datos.IDAgencia.Agencia ) }}
+                {{ macro.etiqueta('Peso','Etiqueta',datos.Peso ) }}
+                {{ macro.etiqueta('Volumen','Etiqueta',datos.Peso ) }}
+                {{ macro.etiqueta('Bultos','Etiqueta',datos.Volumen ) }}
+                {{ macro.etiqueta('Expedición','Etiqueta',datos.Expedicion ) }}
+                <div style="clear: both;"></div>
+        </div>
+        <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea('Observaciones','Etiqueta','FrecibidasCab[Observaciones]','FrecibidasCab_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+        </div>
+        <div id="tabs-5" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+    </div>
+</div>
+
+
+<iframe width="100%" height="327" scrolling="yes" style="margin-top:5px; border:0;"
+        src="{{app.path}}/FrecibidasLineas/list/{{datos.IDFactura}}">
+</iframe>
+
+<script type="text/javascript">
+
+function cargaVencimientos(idDiv) {
+
+    $('#'+idDiv).html("<iframe width='100%' height='156' scrolling='yes' style='border: 0px dotted grey;' src='{{app.path}}/FrecibidasCab/listVencimientos/{{datos.IDFactura}}'></iframe>");
+
+}
+</script>

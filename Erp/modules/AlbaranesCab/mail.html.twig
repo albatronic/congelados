@@ -1,0 +1,43 @@
+{# AlbaranesCab/email.html.twig                                                      #}
+{# MUESTRA EN UN IFRAME EL ARCHIVO RECIBIDO, NORMALMENTE SERA UN PDF  #}
+{# PERO PUEDE SER DE CUALQUIER TIPO: EXCEL, WORD, IMAGEN, ETC         #}
+{# -------------------------------------------------------------------#}
+{% extends values.controller ~ '/index.html.twig' %}
+
+{% block email %}
+
+{% if values.resultadoEnvio %}
+    {% for mensaje in values.resultadoEnvio %}
+        <div class='Subtitulo'>{{ mensaje }}</div>
+    {% endfor %}
+{% else %}
+<div class='Subtitulo'>Enviar albarán por email</div>
+<div class="FormManto">
+    <div class="Cuerpo">
+        <div class="Izquierda">
+            <form name="enviar" id="enviar" action="" method="POST">
+            <input name="controller" value="AlbaranesCab" type="hidden">
+            <input name="action" id="action" value="enviar" type="hidden">
+            <input name="accion" id="accion" value="Enviar" type="hidden">
+            <input name="Adjunto" value="{{values.archivo}}" type="hidden">
+            <input name="De" value="{{values.email.De}}" type="hidden">
+            <input name="DeNombre" value="{{values.email.DeNombre}}" type="hidden"/>
+            <input name="AlbaranesCab[IDAlbaran]" value="{{values.email.idAlbaran}}" type="hidden"/>
+            {{ macro.input('Para','Etiqueta','text','Para','Para',values.email.Para,'255','CampoTextoLargo') }}
+            {{ macro.input('Con Copia','Etiqueta','text','Cc','Cc',values.email.Cc,'255','CampoTextoLargo') }}
+            {{ macro.input('Asunto','Etiqueta','text','Asunto','Asunto',values.email.Asunto,'255','CampoTextoLargo') }}
+            {{ macro.select('Adjuntar','Etiqueta','Formato','Formato',none,values.email.Formato,values.email.Formatos,'Select',none,"$('#accion').val('CambioFormato');submit();") }}
+            {{ macro.textarea('Mensaje','Etiqueta','Mensaje','Mensaje',values.email.Mensaje,none,none,'TextArea')}}
+            <p style="text-align:center; margin-top:10px;">
+                <input value="Enviar" type="button" class="Comando" onclick="submit();"/>
+            </p>
+            </form>
+        </div>
+
+        <div style="float:right; width:450px;">
+            <iframe width="100%" height="400" src="{{app.path}}/{{values.archivo}}"></iframe>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

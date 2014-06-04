@@ -1,0 +1,66 @@
+{# Template edit.html.twig for ManufacCab #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends values.controller  ~ '/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" enctype="multipart/form-data" method="POST">
+        <input name="controller" value="{{ values.controller }}" type="hidden" />
+        <input name="action" id="action" value="edit" type="hidden" />
+        <input name="accion" id="accion" value="" type="hidden" />
+        <input name="documento" id="documento" value="elaboracion" type="hidden" />
+        <input name="{{ values.controller }}[IDManufac]" value="{{ values.datos.IDManufac }}" type="hidden" />
+        <div class='Comandos'>
+            <div class="Titulo">
+                Parte de Elaboración: {{values.datos.IDManufac}} [{{values.datos.IDEstado.Descripcion}}]
+
+                {% if values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/save_cmd.png" width="24px" onclick="getElementById('accion').value='Guardar';" alt="Guardar" title="Guardar" />
+                {% endif %}
+
+                {% if values.datos.IDEstado.IDTipo == '1' and values.permisos['A'] %}
+                    <a href="javascript:;" target="_blank" onClick="window.open('{{app.path}}/ExpedirLineas/index/ManufacCab/{{values.datos.IDManufac}}','Expedir','width=850,height=500,resizable=yes,scrollbars=yes');">
+                        <img src="{{app.path}}/images/expedir_cmd.png" alt="Expedir" title="Expedir ...">
+                    </a>
+                {% endif %}   
+                {% if values.datos.IDEstado.IDTipo == '2' and values.permisos['A'] %}
+                    <a href="javascript:;" target="_blank" onClick="window.open('{{app.path}}/RecepcionarLineas/index/ManufacCab/{{values.datos.IDManufac}}','Recepcionar','width=850,height=500,resizable=yes,scrollbars=yes');">
+                        <img src="{{app.path}}/images/expedir_cmd.png" alt="Recepconar" title="Recepcionar ...">
+                    </a>
+                {% endif %}
+                {% if values.datos.IDEstado.IDTipo == '0' %}
+                {% if values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/confirm_cmd.png" width="24px" onclick="if (!confirm('¿Desea confirmar el parte de elaboración {{values.datos.IDManufac}}?')) {return false;} else {getElementById('action').value='Confirmar';}" alt="Confirmar" title="Confirmar Parte" />
+                {% endif %}
+                {% if values.permisos['B'] %}
+                <input type="image" src="{{app.path}}/images/trash_cmd.png" width="24px" onclick="if (!confirm('¿Desea borrar el parte de elaboración {{values.datos.IDManufac}}?')) {return false;} else {getElementById('accion').value='Borrar';}" alt="Borrar" title="Borrar Parte" />
+                {% endif %}
+                {% endif %}
+
+                {% if values.datos.IDEstado.IDTipo == '1' and values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/cancel_cmd.png" width="24px" onclick="if (!confirm('¿Desea anular la confirmación del parte {{values.datos.IDManufac}}?')) {return false;} else {getElementById('action').value='Anular';}" alt="Anular" title="Anular Confirmación" />
+                {% endif %}
+
+                {% if values.permisos['C'] %}
+                {{ macro.botonDocumento(app.path,values.controller,values.datos.getPrimaryKeyValue)}}
+                <input type="image" src="{{app.path}}/images/send_cmd.png" width="24px" onclick="getElementById('action').value='Enviar';" alt="Enviar" title="Enviar" />
+                {% endif %}
+
+                {% if values.permisos['I'] %}
+                <input type="image" src="{{app.path}}/images/duplicar_cmd.png" width="24px" onclick="$('#action').val('Duplicar');" alt="Duplicar" title="Duplicar" />
+                {% endif %}
+
+                {% include '_global/comandosAuditoria.html.twig' with {'controller': values.controller} %}
+            </div>
+        </div>
+
+        <div class='Cuerpo'>
+        {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+	{% include "_global/alertas.html.twig" with {'alertas': values.alertas} %}
+	{% include values.controller ~ "/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

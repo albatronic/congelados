@@ -1,0 +1,37 @@
+{# Template index.html.twig for ZonasTransporte #}
+{# -------------------------------------------------------#}
+{% extends layout %}
+
+{% block title parent() ~ " - " ~ values.titulo %}
+
+{% block content %}
+<div class="Titulo">
+Gestor modulos XML
+</div>
+    {% block mantenimiento %}
+        <form name="manto" class="FormManto" id="manto" method="POST">
+            <input name="controller" value="_xml" type="hidden"/>
+            <input name="action" value="index" type="hidden"/>
+            Modulo: 
+            <select name="modulo" id="modules" size="1" class="select" onchange="submit();">
+                <option value=""  >**Selecione un valor**</option>
+                    {% for value in values.modules %}
+                <option value="{{ value.Value }}" {% if (value.Value==values.request.modulo) %} SELECTED {%endif%}>{{value.Value}}</option>
+                    {% endfor %}
+            </select>
+        </form>
+<hr>
+            {%if values.request.modulo %}
+            <iframe width="100%" height="500" scrolling="yes" style="border:0;"
+                    src="{{app.path}}/_xml/edit/{{values.request.modulo}}">
+            </iframe>
+            {%endif%}
+
+    {% endblock %}
+
+
+{% endblock %}
+
+
+
+

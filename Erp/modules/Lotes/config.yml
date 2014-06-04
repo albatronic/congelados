@@ -1,0 +1,193 @@
+# Module: Lotes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Lotes:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Lotes
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Lotes
+  table: lotes
+  primarykey: IDLote
+  records_per_page: 20
+  order_by:
+    -
+      title: Lote a-z
+      criteria: Lote ASC
+    -
+      title: Lote z-a
+      criteria: Lote DESC
+    -
+      title: F. Fabricacion a-z
+      criteria: FechaFabricacion ASC
+    -
+      title: F. Fabricacion z-a
+      criteria: FechaFabricacion DESC
+    -
+      title: F. Caducidad a-z
+      criteria: FechaCaducidad ASC
+    -
+      title: F. Caducidad z-a
+      criteria: FechaCaducidad DESC
+  search_default: IDLote
+  columns:
+    - 
+      title: IDLote
+      field: IDLote
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: Artículo
+      field: IDArticulo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: 1
+        max: 99999999
+        message: Valor Requerido
+      aditional_filter:
+        order: 1
+        caption: Codigo Artículo (%)
+        entity: Articulos
+        method: fetchAll
+        params: Codigo
+        type: input
+    -
+      title: Artículo
+      field: IDArticulo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: 1
+        max: 99999999
+        message: Valor Requerido
+      aditional_filter:
+        order: 2
+        caption: Artículo (%)
+        entity: Articulos
+        method: fetchAll
+        params: Descripcion
+        type: input
+    -
+      title: Lote
+      field: Lote
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Fecha Fabricación
+      field: FechaFabricacion
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: date
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 3
+        caption: Fecha Fabricación
+        entity: null
+        type: range
+        operator: '>='
+    - 
+      title: Fecha Caducidad
+      field: FechaCaducidad
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: date
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 4
+        caption: Fecha Caducidad
+        entity: null
+        type: range
+        operator: '>='
+    - 
+      title: Vigente
+      field: Vigente
+      filter: NO
+      list: YES
+      form: YES
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 99
+        caption: Vigente
+        entity: ValoresSN
+        method: fetchAll
+        type: select
+        default: 1

@@ -1,0 +1,47 @@
+{% extends "_help/layout.html.twig" %}
+
+{%block titulo%}<h2>Facturación</h2>{%endblock%}
+
+{% block contenido %}
+
+<h2>Objetivo</h2>
+<p>
+    Mediante este proceso podremos facturar todos aquellos albaranes que estén expedidos y pendientes de facturación.
+</p>
+
+<h2>Operatoria</h2>
+<p>Para seleccionar los albaranes a facturar, se debe indicar la sucursal, el un periódo de fechas y el cliente</p>
+<p>El sistema ERP filtrará los albaranes y devolverá aquellos que pertenezcan a la suscursal indicada, se hayan creado
+    dentro del rango de fechas seleccionadas, estén expedidos y aún no facturados.
+</p>
+<p>
+    <div style="float:left; width:50%;"><p>De los albaranes obtenidos, se pueden seleccionar todos o algunos.</p></div>
+    <div style="float:right; width:50%;"><img src="{{app.path}}/modules/_help/images/facturacion02.png"/></div>
+</p>
+<div style="clear:both;"></div>
+<p>
+La facturación se puede hacer separada o agrupada.
+</p>
+
+<ul>
+    <li>Facturación Separada</li>
+    <p>Se generará una factura por cada albarán</p>
+    <li>Facturación Agrupada</li>
+    <p>Se agrupan los albaranes y se genera una sola factura. La "agrupación" de albaranes sigue los siguientes criterios:</p>
+    <p>Se generarán tantos grupos de albaranes (y por lo tanto facturas) como formas de pago y comerciales diferentes haya en los albaranes involucrados.</p>
+    <p>
+        <div style="float:left; width:50%;"><p>Y además, si en la ficha del cliente se ha indicado NO en la casilla "Factura Agrupada", se generarán tantas facturas como direcciones de entrega diferentes haya en los albaranes.</p></div>
+        <div style="float:right; width:50%;"><img src="{{app.path}}/modules/_help/images/facturacion01.png"/></div>
+    </p>
+</ul>
+<div style="clear:both;"></div>
+<h2>Observaciones</h2>
+<ul>
+<p>No se puede generar una factura en la que haya involucrados más de tres tipos de IVA diferentes.</p>
+<p>El/Los número/s de factura que se generen se obtendrán en base a los <a href="{{app.path}}/Contadores/help">contadores</a> definidos para cada sucursal.
+Por lo tanto, se hubiese un desfase entre el valor del contador y el último número de factura generada, se producirá un error y el sistema ERP no generará la factura.
+En estos casos, deberá averiguar el número de la última factura y poner dicha valor en el apartado de contadores
+</p>
+<p>En la facturas no se incluirán aquellas líneas de albaranes cuyas unidades de producto sean cero. Esto suele ocurrir cuando en el albarán se indicó un producto que no ha sido expedido por falta de stock.</p>
+</ul>
+{% endblock %}

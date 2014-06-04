@@ -1,0 +1,28 @@
+{% extends "_help/layout.html.twig" %}
+
+{%block titulo%}<h2>Rutas de Ventas</h2>{%endblock%}
+
+{% block contenido %}
+
+<h2>Objetivo</h2>
+<p>
+    El Sistema ERP permite organizar rutas de visitas que los comerciales deben realizar a sus clientes. Las rutas son semanales de Lunes a Viernes.
+    Un cliente puede ser visitado varias veces a la semana.
+</p>
+
+<p>El sistema generar&aacute; un informe impreso para que el comercial sepa a qué clientes tiene que visitar cada d&iacute;a.</p>
+
+<h2>Operatoria</h2>
+<p>Al seleccionar un comercial, el sistema muestra 5 cajas correspondientes a los cinco d&iacute;as h&aacute;biles de la semana.</p>
+<p>Para cada d&iacute;a, se han de indicar los clientes que tiene que visitar el comercial.</p>
+<p>Se pueden a&ntilde;adir clientes uno a uno, o bien por bloques de clientes asociados al mismo c&oacute;digo postal.</p>
+<p>En el desplegable de clientes, el sistema s&oacute;lo muestra aquellos que siendo del comercial y sucursal en curso, a&uacute;n no han sido seleccionados para ese d&iacute;a.
+    Dicho de otra forma, a medida que se van a&ntilde;adiendo clientes al d&iacute;a, van desapareciendo del desplegable, para facilitar as&iacute; la tarea de elegirlos.
+</p>
+<p>Igualmente ocurre con el desplegable de c&oacute;digos postales.</p>
+<p>Si se intentara incluir un cliente que ya lo est&eacute; en ese d&iacute;a, el sistema lo detecta y no lo duplica.</p>
+<p>Para quitar un cliente de un d&iacute;a, basta con hacer click en el aspa <img src="{{app.path}}/images/botonborrar.png" /></p>
+<p>En la "caja" de cada d&iacute;a, los clientes aparecen ordenados por c&oacute;digo postal.</p>
+<p><b>NOTA:</b> Se puede seleccionar el mismo cliente en varios d&iacute;as.</p>
+
+{% endblock %}

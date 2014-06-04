@@ -1,0 +1,58 @@
+# Module: UnidadesMedida
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+UnidadesMedida:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Unidades de Medida
+  conection: empresas
+  entity: UnidadesMedida
+  table: unidades_medida
+  primarykey: Id
+  records_per_page: 15
+  order_by:
+    -
+      title: Unidad Medida a-z
+      criteria: UnidadMedida ASC
+    -
+      title: Unidad Medida z-a
+      criteria: UnidadMedida DESC
+  search_default: UnidadMedida
+  columns:
+    - 
+      title: Codigo
+      field: Id
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: Unidad Medida
+      field: UnidadMedida
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido

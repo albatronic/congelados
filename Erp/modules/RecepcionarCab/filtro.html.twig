@@ -1,0 +1,43 @@
+{# Template filtro.html.twig for Recepcionar #}
+{# ------------------------------------------#}
+<div class='Filtro'>
+    <form name='filtro' id='filtro' action='' method='POST'>
+        <input name='controller' value='RecepcionarCab' type='hidden' />
+        <input name='action' value='list' type='hidden' />
+        <input name="page" value="1" type="hidden"/>
+        <div>
+        <div style="float: left; margin-right: 10px;">
+        Almacén:
+        <select name="idAlmacen" onchange="submit();">
+            {% for almacen in user.getAlmacenes %}
+            <option value="{{almacen.Id}}" {% if almacen.Id == values.listado.filter.idAlmacen %} SELECTED {% endif%} >{{almacen.Value}}</option>
+            {% endfor %}
+        </select>
+        </div>
+
+        <div style="float: left;">
+        Tipo:
+        <select name="idTipo" class="Select" onchange="if (this.value != 'PedidosCab') {getElementById('div_Pedido').style.display='none';};">
+            {% for tipo in values.tipos %}
+            <option value="{{tipo.Id}}" {% if tipo.Id == values.listado.filter.idTipo %} SELECTED {% endif%} >{{tipo.Value}}</option>
+            {% endfor %}
+        </select>
+        </div>
+
+        <div id="div_Pedido" style="float: left; margin-left: 20px; display:{% if values.listado.filter.idTipo != 'PedidosCab' %}none{% endif %};">
+            Pedido:
+            <input name="idPedido" id="idPedido" value="{{values.listado.filter.idPedido}}" type="text" style="width: 55px;"/>
+            Proveedor:
+            <input name="idProveedor" id="idProveedor" value="" type="hidden"/>
+            <input value="" id="RazonSocial" type="text" maxlength="50" style="width: 280px;"
+               onkeyup="autoCompletar('RazonSocial','idProveedor','RazonSocial','proveedores');"/>
+        </div>
+
+        <div style="float: left; margin-left: 20px;">
+            <input type="image" src="{{app.path}}/images/lupa.png" width="16px" height="16px" alt="Consulta"/>
+        </div>
+
+        <div style="clear: both;"></div>
+        </div>
+    </form>
+</div>

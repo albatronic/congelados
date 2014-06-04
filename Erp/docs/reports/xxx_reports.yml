@@ -1,0 +1,2200 @@
+# FORMATOS DE INFORMES.
+# docs/docsXXX/reports/reports.yml
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 19-05-2012
+#
+---
+reports:
+
+  # ---------------------------------------------------------
+  # INFORME 347
+  # ---------------------------------------------------------
+  -
+    title: Ventas trimestrales (facturas)
+    comment: >
+      Resumen de ventas por trimestre.
+      Los importes son total factura iva incluido
+    idPerfil: '5,6,8'
+    break_fields: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      select 
+        c.RazonSocial,c.Cif,
+        SUM( CASE quarter(Fecha) WHEN '1' THEN Total ELSE 0 END ) AS '1T',
+        SUM( CASE quarter(Fecha) WHEN '2' THEN Total ELSE 0 END ) AS '2T',
+        SUM( CASE quarter(Fecha) WHEN '3' THEN Total ELSE 0 END ) AS '3T',
+        SUM( CASE quarter(Fecha) WHEN '4' THEN Total ELSE 0 END ) AS '4T',
+        SUM(Total) AS Total
+      from clientes c, femitidas_cab f
+      where c.IDCliente = f.IDCliente AND YEAR(Fecha) = 'ANIO'
+      group by f.IDCliente
+      order by c.RazonSocial ASC
+    filters:
+      -
+        field: ANIO
+        caption: Año
+        entity: Sucursales
+        method: getSucursalesUsuario
+        params:
+        type: input
+        default: '<?php echo date('Y');?>'
+    columns:
+      -
+        title: Cliente
+        field: RazonSocial
+        length: 25
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cif
+        field: Cif
+        length: 13
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: 1T
+        field: 1T
+        length: 13
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: 2T
+        field: 2T
+        length: 13
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: 3T
+        field: 3T
+        length: 13
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: 4T
+        field: 4T
+        length: 13
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f  
+      -
+        title: Total
+        field: Total
+        length: 13
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f 
+        
+  # ---------------------------------------------------------
+  # INFORME DE VENTAS MENSUALES SEGUN ALBARANES. SACA GRAFICO
+  # ---------------------------------------------------------
+  -
+    title: Ventas Mensuales (Albaranes)
+    comment: >
+      Resumen de ventas mensuales en base a los albaranes.
+      Los importes son en base imponible.
+    idPerfil: '5,6,8'
+    break_fields: Sucursal
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT s.Nombre as Sucursal,DATE_FORMAT(a.Fecha,'%m') as Mes,sum(a.TotalBases) as Base
+      FROM interpra_ppuerp<?php echo $_SESSION['emp'];?>.albaranes_cab as a, interpra_ppuemp.sucursales as s
+      WHERE a.IDSucursal='SUCURSAL'
+      AND a.Fecha>='DESDEFECHA'
+      AND a.Fecha<='HASTAFECHA'
+      AND a.IDSucursal=s.IDSucursal
+      AND a.IDEstado='ESTADO'
+      GROUP BY a.IDSucursal,Mes
+      ORDER BY a.IDSucursal,DATE_FORMAT(a.Fecha,'%m') ASC
+    filters:
+      -
+        field: SUCURSAL
+        caption: Sucursal
+        entity: Sucursales
+        method: getSucursalesUsuario
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?echo date('Y');?>'
+      -
+        field: ESTADO
+        caption: Estado
+        entity: EstadosAlbaranes
+        method: fetchAll
+        params:
+        type: select
+        default: 2
+    columns:
+      -
+        title: Mes
+        field: Mes
+        length: 5
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base
+        field: Base
+        length: 13
+        align: R
+        type: integer
+        total: YES
+        formula: null
+        format: null
+    grafico:
+      ancho: 550
+      alto: 350
+      tituloX: Meses
+      tituloY: Importes (B.I.)
+      columnaX: Mes
+      columnaY: Base
+
+  # --------------------------------------------------------
+  # INFORME DE VENTAS MENSUALES SEGUN FACTURAS. SACA GRAFICO
+  # --------------------------------------------------------
+  -
+    title: Ventas Mensuales (Facturas)
+    comment: >
+      Resumen de ventas mensuales en base a las facturas
+    idPerfil: '5,6,8'
+    break_fields: Sucursal
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT s.Nombre as Sucursal,DATE_FORMAT(a.Fecha,'%M') as Mes,sum(a.TotalBases) as Base
+      FROM interpra_ppuerp<?php echo $_SESSION['emp'];?>.femitidas_cab as a, interpra_ppuemp.sucursales as s
+      WHERE a.IDSucursal='SUCURSAL'
+      AND a.Fecha>='DESDEFECHA'
+      AND a.Fecha<='HASTAFECHA'
+      AND a.IDSucursal=s.IDSucursal
+      GROUP BY a.IDSucursal,Mes
+      ORDER BY a.IDSucursal,DATE_FORMAT(a.Fecha,'%m') ASC
+    filters:
+      -
+        field: SUCURSAL
+        caption: Sucursal
+        entity: Sucursales
+        method: getSucursalesUsuario
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?echo date('Y');?>'
+    columns:
+      -
+        title: Mes
+        field: Mes
+        length: 5
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base
+        field: Base
+        length: 13
+        align: R
+        type: integer
+        total: YES
+        formula: null
+        format: null
+    grafico:
+      ancho: 550
+      alto: 350
+      tituloX: Meses
+      tituloY: Importes (B.I.)
+      columnaX: Mes
+      columnaY: Base
+
+  # ----------------------------------------------------------------------
+  # INFORME DE VENTAS MENSUALES POR COMERCIAL SEGUN FACTURAS. SACA GRAFICO
+  # ----------------------------------------------------------------------
+  -
+    title: Ventas Mensuales por Comercial (Facturas)
+    comment: >
+      Resumen de ventas mensuales por comercial en base a las facturas. Importes en base imponible
+    idPerfil: '4,5,6,8'
+    break_fields: Comercial
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT s.Nombre as Comercial,DATE_FORMAT(a.Fecha,'%M') as Mes,sum(a.TotalBases) as Base
+      FROM interpra_ppuerp<?php echo $_SESSION['emp'];?>.femitidas_cab as a, interpra_ppuemp.agentes as s
+      WHERE a.IDComercial='COMERCIAL'
+      AND a.Fecha>='DESDEFECHA'
+      AND a.Fecha<='HASTAFECHA'
+      AND a.IDComercial=s.IDAgente
+      GROUP BY a.IDComercial,Mes
+      ORDER BY a.IDComercial,DATE_FORMAT(a.Fecha,'%m') ASC
+    filters:
+      -
+        field: COMERCIAL
+        caption: Comercial
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getComerciales
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?php echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?php echo date('Y');?>'
+    columns:
+      -
+        title: Mes
+        field: Mes
+        length: 5
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base
+        field: Base
+        length: 13
+        align: R
+        type: integer
+        total: YES
+        formula: null
+        format: null
+    grafico:
+      ancho: 550
+      alto: 350
+      tituloX: Meses
+      tituloY: Importes (B.I.)
+      columnaX: Mes
+      columnaY: Base
+
+  # ----------------------------------------------------------
+  # INFORME DE VENTAS POR COMERCIAL, RANGO DE FECHAS Y FAMILIA
+  # ----------------------------------------------------------
+  -
+    title: Informe de ventas por Comercial (Facturas)
+    comment: >
+      Informe de  ventas por comercial en base a las facturas. Importes en base imponible
+    idPerfil: '4,5,6,8'
+    break_fields: Comercial,Familia
+    break_page: NO
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT s.Nombre as Comercial,fa.Familia as Familia,ar.Codigo,ar.Descripcion,sum(l.Unidades) as Unidades,sum(l.Importe) as Importe
+      FROM
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.femitidas_cab as a,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.femitidas_lineas as l,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.clientes as cl,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.familias as fa,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.articulos as ar,
+        interpra_ppuemp.agentes as s
+      WHERE
+        a.IDComercial LIKE 'COMERCIAL%' AND
+        a.Fecha>='DESDEFECHA'AND
+        a.Fecha<='HASTAFECHA'AND
+        a.IDFactura=l.IDFactura AND
+        a.IDCliente=cl.IDCliente AND
+        l.IDArticulo= ar.IDArticulo AND
+        ar.IDFamilia=fa.IDFamilia AND
+        fa.IDFamilia LIKE 'FAMILIA%' AND
+        a.IDComercial=s.IDAgente
+      GROUP BY l.IDArticulo
+      ORDER BY a.IDComercial,fa.Familia ASC
+    filters:
+      -
+        field: COMERCIAL
+        caption: Comercial
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getComerciales
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?php echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?php echo date('Y');?>'
+      -
+        field: FAMILIA
+        caption: Familia
+        entity: Familias
+        method: fetchAll
+        params: Familia
+        type: select
+        default:
+    columns:
+      -
+        title: Codigo
+        field: Codigo
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripcion
+        field: Descripcion
+        length: 40
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Unidades
+        field: Unidades
+        length: 12
+        align: R
+        type: float
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Importe
+        field: Importe
+        length: 12
+        align: R
+        type: float
+        total: YES
+        formula: null
+        format: null
+    grafico:
+
+  # ---------------------------------------------------------
+  # INFORME DE RIESGO
+  # ---------------------------------------------------------
+  -
+    title: Informe de Riesgo
+    comment: >
+      Total facturación en un periodo desglosando asegurado y no asegurado
+    idPerfil: '5,6,8'
+    break_fields: Sucursal
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT c.RazonSocial as Cliente,sum(a.Total) as Total,c.CodigoRiesgo,c.LimiteRiesgo,f.Descripcion as Descripcion
+      FROM 
+      interpra_ppuerp<?php echo $_SESSION['emp'];?>.femitidas_cab as a, 
+      interpra_ppuemp.sucursales as s,
+      interpra_ppuerp<?php echo $_SESSION['emp'];?>.clientes as c, 
+      interpra_ppuerp<?php echo $_SESSION['emp'];?>.formas_pago as f 
+      WHERE a.IDSucursal='SUCURSAL'
+      AND a.Fecha>='DESDEFECHA'
+      AND a.Fecha<='HASTAFECHA'
+      AND a.IDSucursal=s.IDSucursal
+      AND a.IDFP=f.IDFP
+      AND a.IDCliente=c.IDCliente
+      GROUP BY c.IDCliente,f.IDFP
+      ORDER BY a.IDSucursal,c.RazonSocial ASC
+    filters:
+      -
+        field: SUCURSAL
+        caption: Sucursal
+        entity: Sucursales
+        method: getSucursalesUsuario
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?php echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?php echo date('Y');?>'
+    columns:
+      -
+        title: Cliente
+        field: Cliente
+        length: 45
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null      
+      -
+        title: Total Facturado
+        field: Total
+        length: 15
+        align: R
+        type: integer
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Código Riego
+        field: CodigoRiesgo
+        length: 13
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Riesgo
+        field: LimiteRiesgo
+        length: 13
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Forma de pago
+        field: Descripcion
+        length: 20
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+
+  # ----------------------------------------------------------
+  # CLIENTES SIN VENTAS EN UN PERIODO Y SIN PENDIENTE DE COBRO
+  # ----------------------------------------------------------
+  -
+    title: Clientes sin ventas y sin pendiente de cobro
+    comment: >
+      Muestra los clientes (separados por comercial) a los que no se les ha facturado durante el periodo indicado 
+      excluyendo aquellos que tengan recibos pendientes de cobro en cualquier periodo.
+    idPerfil: '5,6,8'
+    break_fields: Comercial
+    break_page: YES
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT a.Nombre as Comercial,c.IDCliente,c.RazonSocial,c.Cif,c.Poblacion,CONCAT(c.Telefono," ",c.Movil) AS Telefono
+      FROM 
+          interpra_ppuerp<?php echo $_SESSION['emp'];?>.clientes as c,
+          interpra_ppuemp.agentes as a
+      WHERE c.IDComercial=a.IDAgente
+      AND c.Vigente='1'
+      AND c.IDComercial LIKE '%COMERCIAL%'
+      AND c.IDSucursal = 'SUCURSAL'
+      AND c.IDCliente NOT IN (
+            SELECT DISTINCT IDCliente FROM interpra_ppuerp<?php echo $_SESSION['emp'];?>.femitidas_cab WHERE Fecha>='DESDEFECHA' AND Fecha<='HASTAFECHA' ORDER BY IDCliente)
+      AND c.IDCliente not in (      
+            SELECT DISTINCT IDCliente FROM interpra_ppuerp<?php echo $_SESSION['emp'];?>.recibos_clientes WHERE IDEstado <>  '6' ORDER BY IDCliente)
+      ORDER BY Comercial,c.RazonSocial ASC
+    filters:
+      -
+        field: SUCURSAL
+        caption: Sucursal
+        entity: Sucursales
+        method: getSucursalesUsuario
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: COMERCIAL
+        caption: Comercial
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getComerciales
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?php echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?php echo date('Y');?>'
+    columns:
+      -
+        title: Razón Social Cliente
+        field: RazonSocial
+        length: 50
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null      
+      -
+        title: Cif
+        field: Cif
+        length: 15
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Telefonos
+        field: Telefono
+        length: 23
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null        
+      -
+        title: Población
+        field: Poblacion
+        length: 22
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+        
+  # --------------------------------------------------------------------------
+  # LISTAS DE FACTURAS EMITIDAS FILTRADAS ENTRE UN RANGO DE NUMEROS DE FACTURA
+  # --------------------------------------------------------------------------
+  -
+    title: Listado de Facturas Emitidas rango Números Factura
+    comment: Saca un listado de facturas emitidas en un rango de números
+    idPerfil: '5,6'
+    break_fields:
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT f.NumeroFactura,
+             DATE_FORMAT(f.Fecha,'%d/%m/%Y') as Fecha,
+             f.Total,
+             c.RazonSocial,
+             cc.Nombre as Comercial
+      FROM interpra_ppuerp<?php echo $_SESSION['emp'];?>.femitidas_cab as f,
+           interpra_ppuerp<?php echo $_SESSION['emp'];?>.clientes as c,
+           interpra_ppuemp.agentes as cc
+      WHERE f.NumeroFactura>='DESDENUMERO'
+            AND f.NumeroFactura<='HASTANUMERO'
+            AND f.IDCliente=c.IDCliente
+            AND f.IDComercial=cc.IDAgente
+      ORDER BY f.Fecha,f.NumeroFactura ASC
+    filters:
+      -
+        field: SUCURSAL
+        caption: Sucursal
+        entity: Sucursales
+        method: getSucursalesUsuario
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDENUMERO
+        caption: Desde Número
+        entity:
+        method:
+        params:
+        type: string
+        default:
+      -
+        field: HASTANUMERO
+        caption: Hasta Número
+        entity:
+        method:
+        params:
+        type: string
+        default:
+    columns:
+      -
+        title: N. Factura
+        field: NumeroFactura
+        length: 12
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 12
+        align: C
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cliente
+        field: RazonSocial
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Comercial
+        field: Comercial
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Total
+        field: Total
+        length: 13
+        align: R
+        type: money
+        total: YES
+        formula: null
+        format: %.2n
+
+    grafico:
+
+  # ----------------------------------------------------
+  # LISTADO DE FACTURAS POR RUTA DE VENTAS
+  # Muestra las facturas pendientes de cobro (u otro estado) del
+  # comercial y día de la ruta indicada
+  # ----------------------------------------------------
+  -
+    title: Listado de Facturas por Ruta de Venta
+    comment: Facturas pendientes de cobro del comercial y ruta de venta. El orden es alfabético por razón social de cliente.
+    idPerfil: '4,5,6,8'
+    break_fields: RazonSocial
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT cl.RazonSocial,cl.NombreComercial,fe.NumeroFactura, DATE_FORMAT(fe.Fecha,'%d/%m/%Y') as Fecha, fe.Total, DATE_FORMAT(rc.Vencimiento,'%d/%m/%Y') as FVcto, rc.Importe
+      FROM
+        rutas_ventas as rv,
+        clientes as cl,
+        recibos_clientes as rc,
+        femitidas_cab as fe
+      WHERE
+        rv.IDComercial = 'COMERCIAL' AND
+        rv.Dia = 'DIA' AND
+        rc.IDCliente = rv.IDCliente AND
+        cl.IDCliente = rv.IDCliente AND
+        rc.IDFactura = fe.IDFactura AND
+        rc.IDEstado LIKE '%ESTADO%' AND
+        fe.Fecha>='DESDEFECHA' AND fe.Fecha<='HASTAFECHA'
+      ORDER BY cl.RazonSocial, fe.Fecha ASC;
+
+    filters:
+      -
+        field: COMERCIAL
+        caption: Comercial
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getComerciales
+        params:
+        type: select
+        default: '<?php echo $_SESSION['USER']['user']['id'];?>'
+      -
+        field: DIA
+        caption: Día
+        entity: DiasSemana
+        method: fetchAll
+        params:
+        type: select
+        default: 1
+      -
+        field: ESTADO
+        caption: Estado
+        entity: EstadosRecibos
+        method: fetchAll
+        params: Descripcion, false
+        type: select
+        default: ''
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/2011'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?php echo date('Y');?>'
+    columns:
+      -
+        title: N. Factura
+        field: NumeroFactura
+        length: 12
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 12
+        align: C
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Imp. Factura
+        field: Total
+        length: 13
+        align: R
+        type: money
+        total: YES
+        formula: null
+        format: %.2n
+      -
+        title: Fecha Vcto
+        field: FVcto
+        length: 12
+        align: C
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Imp. Vcto
+        field: Importe
+        length: 14
+        align: R
+        type: money
+        total: YES
+        formula: null
+        format: %.2n
+    grafico:
+
+  # ----------------------------------------------------
+  # VENTAS POR CLIENTE Y MES
+  # Muestra totales de facturacion por cliente y mes
+  # acotando provincia y periodo
+  # ----------------------------------------------------
+  -
+    title: Resumen de ventas mensual por cliente y mes
+    comment: Cuadro resumen de ventas por cliente y mes, pudiendo acotar una provincia y periodo de fechas. Los importes son bases imponibles de facturas
+    idPerfil: '4,5,6,8'
+    break_fields: 
+    orientation: L
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT 
+        c.RazonSocial,c.Cif,
+        SUM( CASE MONTH(Fecha) WHEN '1' THEN Total ELSE 0 END ) AS 'ENERO',
+        SUM( CASE MONTH(Fecha) WHEN '2' THEN Total ELSE 0 END ) AS 'FEBRERO',
+        SUM( CASE MONTH(Fecha) WHEN '3' THEN Total ELSE 0 END ) AS 'MARZO',
+        SUM( CASE MONTH(Fecha) WHEN '4' THEN Total ELSE 0 END ) AS 'ABRIL',
+        SUM( CASE MONTH(Fecha) WHEN '5' THEN Total ELSE 0 END ) AS 'MAYO',
+        SUM( CASE MONTH(Fecha) WHEN '6' THEN Total ELSE 0 END ) AS 'JUNIO',
+        SUM( CASE MONTH(Fecha) WHEN '7' THEN Total ELSE 0 END ) AS 'JULIO',
+        SUM( CASE MONTH(Fecha) WHEN '8' THEN Total ELSE 0 END ) AS 'AGOSTO',
+        SUM( CASE MONTH(Fecha) WHEN '9' THEN Total ELSE 0 END ) AS 'SEPTIEMBRE',
+        SUM( CASE MONTH(Fecha) WHEN '10' THEN Total ELSE 0 END ) AS 'OCTUBRE',
+        SUM( CASE MONTH(Fecha) WHEN '11' THEN Total ELSE 0 END ) AS 'NOVIEMBRE',
+        SUM( CASE MONTH(Fecha) WHEN '12' THEN Total ELSE 0 END ) AS 'DICIEMBRE',
+        SUM(Total) AS TOTAL
+      FROM clientes c, femitidas_cab f
+      WHERE c.IDCliente = f.IDCliente AND c.IDProvincia LIKE '%PROVINCIA%' AND DATE(Fecha) BETWEEN 'DESDEFECHA' AND 'HASTAFECHA'
+      GROUP BY f.IDCliente
+      ORDER BY c.RazonSocial ASC
+
+    filters:
+      -
+        field: PROVINCIA
+        caption: Provincia
+        entity: Provincias
+        method: fetchAll
+        params: Provincia
+        type: select
+        default: ''
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params: 
+        type: date
+        default: '01/01/<?php echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?php echo date('Y');?>'
+    columns:
+      -
+        title: Cliente
+        field: RazonSocial
+        length: 25
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: ENERO
+        field: ENERO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: FEBRERO
+        field: FEBRERO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: MARZO
+        field: MARZO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: ABRIL
+        field: ABRIL
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: MAYO
+        field: MAYO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: JUNIO
+        field: JUNIO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: JULIO
+        field: JULIO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: AGOSTO
+        field: AGOSTO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: SEPTIEMBRE
+        field: SEPTIEMBRE
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: OCTUBRE
+        field: OCTUBRE
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f  
+      -
+        title: NOVIEMBRE
+        field: NOVIEMBRE
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f   
+      -
+        title: DICIEMBRE
+        field: DICIEMBRE
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f  
+      -
+        title: TOTAL
+        field: TOTAL
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f          
+    grafico:
+        
+  # ----------------------------------------------------
+  # VENTAS POR PROVINCIA Y MES
+  # Muestra totales de facturacion por provincia y mes
+  # acotando un periodo de fechas
+  # ----------------------------------------------------
+  -
+    title: Resumen de ventas mensual por provincia
+    comment: Cuadro resumen de ventas por provincia y mes, pudiendo acotar un periodo de fechas. Los importes son bases imponibles de facturas
+    idPerfil: '4,5,6,8'
+    break_fields: 
+    orientation: L
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT 
+        p.Provincia,
+        SUM( CASE MONTH(Fecha) WHEN '1' THEN Total ELSE 0 END ) AS 'ENERO',
+        SUM( CASE MONTH(Fecha) WHEN '2' THEN Total ELSE 0 END ) AS 'FEBRERO',
+        SUM( CASE MONTH(Fecha) WHEN '3' THEN Total ELSE 0 END ) AS 'MARZO',
+        SUM( CASE MONTH(Fecha) WHEN '4' THEN Total ELSE 0 END ) AS 'ABRIL',
+        SUM( CASE MONTH(Fecha) WHEN '5' THEN Total ELSE 0 END ) AS 'MAYO',
+        SUM( CASE MONTH(Fecha) WHEN '6' THEN Total ELSE 0 END ) AS 'JUNIO',
+        SUM( CASE MONTH(Fecha) WHEN '7' THEN Total ELSE 0 END ) AS 'JULIO',
+        SUM( CASE MONTH(Fecha) WHEN '8' THEN Total ELSE 0 END ) AS 'AGOSTO',
+        SUM( CASE MONTH(Fecha) WHEN '9' THEN Total ELSE 0 END ) AS 'SEPTIEMBRE',
+        SUM( CASE MONTH(Fecha) WHEN '10' THEN Total ELSE 0 END ) AS 'OCTUBRE',
+        SUM( CASE MONTH(Fecha) WHEN '11' THEN Total ELSE 0 END ) AS 'NOVIEMBRE',
+        SUM( CASE MONTH(Fecha) WHEN '12' THEN Total ELSE 0 END ) AS 'DICIEMBRE',
+        SUM(Total) AS TOTAL
+      FROM clientes c, femitidas_cab f, interpra_ppuemp.provincias as p
+      WHERE c.IDCliente = f.IDCliente AND c.IDProvincia=p.IDProvincia AND DATE(Fecha) BETWEEN 'DESDEFECHA' AND 'HASTAFECHA'
+      GROUP BY p.IDProvincia
+      ORDER BY p.Provincia ASC
+
+    filters:
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params: 
+        type: date
+        default: '01/01/<?php echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?php echo date('Y');?>'
+    columns:
+      -
+        title: Provincia
+        field: Provincia
+        length: 25
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: ENERO
+        field: ENERO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: FEBRERO
+        field: FEBRERO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: MARZO
+        field: MARZO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: ABRIL
+        field: ABRIL
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: MAYO
+        field: MAYO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: JUNIO
+        field: JUNIO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: JULIO
+        field: JULIO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: AGOSTO
+        field: AGOSTO
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: SEPTIEMBRE
+        field: SEPTIEMBRE
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: OCTUBRE
+        field: OCTUBRE
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f  
+      -
+        title: NOVIEMBRE
+        field: NOVIEMBRE
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f   
+      -
+        title: DICIEMBRE
+        field: DICIEMBRE
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f  
+      -
+        title: TOTAL
+        field: TOTAL
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f          
+    grafico:
+      ancho: 650
+      alto: 250
+      tituloX: Provincias
+      tituloY: Importes (B.I.)
+      columnaX: Provincia
+      columnaY: TOTAL
+
+  # ------------------------------------------
+  # INFORME DE DIFERENCIAS DE PRECIOS DE VENTA
+  # ------------------------------------------
+  -
+    title: Informe de diferencias de precios de venta
+    comment: >
+      Muestra las lineas de albaranes donde el precio aplicado (PA) es diferente al precio vigente (PV) en ese momento
+    idPerfil: '4,5,6,8'
+    break_fields: Comercial
+    orientation: L
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT
+        s.Nombre as Comercial,
+        DATE_FORMAT(a.Fecha,'%d-%m-%Y') as Fecha,
+        a.NumeroAlbaran,
+        cl.RazonSocial as Cliente,
+        l.*,
+        ar.Codigo,
+        ar.Descripcion,
+        (l.Precio - l.PvpVigente) as Diferencia,
+        l.Unidades*(l.Precio-l.PvpVigente) as DiferenciaImporte
+      FROM
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.albaranes_cab as a,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.albaranes_lineas as l,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.articulos as ar,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.clientes as cl,
+        interpra_ppuemp.agentes as s
+      WHERE
+        a.IDComercial LIKE 'COMERCIAL%' AND
+        a.IDCliente LIKE 'CLIENTE%' AND
+        a.Fecha>='DESDEFECHA' AND
+        a.Fecha<='HASTAFECHA' AND
+        a.IDComercial=s.IDAgente AND
+        a.IDAlbaran=l.IDAlbaran AND
+        l.IDArticulo=ar.IDArticulo AND
+        a.IDCliente=cl.IDCLiente AND
+        ar.IDFamilia LIKE 'FAMILIA%' AND
+        (l.Precio - l.PvpVigente) <> 0
+      ORDER BY a.IDComercial,a.Fecha ASC
+    filters:
+      -
+        field: COMERCIAL
+        caption: Comercial
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getComerciales
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?echo date('Y');?>'
+      -
+        field: FAMILIA
+        caption: Familia
+        entity: Familias
+        method: fetchAll
+        params: Familia
+        type: select
+        default:
+      -
+        field: CLIENTE
+        caption: Cliente
+        entity: Clientes
+        method: fetchAll
+        params: '<?php echo $_SESSION['suc'],',',$_SESSION['USER']['user']['id'];?>'
+        type: select
+        default:
+    columns:
+      -
+        title: Albarán
+        field: NumeroAlbaran
+        length: 8
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cliente
+        field: Cliente
+        length: 30
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Codigo
+        field: Codigo
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripcion
+        field: Descripcion
+        length: 30
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Udes
+        field: Unidades
+        length: 7
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: PV
+        field: PvpVigente
+        length: 9
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: PA
+        field: Precio
+        length: 9
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: (PA-PV) Unidad
+        field: Diferencia
+        length: 14
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: (PA-PV) Importe
+        field: DiferenciaImporte
+        length: 15
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: null
+    grafico:
+
+  # --------------------------------
+  # MOVIMIENTOS DE CAJA ENTRE FECHAS
+  # --------------------------------
+  -
+    title: Movimientos de caja entre fechas
+    comment: Muestra los movimientos de caja ocurridos por sucursal, forma de pago y rango de fechas
+    idPerfil: '5,6'
+    break_fields: NombreSucursal,Fecha
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT s.IDSucursal,
+             s.Nombre as NombreSucursal,
+             t.Nombre as NombreTpv,
+             DATE_FORMAT(l.Fecha,'%d/%m/%Y') as Fecha,
+             DATE_FORMAT(l.Fecha,'%H:%i:%s') as Hora,
+             l.Concepto,
+             l.Importe,
+             f.Descripcion
+      FROM interpra_ppuerp<?php echo $_SESSION['emp'];?>.caja_arqueos as a,
+           interpra_ppuerp<?php echo $_SESSION['emp'];?>.caja_lineas as l,
+           interpra_ppuerp<?php echo $_SESSION['emp'];?>.tpvs as t,
+           interpra_ppuerp<?php echo $_SESSION['emp'];?>.formas_pago as f,
+           interpra_ppuemp.sucursales as s
+      WHERE a.IDArqueo=l.IDArqueo
+            AND a.IDSucursal=s.IDSucursal
+            AND a.IDTpv=t.IDTpv
+            AND l.IDFP=f.IDFP
+            and l.IDFP LIKE '%FORMAPAGO'
+            AND a.IDSucursal='SUCURSAL'
+            AND a.IDTpv LIKE 'TPV'
+            AND a.Dia>='DESDEFECHA'
+            AND a.Dia<='HASTAFECHA'
+      ORDER BY a.IDSucursal ASC,a.Dia ASC,Hora ASC,l.IDApunte ASC
+    filters:
+      -
+        field: SUCURSAL
+        caption: Sucursal
+        entity: Sucursales
+        method: getSucursalesUsuario
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: TPV
+        caption: Tpv
+        entity: Tpvs
+        method: getTpvsSucursal
+        params: 
+        type: select
+        default: '<?php echo $_SESSION['tpv'];?>'
+      -
+        field: FORMAPAGO
+        caption: Forma Pago/Cobro
+        entity: FormasPago
+        method: fetchAll
+        params: Descripcion
+        type: select
+        default: 
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?echo date('Y');?>'
+    columns:
+      -
+        title: Tpv
+        field: NombreTpv
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Hora
+        field: Hora
+        length: 9
+        align: C
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Concepto
+        field: Concepto
+        length: 48
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Importe
+        field: Importe
+        length: 14
+        align: R
+        type: money
+        total: YES
+        formula: null
+        format:
+      -
+        title: Forma Pago
+        field: Descripcion
+        length: 22
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+    grafico:
+
+  # ---------------------------
+  # INFORME DE PEDIDOS
+  # ---------------------------
+  -
+    title: Pedidos
+    comment:
+    idPerfil: 5
+    break_fields: Sucursal,Proveedor,Fecha
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT a.IDPedido,a.Fecha,a.Total,c.RazonSocial as Proveedor,s.Nombre as Sucursal
+      FROM
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.pedidos_cab as a,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.proveedores as c,
+        interpra_ppuemp.sucursales as s
+      WHERE a.IDSucursal='SUCURSAL'
+      AND a.IDProveedor=c.IDProveedor
+      AND a.Fecha>='DESDEFECHA'
+      AND a.Fecha<='HASTAFECHA'
+      AND a.IDSucursal=s.IDSucursal
+      ORDER BY c.RazonSocial ASC,a.Fecha ASC
+    filters:
+      -
+        field: SUCURSAL
+        caption: Sucursal
+        entity: Sucursales
+        method: getSucursalesUsuario
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?echo date('Y');?>'
+    columns:
+      -
+        title: Sucursal
+        field: Sucursal
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pedido
+        field: IDPedido
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: L
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Proveedor
+        field: Proveedor
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Total
+        field: Total
+        length: 13
+        align: R
+        type: money
+        total: YES
+        formula: null
+        format: %.2n
+    grafico:
+
+  # ---------------------------
+  # INFORME DE ROTURAS DE STOCK
+  # ---------------------------
+  -
+    title: Informe Roturas de Stock
+    comment: >
+      Informe con los productos cuyas existencias estan por debajo del minimo.
+      Las cantidades se expresan en la unidad de almacenaje.
+      Si en la ficha del producto no se ha indicado valor para el stock minimo, no se hace control de rotura de stock.
+    idPerfil: '3,5'
+    break_fields: Familia
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT f.Familia, a.Codigo, a.Descripcion, a.StockMinimo, sum(e.Reales) as Reales, (a.StockMinimo-sum(e.Reales)) as Pedido
+      FROM existencias e, articulos a, familias as f
+      WHERE
+        e.IDAlmacen = 'ALMACEN' AND
+        e.IDArticulo = a.IDArticulo AND
+        a.IDFamilia = f.IDFamilia AND 
+        a.Vigente = '1'
+      GROUP BY e.IDArticulo
+      HAVING a.StockMinimo>Reales AND a.StockMinimo>0      
+      ORDER BY f.Familia,a.Descripcion;
+    filters:
+      -
+        field: ALMACEN
+        caption: Almacén
+        entity: Almacenes
+        method: getAlmacenesUsuario
+        params:
+        type: select
+        default:
+
+    columns:
+      -
+        title: Código
+        field: Codigo
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripción
+        field: Descripcion
+        length: 45
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Stock Mínimo
+        field: StockMinimo
+        length: 13
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: Existencias
+        field: Reales
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: Pedido Mínimo
+        field: Pedido
+        length: 14
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: %01.2f
+
+    grafico:
+
+  # ---------------------------------------------
+  # CLIENTES CON RECIBOS PENDIENTE DE COBRO Y QUE
+  # NO ESTÁN ASIGNADOS A NINGUNA RUTA
+  # ---------------------------------------------
+  -
+    title: Clientes con pendiente de cobro no asignados a ruta
+    comment: Muestra los clientes que teniendo recibos pendiente de cobro, no están asignados a ninguna ruta
+    idPerfil: '5,6'
+    break_fields: 
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT c.IDCliente, CONCAT(c.RazonSocial," - ",c.NombreComercial) as RazonSocial, a.Nombre, SUM( r.Importe ) as Importe
+      FROM 
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.clientes AS c, 
+        interpra_ppuemp.agentes AS a, 
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.recibos_clientes AS r
+      WHERE c.IDComercial = a.IDAgente
+      AND c.IDCliente = r.IDCliente
+      AND r.IDEstado =  'ESTADORECIBOS'
+      AND c.IDCliente NOT 
+      IN (
+        SELECT DISTINCT rv.IDCliente
+        FROM rutas_ventas AS rv
+      )
+      GROUP BY c.IDCliente
+      ORDER BY c.RazonSocial
+    filters:
+      -
+        field: ESTADORECIBOS
+        caption: Estado Recibos
+        entity: EstadosRecibos
+        method: fetchAll
+        params:
+        type: select
+        default: ''
+
+    columns:
+      -
+        title: Cliente
+        field: RazonSocial
+        length: 70
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Comercial
+        field: Nombre
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Importe
+        field: Importe
+        length: 14
+        align: R
+        type: money
+        total: YES
+        formula: null
+        format: %.2n
+    grafico:
+
+  # ----------------------------------------------------------------------
+  # INFORME DE BENEFICIOS DE ALBARANES POR COMERCIAL Y RANGO DE FECHAS
+  # ----------------------------------------------------------------------
+  -
+    title: Beneficio de albaranes
+    comment: >
+      Detalle de beneficio de albaranes por comercial y rango de fechas
+    idPerfil: '1,5'
+    break_fields: Comercial
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT 
+        s.Nombre as Comercial,
+        a.NumeroAlbaran, 
+        DATE_FORMAT(a.Fecha,'%d/%m/%Y') as Fecha, 
+        c.RazonSocial as Cliente,
+        sum(l.Importe) as Venta, 
+        sum(l.ImporteCosto) as Costo,
+        sum(l.Importe)-sum(l.ImporteCosto) as Beneficio
+      FROM 
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.albaranes_cab as a,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.albaranes_lineas as l,
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.clientes as c,
+        interpra_ppuemp.agentes as s
+      WHERE 
+        a.IDAlbaran=l.IDAlbaran AND 
+        a.IDComercial LIKE '%COMERCIAL%' AND 
+        a.Fecha>='DESDEFECHA' AND 
+        a.Fecha<='HASTAFECHA' AND 
+        a.IDComercial=s.IDAgente AND 
+        a.IDCliente=c.IDCliente
+      GROUP BY l.IDAlbaran
+      ORDER BY a.IDComercial ASC,a.Fecha ASC
+    filters:
+      -
+        field: COMERCIAL
+        caption: Comercial
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getComerciales
+        params:
+        type: select
+        default: '<?php echo $_SESSION['suc'];?>'
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?echo date('Y');?>'
+    columns:
+      -
+        title: Albaran
+        field: NumeroAlbaran
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cliente
+        field: Cliente
+        length: 40
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Venta
+        field: Venta
+        length: 11
+        align: R
+        type: integer
+        total: YES
+        formula: null
+        format: null
+      -
+        title: Costo
+        field: Costo
+        length: 11
+        align: R
+        type: integer
+        total: YES
+        formula: null
+        format: null
+      -
+        title: Beneficio
+        field: Beneficio
+        length: 11
+        align: R
+        type: integer
+        total: YES
+        formula: null
+        format: null
+    grafico:
+
+  # ----------------------------------------------------------
+  # INVENTARIO VALORADO
+  # ----------------------------------------------------------
+  -
+    title: Inventario valorado
+    comment: >
+      Informe de inventario valorado
+    idPerfil: '4,5,6,8'
+    break_fields: Familia
+    break_page: YES
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: true
+    print_interline:
+    query: >
+      SELECT 
+        al.Nombre as Almacen,
+        f.familia as Familia,
+        a.Codigo,
+        a.Descripcion,
+        sum(e.Reales) AS Stock,
+        u.UnidadMedida as UM,
+        u.UnidadMedida,
+        CASE 'PRECIO' WHEN 'Pmc' THEN a.Pmc*a.CUMC ELSE a.Pvp*a.CUMV END as Precio,
+        CASE 'PRECIO' WHEN 'Pmc' THEN sum(e.Reales)*a.Pmc*a.CUMC ELSE sum(e.Reales)*a.Pvp*a.CUMV END  as Valor
+      FROM 
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.familias as f, 
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.articulos as a, 
+        interpra_ppuerp<?php echo $_SESSION['emp'];?>.existencias as e,
+        interpra_ppuemp.unidades_medida as u,
+        interpra_ppuemp.almacenes as al
+      WHERE 
+        e.IDArticulo=a.IDArticulo and 
+        a.IDFamilia=f.IDFamilia and
+        a.IDFamilia like '%FAMILIA%' and
+        a.UMA = u.Id and
+        e.IDAlmacen=al.IDAlmacen
+      GROUP BY f.familia, a.Codigo
+      HAVING sum(e.Reales) <> 0  
+      ORDER BY al.IDAlmacen,a.IDFamilia      
+    filters:
+      -
+        field: ALMACEN
+        caption: Almacén
+        entity: Almacenes
+        method: getAlmacenesUsuario
+        params:
+        type: select
+        default:
+      -
+        field: FAMILIA
+        caption: Familia
+        entity: Familias
+        method: fetchAll
+        params: Familia
+        type: select
+        default:
+      -
+        field: PRECIO
+        caption: Valorar según
+        entity: TiposValoracionInventario
+        method: fetchAll
+        params: false
+        type: select
+        default:          
+    columns:
+      -
+        title: Código
+        field: Codigo
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripción
+        field: Descripcion
+        length: 40
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Stock
+        field: Stock
+        length: 12
+        align: R
+        type: float
+        total: NO
+        formula: null
+        format: null
+      -
+        title: U.M.
+        field: UM
+        length: 10
+        align: L
+        type: text
+        total: NO
+        formula: null
+        format: null        
+      -
+        title: Precio
+        field: Precio
+        length: 12
+        align: R
+        type: float
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: Valoración
+        field: Valor
+        length: 12
+        align: R
+        type: float
+        total: YES
+        formula: null
+        format: %01.2f      
+    grafico:
+      
+  # ----------------------------------------------------------
+  # INFORME DE TRAZABILIDAD
+  # ----------------------------------------------------------
+  -
+    title: Informe de trazabiliad
+    comment: >
+      Muestra todos los clientes a los que se le ha vendido un lote concreto en un periodo de fechas.
+      El informe se ordena por fecha de entrega descendente
+    idPerfil: '5,6,8'
+    break_fields: null
+    break_page: YES
+    orientation: L
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    print_total_records: false
+    print_interline:
+    query: >
+      SELECT 
+          a.NumeroAlbaran,
+          DATE_FORMAT(a.FechaEntrega,'%d/%m/%Y') as Fecha, 
+          c.RazonSocial as Cliente,
+          c.Direccion,
+          c.Poblacion,
+          e.Unidades,
+          CONCAT(ar.Codigo,' ',ar.Descripcion) as Articulo
+      FROM 
+          interpra_ppuerp<?php echo $_SESSION['emp'];?>.clientes as c,
+          interpra_ppuerp<?php echo $_SESSION['emp'];?>.expediciones as e,
+          interpra_ppuerp<?php echo $_SESSION['emp'];?>.albaranes_cab as a,
+          interpra_ppuerp<?php echo $_SESSION['emp'];?>.articulos as ar
+      WHERE e.IDLote='LOTE'
+      AND e.Entidad='AlbaranesCab'
+      AND e.IDEntidad = a.IDAlbaran
+      AND c.IDCliente = a.IDCliente
+      AND ar.IDArticulo=e.IDArticulo
+      ORDER BY a.FechaEntrega DESC
+    filters:
+      -
+        field: LOTE
+        caption: Lote
+        entity: Lotes
+        method: fetchAll
+        params:
+        type: select
+        default: null
+      -
+        field: DESDEFECHA
+        caption: Desde Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '01/01/<?php echo date('Y');?>'
+      -
+        field: HASTAFECHA
+        caption: Hasta Fecha
+        entity:
+        method:
+        params:
+        type: date
+        default: '31/12/<?php echo date('Y');?>'
+    columns:
+      -
+        title: Albaran
+        field: NumeroAlbaran
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 11
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cliente
+        field: Cliente
+        length: 40
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null    
+      -
+        title: Dirección
+        field: Direccion
+        length: 15
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null      
+      -
+        title: Población
+        field: Poblacion
+        length: 22
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cantidad
+        field: Unidades
+        length: 10
+        align: R
+        type: float
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: Articulo
+        field: Articulo
+        length: 44
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null        
+      

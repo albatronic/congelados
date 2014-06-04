@@ -1,0 +1,46 @@
+{# TEMPLATE InventariosCab/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+<div class="CajaIzquierda" style="width: 50%; height: 120px;">
+    {% if not datos.IDInventario %}
+        {{ macro.select('Almacén','Etiqueta','InventariosCab[IDAlmacen]','InventariosCab_IDAlmacen',none,datos.IDAlmacen.IDAlmacen,user.getAlmacenes(emp.IDEmpresa),'Select')}}
+    {% else %}
+        <input name="InventariosCab[IDAlmacen]" value="{{datos.IDAlmacen.IDAlmacen}}" type="hidden" />
+        {{ macro.etiqueta('Almacén','Etiqueta',datos.IDAlmacen.Nombre)}}
+    {% endif %}
+    {{ macro.fecha('Fecha','Etiqueta','InventariosCab[Fecha]','InventariosCab_Fecha',datos.Fecha,'10','CampoFecha') }}
+    {{ macro.textarea('Motivo','Etiqueta','InventariosCab[Comentarios]','InventariosCab_Comentarios',datos.Comentarios,none,none,'TextArea')}}
+</div>
+
+{% if datos.IDInventario %}
+<div class="CajaTotales" style="width: 45%; height: 120px;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Importar</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2">Documentos</a></li>
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            {% if values.archivoLog %}
+                <p>
+                    <a href="{{app.path}}/{{values.archivoLog}}" target="_blank">Ver Resultado Importación</a>
+                </p>
+            {% endif%}
+            <p>Importar archivo externo con el inventario</p>
+            {% if datos.Cerrado.IDTipo == '0' %}
+            <div>
+                <input name="importar" type="file" id="importar" size="20" class="Comando">
+                <input name="accion" type="submit" value="Enviar" class="Comando" onclick="$('#action').val('Importar')">
+            </div>
+            {% endif %}
+        </div>
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+    </div>
+</div>
+
+
+<iframe width="100%" height="327" scrolling="yes" style="margin-top:5px; border:0;"
+        src="{{app.path}}/InventariosLineas/list/{{datos.IDInventario}}">
+</iframe>
+{% endif %}

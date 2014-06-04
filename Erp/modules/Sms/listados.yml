@@ -1,0 +1,109 @@
+# Module: Sms
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Sms
+    order_by: IDSms ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDSms
+        field: IDSms
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: CuentaSms
+        field: CuentaSms
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDUsuario
+        field: IDUsuario
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fecha
+        field: Fecha
+        length: null
+        align: R
+        type: datetime
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Remite
+        field: Remite
+        length: 11
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Para
+        field: Para
+        length: null
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Mensaje
+        field: Mensaje
+        length: 160
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: EnviadoOk
+        field: EnviadoOk
+        length: 1
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Resultado
+        field: Resultado
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: NDestinatarios
+        field: NDestinatarios
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

@@ -1,0 +1,6 @@
+{# TEMPLATE ArticulosEstados/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('Estado','Etiqueta','text','ArticulosEstados[Estado]','ArticulosEstados_Estado',datos.Estado,'50','CampoTextoLargo') }}

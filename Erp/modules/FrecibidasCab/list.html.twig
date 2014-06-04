@@ -1,0 +1,56 @@
+{# Template list.html.twig for FrecibidasCab #}
+{# -------------------------------------------------------#}
+{% extends 'FrecibidasCab/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+	{% include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller':'FrecibidasCab','position':'izq'}%}
+        <div id="Listado">
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td width='16px'>&nbsp;</td>
+                <td class='Item'>Número</td>
+                <td class='Item'>Su Factura</td>
+                <td class='Item'>Sucursal</td>
+                <td class='Item'>Fecha</td>
+                <td class='Item'>Proveedor</td>
+                <td class='Item'>Base Imp.</td>
+                <td class='Item'>Cuota Iva</td>
+                <td class='Item'>Cuota Rec.</td>
+                <td class='Item'>Total</td>
+                <td class='Item'>Cta. Compras</td>
+                <td class='Item'>Asto.</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr onclick="location.href='{{app.path}}/{{values.controller}}/edit/{{objeto.IDFactura}}'" class='{{classFila}}'>
+                <td>
+                    <a href='{{app.path}}/FrecibidasCab/Edit/{{objeto.IDFactura}}' title='Editar ...'>
+                        <img src="{{app.path}}/images/botoneditar.png" width="16px" height="16px" />
+                    </a>
+                </td>
+                <td>{{objeto.NumeroFactura}}</td>
+                <td>{{objeto.SuFactura|slice(0,15)}}</td>
+                <td>{{objeto.IDSucursal.Nombre|slice(0,10)}}</td>
+                <td>{{objeto.Fecha}}</td>
+                <td>{{objeto.IDProveedor.RazonSocial|slice(0,30)}}</td>
+                <td align="right">{{objeto.TotalBases}}</td>
+                <td align="right">{{objeto.TotalIva}}</td>
+                <td align="right">{{objeto.TotalRecargo}}</td>
+                <td align="right">{{objeto.Total}}</td>
+                <td align="left">{{objeto.CuentaCompras}}</td>
+                <td align="right">{{objeto.Asiento}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+</div>
+{% endblock %}

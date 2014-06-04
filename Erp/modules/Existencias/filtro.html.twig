@@ -1,0 +1,100 @@
+{# Template filtro.html.twig for Existencias #}
+{# -------------------------------------------------------#}
+<div class='Filtro'>
+    <form name='filtro' id='filtro' action='' method='POST'>
+	<input name='controller' value='{{values.controller}}' type='hidden' />
+	<input name='action' value='list' type='hidden' />
+
+        <div>
+            <div id="div_IDAlmacen" style="float:left;">
+            Almacén:
+            <input name="filter[columnsSelected][0]" value="IDAlmacen" type="hidden" />
+            <select name="filter[valuesSelected][0]" id="IDAlmacen" style="width: 150px;" onchange="$('#IDUbicacion').val('');$('#Ubicacion').val('');">
+            {% for almacen in user.getAlmacenes %}
+                <option value="{{almacen.Id}}" {% if almacen.Id == values.listado.filter.valuesSelected[0] %} SELECTED {% endif%} >{{almacen.Value}}</option>
+            {% endfor %}
+            </select>
+            </div>
+
+            <div id="div_IDUbicacion" style="float:left; margin-left: 5px;">
+            Ubicación:
+            <input name="filter[columnsSelected][1]" value="IDUbicacion" type="hidden" />
+            <input name="filter[valuesSelected][1]" id="IDUbicacion" value="{{values.listado.filter.valuesSelected[1].IDUbicacion}}" type="hidden" />
+            <input value="{{values.listado.filter.valuesSelected[1].Ubicacion}}" id="Ubicacion" type="text" style="width:100px;"
+                onkeyup="autoCompletar('Ubicacion','IDUbicacion', 'Ubicacion', 'ubicacionesAlmacen', $('#IDAlmacen').val(),'');"
+                onblur="if ($('#Ubicacion').val() == '') {$('#IDUbicacion').val('');}"
+            />
+            </div>
+
+            <div id="div_IDArticulo" style="float:left; margin-left: 5px;">
+            Artículo:
+            <input name="filter[columnsSelected][2]" value="IDArticulo" type="hidden" />
+            <input name="filter[valuesSelected][2]" id="IDArticulo" value="{{values.listado.filter.valuesSelected[2].IDArticulo}}" type="hidden" />
+            <input value="{{values.listado.filter.valuesSelected[2].Descripcion}}" id="DescripcionArticulo" type="text" style="width:300px;"
+                onkeyup="autoCompletar('DescripcionArticulo','IDArticulo', 'DescripcionArticulo', 'articulos', '','');"
+                onblur="$('#IDLote').val(''); $('#DescripcionLote').val(''); if ($('#DescripcionArticulo').val() == '') {$('#IDArticulo').val('');}"
+            />
+            </div>
+
+            <div id="div_IDLote" style="float:left; margin-left: 5px;">
+            Lote:
+            <input name="filter[columnsSelected][3]" value="IDLote" type="hidden" />
+            <input name="filter[valuesSelected][3]" id="IDLote" value="{{values.listado.filter.valuesSelected[3].IDLote}}" type="hidden" />
+            <input value="{{values.listado.filter.valuesSelected[3].Lote}}" id="DescripcionLote" type="text" style="width:100px;"
+                onkeyup="autoCompletar('DescripcionLote','IDLote', 'DescripcionLote', 'lotesArticulo', $('#IDArticulo').val(),'');"
+                onblur="if ($('#DescripcionLote').val() == '') {$('#IDLote').val('');}"
+            />
+            </div>
+        </div>
+        
+        <div style="clear: both;"></div>
+
+        <div style="margin-top: 5px;">
+            <div id="div_Deposito" style="float:left;">
+            En depósito:
+            <input name="filter[columnsSelected][4]" value="EnDeposito" type="hidden" />
+            <select name="filter[valuesSelected][4]" id="Deposito">
+                {% for key,value in {'0':'No','1':'Si','%':'Todo'} %}
+                    <option value="{{key}}" {% if key == values.listado.filter.valuesSelected[4] %} SELECTED {% endif %}>{{value}}</option>
+                {% endfor %}
+            </select>
+            </div>
+
+            <div id="div_Tipo" style="float:left; margin-left: 5px;">
+            Agrupado:
+            <select name="filter[flags][agrupado]" id="Agrupado">
+                {% for key,value in {'0':'No','1':'Sí'} %}
+                    <option value="{{key}}" {% if key == values.listado.filter.flags.agrupado %} SELECTED {% endif %}>{{value}}</option>
+                {% endfor %}
+            </select>
+            </div>
+
+            <div id="div_Disponible" style="float:left; margin-left: 5px;">
+            Sólo Disponible:
+            <select name="filter[flags][soloDisponible]" id="Disponible">
+                {% for key,value in {'0':'No','1':'Si'} %}
+                    <option value="{{key}}" {% if key == values.listado.filter.flags.soloDisponible %} SELECTED {% endif %}>{{value}}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+
+    <div style="float:right;">
+        Orden:
+        <select name="filter[orderBy]">
+        {% for criterio in filter.columnsOrder %}
+            <option value="{{ criterio.criteria }}" {% if (criterio.criteria == filter.orderBy)%} SELECTED {%endif%}>{{criterio.title}}</option>
+        {% endfor %}
+        </select>
+
+        Mostrar:
+        <input name="filter[recordsPerPage]" type="text" size="3" value="{{ filter.recordsPerPage }}" style="width:25px;"/>
+
+        <input name="filter[page]" value="1" type="hidden"/>
+        <input style="margin-left: 5px;" type="image" src="{{app.path}}/images/lupa.png" width="16px" height="16px" alt="Consulta" title="Consultar"
+               onclick="$('#div_listado').html('<div class=ListadoAnimation><img src={{app.path}}/images/loadingAnimation.gif /></div>');"/>
+    </div>
+
+    </form>
+</div>
+    <div style="clear:both;"></div>

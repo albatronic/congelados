@@ -1,0 +1,104 @@
+# Module: Proveedores
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Listado de Proveedores
+    order_by: RazonSocial ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier,,8
+    line_height: 4
+    columns:
+      - 
+        title: Razón Social
+        field: RazonSocial
+        length: 40
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Dirección
+        field: Direccion
+        length: 35
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Población
+        field: Poblacion
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Provincia
+        field: IDProvincia
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Teléfono
+        field: Telefono
+        length: 15
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+  - 
+    title: Proveedores con Cta. Contable
+    order_by: RazonSocial ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier,,8
+    line_height: 4
+    columns:
+      - 
+        title: Razón Social
+        field: RazonSocial
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Nombre Comercial
+        field: NombreComercial
+        length: 40
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Cta.Contable
+        field: CContable
+        length: 12
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

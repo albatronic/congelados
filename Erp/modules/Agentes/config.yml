@@ -1,0 +1,327 @@
+# Module: Agentes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Agentes:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Usuarios
+  conection: empresas
+  entity: Agentes
+  table: agentes
+  primarykey: IDAgente
+  records_per_page: 20
+  order_by:
+    -
+      title: Nombre a-z
+      criteria: Nombre ASC
+    -
+      title: Nombre z-a
+      criteria: Nombre DESC
+  search_default: Nombre
+  columns:
+    - 
+      title: Código
+      field: IDAgente
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: Login
+      field: Login
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Nombre
+      field: Nombre
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Password
+      field: Password
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Quien
+      field: Quien
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: N. Logins
+      field: NLogin
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: YES
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Ultimo Login
+      field: UltimoLogin
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: datetime
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: EMail
+      field: EMail
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: email
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Activo
+      field: Activo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: 0
+        max: 1
+        message: Valor Requerido
+    - 
+      title: Perfil
+      field: IDPerfil
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: 1
+        max: 999
+        message: Valor Requerido (1-999)
+      aditional_filter:
+        order: 3
+        caption: Perfil
+        entity: Perfiles
+        method: fetchAll
+        params: Perfil
+        type: select
+    - 
+      title: Empresa
+      field: IDEmpresa
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: integer
+        length: 3
+        min: 0
+        max: 999
+        message: Valor Requerido (0-999)
+      aditional_filter:
+        order: 1
+        caption: Empresa
+        entity: Empresas
+        method: fetchAll
+        params: RazonSocial
+        type: select
+    - 
+      title: Sucursal
+      field: IDSucursal
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: integer
+        length: 3
+        min: 1
+        max: 999
+        message: Valor Requerido (1-999)
+      aditional_filter:
+        order: 2
+        caption: Sucursal
+        entity: Sucursales
+        method: fetchAll
+        params: Nombre
+        type: select        
+    - 
+      title: Rol
+      field: Rol
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: 0
+        max: 99
+        message: Valor Requerido
+      aditional_filter:
+        order: 4
+        caption: Rol
+        entity: Roles
+        method: fetchAll
+        params: Descripcion
+        type: select
+    - 
+      title: Almacén
+      field: IDAlmacen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: integer
+        length: 3
+        min: 1
+        max: 999
+        message: Valor Requerido (1-999)
+    - 
+      title: Ips
+      field: Ips
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 255
+        min: 
+        max: 
+        message: 

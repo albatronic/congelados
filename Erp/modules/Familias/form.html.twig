@@ -1,0 +1,32 @@
+{# TEMPLATE Familias/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+<div class="Izquierda" style="width:49%;">
+{{ macro.input('Familia','Etiqueta','text','Familias[Familia]','Familias_Familia',datos.Familia,'50','CampoTextoLargo') }}
+{{ macro.select('Inventario','Etiqueta','Familias[Inventario]','Familias_Inventario',none,datos.Inventario.IDTipo,datos.Inventario.fetchAll(0),'Select') }}
+{{ macro.select('Trazabilidad','Etiqueta','Familias[Trazabilidad]','Familias_Trazabilidad',none,datos.Trazabilidad.IDTipo,datos.Trazabilidad.fetchAll(0),'Select') }}
+{{ macro.input('Margen Mínimo','Etiqueta','text','Familias[MargenMinimo]','Familias_MargenMinimo',datos.MargenMinimo,'5','CampoUnidades') }}
+{{ macro.select('Publicar en la Web','Etiqueta','Familias[PublicarWeb]','Familias_PublicarWeb',none,datos.PublicarWeb.IDTipo,datos.PublicarWeb.fetchAll(0),'Select') }}
+{{ macro.input('Margen Web','Etiqueta','text','Familias[MargenWeb]','Familias_MargenWeb',datos.MargenWeb,'5','CampoUnidades') }}
+{{ macro.input('Caducidad','Etiqueta','text','Familias[Caducidad]','Familias_Caducidad',datos.Caducidad,'3','CampoUnidades') }}
+
+{% if emp.IDVersion.IDTipo == '2' %}
+    {{ macro.select('Gestión de Tallas','Etiqueta','Familias[ConTallasColores]','Familias_ConTallasColores',none,datos.ConTallasColores.IDTipo,datos.ConTallasColores.fetchAll(0),'Select') }}
+{% endif %}
+</div>
+
+<div class="Derecha" style="width:49%;">
+
+    {% if datos.IDFamilia %}
+
+    <div style='margin-top:5px;width:98%;'>
+    <iframe width="100%" height="310" scrolling="yes" style="border: 0px"
+        src="{{app.path}}/Subfamilias/list/{{datos.IDFamilia}}">
+    </iframe>
+    </div>
+
+    {% endif %}
+
+</div>

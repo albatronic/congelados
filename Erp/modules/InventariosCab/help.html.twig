@@ -1,0 +1,43 @@
+{# Template InventariosCab.html.twig for InventariosCab #}
+{# -------------------------------------------------------#}
+{% extends '_help/layout.html.twig' %}
+
+{% block titulo %}<h2>{{ values.title }}</h2>{% endblock %}
+
+{% block contenido %}
+<h2>Objetivo</h2>
+<p>El objeto del inventario es la regularización de existencias para ajustar posibles errores de stock.</p>
+<p>Habitualmente, se debe realizar un inventario de inico para indicarle al sistema las existencias de partida.</p>
+<p>El ciclo de vida (desde que se inicia hasta que se cierra) de un inventario debe ser el menor posible. Por ello y dado que se pueden realizar tantos inventarios por día y almacén como se desee, se recomienda que se hagan inventarios parciales por familias de producto o por ubiaciones de almacén (por ejemplo)</p>
+<h2>Operatoria</h2>
+<p>Las existencias no se actualizarán hasta que se cierre el inventario.</p>
+<p>Para facilitar la introducción de artículos, está disponible la posibilidad de cargarlos desde un fichero externo.</p>
+<p>El fichero externo debe ser de tipo texto y cumplir los siguientes requisitos:</p>
+<li>La información contenida debe ser relativa a un único almacén ya que la carga se imputará al almacén indicado en el inventario en curso</li>
+<li>Las columnas debe estar separadas por tabuladores</li>
+<li>En la primera línea se deben indicar los títulos de los campos a cargar (exactamente como se indica a continuación, sin tildes)</li>
+    <div style="float:left;">
+    <ul>
+        <li>Codigo: el código del artículo</li>
+        <li>Stock: la cantidad de stock real</li>
+        <li>Cajas: la cantidad de cajas</li>
+        <li>Kilos: la cantidad de kilos</li>
+        <li>Lote: el código de lote</li>
+        <li>Ubicacion: el código de ubicación</li>
+    </ul>
+    </div>
+    <div style="float:left; margin-left: 10px;"><img src="{{app.path}}/modules/_help/images/inventario01.png"/></div>
+    <div style="clear: both;"></div>
+<li>El archivo puede contener tantas columnas de información como se quiera, pero se tendrán en cuenta sólo las indicadas.</li>
+<li>El orden de las columnas es indiferente</li>
+<li>Para los valores numéricos, no se debe indicar el símbolo de separación de millares. No es válido indicar 1,200.93 ni 1.200,93; lo correcto es 1200.93 ó 1200,93 respectivamente</li>
+<li>Pueden existir distintas líneas donde se repita el mismo código de artículo, lote y ubicación, en cuyo caso el sistema acumulará el stock, cajas y kilos de todas esas líneas</li>
+<p>El archivo se puede generar con cualquier editor de textos tipo "notepad" o a través de una hoja de cálculo tipo "excel" y luego guardarlo en formato texto separado por tabuladores como se muestra en las siguientes ilustraciones:</p>
+    <div style="float:left;"><img src="{{app.path}}/modules/_help/images/inventario02.png"/></div>
+    <div style="float:left; margin-left: 10px;"><img src="{{app.path}}/modules/_help/images/inventario03.png"/></div>
+    <div style="clear: both;"></div>
+<p>Una vez generado el archivo, hay que subirlo al servidor mediente la solapa "importar"; comenzando así el proceso de importación.</p>
+<p>Si todo es correcto, se cargarán las líneas en el inventario en curso. Si se detectó algún error (el sistema valida la existencia de los artículos, lotes y ubicaciones) se cargan sólo las líneas correctas y se podrá consultar el archivo de errores generado.</p>
+<p>Por último, y para que el inventario tome efecto, habrá que proceder a su cierre, en cuyo caso el sistema generará los movimientos de almacén necesarios para que las existencias tomen los valores indicados.</p>
+
+{% endblock %}

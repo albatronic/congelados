@@ -1,0 +1,28 @@
+# Module: TiposVenta
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Tipos de Venta
+    order_by: TipoVenta ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Tipo de Venta
+        field: TipoVenta
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

@@ -1,0 +1,26 @@
+{# Template new.html.twig for ClientesDentrega #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends 'ClientesDentrega/index.html.twig' %}
+
+{% block navegador %}
+{% include '_global/comandosList.html.twig' with {'controller':'ClientesDentrega', 'linkValue': values.linkBy.value} %}
+{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" method="POST">
+        <input name="controller" value="ClientesDentrega" type="hidden" />
+        <input name="action" value="new" type="hidden" />
+        <input name="ClientesDentrega[IDCliente]" value="{{ values.linkBy.value }}" type="hidden" />
+        <input name="ClientesDentrega[IDDirec]" value="{{ values.datos.IDDirec }}" type="hidden" />
+        {% include '_global/comandosCreate.html.twig' %}
+
+        <div class="Cuerpo">
+	{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+	{% include "ClientesDentrega/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

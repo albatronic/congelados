@@ -1,0 +1,22 @@
+{# Template edit.html.twig for Articulos #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends 'Articulos/index.html.twig' %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" enctype="multipart/form-data" method="POST">
+        <input name="controller" value="Articulos" type="hidden" />
+        <input name="action" id="action" value="edit" type="hidden" />
+        {% include "_global/comandosSaveDelete.html.twig" %}
+
+        <div class='Cuerpo'>
+        <input name="Articulos[IDArticulo]" id="Articulos_IDArticulo" value="{{values.datos.IDArticulo}}" type="hidden" />
+	{% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+	{% include "_global/alertas.html.twig" with {'alertas': values.alertas} %}
+	{% include "Articulos/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

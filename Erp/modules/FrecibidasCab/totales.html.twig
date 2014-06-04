@@ -1,0 +1,88 @@
+    <div class="TotalAlbaran">Total Factura&nbsp;{{datos.Total}} €</div>
+
+    <table align="center" witdh="80%">
+        <tr>
+            <td class="TitulosTotales">Bruto</td>
+            <td class="TitulosTotales">Dcto</td>
+            <td class="TitulosTotales">Rec. Financiero</td>
+        </tr>
+        <tr>
+            <td align="center"><input value="{{datos.Importe}}" class="CampoImporte" disabled /></td>
+            <td align="center"><input value="{{datos.Descuento}}" class="CampoImporte" /></td>
+            <td align="center">
+                <input value="{{datos.RecargoFinanciero}}" class="CampoImporte" disabled />
+                <input value="{{datos.CuotaRecargoFinanciero}}" class="CampoImporte" disabled />
+            </td>
+        </tr>
+        <tr>
+            <td class="TitulosTotales">Bases</td>
+            <td class="TitulosTotales">IVA</td>
+            <td class="TitulosTotales">Recargo</td>
+        </tr>
+        <tr>
+            <td><input id="FrecibidasCab_BaseImponible1" type="text" value="{{datos.BaseImponible1}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input id="FrecibidasCab_Iva1" type="text" value="{{datos.Iva1}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input id="FrecibidasCab_CuotaIva1" type="text" value="{{datos.CuotaIva1}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input id="FrecibidasCab_Recargo1" type="text" value="{{datos.Recargo1}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input id="FrecibidasCab_CuotaRecargo1" type="text" value="{{datos.CuotaRecargo1}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input id="FrecibidasCab_BaseImponible2" type="text" value="{{datos.BaseImponible2}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input id="FrecibidasCab_Iva2" type="text" value="{{datos.Iva2}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input id="FrecibidasCab_CuotaIva2" type="text" value="{{datos.CuotaIva2}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input id="FrecibidasCab_Recargo2" type="text" value="{{datos.Recargo2}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input id="FrecibidasCab_CuotaRecargo2" type="text" value="{{datos.CuotaRecargo2}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input id="FrecibidasCab_BaseImponible3" type="text" value="{{datos.BaseImponible3}}" readonly class='CampoImporte'></td>
+            <td align="right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input id="FrecibidasCab_Iva3" type="text" value="{{datos.Iva3}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input id="FrecibidasCab_CuotaIva3" type="text" value="{{datos.CuotaIva3}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tr>
+                        <td><input id="FrecibidasCab_Recargo3" type="text" value="{{datos.Recargo3}}" size="4" maxlength="5" readonly class="CampoImpuesto"></td>
+                        <td><input id="FrecibidasCab_CuotaRecargo3" type="text" value="{{datos.CuotaRecargo3}}" size="7" readonly class="CampoImporte"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="Subtotales"><input id="FrecibidasCab_TotalBases" type="text" value="{{datos.TotalBases}}" readonly class='CampoImporte'></td>
+            <td class="Subtotales" align="right"><input id="FrecibidasCab_TotalIva" type="text" value="{{datos.TotalIva}}" readonly class='CampoImporte'></td>
+            <td class="Subtotales" align="right"><input id="FrecibidasCab_TotalRecargo" type="text" value="{{datos.TotalRecargo}}" readonly class='CampoImporte'></td>
+        </tr>
+
+    </table>

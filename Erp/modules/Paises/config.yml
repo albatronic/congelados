@@ -1,0 +1,115 @@
+# Module: Paises
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Paises:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Paises
+  conection: empresas
+  entity: Paises
+  table: paises
+  primarykey: IDPais
+  records_per_page: 15
+  order_by:
+    -
+      title: Pais a-z
+      criteria: Pais ASC
+    -
+      title: Pais z-a
+      criteria: Pais DESC
+  search_default: Pais
+  columns:
+    - 
+      title: IDPais
+      field: IDPais
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: IsoNum
+      field: IsoNum
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: integer
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Iso2
+      field: Iso2
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: null
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Iso3
+      field: Iso3
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: null
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Pais
+      field: Pais
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: Paises/edit
+        param: null
+        title: Editar...
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 80
+        min: null
+        max: null
+        message: Valor Requerido

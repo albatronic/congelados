@@ -1,0 +1,65 @@
+# Module: InventariosLineas
+# Document : modules\InventariosLineas\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 31.05.2012 23:27:24
+#
+---
+listados:
+  -
+    title: InventariosLineas
+    order_by: IDLinea ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: IDInventario
+        field: IDInventario
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDArticulo
+        field: IDArticulo
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDLote
+        field: IDLote
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDUbicacion
+        field: IDUbicacion
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Stock
+        field: Stock
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null

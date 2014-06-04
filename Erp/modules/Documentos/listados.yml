@@ -1,0 +1,56 @@
+# Module: Documentos
+# Document : modules\Documentos\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 16.04.2012 00:18:47
+#
+---
+listados:
+  -
+    title: Documentos
+    order_by: Entidad,Id ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Entidad
+        field: Entidad
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IdEntidad
+        field: IdEntidad
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: PathName
+        field: PathName
+        length: 255
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Texto Pie
+        field: TextoPie
+        length: 20
+        align: L
+        type: text
+        total: NO
+        formula: null
+        format: null

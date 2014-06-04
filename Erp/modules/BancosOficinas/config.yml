@@ -1,0 +1,224 @@
+# Module: BancosOficinas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+BancosOficinas:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Oficinas Bancarias
+  conection: empresas
+  entity: BancosOficinas
+  table: bancos_oficinas
+  primarykey: ID
+  linkBy: IDBanco
+  records_per_page: 99999
+  order_by: IDOficina
+  search_default: ID
+  columns:
+    - 
+      title: ID
+      field: ID
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: Banco
+      field: IDBanco
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Oficina
+      field: IDOficina
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Dígito
+      field: Digito
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: null
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Dirección
+      field: Direccion
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Población
+      field: Poblacion
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Provincia
+      field: IDProvincia
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: null
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Código Postal
+      field: CodigoPostal
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Teléfono
+      field: Telefono
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Fax
+      field: Fax
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: EMail
+      field: EMail
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido

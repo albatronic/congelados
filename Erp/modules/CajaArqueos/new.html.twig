@@ -1,0 +1,32 @@
+{# Template new.html.twig for CajaArqueos #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends values.controller ~ '/index.html.twig' %}
+
+{% block navegador %}{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" method="POST">
+        <input name="controller" value="{{ values.controller }}" type="hidden" />
+        <input name="action" id="action" value="new" type="hidden" />
+        <input name="accion" id="accion" value="" type="hidden" />
+        <input name="{{ values.controller }}[IDArqueo]" value="{{ values.datos.IDArqueo }}" type="hidden" />
+
+        <div class='Comandos'>
+        <p class="Titulo">
+        {% if values.permisos['I'] %}
+            <input type="image" src="{{app.path}}/images/save_cmd.png" width="24px" onclick="getElementById('accion').value='Crear';" alt="Abrir" title="Abrir Caja" />
+        {% endif %}
+        </p>
+        </div>
+
+        <div class="Cuerpo">
+            {% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+            {% include '_global/alertas.html.twig' with {'alertas': values.alertas} %}
+            {% include values.controller ~ "/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

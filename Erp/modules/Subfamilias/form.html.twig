@@ -1,0 +1,5 @@
+{# TEMPLATE Subfamilias/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.input('Subfamilia','Etiqueta','text','Subfamilias[Subfamilia]','Subfamilias_Subfamilia',datos.Subfamilia,'50','CampoTextoMedio') }}
+{{ macro.select('Publicar en Web','Etiqueta','Subfamilias[PublicarWeb]','Subfamilias_PublicarWeb',none,datos.PublicarWeb.IDTipo,datos.PublicarWeb.fetchAll,'Select')}}

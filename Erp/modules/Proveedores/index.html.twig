@@ -1,0 +1,23 @@
+{# Template index.html.twig for Proveedores #}
+{# -------------------------------------------------------#}
+{% extends layout %}
+
+{% block title parent() ~ " - " ~ values.titulo %}
+
+{% block content %}
+        {% include '_global/TituloGenerico.html.twig' with {'controller':  values.controller, 'linkValue': values.linkBy.value} %}
+
+	{% block filtro %}
+        {% if values.permisos['C'] %}
+		{% include 'Proveedores/filtro.html.twig' with {'filter':values.listado.filter} %}
+        {%endif%}
+	{% endblock %}
+
+        <div id="div_listado">
+        {% block listado %}
+	{% endblock %}
+        </div>
+
+	{% block mantenimiento %}
+	{% endblock %}
+{% endblock %}

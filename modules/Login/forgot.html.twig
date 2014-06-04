@@ -1,0 +1,24 @@
+{# Login/forgot.html.twig #}
+{% extends "_global/layout.html.twig" %}
+
+{% block content %}
+<div class="panel1" style="width: 950px;">
+<p id="titulo">Regenerar la contrase&ntilde;a</p>
+
+{% if not values.mensaje %}
+    <p style="text-align:justify;margin-top:40px;margin-bottom:20px;">
+        Indique su cuenta de correo electr&oacute;nico y le enviaremos la nueva contrase&ntilde;a.
+    </p>
+    <form name="forgot" method="post">
+	<input name="controller" value="Login" type="hidden">
+	<input name="action" value="forgot" type="hidden">
+        <div style="float:left;padding-right:10px;">EMail</div>
+        <div style="margin-left:20px;margin-bottom:20px;"><input name="EMail" id="EMail" type="text" size="50" value="{{ values.EMail }}"></div>
+	<input type="submit" value="Enviar" class="submit">
+    </form>
+{% else %}
+    <p class="MensajeError">{{values.mensaje}}</p>
+{% endif %}
+</div>
+
+{% endblock %}

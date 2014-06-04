@@ -1,0 +1,49 @@
+{% extends "_help/layout.html.twig" %}
+
+{%block titulo%}<h2>Formas de Pago</h2>{%endblock%}
+
+{% block contenido %}
+
+<h2>Objetivo</h2>
+<p>
+Definir las diferentes modalidades de pago que se aplicarán a las ventas y compras.
+</p>
+<p>
+Es importante tener en cuenta que las formas de pago son comunes a las operaciones de ventas y compras.
+Cada cliente y proveedor deberá tener asociada una forma de pago previamente definida en éste punto.
+</p>
+<p>Si se trabaja con distintas entidades bancarias, se aconseja definir tantas formas de pago como entidades, indicando
+en el campo "Cta. Contable" la cuenta del plan general contable asociada a dicha entidad.
+</p>
+
+<h2>Aclaraciones</h2>
+<ul class="faq">
+    <li>Descripción</li>
+    <p>Es un texto descriptivo de la forma de pago</p>
+    <li>Número de Vctos</li>
+    <p>Es el número de vencimientos o recibos que se generarán. Si el valor que se indica es 0, no se generará ningún vencimiento.</p>
+    <li>Día Primer Vcto</li>
+    <p>Es el intervalo de días que transcurriran desde la fecha de factura hasta el vencimiento del primer recibo.
+    Si en la ficha del cliente se ha indicado un valor para "Dia de Pago", el intervalo se calculará a partir de dicho día y no de la de fecha factura
+    </p>
+    <li>Días de Intervalo</li>
+    <p>Son los días de separación entre vencimiento y vencimiento (en caso de haber varios)</p>
+    <li>Cta. Contable</li>
+    <p>Es la cuenta contable que se utilizará para el trasvase a contabilidad.</p>
+    <li>Anotar en Caja</li>
+    <p>Indica si se debe realizar apunte en el parte de caja diario o no. Es aconsejable ponerlo a "Si" para las formas de pago en efectivo, tarjeta y talones/pagarés</p>
+    <li>Estado Recibo</li>
+    <p>Es el estado en el que se generará el recibo.</p>
+    <li>Recargo Financiero</li>
+    <p>Porcentaje en el que se incrementará la factura por el aplazamiento del pago/cobro</p>
+    <li>Dcto. Financiero</li>
+    <p>Porcentaje de retención sobre total factura que realiza la entidad que gestiona el cobro. Por ejemplo en el caso de cobros con tarjeta de crédito</p>
+</ul>
+
+<h2>Preguntas Frecuentes</h2>
+<ul class="faq">
+    <li>&iquest;Es necesario definirlas?</li>
+    <p>Si, al menos una</p>
+</ul>
+
+{% endblock %}

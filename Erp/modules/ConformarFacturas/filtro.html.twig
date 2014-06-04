@@ -1,0 +1,33 @@
+{# Template filtro.html.twig for ConformarFacturas #}
+{# -------------------------------------------------------#}
+<div class='Filtro'>
+    <form name='filtro' id='filtro' action='' method='POST'>
+	<input name='controller' value='{{values.controller}}' type='hidden' />
+	<input name='action' value='list' type='hidden' />
+        <div>
+
+        <div style="float: left;">
+        {{ macro.select('Sucursal',none,'filtro[idSucursal]','filtro_idSucursal',none,values.filtro.idSucursal,values.sucursales,'Select',none,'submit();') }}
+        </div>
+
+        <div style="float: left; margin-left: 10px;">
+        {{ macro.fecha('Desde Fecha',none,'filtro[desdeFecha]','filtro_desdeFecha',values.filtro.desdeFecha) }}
+        </div>
+
+        <div style="float: left; margin-left: 10px;">
+        {{ macro.fecha('Hasta Fecha',none,'filtro[hastaFecha]','filtro_hastaFecha',values.filtro.hastaFecha) }}
+        </div>
+
+        <div style="float: left; margin-left: 0px; margin-top:15px;">
+            <input type="button" value="Buscar" class="Comando" title="Buscar Proveedores" alt="Buscar"
+                   onclick="DesplegableAjax('div_proveedores','filtro_idProveedor','filtro[idProveedor]','proveedoresFacturacion',$('#filtro_idSucursal').val()+'@'+$('#filtro_desdeFecha').val()+'@'+$('#filtro_hastaFecha').val());"/>
+        </div>
+
+        <div id="div_proveedores" style="float: left; margin-left: 10px;"></div>
+
+        <div style="clear: both;"></div>
+
+        </div>
+    </form>
+    {{ macro.foco('filtro_desdeFecha')}}
+</div>

@@ -1,0 +1,73 @@
+{% extends "_global/layout.html.twig" %}
+
+{% block title parent() ~ " - Inicio" %}
+
+{% block content %}
+<div style="clear: both;">
+    <div class="panel1izq">
+        <p id="titulo" style="padding-right: 230px;">Plataforma de servicios TIC para la PYME</p>
+        <p style="padding-right: 230px;">Desde la creaci&oacute;n de Inform&aacute;tica ALBATRONIC nuestro principal objetivo ha sido dotar a las PYMES
+               de las herramientas tecnol&oacute;gicas necesarias para que desarrollen su actividad comercial de la forma m&aacute;s
+               eficiente posible, obteniendo as&iacute; unos altos ratios de competitividad.
+        </p>
+        <p>Por ello, nuestro personal est&aacute; altamente cualificado en las siguientes &aacute;reas:</p>
+
+        <ul>
+            <li>Consultor&iacute;a inform&aacute;tica</li>
+            <li>Desarrollo de software a medida</li>
+            <li>Software como servicio (SaaS)</li>
+            <li>Servicio de mantenimiento in-situ</li>
+        </ul>
+    </div>
+
+    <div class="panel1dch">
+        <p id="titulo">Consultor&iacute;a inform&aacute;tica</p>
+        <p>Ponemos nuestra dilatada experiencia como empresa TIC a su disposici&oacute;n para asesorarles a la hora de afrontar desaf&iacute;os t&eacute;cnicos que se encuadren en nuestras capacidades, como pueden ser:</p>
+        <ul style="padding-right: 230px;">
+            <li>Procesos de automatizaci&oacute;n de informaci&oacute;n en empresas</li>
+            <li>Topolog&iacute;a, tecnolog&iacute;a y seguridad en redes</li>
+            <li>Migraci&oacute;n de sistemas</li>
+            <li>Protecci&oacute;n frente a virus e intrusiones</li>
+            <li>Implantaci&oacute;n de la calidad en los desarrollos software de las empresas</li>
+            <li>Necesidades de potencia de proceso</li>
+        </ul>
+    </div>
+</div>
+
+<div style="float:left; width: 100%;">
+    <div class="panel2izq">
+        <p id="titulo"><a href="{{app.path}}/saas">Software como servicio o software Cloud</a></p>
+        <p>El software como servicio (Software as a Service) consiste b&aacute;sicamente en el 'alquiler' de una herramienta
+            software, que le da derecho al cliente a su utilizaci&oacute;n sin la necesidad del desembolso inicial para su
+            adquisici&oacute;n.
+        </p>
+
+        <a href="{{app.path}}/saas">+info</a>
+    </div>
+
+    <div class="panel2dch">
+        <p id="titulo"><a href="{{app.path}}/softmedida">Software a medida</a></p>
+        <p>Disponemos de una dilatada experiencia en el desarrollo de aplicaciones a medida que resuelven las problem&aacute;ticas espec&iacute;ficas de cada PYME.</p>
+        <p>Solicite una entrevista y realizaremos un an&aacute;lisis de sus requerimientos.</p>
+        <a href="{{app.path}}/softmedida">+info</a>
+    </div>
+
+    <div class="panel2izq">
+        <p id="titulo"><a href="{{app.path}}/web">Dise&ntilde;o Web</a></p>
+        <p>Disponemos de una dilatada experiencia en el desarrollo de aplicaciones a medida que resuelven las problem&aacute;ticas espec&iacute;ficas de cada PYME.</p>
+        <p>Solicite una entrevista y realizaremos un an&aacute;lisis de sus requerimientos.</p>
+        <a href="{{app.path}}/web">+info</a>
+    </div>
+
+    <div class="panel2dch">
+        <p id="titulo"><a href="{{app.path}}/mantenimiento">Mantenimiento in-situ</a></p>
+        <p>Hemos dise&ntilde;ado diferentes modalidades de mantenimiento, que se ajustan a las necesidades de cada PYME:</p>
+        <ul>
+        <li>Asistencia puntual.</li>
+        <li>Bono de horas.</li>
+        <li>Mantenimiento mensual.</li>
+        </ul>
+        <a href="{{app.path}}/mantenimiento">+info</a>
+    </div>
+</div>
+{% endblock %}

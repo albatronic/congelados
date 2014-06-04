@@ -1,0 +1,100 @@
+circulares:
+  -
+    title: 'Ventas trimestrales (facturas) Modelo 347'
+    comment: "Resumen de ventas por trimestre. Los importes son total factura iva incluido\n"
+    idPerfil: ''
+    plantilla: 'MOD 347.rtf'
+    formatos:
+      - 'el de origen'
+      - Pdf
+    archivosSeparados: true
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    queryMaster: "SELECT c.RazonSocial,c.Cif,c.Direccion,c.CodigoPostal,c.Poblacion,p.Provincia,YEAR(Fecha) as Anio, SUM( CASE quarter(Fecha) WHEN '1' THEN Total ELSE 0 END ) AS '1T', SUM( CASE quarter(Fecha) WHEN '2' THEN Total ELSE 0 END ) AS '2T', SUM( CASE quarter(Fecha) WHEN '3' THEN Total ELSE 0 END ) AS '3T', SUM( CASE quarter(Fecha) WHEN '4' THEN Total ELSE 0 END ) AS '4T', SUM(Total) AS Total FROM DBNAME.clientes c LEFT JOIN DBNAME.femitidas_cab f ON c.IDCliente = f.IDCliente LEFT JOIN interpra_ppuemp.provincias p ON c.IDProvincia=p.IDProvincia WHERE YEAR(Fecha) = 'ANIO' GROUP BY f.IDCliente HAVING SUM(Total)>='IMPORTE' ORDER BY c.RazonSocial ASC\n"
+    queryDetail: ''
+    filters:
+      - { field: ANIO, caption: Año, entity: null, method: null, params: null, type: input, default: '2014' }
+      - { field: IMPORTE, caption: Importe, entity: null, method: null, params: null, type: input, default: '3005.06' }
+    columnsMaster:
+      - { title: RazonSocial, field: RazonSocial, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Cif, field: Cif, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Direccion, field: Direccion, length: 50, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: CodigoPostal, field: CodigoPostal, length: 10, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Poblacion, field: Poblacion, length: 40, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Provincia, field: Provincia, length: 40, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Anio, field: Anio, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: 1T, field: 1T, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+      - { title: 2T, field: 2T, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+      - { title: 3T, field: 3T, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+      - { title: 4T, field: 4T, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+      - { title: Total, field: Total, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+    columnsDetail: null
+  -
+    title: 'Compras trimestrales (facturas) Modelo 347'
+    comment: "Resumen de compras por trimestre. Los importes son total factura iva incluido\n"
+    idPerfil: ''
+    plantilla: Mod347Proveedores.rtf
+    formatos:
+      - 'el de origen'
+      - Pdf
+    archivosSeparados: true
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    queryMaster: "SELECT c.RazonSocial,c.Cif,c.Direccion,c.CodigoPostal,c.Poblacion,p.Provincia,YEAR(Fecha) as Anio, SUM( CASE quarter(Fecha) WHEN '1' THEN Total ELSE 0 END ) AS '1T', SUM( CASE quarter(Fecha) WHEN '2' THEN Total ELSE 0 END ) AS '2T', SUM( CASE quarter(Fecha) WHEN '3' THEN Total ELSE 0 END ) AS '3T', SUM( CASE quarter(Fecha) WHEN '4' THEN Total ELSE 0 END ) AS '4T', SUM(Total) AS Total FROM DBNAME.proveedores c LEFT JOIN DBNAME.frecibidas_cab f ON c.IDProveedor = f.IDProveedor LEFT JOIN interpra_ppuemp.provincias p ON c.IDProvincia=p.IDProvincia WHERE YEAR(Fecha) = 'ANIO' GROUP BY f.IDProveedor HAVING SUM(Total)>='IMPORTE' ORDER BY c.RazonSocial ASC\n"
+    queryDetail: ''
+    filters:
+      - { field: ANIO, caption: Año, entity: null, method: null, params: null, type: input, default: '2014' }
+      - { field: IMPORTE, caption: Importe, entity: null, method: null, params: null, type: input, default: '3005.06' }
+    columnsMaster:
+      - { title: RazonSocial, field: RazonSocial, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Cif, field: Cif, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Direccion, field: Direccion, length: 50, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: CodigoPostal, field: CodigoPostal, length: 10, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Poblacion, field: Poblacion, length: 40, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Provincia, field: Provincia, length: 40, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Anio, field: Anio, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: 1T, field: 1T, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+      - { title: 2T, field: 2T, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+      - { title: 3T, field: 3T, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+      - { title: 4T, field: 4T, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+      - { title: Total, field: Total, length: 13, align: R, type: decimal, total: YES, formula: null, format: '%01.2f' }
+    columnsDetail: null
+  -
+    title: 'Reclamación de morosos'
+    comment: "Carta de reclamación de deuda. Para cada cliente se relacionan los recibos pendientes de pago\n"
+    idPerfil: ''
+    plantilla: 'carta reclamacion 2.rtf'
+    formatos:
+      - 'el de origen'
+      - Pdf
+    archivosSeparados: true
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    queryMaster: 'SELECT c.IDCliente,c.RazonSocial,c.NombreComercial,c.Cif,c.Direccion,c.CodigoPostal,m.Municipio,p.Provincia from DBNAME.ErpClientes c LEFT JOIN DBNAME.CommProvincias p ON c.IDProvincia=p.Id LEFT JOIN DBNAME.CommMunicipios m on c.IDMunicipio=m.Id LEFT JOIN DBNAME.ErpRecibosClientes r on c.IDCliente=r.IDCliente WHERE r.IDEstado=''ESTADO'' AND r.Vencimiento BETWEEN ''DESDEFECHA'' AND ''HASTAFECHA'''
+    queryDetail: 'select DATE_FORMAT(f.Fecha,''%d-%m-%Y'') AS Fecha,DATE_FORMAT(r.Vencimiento,''%d-%m-%Y'') AS Vencimiento,f.Total,r.Importe,f.NumeroFactura from DBNAME.ErpRecibosClientes r LEFT JOIN DBNAME.ErpClientes c ON r.IDCliente=c.IDCliente LEFT JOIN DBNAME.ErpFemitidasCab f on r.IDFactura=f.IDFactura WHERE r.IDCliente=''LINKVALUE'' and r.IDEstado=''ESTADO'' AND r.Vencimiento BETWEEN ''DESDEFECHA'' AND ''HASTAFECHA'' ORDER BY r.Vencimiento ASC'
+    linkColumn: IDCliente
+    filters:
+      - { field: SUCURSAL, caption: Sucursal, entity: Sucursales, method: getSucursalesUsuario, params: null, type: select, default: '1' }
+      - { field: DESDEFECHA, caption: 'Desde Fecha Vcto.', entity: null, method: null, params: null, type: date, default: 01-01-2013 }
+      - { field: HASTAFECHA, caption: 'Hasta Fecha Vcto.', entity: null, method: null, params: null, type: date, default: 31-12-2013 }
+      - { field: ESTADO, caption: 'Estado recibos', entity: EstadosRecibos, method: fetchAll, params: null, type: select, default: 2 }
+    columnsMaster:
+      - { title: RazonSocial, field: RazonSocial, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: NombreComercial, field: NombreComercial, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Direccion, field: Direccion, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Cif, field: Cif, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: CodigoPostal, field: CodigoPostal, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Provincia, field: Provincia, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Poblacion, field: Poblacion, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+    columnsDetail:
+      - { title: NumeroFactura, field: NumeroFactura, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Fecha, field: Fecha, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Vencimiento, field: Vencimiento, length: 25, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Importe, field: Importe, length: 13, align: L, type: string, total: NO, formula: null, format: null }
+      - { title: Pendiente, field: Pendiente, length: 13, align: L, type: string, total: NO, formula: null, format: null }

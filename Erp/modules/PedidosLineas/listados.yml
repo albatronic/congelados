@@ -1,0 +1,209 @@
+# Module: PedidosLineas
+# Document : modules\PedidosLineas\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 26.12.2011 21:24:42
+#
+---
+listados:
+  -
+    title: PedidosLineas
+    order_by: IDLinea ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: IDPedido
+        field: IDPedido
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDArticulo
+        field: IDArticulo
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descripcion
+        field: Descripcion
+        length: 255
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Unidades
+        field: Unidades
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Precio
+        field: Precio
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Descuento
+        field: Descuento
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Importe
+        field: Importe
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Iva
+        field: Iva
+        length: 5
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Recargo
+        field: Recargo
+        length: 5
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: PteFacturar
+        field: PteFacturar
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDEstado
+        field: IDEstado
+        length: 1
+        align: L
+        type: tinyint
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDAgente
+        field: IDAgente
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDAlmacen
+        field: IDAlmacen
+        length: 3
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDUbicacion
+        field: IDUbicacion
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: IDLote
+        field: IDLote
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Pales
+        field: Pales
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cajas
+        field: Cajas
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: DestarePale
+        field: DestarePale
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: DestareCaja
+        field: DestareCaja
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UnidadesBrutas
+        field: UnidadesBrutas
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      -
+        title: UnidadesNetas
+        field: UnidadesNetas
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null

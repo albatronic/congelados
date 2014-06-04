@@ -1,0 +1,95 @@
+{# TEMPLATE Clientes/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% set digitosCta = emp.DigitosCuentaContable %}
+
+<div class="Izquierda" style="width:49%;">
+{{ macro.input('Razón Social','Etiqueta','text','Clientes[RazonSocial]','Clientes_RazonSocial',datos.RazonSocial,'50','CampoTextoLargo') }}
+{{ macro.input('Nombre Comercial','Etiqueta','text','Clientes[NombreComercial]','Clientes_NombreComercial',datos.NombreComercial,'50','CampoTextoLargo') }}
+{{ macro.cif('Cif','Etiqueta','text','Clientes[Cif]','Clientes_Cif',datos.Cif,'CampoCif') }}
+{{ macro.input('Dirección','Etiqueta','text','Clientes[Direccion]','Clientes_Direccion',datos.Direccion,'50','CampoTextoLargo') }}
+{{ macro.select('País','Etiqueta','Clientes[IDPais]','Clientes_IDPais',none,datos.IDPais.IDPais,datos.IDPais.fetchAll('Pais'),'Select')}}
+{{ macro.input('Población','Etiqueta','text','Clientes[Poblacion]','Clientes_Poblacion',datos.Poblacion,'30','CampoTextoLargo') }}
+{{ macro.select('Provincia','Etiqueta','Clientes[IDProvincia]','Clientes_IDProvincia',none,datos.IDProvincia.IDProvincia,datos.IDProvincia.fetchAll('Provincia'),'Select')}}
+{{ macro.input('Código Postal','Etiqueta','text','Clientes[CodigoPostal]','Clientes_CodigoPostal',datos.CodigoPostal,'10','CampoCPostal') }}
+{{ macro.input('Teléfono','Etiqueta','text','Clientes[Telefono]','Clientes_Telefono',datos.Telefono,'30','CampoTextoLargo') }}
+{{ macro.input('Fax','Etiqueta','text','Clientes[Fax]','Clientes_Fax',datos.Fax,'30','CampoTextoLargo') }}
+{{ macro.input('Móvil','Etiqueta','text','Clientes[Movil]','Clientes_Movil',datos.Movil,'30','CampoTextoLargo') }}
+{{ macro.input('E-Mail','Etiqueta','text','Clientes[EMail]','Clientes_EMail',datos.EMail,'50','CampoTextoLargo') }}
+{{ macro.input('Web','Etiqueta','text','Clientes[Web]','Clientes_Web',datos.Web,'50','CampoTextoLargo') }}
+{{ macro.input('Cuenta Contable','Etiqueta','text','Clientes[CContable]','Clientes_CContable',datos.CContable,digitosCta,'CampoTextoCorto') }}
+{{ macro.cc('Cuenta Corriente','Etiqueta','Clientes',datos.IDBanco,datos.IDOficina,datos.Digito,datos.Cuenta) }}
+{{ macro.select('Tipo','Etiqueta','Clientes[IDTipo]','Clientes_IDTipo',none,datos.IDTipo.IDTipo,datos.IDTipo.fetchAll('Tipo'),'Select',[app.path,'ClientesTipos','Tipos de clientes',390,450])}}
+{{ macro.select('Grupo','Etiqueta','Clientes[IDGrupo]','Clientes_IDGrupo',none,datos.IDGrupo.IDGrupo,datos.IDGrupo.fetchAll('Grupo'),'Select',[app.path,'ClientesGrupos','Grupos de clientes',390,450])}}
+{{ macro.select('Vigente','Etiqueta','Clientes[Vigente]','Clientes_Vigente',none,datos.Vigente.IDTipo,datos.Vigente.fetchAll,'Select') }}
+{#{{ macro.fecha('FechaNacimiento','Etiqueta','Clientes[FechaNacimiento]','Clientes_FechaNacimiento',datos.FechaNacimiento,'10','CampoFecha') }}#}
+{#{{ macro.input('Password','Etiqueta','text','Clientes[Password]','Clientes_Password',datos.Password,'50','CampoTextoLargo') }}#}
+{{ macro.select('Sucursal','Etiqueta','Clientes[IDSucursal]','Clientes_IDSucursal',none,datos.IDSucursal.IDSucursal,user.getSucursales('',0),'Select',none,'DesplegableAjax("div_Clientes_IDZona","Clientes_IDZona","Clientes[IDZona]","zonassucursal",this.value);DesplegableAjax("div_Clientes_IDComercial","Clientes_IDComercial","Clientes[IDComercial]","comercialessucursal",this.value);') }}
+{{ macro.select('Comercial','Etiqueta','Clientes[IDComercial]','Clientes_IDComercial',none,datos.IDComercial.IDAgente,datos.IDComercial.getComerciales('',datos.IDSucursal.IDSucursal),'Select') }}
+{{ macro.select('Zona Comercial','Etiqueta','Clientes[IDZona]','Clientes_IDZona',none,datos.IDZona.IDZona,datos.IDZona.fetchAll(datos.IDSucursal.IDSucursal),'Select') }}
+</div>
+
+<div class="Derecha" style="width:51%;">
+                <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                    <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Facturación</a></li>
+                    {% if datos.IDCliente %}
+                    <li class="ui-state-default ui-corner-top"><a href="#tabs-2" onclick="cargaDireccionesEntrega('tabs-2');">Dir. Entrega</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#tabs-3" onclick="cargaContactos('tabs-3');">Contactos</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#tabs-4">Notas</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#tabs-5" onclick="cargaVencimientos('tabs-5');">Vctos</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#tabs-6">Docs</a></li>
+                    {% endif %}
+                </ul>
+                <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                    {{ macro.select('Factura Agrupada','Etiqueta','Clientes[FacturacionAgrupada]','Clientes_FacturacionAgrupada',none,datos.FacturacionAgrupada.IDTipo,datos.FacturacionAgrupada.fetchAll,'Select')}}
+                    {{ macro.select('Tarifa','Etiqueta','Clientes[IDTarifa]','Clientes_IDTarifa',none,datos.IDTarifa.IDTarifa,datos.IDTarifa.fetchAll('Descripcion'),'Select100')}}
+                    {{ macro.select('Forma de Pago','Etiqueta','Clientes[IDFP]','Clientes_IDFP',none,datos.IDFP.IDFP,datos.IDFP.fetchAll('Descripcion'),'Select220')}}
+                    {{ macro.input('Día de Pago','Etiqueta','text','Clientes[DiaDePago]','Clientes_DiaDePago',datos.DiaDePago,'2','CampoUnidades') }}
+                    {{ macro.select('Sujeto a Iva','Etiqueta','Clientes[Iva]','Clientes_Iva',none,datos.Iva.IDTipo,datos.Iva.fetchAll,'Select') }}
+                    {{ macro.select('Recargo Equiv.','Etiqueta','Clientes[RecargoEqu]','Clientes_RecargoEqu',none,datos.RecargoEqu.IDTipo,datos.RecargoEqu.fetchAll,'Select') }}
+                    {{ macro.input('Límite de Riesgo','Etiqueta','text','Clientes[LimiteRiesgo]','Clientes_LimiteRiesgo',datos.LimiteRiesgo,'10','CampoImporte') }}
+                    {{ macro.fecha('Fecha de Riesgo','Etiqueta','Clientes[FechaRiesgo]','Clientes_FechaRiesgo',datos.FechaRiesgo,'10','CampoFecha') }}
+                    {{ macro.input('Código de Riesgo','Etiqueta','text','Clientes[CodigoRiesgo]','Clientes_CodigoRiesgo',datos.CodigoRiesgo,'20','CampoTextoCorto') }}
+                </div>
+                <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+
+                </div>
+                <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+
+                </div>
+                <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+                    {{ macro.textarea('Observaciones','Etiqueta','Clientes[Observaciones]','Clientes_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+                    {{ macro.textarea('Avisos','Etiqueta','Clientes[Avisos]','Clientes_Avisos',datos.Avisos,none,none,'TextArea')}}
+                </div>
+                <div id="tabs-5" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+
+                </div>
+                <div id="tabs-6" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+                    {{ macro.documentos(values.controller,datos.getPrimaryKeyValue) }}
+                </div>
+            </div>
+</div>
+
+{{ macro.foco('Clientes_RazonSocial') }}
+
+<script type="text/javascript">
+
+function cargaDireccionesEntrega(idDiv) {
+
+    $('#'+idDiv).html("<iframe width='100%' height='380' scrolling='yes' style='border: 0px dotted grey;' src='{{app.path}}/ClientesDentrega/list/{{datos.IDCliente}}'></iframe>");
+
+}
+
+function cargaContactos(idDiv) {
+
+    $('#'+idDiv).html("<iframe width='100%' height='380' scrolling='yes' style='border: 0px dotted grey;' src='{{app.path}}/ClientesContactos/list/{{datos.IDCliente}}'></iframe>");
+
+}
+
+function cargaVencimientos(idDiv) {
+
+    $('#'+idDiv).html("<iframe width='100%' height='380' scrolling='yes' style='border: 0px dotted grey;' src='{{app.path}}/Clientes/listVencimientos/{{datos.IDCliente}}'></iframe>");
+
+}
+</script>

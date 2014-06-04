@@ -1,0 +1,204 @@
+# Module: Sms
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Sms:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Sms
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Sms
+  table: sms
+  primarykey: IDSms
+  records_per_page: 10
+  order_by: IDSms
+  search_default: IDSms
+  columns:
+    - 
+      title: IDSms
+      field: IDSms
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: CuentaSms
+      field: CuentaSms
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: IDUsuario
+      field: IDUsuario
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Fecha
+      field: Fecha
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: datetime
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Remite
+      field: Remite
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Para
+      field: Para
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Mensaje
+      field: Mensaje
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 160
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: EnviadoOk
+      field: EnviadoOk
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Resultado
+      field: Resultado
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: NDestinatarios
+      field: NDestinatarios
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido

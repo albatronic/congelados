@@ -1,0 +1,38 @@
+# Module: PromocionesClientes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Promociones a Clientes
+    order_by: IDPromocion, IDGrupo, IDCliente ASC
+    break_field: >
+      IDPromocion,Valor,TipoPromocion,CantidadMinima,FinPromocion
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Grupo
+        field: IDGrupo
+        length: 30
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Cliente
+        field: IDCliente
+        length: 50
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null

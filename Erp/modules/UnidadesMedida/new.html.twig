@@ -1,0 +1,23 @@
+{# Template new.html.twig for UnidadesMedida #}
+{# -------------------------------------------------------#}
+{# CREAR UN REGISTRO NUEVO                                #}
+{# -------------------------------------------------------#}
+{% extends 'UnidadesMedida/index.html.twig' %}
+
+{% block navegador %}{% endblock %}
+
+{% block mantenimiento %}
+<div class="FormManto">
+    <form name="manto" action="" method="POST">
+        <input name="controller" value="UnidadesMedida" type="hidden" />
+        <input name="action" value="new" type="hidden" />
+        <input name="UnidadesMedida[Id]" value="{{ values.datos.Id }}" type="hidden" />
+        {% include '_global/comandosCreate.html.twig' %}
+
+        <div class="Cuerpo">
+	{% include '_global/FormErrores.html.twig' with {'errores': values.errores} %}
+	{% include "UnidadesMedida/form.html.twig" with {'datos': values.datos} %}
+        </div>
+    </form>
+</div>
+{% endblock %}

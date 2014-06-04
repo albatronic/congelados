@@ -1,0 +1,14 @@
+{# TEMPLATE BancosOficinas/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('Oficina','Etiqueta','text','BancosOficinas[IDOficina]','BancosOficinas_IDOficina',datos.IDOficina,'4','CampoTextoCorto') }}
+{{ macro.input('Dígito','Etiqueta','text','BancosOficinas[Digito]','BancosOficinas_Digito',datos.Digito,'1','CampoTextoCorto') }}
+{{ macro.input('Dirección','Etiqueta','text','BancosOficinas[Direccion]','BancosOficinas_Direccion',datos.Direccion,'50','CampoTextoLargo') }}
+{{ macro.input('Población','Etiqueta','text','BancosOficinas[Poblacion]','BancosOficinas_Poblacion',datos.Poblacion,'50','CampoTextoLargo') }}
+{{ macro.select('Provincia','Etiqueta','BancosOficinas[IDProvincia]','BancosOficinas_IDProvincia',none,datos.IDProvincia.IDProvincia,datos.IDProvincia.fetchAll('Provincia'),'Select')}}
+{{ macro.input('Código Postal','Etiqueta','text','BancosOficinas[CodigoPostal]','BancosOficinas_CodigoPostal',datos.CodigoPostal,'10','CampoCPostal') }}
+{{ macro.input('Teléfono','Etiqueta','text','BancosOficinas[Telefono]','BancosOficinas_Telefono',datos.Telefono,'30','CampoTextoLargo') }}
+{{ macro.input('Fax','Etiqueta','text','BancosOficinas[Fax]','BancosOficinas_Fax',datos.Fax,'30','CampoTextoLargo') }}
+{{ macro.input('EMail','Etiqueta','text','BancosOficinas[EMail]','BancosOficinas_EMail',datos.EMail,'50','CampoTextoLargo') }}

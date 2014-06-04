@@ -1,0 +1,38 @@
+# Module: Datafonos
+# Document : modules\Datafonos\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 15.04.2012 00:54:30
+#
+---
+listados:
+  -
+    title: Datafonos
+    order_by: IDDatafono ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Datafono
+        field: Datafono
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Comision
+        field: Comision
+        length: 5
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null

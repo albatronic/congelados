@@ -1,0 +1,40 @@
+{# Template list.html.twig for ClientesDentrega #}
+{# -------------------------------------------------------#}
+{% extends 'ClientesDentrega/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td></td>
+                <td class='Item'>Direcci&oacute;n</td>
+                <td class='Item'>Poblaci&oacute;n</td>
+                <td class='Item'>Provincia</td>
+                <td class='Item'>C.Postal</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr class='{{classFila}}'>
+                <td>
+                    <a href="{{app.path}}/ClientesDentrega/edit/{{objeto.IDDirec}}/{{objeto.IDCliente.IDCliente}}" title="Editar ...">
+                    <img src="{{app.path}}/images/botoneditar.png" width="16px" height="16px" />
+                    <a>
+                </td>
+                <td>{{objeto.Direccion}}</td>
+                <td>{{objeto.Poblacion}}</td>
+                <td>{{objeto.IDProvincia}}</td>
+                <td>{{objeto.CodPostal}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

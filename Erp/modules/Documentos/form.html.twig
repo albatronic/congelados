@@ -1,0 +1,7 @@
+{# TEMPLATE Documentos/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{{ macro.input('Entidad','Etiqueta','text','Documentos[Entidad]','Documentos_Entidad',datos.Entidad,'50','CampoTextoLargo') }}
+{{ macro.input('IdEntidad','Etiqueta','text','Documentos[IdEntidad]','Documentos_IdEntidad',datos.IdEntidad,'11','CampoImporte') }}
+{{ macro.input('PathName','Etiqueta','text','Documentos[PathName]','Documentos_PathName',datos.PathName,'255','CampoTextoLargo') }}
+{{ macro.textarea('Texto','Etiqueta','Documentos[Texto]','Documentos_Texto',datos.Texto,none,none,'TextArea')}}

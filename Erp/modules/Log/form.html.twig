@@ -1,0 +1,9 @@
+{# TEMPLATE Log/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('Ip','Etiqueta','text','Log[Ip]','Log_Ip',datos.Ip,'15','CampoTextoCorto') }}
+{{ macro.fecha('Fecha','Etiqueta','Log[Fecha]','Log_Fecha',datos.Fecha,'19','LiteralFechaHora') }}
+{{ macro.input('IDAgente','Etiqueta','text','Log[IDAgente]','Log_IDAgente',datos.IDAgente,'4','CampoUnidades') }}
+{{ macro.textarea('Evento','Etiqueta','Log[Evento]','Log_Evento',datos.Evento,none,none,'TextArea')}}

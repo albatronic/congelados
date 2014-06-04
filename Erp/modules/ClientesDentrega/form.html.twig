@@ -1,0 +1,18 @@
+{# TEMPLATE ClientesDentrega/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.input('Nombre','Etiqueta','text','ClientesDentrega[Nombre]','ClientesDentrega_Nombre',datos.Nombre,'50','CampoTextoMedio') }}
+{{ macro.input('Dirección','Etiqueta','text','ClientesDentrega[Direccion]','ClientesDentrega_Direccion',datos.Direccion,'50','CampoTextoMedio') }}
+{{ macro.select('País','Etiqueta','ClientesDentrega[IDPais]','ClientesDentrega_IDPais',none,datos.IDPais.IDPais,datos.IDPais.fetchAll('Pais'),'Select220')}}
+{{ macro.input('Población','Etiqueta','text','ClientesDentrega[Poblacion]','ClientesDentrega_Poblacion',datos.Poblacion,'30','CampoTextoMedio') }}
+{{ macro.select('Provincia','Etiqueta','ClientesDentrega[IDProvincia]','ClientesDentrega_IDProvincia',none,datos.IDProvincia.IDProvincia,datos.IDProvincia.fetchAll('Provincia'),'Select')}}
+{{ macro.input('Código Postal','Etiqueta','text','ClientesDentrega[CodPostal]','ClientesDentrega_CodPostal',datos.CodPostal,'10','CampoCPostal') }}
+{{ macro.input('Teléfono','Etiqueta','text','ClientesDentrega[Telefono]','ClientesDentrega_Telefono',datos.Telefono,'20','CampoTextoMedio') }}
+{{ macro.input('Móvil','Etiqueta','text','ClientesDentrega[Movil]','ClientesDentrega_Movil',datos.Movil,'30','CampoTextoMedio') }}
+{{ macro.input('Fax','Etiqueta','text','ClientesDentrega[Fax]','ClientesDentrega_Fax',datos.Fax,'20','CampoTextoMedio') }}
+{{ macro.input('E-Mail','Etiqueta','text','ClientesDentrega[EMail]','ClientesDentrega_EMail',datos.EMail,'50','CampoTextoMedio') }}
+{{ macro.select('Comercial','Etiqueta','ClientesDentrega[IDComercial]','ClientesDentrega_IDComercial',none,datos.IDComercial.IDAgente,datos.IDComercial.getComerciales(),'Select220')}}
+{{ macro.input('Responsable','Etiqueta','text','ClientesDentrega[Responsable]','ClientesDentrega_Responsable',datos.Responsable,'50','CampoTextoMedio') }}
+{{ macro.input('Horario Llamadas','Etiqueta','text','ClientesDentrega[HorarioLlamadas]','ClientesDentrega_HorarioLlamadas',datos.HorarioLlamadas,'50','CampoTextoMedio') }}
+{{ macro.input('Horario Reparto','Etiqueta','text','ClientesDentrega[Horario]','ClientesDentrega_Horario',datos.Horario,'50','CampoTextoMedio') }}
+{{ macro.select('Zona de Reparto','Etiqueta','ClientesDentrega[IDZona]','ClientesDentrega_IDZona',none,datos.IDZona.IDZona,datos.IDZona.fetchAll,'Select')}}

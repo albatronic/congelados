@@ -1,0 +1,17 @@
+{# Template help.html.twig for ExpedirCab #}
+{# -------------------------------------------------------#}
+{% extends '_help/layout.html.twig' %}
+
+{% block titulo %}<h2>{{ values.title }}</h2>{% endblock %}
+
+{% block contenido %}
+<h2>Objetivo</h2>
+<p>Expedir la mercancías indicadas en los albaranes generados por los comerciales y que están confirmados.</p>
+<h2>Operatoria</h2>
+<p>Se muestran los albaranes clasificados por almacén de salida y días asignados para el reparto.</p>
+
+<p>Los albaranes a los que no les ha sido asignado ningún día de reparto, se muestran en la solapa "Sin asignar", y no podrán ser expedidos hasta que les sea asignado un día.</p>
+<h2>FAQ</h2>
+
+{{ macro.embedVideo(values.idVideo,none,none)}}
+{% endblock %}

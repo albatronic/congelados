@@ -1,0 +1,342 @@
+# Module: CajaLineas
+# Document : modules\CajaLineas\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 20.04.2012 16:47:18
+#
+---
+CajaLineas:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: CajaLineas
+  id_video: cajalineas
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: CajaLineas
+  table: caja_lineas
+  primarykey: IDApunte
+  records_per_page: 15
+  order_by: IDApunte
+  search_default: IDApunte
+  referenced_entities:
+    -
+      entity: CajasArqueo
+    -
+      entity: FormasPago
+    -
+      entity: OrigenesApunteCaja
+    -
+      entity: Datafonos
+  columns:
+    -
+      title: IDApunte
+      field: IDApunte
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: IDArqueo
+      field: IDArqueo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 1
+        caption: IDArqueo
+        entity: CajasArqueo
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fecha
+      field: Fecha
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0000-00-00 00:00:00
+      validator:
+        nullable: NO
+        type: datetime
+        length: 
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Concepto
+      field: Concepto
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Forma de Cobro
+      field: IDFP
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 2
+        caption: IDFP
+        entity: FormasPago
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: Origen
+      field: Origen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 3
+        caption: Origen
+        entity: OrigenesApunteCaja
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Entidad
+      field: Entidad
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDEntidad
+      field: IDEntidad
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Importe
+      field: Importe
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Entregado
+      field: Entregado
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cambio
+      field: Cambio
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Asiento
+      field: Asiento
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDDatafono
+      field: IDDatafono
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      aditional_filter:
+        order: 4
+        caption: IDDatafono
+        entity: Datafonos
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: IDAgente
+      field: IDAgente
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 0
+      validator:
+        nullable: YES
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido

@@ -1,0 +1,35 @@
+{# Template list.html.twig for RecepcionarCab #}
+{# -------------------------------------------#}
+{% extends 'RecepcionarCab/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+	<div class='Titulo'>Traspasos pendientes de recepcionar</div>
+        <table width='100%'>
+            <tr class='Titulos'>
+                <td class='Item'>N. Traspaso</td>
+                <td class='Item'>Sucursal</td>
+                <td class='Item'>Fecha</td>
+                <td class='Item'>Almacén origen</td>
+                <td class='Item'>Observaciones</td>
+            </tr>
+
+            <tbody class="Cuerpo">
+            {% for key,objeto in values.listado.data %}
+            <tr class="ItemListado">
+                <td>
+                    {{ macro.linkThickBox(app.path,objeto.NumeroTraspaso,'RecepcionarLineas/index/TraspasosCab/'~objeto.IDTraspaso,'Recepcionar Traspaso '~objeto.NumeroTraspaso~' '~objeto.IDAlmacenOrigen.Nombre,350,950) }}
+                </td>
+                <td>{{objeto.IDSucursal.Nombre}}</td>
+                <td align="center">{{objeto.FechaOrden}}</td>
+                <td>{{objeto.IDAlmacenOrigen.Nombre}}</td>
+                <td>{{objeto.Observaciones|slice(0,30)}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="Titulo">No hay traspasos pendientes de recepcionar para el almacén indicado</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

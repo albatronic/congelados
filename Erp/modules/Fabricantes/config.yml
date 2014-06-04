@@ -1,0 +1,129 @@
+# Module: Fabricantes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Fabricantes:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Fabricantes
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Fabricantes
+  table: fabricantes
+  primarykey: IDFabricante
+  records_per_page: 10
+  order_by:
+    -
+      title: Fabricante a-z
+      criteria: Fabricante ASC
+    -
+      title: Fabricante z-a
+      criteria: Fabricante DESC
+  search_default: Fabricante
+  columns:
+    - 
+      title: Codigo
+      field: IDFabricante
+      filter: NO
+      list: NO
+      form: YES
+      default: null
+      validator: null
+    - 
+      title: Fabricante
+      field: Fabricante
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: Fabricantes/Edit
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Telefono
+      field: Telefono
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Web
+      field: Web
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Email
+      field: Email
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: email
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Icono
+      field: Icono
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido

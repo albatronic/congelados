@@ -1,0 +1,44 @@
+{# Template help.html.twig for ImportarFemitidas #}
+{# ----------------------------------------------#}
+{% extends '_help/layout.html.twig' %}
+
+{% block titulo %}<h2>{{ values.title }}</h2>{% endblock %}
+
+{% block contenido %}
+<h2>Objetivo</h2>
+Se ha habilitado un proceso de carga masiva de facturas provenientes de otros sistemas. Dado que dicho proceso se realizará de forma muy
+esporádica, no existe una opción de menú propiamente dicha; sino que su uso debe ser realizado por el administrador del sistema en base a los siguientes criterios:
+
+<h2>Operatoria</h2>
+
+<ul>
+    <li>Estructura del fichero y ubicación</li>
+    <p>Debemos generar <b>un fichero por cada sucursal</b>. La importación se realizará en la sucursal en curso.</p>
+    <p>El fichero conteniendo la información debe ser de tipo texto y con las columnas separadas por el carácter tabulador. Para los valores númericos se ha de utilizar el punto (.) como carácter de separación de decimales, y no indicar ningún carácter para los millares.</p>
+    <p>El archivo se debe ubicar en docs\docsXXX\tmp, donde XXX es el código de la empresa</p>
+    <table style="border: dotted 1px;">
+        <tr><td>Columna</td><td>Valor</td><td>Observaciones</td></tr>
+        <tr><td>1</td><td>Serie</td><td>No se tiene en cuenta, ya que se utilizará la serie por defecto para la sucursal en curso</td></tr>
+        <tr><td>2</td><td>Número Factura</td><td>No se tiene en cuenta, el sistema asignará el número en base al contador por defecto de facturas emitidas de la sucursal en curso</td></tr>
+        <tr><td>3</td><td>Fecha</td><td>La fecha de la factura en formato dd-mm-aa</td></tr>
+        <tr><td>4</td><td>Cuenta Contable</td><td>La Cuenta Contable asignada al cliente en el sistema ERP</td></tr>
+        <tr><td>5</td><td>Cuenta Contable del sistema externo</td><td>No se utiliza</td></tr>
+        <tr><td>6</td><td>Razón Social del cliente</td><td>No se utiliza</td></tr>
+        <tr><td>6</td><td>Razón Social del cliente</td><td>No se utiliza</td></tr>
+        <tr><td>7</td><td>Base Imponible1</td><td>Base Imponible1</td></tr>
+        <tr><td>8</td><td>% Iva1</td><td>Porcentaje de Iva1</td></tr>
+        <tr><td>9</td><td>% Recargo1</td><td>Porcentaje de Recargo de Equivalencia1</td></tr>
+        <tr><td>10</td><td>Base Imponible2</td><td>Base Imponible2</td></tr>
+        <tr><td>11</td><td>% Iva2</td><td>Porcentaje de Iva2</td></tr>
+        <tr><td>12</td><td>% Recargo2</td><td>Porcentaje de Recargo de Equivalencia2</td></tr>
+    </table>
+    <p></p>
+    <li>Proceso de carga</li>
+    <p>Se aconseja revisar los valores de los <a href="{{app.path}}/Contadores/Help">contadores</a> de facturas emitidas antes de lanzar el proceso</p>
+    <p>Una vez ubicado el archivo en el servidor, la forma de realizar la carga es mediante la URL: http://www.dominio.com/apps/Erp/FemitidasCab/Importar/nombreDelArchivo</p>
+</ul>
+
+<h2>FAQ</h2>
+
+{{ macro.embedVideo(values.idVideo,none,none)}}
+{% endblock %}

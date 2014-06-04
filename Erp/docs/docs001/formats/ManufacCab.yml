@@ -1,0 +1,82 @@
+# FORMATOS DE ELABORACONES.
+# docs/docsXXX/formats/ManufacCab.yml
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 25-03-2012
+#
+---
+ManufacCab:
+  -
+    title: Parte de Elaboración
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: '10,10,15,10'
+    page_break: 75
+    break_field: Tipo
+    break_print:
+      - $this->Ln()
+      - $this->SetFont('Arial', 'B', '8')
+      - if ($this->detail->getTipo() == 0) $this->Cell(0,4,"Salida de " . $this->detail->getIDAlmacen()->getNombre(),0,1)
+      - if ($this->detail->getTipo() == 1) $this->Cell(0,4,"Entrada en " . $this->detail->getIDAlmacen()->getNombre(),0,1)
+      - $this->SetFont('Arial', '', '8')
+    header:
+      #-- Logo --
+      - $this->Image($this->empresa->getLogo(),15,15,40,30)
+      # -- Datos de la Empresa --
+      - $this->SetXY(65,15)
+      - $this->SetFont('Arial', 'B', 12)
+      - $this->Cell(0,4,$this->empresa->getRazonSocial(), 0, 1, 'R')
+      - $this->SetFont('Arial','', 8)
+      - $this->SetLeftMargin(65)
+      - $this->Cell(0, 4, $this->empresa->getCif(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getDireccion(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getCodigoPostal() . ' ' . $this->empresa->getPoblacion(), 0, 1, 'R')
+      - $this->Cell(0, 4, 'Tlf ' . $this->empresa->getTelefono() . ' Fax ' . $this->empresa->getFax(), 0, 1, 'R')
+      - $this->Cell(0, 4, $this->empresa->getWeb(), 0, 1, 'R', 0, 'http://' . $this->empresa->getWeb())
+      - $this->Cell(0, 4, $this->empresa->getEMail(), 0, 1, 'R')
+      #-- Datos de la Sala de Elaboracion --
+      - $this->SetLeftMargin(15)
+      - $this->SetXY(15, 50)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(0, 5, 'Sala de Elaboracion', 0, 1)
+      - $this->Rect(15, 55, 85, 25)
+      - $this->SetXY(15, 55)
+      - $this->SetFont('Arial','B',10)
+      - $this->Cell(0, 5, $this->master->getIDElaborador()->getRazonSocial(), 0, 1)
+      - $this->SetFont('Arial','',10)
+      - $this->Cell(85, 5, $this->master->getIDElaborador()->getDireccion(), 0, 1, 'L')
+      - $this->Cell(85, 5, $this->master->getIDElaborador()->getCodigoPostal() . ' ' . $this->master->getIDElaborador()->getPoblacion() . ' ' . $this->master->getIDElaborador()->getIDProvincia()->getProvincia(), 0, 1, 'L')
+      - $this->Cell(85, 5, 'CIF ' . $this->master->getIDElaborador()->getCif() . ' Telf ' .$this->master->getIDElaborador()->getTelefono(), 0, 1, 'L')
+      # -- Datos de almacenes --
+      - $this->SetXY(105, 50)
+      - $this->SetFont('Arial','B',12)
+      - $this->Cell(0, 5, 'Parte de Elaboracion N.' . $this->master->getIDManufac(), 0, 1)
+      - $this->Rect(105, 55, 90, 25)
+      - $this->SetXY(105, 55)
+      - $this->SetLeftMargin(105)
+      - $this->SetFont('Arial','',10)
+      - $this->Cell(90, 5, $this->DecodificaTexto($this->master->getDescripcion(),37), 0, 1)
+      - $this->Cell(90, 5, "Origen " . $this->DecodificaTexto($this->master->getIDAlmacenOrigen()->getNombre(),37), 0, 1)
+      - $this->Cell(90, 5, "Destino " . $this->DecodificaTexto($this->master->getIDAlmacenDestino()->getNombre(),37), 0, 1)
+      - $this->Cell(90, 5, "Fecha Envio " . $this->master->getFechaOrden(), 0, 1)
+      - $this->Cell(90, 5, "Fecha Entrega " . $this->master->getFechaEntrega(), 0, 1)
+      - $this->SetLeftMargin(15)
+      # -- Titulos para el cuerpo --
+      - $this->SetXY(15, 90)
+      - $this->SetFont('Arial','B', 10)
+      - $this->Cell(20, 5, 'Codigo', 1, 0, 'C')
+      - $this->Cell(125, 5, 'Descripcion', 1, 0, 'C')
+      - $this->Cell(25, 5, 'Udes', 1, 0, 'C')
+      - $this->SetFont('Arial','', 8)
+    body:
+      - if ($this->detail->getTipo() == 0) $lotes = $this->detail->getLotesExpedidos(); else $lotes = $this->detail->getLotesRecibidos();
+      - $this->Cell(20, 4, $this->detail->getIDArticulo()->getCodigo(),0,0,'L')
+      - $y0 = $this->GetY()
+      - $this->MultiCell(125, 4, $this->detail->getDescripcion() . " ( Lotes " . $lotes . ")", 0, 'J')
+      - $y1 = $this->GetY()
+      - $this->SetXY(160, $y0)
+      - $this->Cell(25, 4, $this->detail->getUnidades() . " " . $this->detail->getIDArticulo()->getUMA()->getUnidadMedida(),0,0,'R')
+      - $this->SetY($y1)

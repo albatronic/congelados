@@ -1,0 +1,20 @@
+{# Template filtro.html.twig for RutasVEntas #}
+{# -------------------------------------------------------#}
+<div class='Filtro'>
+    <form name='filtro' id='filtro' action='' method='POST'>
+        <input name='controller' value='RutasVentas' type='hidden' />
+        <input name='action' value='edit' type='hidden' />
+        Indique un Comercial:
+        <select name="IDComercial" class="select" onchange="submit();">
+            {% for value in values.comerciales %}
+            <option value="{{value.Id}}" {% if value.Id == values.linkBy.value %} SELECTED {% endif%} >{{value.Value}}</option>
+            {% endfor %}
+        </select>
+
+        {% if (values.permisos['L'] and values.linkBy.value) %}
+            <input type="image" style="float:right;" src="{{app.path}}/images/icon_printgreen.gif" title="Imprimir..." alt="Imprimir..."
+                 onClick="action.value='listado';submit();"
+            />
+        {%endif%}
+    </form>
+</div>

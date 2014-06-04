@@ -1,0 +1,65 @@
+# Module: Zonas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Zonas:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Zonas Comerciales y de Reparto
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Zonas
+  table: zonas
+  primarykey: IDZona
+  records_per_page: 20
+  order_by:
+    -
+      title: Zona a-z
+      criteria: IDSucursal,Zona ASC
+    -
+      title: Zona z-a
+      criteria: IDSucursal,Zona DESC
+  search_default: IDZona
+  columns:
+    - 
+      title: IDZona
+      field: IDZona
+      filter: NO
+      list: NO
+      form: YES
+      validator: null
+    - 
+      title: Sucursal
+      field: IDSucursal
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 35
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    - 
+      title: Zona
+      field: Zona
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido

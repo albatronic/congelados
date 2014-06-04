@@ -1,0 +1,25 @@
+{# TEMPLATE PromocionesClientes/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.select('Grupo','Etiqueta','PromocionesClientes[IDGrupo]','PromocionesClientes_IDGrupo',none,datos.IDGrupo.IDGrupo,values.grupos,'Select','','mostrarOcultar();') }}
+<div class="Item" id="div_PromocionesClientes_RazonSocial">
+    {{ macro.label('Cliente') }}
+    <input name="PromocionesClientes[IDCliente]" value="{{datos.IDCliente.IDCliente}}" id="PromocionesClientes_IDCliente" type="hidden" />
+    <input value="{{datos.IDCliente.RazonSocial}}" id="RazonSocial" type="text" maxlength="255" style="width:330px;"
+           onkeyup="autoCompletar('RazonSocial','PromocionesClientes_IDCliente','RazonSocial','clientes','','');"/>
+</div>
+
+<script>
+
+function mostrarOcultar() {
+    if ($('#PromocionesClientes_IDGrupo').val() != '') {
+        $('#PromocionesClientes_IDCliente').val('');
+        $('#RazonSocial').val('');
+        $('#div_PromocionesClientes_RazonSocial').hide();
+    } else {
+        $('#div_PromocionesClientes_RazonSocial').show();
+    }
+}
+</script>

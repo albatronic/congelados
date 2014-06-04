@@ -1,0 +1,64 @@
+# Module: Noticias
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Noticias
+    order_by: IDNoticia ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDNoticia
+        field: IDNoticia
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDSucursal
+        field: IDSucursal
+        length: 3
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Noticia
+        field: Noticia
+        length: null
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Vigencia
+        field: Vigencia
+        length: null
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Emergente
+        field: Emergente
+        length: 1
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

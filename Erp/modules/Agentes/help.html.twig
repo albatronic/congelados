@@ -1,0 +1,39 @@
+{% extends "_help/layout.html.twig" %}
+
+{%block titulo%}<h2>Usuarios</h2>{%endblock%}
+
+{% block contenido %}
+
+<h2>Objetivo</h2>
+<p>
+    Dado que el sistema ERP es multiusuario, es necesario definir todos los usuarios (agentes) que acceder&aacute;n a &eacute;l.
+    Se deben dar de alta todos aquellos usuarios, ya sean comerciales o personal de la administraci&oacute;n de la empresa.
+</p>
+<p>
+    A cada usuario se le ha de asignar un "Login" &uacute;nico, que ser&aacute; el que lo identifique y le de acceso a la aplicaci&oacute;n.
+    El login consiste en una cadena de caracteres (n&uacute;meros y letras) de hasta 15 posiciones. El sistema no distingue entre may&uacute;sculas y min&uacute;sculas.
+
+</p>
+
+<h2>Tareas Previas</h2>
+<p>Antes de dar de alta agentes, es necesario definir:</p>
+<ul>
+    <li><a href="{{app.path}}/Almacenes/help">Almacenes</a></li>
+    <li><a href="{{app.path}}/Permisos/help">Perfiles de Usuario</a></li>
+    <li><a href="{{app.path}}/Empresas/help">Empresas y Sucursales</a></li>
+</ul>
+
+<h2>Operatoria</h2>
+<p>Dado que el sistema ERP es multiusuario, es necesario definir todos los usuarios (agentes) que acceder&aacute;n a el</p>
+
+<h2>Preguntas Frecuentes</h2>
+<ul class="faq">
+    <li>&iquest;Tengo que dar de alta el mismo usuario para cada empresa?</li>
+    <p>No, el usuario se da de alta solo una vez y en ese momento se define a que empresa/s y sucursal/es puede acceder</p>
+    <li>&iquest;Hay alguna limitaci&oacute;n en el n&uacute;mero de usuarios?</li>
+    <p>No, se pueden dar de alta tantos como se necesite siempre y cuando no se repita el "Login"</p>
+    <li>&iquest;Qu&eacute; hago si a un usuario se le olvida la contrase&ntilde;a?</li>
+    <p>El sistema dispone de un mecanismo que regenera la contrase&ntilde;a en caso de olvido, y la env&iacute;a al e-mail del usuario.</p>
+</ul>
+
+{% endblock %}

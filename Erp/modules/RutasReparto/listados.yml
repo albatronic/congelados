@@ -1,0 +1,29 @@
+# Module: RutasReparto
+# Document : modules\RutasReparto\listados.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 14.05.2012 17:19:59
+#
+---
+listados:
+  -
+    title: Rutas de Reparto
+    order_by: Descripcion ASC
+    break_field: IDSucursal
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Descripción
+        field: Descripcion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

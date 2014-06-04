@@ -1,0 +1,49 @@
+{# Template list.html.twig for CajaArqueos #}
+{# -------------------------------------------------------#}
+{% extends values.controller  ~ '/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+	{% include '_global/paginacion.html.twig' with {'filter': values.listado.filter, 'controller': values.controller, 'position': 'izq'}%}
+        <div id="Listado">
+        <table width="100%">
+            <tr class='Titulos'>
+                <td></td>
+                <td class='Item'>Sucursal</td>
+                <td class='Item'>Tpv</td>
+                <td class='Item'>Día</td>
+                <td class='Item'>Apertura</td>
+                <td class='Item'>Movimientos</td>
+                <td class='Item'>Saldo</td>
+                <td class='Item'>Cerrada</td>
+            </tr>
+
+            <tbody class='Cuerpo'>
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr onclick="location.href='{{app.path}}/{{values.controller}}/edit/{{objeto.IDArqueo}}'" class='{{classFila}}'>
+                <td class='Item'>
+                    <a href="{{app.path}}/CajaArqueos/edit/{{objeto.IDArqueo}}" title="Editar...">
+                        <img src="{{app.path}}/images/botoneditar.png" width="16px" height="16px" />
+                    </a>
+                </td>
+                <td class='Item'>{{objeto.IDSucursal|slice(0,40)}}</td>
+                <td class='Item'>{{objeto.IDTpv.Nombre|slice(0,30)}}</td>
+                <td align="center">{{objeto.Dia}}</td>
+                <td align="right">{{objeto.SaldoApertura}}</td>
+                <td align="right">{{objeto.SumaMvtos}}</td>
+                <td align="right">{{objeto.SaldoCierre}}</td>
+                <td align="center">{{objeto.CajaCerrada}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan='2'>No hay informaci&oacute;n que cumpla esos criterios</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+</div>
+{% endblock %}

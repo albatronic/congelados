@@ -1,0 +1,100 @@
+# Module: Listas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Listas
+    order_by: IDLista ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDLista
+        field: IDLista
+        length: 5
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Descripcion
+        field: Descripcion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Vigencia
+        field: Vigencia
+        length: null
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Periodicidad
+        field: Periodicidad
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: UltimoEnvio
+        field: UltimoEnvio
+        length: null
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: ProximoEnvio
+        field: ProximoEnvio
+        length: null
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Tabla
+        field: Tabla
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Condiciones
+        field: Condiciones
+        length: null
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Columnas
+        field: Columnas
+        length: null
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null

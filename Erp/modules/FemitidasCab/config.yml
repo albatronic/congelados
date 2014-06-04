@@ -1,0 +1,823 @@
+# Module: FemitidasCab
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+FemitidasCab:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Facturas Emitidas
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: FemitidasCab
+  table: femitidas_cab
+  primarykey: IDFactura
+  records_per_page: 15
+  order_by:
+    -
+      title: Numero z-a
+      criteria: NumeroFactura DESC
+    -
+      title: Numero a-z
+      criteria: NumeroFactura ASC
+    -
+      title: Fecha z-a
+      criteria: Fecha DESC
+    -
+      title: Fecha a-z
+      criteria: Fecha ASC
+  search_default: IDFactura
+  columns:
+    - 
+      title: IDFactura
+      field: IDFactura
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    -
+      title: IDContador
+      field: IDContador
+      filter: NO
+      list: NO
+      form: YES
+      default: 000
+      validator:
+        nullable: NO
+        type: string
+        length: 15
+        min: 1
+        max: 999999
+        message: Valor Requerido  
+    - 
+      title: Sucursal
+      field: IDSucursal
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 000
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 1
+        caption: Sucursal
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getSucursales
+        params: 
+        type: select
+    - 
+      title: Factura
+      field: NumeroFactura
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: string
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Fecha
+      field: Fecha
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000-00-00
+      validator:
+        nullable: NO
+        type: date
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 2
+        caption: Fecha
+        entity: null
+        type: range
+        default: '<?php echo '01/01/'.date('Y').',31/12/'.date('Y');?>'
+        operator: '>='
+    - 
+      title: Cliente
+      field: IDCliente
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 4
+        caption: Cliente (%)
+        entity: Clientes
+        method: fetchAll
+        params: RazonSocial
+        type: input
+    - 
+      title: Comercial
+      field: IDComercial
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 5
+        caption: Comercial (%)
+        entity: Agentes
+        method: getComerciales
+        params: 
+        type: select
+    -
+      title: Importe
+      field: Importe
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Descuento
+      field: Descuento
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: BaseImponible1
+      field: BaseImponible1
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: YES
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Iva1
+      field: Iva1
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 16.00
+      validator:
+        nullable: YES
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CuotaIva1
+      field: CuotaIva1
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: YES
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Recargo1
+      field: Recargo1
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: YES
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CuotaRecargo1
+      field: CuotaRecargo1
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: YES
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: BaseImponible2
+      field: BaseImponible2
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Iva2
+      field: Iva2
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CuotaIva2
+      field: CuotaIva2
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Recargo2
+      field: Recargo2
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CuotaRecargo2
+      field: CuotaRecargo2
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: BaseImponible3
+      field: BaseImponible3
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Iva3
+      field: Iva3
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CuotaIva3
+      field: CuotaIva3
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Recargo3
+      field: Recargo3
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CuotaRecargo3
+      field: CuotaRecargo3
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: TotalBases
+      field: TotalBases
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: TotalIva
+      field: TotalIva
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: TotalRecargo
+      field: TotalRecargo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: RecargoFinanciero
+      field: RecargoFinanciero
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CuotaRecargoFinanciero
+      field: CuotaRecargoFinanciero
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Total
+      field: Total
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CuentaVentas
+      field: CuentaVentas
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: integer
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 6
+        caption: Cta. Ventas
+        entity:
+        method:
+        params:
+        type: input
+    - 
+      title: Asiento
+      field: Asiento
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 7
+        caption: Asiento
+        entity:
+        method:
+        params:
+        type: input
+    - 
+      title: Observaciones
+      field: Observaciones
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Peso
+      field: Peso
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Volumen
+      field: Volumen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Bultos
+      field: Bultos
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Expedicion
+      field: Expedicion
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: IDAgencia
+      field: IDAgencia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Clave
+      field: Clave
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: IDFP
+      field: IDFP
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido

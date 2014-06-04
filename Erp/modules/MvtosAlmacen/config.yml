@@ -1,0 +1,322 @@
+# Module: MvtosAlmacen
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+MvtosAlmacen:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Movimientos de Almacén
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: MvtosAlmacen
+  table: mvtos_almacen
+  primarykey: Id
+  records_per_page: 20
+  order_by:
+    -
+      title: Fecha z-a
+      criteria: Fecha DESC, Hora DESC
+    -
+      title: Fecha a-z
+      criteria: Fecha ASC, Hora ASC
+  search_default: Fecha
+  columns:
+    - 
+      title: Id
+      field: Id
+      filter: NO
+      list: NO
+      form: YES
+      validator: null
+    - 
+      title: Fecha
+      field: Fecha
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: date
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 0
+        caption: Fecha
+        entity: null
+        type: range
+        default: '<?php echo '01/01/'.date('Y').',31/12/'.date('Y');?>'
+        operator: '>='
+    - 
+      title: Hora
+      field: Hora
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: null
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Agente
+      field: IDAgente
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 3
+        caption: Usuario
+        entity: Agentes
+        method: fetchAll
+        params: Nombre
+        type: select
+    - 
+      title: Almacen
+      field: IDAlmacen
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 4
+        caption: Almacén
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getAlmacenes
+        params: null
+        type: select
+    - 
+      title: Ubicacion
+      field: IDUbicacion
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Lote
+      field: IDLote
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 8
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 5
+        caption: Lote (%)
+        entity: Lotes
+        method: null
+        params: Lote
+        type: input
+    - 
+      title: Articulo
+      field: IDArticulo
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: string
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 6
+        caption: Articulo (%)
+        entity: Articulos
+        method: null
+        params: Descripcion
+        type: input
+    - 
+      title: Descripcion
+      field: Descripcion
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 255
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Tipo
+      field: IDTipo
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 7
+        caption: Tipo
+        entity: TiposMvtosAlmacen
+        method: fetchAll
+        params: Descripcion
+        type: select
+    - 
+      title: Documento
+      field: NumeroDocumento
+      filter: YES
+      list: YES
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido          
+    - 
+      title: IDDocumento
+      field: IDDocumento
+      filter: YES
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 9
+        caption: ID Documento
+        entity: 
+        method: 
+        params: 
+        type: input         
+    - 
+      title: UnidadesE
+      field: UnidadesE
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: PalesE
+      field: PalesE
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CajasE
+      field: CajasE
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: UnidadesS
+      field: UnidadesS
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: PalesS
+      field: PalesS
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: CajasS
+      field: CajasS
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Observaciones
+      field: Observaciones
+      filter: NO
+      list: NO
+      form: YES
+      validator:
+        nullable: YES
+        type: string
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido

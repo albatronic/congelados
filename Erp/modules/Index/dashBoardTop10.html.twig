@@ -1,0 +1,112 @@
+{# TOP 10 CLIENTES, CATEGORIAS, ARTÍCULOS #}
+{% set item = values.dashBoard.tops %}
+
+{% if item %}
+<div id="top" class="dashBoard item">
+    <p>Top 10</p>
+    {% if item.clientes %}
+    <div><h3>Clientes</h3>
+        <div>
+        <table>
+            <tr><th>Cliente</th><th>Facturado</th></tr>
+            {% set clientes = item.clientes %}            
+            {% for key,cliente in clientes %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+                <tr class="{{classFila}}">
+                    <td style="text-align: left;">{{cliente.RazonSocial|slice(0,30)}}</td>
+                    <td style="text-align: right;">{{cliente.Total|number_format}}</td>
+                </tr>
+            {% endfor %}               
+        </table>
+        Clientes con mayor facturación en los últimos 12 meses.
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if item.comerciales %}
+    <div><h3>Comerciales</h3>
+        <div>
+        <table>
+            <tr><th>Comercial</th><th>Facturado</th></tr>
+            {% set comerciales = item.comerciales %}            
+            {% for key,comercial in comerciales %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+                <tr class="{{classFila}}">
+                    <td style="text-align: left;">{{comercial.Nombre|slice(0,30)}}</td>
+                    <td style="text-align: right;">{{comercial.Total|number_format}}</td>
+                </tr>
+            {% endfor %}               
+        </table>
+        Comerciales con mayor facturación en los últimos 12 meses.
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if item.familias %}
+    <div><h3>Familias de artículos</h3>
+        <div>
+        <table>
+            <tr><th>Familia</th><th>Facturado</th></tr>
+            {% set familias = item.familias %}            
+            {% for key,familia in familias %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+                <tr class="{{classFila}}">
+                    <td style="text-align: left;">{{familia.Familia|slice(0,30)}}</td>
+                    <td style="text-align: right;">{{familia.Total|number_format}}</td>
+                </tr>
+            {% endfor %}               
+        </table>
+        Familias de artículos con mayor facturación en los últimos 12 meses.
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if item.articulos %}
+    <div><h3>Artículos</h3>
+        <div>
+        <table>
+            <tr><th>Artículo</th><th>Facturado</th></tr>
+            {% set articulos = item.articulos %}            
+            {% for key,articulo in articulos %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+                <tr class="{{classFila}}">
+                    <td style="text-align: left;">{{articulo.Descripcion|slice(0,30)}}</td>
+                    <td style="text-align: right;">{{articulo.Total|number_format}}</td>
+                </tr>
+            {% endfor %}               
+        </table>
+        Artículos con mayor facturación en los últimos 12 meses.
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script type="text/javascript"> 
+$(function(){
+    $("#top")
+    .accordion({
+        header: "> div > h3",
+        collapsible: true,
+        autoHeight: false,
+        active: false,
+    });    
+    $("#top").draggable({ cursor: "crosshair" });    
+});
+</script>
+{% endif %}

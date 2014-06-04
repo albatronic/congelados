@@ -1,0 +1,210 @@
+# Module: FormasPago
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+FormasPago:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Formas de Pago
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: FormasPago
+  table: formas_pago
+  primarykey: IDFP
+  records_per_page: 10
+  order_by:
+    -
+      title: Descripcion a-z
+      criteria: Descripcion ASC
+    -
+      title: Descripcion z-a
+      criteria: Descripcion DESC
+  search_default: Descripcion
+  columns:
+    -
+      title: IDFP
+      field: IDFP
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    -
+      title: Descripcion
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Numero Vctos
+      field: NumeroVctos
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1
+      validator:
+        nullable: NO
+        type: decimal
+        length: 4
+        min: 0
+        max: 10
+        message: Valor Requerido entre 0 y 10
+    -
+      title: Dia Primer Vcto
+      field: DiaPrimerVcto
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: decimal
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Dias Intervalo
+      field: DiasIntervalo
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: decimal
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cta. Contable
+      field: CContable
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Anotar En Caja
+      field: AnotarEnCaja
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: YES
+        type: integer
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Estado Recibo
+      field: EstadoRecibo
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Recargo Financiero
+      field: RecargoFinanciero
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Dcto. Financiero
+      field: DescuentoFinanciero
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido

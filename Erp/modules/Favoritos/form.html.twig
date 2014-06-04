@@ -1,0 +1,7 @@
+{# TEMPLATE Favoritos/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{{ macro.select('Agente','Etiqueta','Favoritos[IDAgente]','Favoritos_IDAgente',none,datos.IDAgente.IDAgente,datos.IDAgente.fetchAll('Nombre'),'Select')}}
+{{ macro.input('Titulo','Etiqueta','text','Favoritos[Titulo]','Favoritos_Titulo',datos.Titulo,'50','CampoTextoLargo') }}
+{{ macro.input('Url','Etiqueta','text','Favoritos[Url]','Favoritos_Url',datos.Url,'100','CampoTextoLargo') }}
+{{ macro.input('Accesos','Etiqueta','text','Favoritos[Accesos]','Favoritos_Accesos',datos.Accesos,'5','CampoTextoCorto', 'readonly') }}

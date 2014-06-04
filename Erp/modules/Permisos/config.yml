@@ -1,0 +1,116 @@
+# Module: Permisos
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Permisos:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Permisos
+  conection: empresas
+  entity: Permisos
+  table: permisos
+  primarykey: Id
+  linkBy: IDPerfil
+  records_per_page: 9999
+  order_by:
+    -
+      title: Perfil a-z
+      criteria: IDPerfil ASC
+    -
+      title: Perfil z-a
+      criteria: IDPerfil DESC
+  search_default: IDOpcion
+  columns:
+    - 
+      title: Id
+      field: Id
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: IDPerfil
+      field: IDPerfil
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: IDOpcion
+      field: IDOpcion
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: IDSubopcion
+      field: IDSubopcion
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Permisos
+      field: Permisos
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 111111
+      validator:
+        nullable: YES
+        type: string
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido

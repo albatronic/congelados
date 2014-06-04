@@ -1,0 +1,19 @@
+# Module: MvtosAlmacenInternos
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 22-06-2012
+#
+---
+MvtosAlmacenInternos:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Movimientos Internos de Almacén
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: MvtosAlmacenInternos
+  table:
+  primarykey:
+  records_per_page: 20
+  order_by:
+  search_default: 

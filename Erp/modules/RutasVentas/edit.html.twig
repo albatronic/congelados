@@ -1,0 +1,38 @@
+{# Template edit.html.twig for RutasVentas #}
+{# -------------------------------------------------------#}
+{# EDITAR UN REGISTRO. ACCIONES: GUARDAR Y BORRAR         #}
+{# -------------------------------------------------------#}
+{% extends 'RutasVentas/index.html.twig' %}
+
+{% block mantenimiento %}
+
+<div class='FormManto' style="background-color:grey;">
+
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            {% for i in 1..7 %}
+            <li class="ui-state-default ui-corner-top {%if i == 1%} ui-tabs-selected ui-state-active{%endif%}">
+                <a href="#tabs-{{i}}">{{values.dias[i-1].Value}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% for i in 1..7 %}
+        <div id="tabs-{{i}}" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <div style="text-align: center; font-weight: bold;">
+                {{values.dias[i-1].Value}} 
+                <a href="{{app.path}}/RutasVentas/HojaLlamadas/{{values.linkBy.value}}/{{i}}">
+                    <img src="{{app.path}}/images/icon_printgreen.gif" title="Imprimir..." alt="Imprimir..." />
+                </a>
+            </div>
+            
+            <iframe class="FrameRutaDia"
+                src="{{app.path}}/RutasVentasClientes/list/{{values.linkBy.value}}/{{i}}">
+            </iframe>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

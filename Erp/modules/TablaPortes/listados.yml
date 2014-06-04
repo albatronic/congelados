@@ -1,0 +1,64 @@
+# Module: TablaPortes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: TablaPortes
+    order_by: Id ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: Id
+        field: Id
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDZona
+        field: IDZona
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDAgencia
+        field: IDAgencia
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Kilos
+        field: Kilos
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Importe
+        field: Importe
+        length: 10
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null

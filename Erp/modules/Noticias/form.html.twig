@@ -1,0 +1,9 @@
+{# TEMPLATE Noticias/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+{{ macro.input('IDSucursal','Etiqueta','text','Noticias[IDSucursal]','Noticias_IDSucursal',datos.IDSucursal,'3','CampoUnidades') }}
+{{ macro.textarea('Noticia','Etiqueta','Noticias[Noticia]','Noticias_Noticia',datos.Noticia,none,none,'TextArea')}}
+{{ macro.fecha('Vigencia','Etiqueta','Noticias[Vigencia]','Noticias_Vigencia',datos.Vigencia,'10','CampoFecha') }}
+{{ macro.input('Emergente','Etiqueta','text','Noticias[Emergente]','Noticias_Emergente',datos.Emergente,'1','CampoUnidades') }}

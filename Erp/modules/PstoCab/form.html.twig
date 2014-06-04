@@ -1,0 +1,111 @@
+{# TEMPLATE PstoCab/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{% if not datos.IDPsto %}
+    {% set sucursalDefecto = suc %}
+{% else %}
+    {% set sucursalDefecto = datos.IDSucursal.IDSucursal %}
+{% endif %}
+
+<div class="CajaIzquierda" style="height: 220px;">
+
+{% if datos.IDEstado.IDTipo == '0' %}
+    {% if datos.IDPsto %}
+    {{ macro.etiqueta('Sucursal','Etiqueta',datos.IDSucursal.Nombre) }}
+    {% else %}
+    <div class="Item" id="div_PstoCab_IDSucursal">
+        <div class="Etiqueta">Sucursal</div>
+        <select name="PstoCab[IDSucursal]" id="PstoCab_IDSucursal" size="1" class="Select"
+                onchange="DesplegableAjax('div_PstoCab_IDContador','PstoCab_IDContador','PstoCab[IDContador]','contadorPstos',this.value);
+                          DesplegableAjax('div_PstoCab_IDComercial','PstoCab_IDComercial','PstoCab[IDComercial]','comercialPstos',this.value);
+                          $('#PstoCab_IDCliente').val('');
+                          $('#RazonSocial').val('');
+                         "
+        >
+        {% for value in datos.IDAgente.getSucursales(emp.IDEmpresa) %}
+            <option value="{{ value.Id }}" {% if (value.Id==sucursalDefecto) %} SELECTED {%endif%}>{{value.Value}}</option>
+        {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    {% if not datos.IDPsto %}
+    {{ macro.select('Serie','Etiqueta','PstoCab[IDContador]','PstoCab_IDContador',none,datos.IDContador.IDContador,datos.IDContador.fetchAll(sucursalDefecto,0),'Select') }}
+    {% endif %}
+    {{ macro.fecha('Fecha','Etiqueta','PstoCab[Fecha]','PstoCab_Fecha',datos.Fecha,'10','CampoFecha') }}
+    {{ macro.fecha('Fecha Aceptación','Etiqueta','PstoCab[FechaAceptacion]','PstoCab_FechaAceptacion',datos.FechaAceptacion,'10','CampoFecha', 'disabled') }}
+    {{ macro.select('Almacén','Etiqueta','PstoCab[IDAlmacen]','PstoCab_IDAlmacen',none,datos.IDAlmacen.IDAlmacen,datos.IDComercial.getAlmacenes(emp.IDEmpresa),'Select') }}
+
+    <div class="Item" id="div_PstoCab_RazonSocial">
+        <input name="PstoCab[IDCliente]" id="PstoCab_IDCliente" value="{{datos.IDCliente.IDCLiente}}" type="hidden"/>
+        <div class="Etiqueta">Cliente</div>
+        <input value="{{datos.IDCliente.RazonSocial}}" id="RazonSocial" type="text" maxlength="50" class="CampoTextoLargo"
+               onkeyup="autoCompletar('RazonSocial','PstoCab_IDCliente','RazonSocial','clientes',$('#PstoCab_IDSucursal').val(),['subbloque_ajax_cliente_presupuesto','','','clientepresupuesto']);"/>
+
+        {% if datos.IDCliente.IDCliente %}
+        {{ macro.promosVigentesCliente(app.path, datos.IDCliente, datos.getDate) }}
+        {% endif %}
+    </div>
+
+    <div id="subbloque_ajax_cliente_presupuesto">
+        {{ macro.select('Comercial','Etiqueta','PstoCab[IDComercial]','PstoCab_IDComercial',none,datos.IDComercial.IDAgente,datos.IDComercial.getComerciales('',datos.IDSucursal.IDSucursal),'Select') }}
+        {{ macro.select('Dirección de Entrega','Etiqueta','PstoCab[IDDirec]','PstoCab_IDDirec',none,datos.IDDirec.IDDirec,datos.IDDirec.fetchAll(datos.IDCliente.IDCliente),'Select350') }}
+        {{ macro.select('Forma de Pago','Etiqueta','PstoCab[IDFP]','PstoCab_IDFP',none,datos.IDFP.IDFP,datos.IDFP.fetchAll('Descripcion'),'Select') }}
+    </div>
+    {{ macro.foco('RazonSocial') }}
+{% else %}
+    {{ macro.etiqueta('Sucursal','Etiqueta',datos.IDSucursal.Nombre) }}
+    {{ macro.etiqueta('Almacén','Etiqueta',datos.IDAlmacen.Nombre) }}
+    {{ macro.etiqueta('Fecha','Etiqueta',datos.Fecha ) }}
+    {{ macro.etiqueta('Fecha Aceptacion','Etiqueta',datos.FechaAceptacion ) }}
+    {{ macro.etiqueta('Cliente','Etiqueta',datos.IDCliente.RazonSocial) }}
+    {{ macro.etiqueta('Comercial','Etiqueta',datos.IDComercial.Nombre) }}
+    {{ macro.etiqueta('Direccion de Entrega','Etiqueta',datos.IDDirec.Direccion ~ " - " ~ datos.IDDirec.Poblacion ~ " (" ~ datos.IDDirec.IDProvincia.Provincia ~ ")") }}
+    {{ macro.etiqueta('Forma de Pago','Etiqueta',datos.IDFP.Descripcion ) }}
+{% endif %}
+</div>
+
+{% if datos.IDPsto %}
+<div class="CajaTotales" style="height: 220px;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Importes</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2">Env&iacute;o</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-3">{% if datos.Observaciones %}<b>{% endif %}Observaciones{% if datos.Observaciones %}</b>{% endif %}</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-4">Docs</a></li>
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            {% include values.controller ~ "/totales.html.twig" with {'datos': datos}%}
+        </div>
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {% if datos.IDEstado.IDTipo == '0' %}
+                {{ macro.select('Agencia Tpte.','Etiqueta','PstoCab[IDAgencia]','PstoCab_IDAgencia',none,datos.IDAgencia.IDAgencia,datos.IDAgencia.fetchAll('Agencia'),'Select') }}
+                {{ macro.input('Peso','Etiqueta','text','PstoCab[Peso]','PstoCab_Peso',datos.Peso,'10','CampoUnidades') }}
+                {{ macro.input('Volumen','Etiqueta','text','PstoCab[Volumen]','PstoCab_Volumen',datos.Volumen,'10','CampoUnidades') }}
+                {{ macro.input('Bultos','Etiqueta','text','PstoCab[Bultos]','PstoCab_Bultos',datos.Bultos,'4','CampoUnidades') }}
+                {{ macro.input('Expedición','Etiqueta','text','PstoCab[Expedicion]','PstoCab_Expedicion',datos.Expedicion,'50','CampoTextoCorto') }}
+            {% else %}
+                {{ macro.etiqueta('Agencia Tpte.','Etiqueta',datos.IDAgencia.Agencia ) }}
+                {{ macro.etiqueta('Peso','Etiqueta',datos.Peso ) }}
+                {{ macro.etiqueta('Volumen','Etiqueta',datos.Peso ) }}
+                {{ macro.etiqueta('Bultos','Etiqueta',datos.Volumen ) }}
+                {{ macro.etiqueta('Expedición','Etiqueta',datos.Expedicion ) }}
+                <div style="clear: both;"></div>
+            {% endif %}
+        </div>
+        <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea('Observaciones','Etiqueta','PstoCab[Observaciones]','PstoCab_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+            {% set beneficio  = datos.getBeneficio() %}
+            <div style="text-align: center;">
+                Referencia [{{ beneficio.Venta}}] [{{ beneficio.Costo}}] [{{ beneficio.Beneficio }}]
+            </div>
+        </div>
+        <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+    </div>
+</div>
+
+<iframe width="100%" height="327" scrolling="yes" style="margin-top:5px; border:0;"
+    src="{{app.path}}/PstoLineas/list/{{datos.IDPsto}}">
+</iframe>
+{% endif %}

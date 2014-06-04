@@ -1,0 +1,146 @@
+{# TEMPLATE Articulos/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+{# LOS PRECIOS DE COSTO SOLO SON EDITABLES/VISIBLES PARA LOS USUARIOS DEL ROL 9 (SUPER) #}
+
+<script type="text/javascript">
+function RecalculaPrecios(campo)
+{
+    if ((campo=='Pvd') || (campo=='Margen')) document.getElementById('Articulos_Pvp').value=Redondear(document.getElementById('Articulos_Pmc').value*(1+document.getElementById('Articulos_Margen').value/100),2);
+    if (campo=='Pvp'){
+        if (document.getElementById('Articulos_Pmc').value!=0) document.getElementById('Articulos_Margen').value=Redondear(100*(document.getElementById('Articulos_Pvp').value-document.getElementById('Articulos_Pmc').value)/document.getElementById('Articulos_Pmc').value,2);
+        else document.getElementById('Articulos_Margen').value=100;
+    }
+    document.getElementById('pvpconiva').value=Redondear(document.getElementById('Articulos_Pvp').value*(1+document.getElementById('valoriva').value/100),2);
+}
+
+function VerDatosLogisticos(seccion,SiNo){
+    if (SiNo=='S'){seccion.style.display=""}
+    else{seccion.style.display="none"}
+}
+</script>
+
+{% if user.Rol.IDTipo != '9'%}
+    {% set tipo = 'hidden' %}
+    {% set readOnly = 'READONLY' %}
+{% else %}
+    {% set tipo = 'text' %}
+    {% set readOnly = '' %}
+{% endif %}
+
+{% set pvpconiva = datos.Pvp * (1 + datos.IDIva.Iva/100)%}
+<input id="valoriva" type="hidden" value="{{datos.IDIva.Iva}}" />
+
+<div class="Izquierda" style="width:49%;">
+{{ macro.input('Código','Etiqueta','text','Articulos[Codigo]','Articulos_Codigo',values.datos.Codigo,'25','CampoTextoMedio') }}
+{{ macro.input('Descripción','Etiqueta','text','Articulos[Descripcion]','Articulos_Descripcion',datos.Descripcion,'255','CampoTextoLargo') }}
+{{ macro.select('Familia','Etiqueta','Articulos[IDFamilia]','Articulos_IDFamilia',none,datos.IDFamilia.IDFamilia,datos.IDFamilia.fetchAll('Familia'),'Select',none,'DesplegableAjax("div_Articulos_IDSubfamilia","Articulos_IDSubfamilia","Articulos[IDSubfamilia]","subfamilias",this.value);') }}
+{{ macro.select('Subfamilia','Etiqueta','Articulos[IDSubfamilia]','Articulos_IDSubfamilia',none,datos.IDSubfamilia.IDSubfamilia,datos.IDSubfamilia.fetchAll(datos.IDFamilia.IDFamilia,'Subfamilia'),'Select')}}
+{{ macro.select('Fabricante','Etiqueta','Articulos[IDFabricante]','Articulos_IDFabricante',none,datos.IDFabricante.IDFabricante,datos.IDFabricante.fetchAll('Fabricante'),'Select')}}
+{{ macro.input('PVD','Etiqueta',tipo,'Articulos[Pvd]','Articulos_Pvd',datos.Pvd|number_format(3, '.', ','),'10','CampoImporte',none,'RecalculaPrecios("Pvd");') }}
+{{ macro.input('Precio Med. Compra','Etiqueta',tipo,'Articulos[Pmc]','Articulos_Pmc',datos.Pmc|number_format(3, '.', ','),'10','CampoImporte',readOnly) }}
+{{ macro.input('% Margen Sbr/Pmc','Etiqueta',tipo,'Articulos[Margen]','Articulos_Margen',datos.Margen,'5','CampoUnidades',none,'RecalculaPrecios("Margen");') }}
+{{ macro.input('PVP','Etiqueta','text','Articulos[Pvp]','Articulos_Pvp',datos.Pvp|number_format(3, '.', ','),'10','CampoImporte',none,'RecalculaPrecios("Pvp");') }}
+{{ macro.input('PVP C/Iva','Etiqueta','text','pvpconiva','pvpconiva',pvpconiva|number_format(3, '.', ','),'10','CampoImporte','READONLY') }}
+{{ macro.select('% Iva','Etiqueta','Articulos[IDIva]','Articulos_IDIva',none,datos.IDIva.IDIva,datos.IDIva.fetchAll('Tipo'),'Select',none)}}
+{{ macro.input('Etiqueta','Etiqueta','text','Articulos[Etiqueta]','Articulos_Etiqueta',datos.Etiqueta,'30','CampoTextoLargo') }}
+{{ macro.input('Codigo EAN','Etiqueta','text','Articulos[CodigoEAN]','Articulos_CodigoEAN',datos.CodigoEAN,'13','CampoTextoMedio') }}
+{{ macro.select('Vigente','Etiqueta','Articulos[Vigente]','Articulos_Vigente',none,datos.Vigente.IDTipo,datos.Vigente.fetchAll('0'),'Select')}}
+{{ macro.select('Estado','Etiqueta','Articulos[IDEstado]','Articulos_IDEstado',none,datos.IDEstado.IDEstado,datos.IDEstado.fetchAll('Estado'),'Select',[app.path,'ArticulosEstados','Estados de Articulos',350,600])}}
+{{ macro.select('Uso','Etiqueta','Articulos[IDUso]','Articulos_IDUso',none,datos.IDUso.IDTipo,datos.IDUso.fetchAll('0'),'Select')}}
+{{ macro.input('Garantía','Etiqueta','text','Articulos[Garantia]','Articulos_Garantia',datos.Garantia,'10','CampoTextoCorto') }}
+{% if emp.IDVersion.IDTipo == '2' %}
+    {{ macro.select('Tallas y Colores','Etiqueta','Articulos[ConTallasColores]','Articulos_ConTallasColores',none,datos.ConTallasColores.IDTipo,datos.ConTallasColores.fetchAll('0'),'Select') }}
+{% endif %}
+<p style="clear: both; font-weight: bold; margin-top: 5px;">Importante:</p>
+<p>Los precios se deben expresar respecto a la unidad de medida básica.</p>
+<p>El stock máximo y mínimo se ha de indicar en la unidad de almacenaje.</p>
+</div>
+
+<div class="Derecha" style="width:51%;">
+
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Stock</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2">Udes de Medida</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-3">Caracter&iacute;sticas</a></li>
+            {% if emp.IDVersion.IDTipo == 1 %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-4">Múltiplos</a></li>
+            {% endif %}
+            {% if emp.IDVersion.IDTipo == 2 %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-4">Tallas/Colores</a></li>
+            {% endif %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-5">Web</a></li>
+            {% if datos.IDArticulo %}
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-6">Imágenes</a></li>
+            {% endif %}
+        </ul>
+
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            {{ macro.select('Inventariable','Etiqueta','Articulos[Inventario]','Articulos_Inventario',none,datos.Inventario.IDTipo,datos.Inventario.fetchAll('0'),'Select')}}
+            {{ macro.select('Bloqueo Stock','Etiqueta','Articulos[BloqueoStock]','Articulos_BloqueoStock',none,datos.BloqueoStock.IDTipo,datos.BloqueoStock.fetchAll('0'),'Select')}}
+            {{ macro.select('Trazabilidad','Etiqueta','Articulos[Trazabilidad]','Articulos_Trazabilidad',none,datos.Trazabilidad.IDTipo,datos.Trazabilidad.fetchAll('0'),'Select')}}
+            {{ macro.input('Stock Minimo','Etiqueta','text','Articulos[StockMinimo]','Articulos_StockMinimo',datos.StockMinimo,'10','CampoUnidades') }}
+            {{ macro.input('Stock Maximo','Etiqueta','text','Articulos[StockMaximo]','Articulos_StockMaximo',datos.StockMaximo,'10','CampoUnidades') }}
+            {{ macro.input('Packing Compras','Etiqueta','text','Articulos[PackingCompras]','Articulos_PackingCompras',datos.PackingCompras,'6','CampoUnidades') }}
+            {{ macro.input('Packing Ventas','Etiqueta','text','Articulos[PackingVentas]','Articulos_PackingVentas',datos.PackingVentas,'6','CampoUnidades') }}
+            {{ macro.input('Merma','Etiqueta','text','Articulos[Merma]','Articulos_Merma',datos.Merma,'5','CampoUnidades') }}
+            {{ macro.input('Días Caducidad','Etiqueta','text','Articulos[Caducidad]','Articulos_Caducidad',datos.Caducidad,'3','CampoUnidades') }}
+            {{ macro.input('Peso Kgr.','Etiqueta','text','Articulos[Peso]','Articulos_Peso',datos.Peso,'5','CampoUnidades') }}
+            {{ macro.input('Volumen mts.3','Etiqueta','text','Articulos[Volumen]','Articulos_Volumen',datos.Volumen,'5','CampoUnidades') }}
+        </div>
+
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <table width='100%'>
+                <tr>
+                    <td>{{ macro.select('Básica','Etiqueta','Articulos[UMB]','Articulos_UMB',none,datos.UMB.Id,datos.UMB.fetchAll('UnidadMedida'),'Select80')}}</td>
+                    <td class="Subtitulo">Factores de Conversion</td>
+                </tr>
+                <tr>
+                    <td>{{ macro.select('de Compra','Etiqueta','Articulos[UMC]','Articulos_UMC',none,datos.UMC.Id,datos.UMC.fetchAll('UnidadMedida'),'Select80')}}</td>
+                    <td>{{ macro.input('de U.C. a U.B.','Etiqueta','text','Articulos[CUMC]','Articulos_CUMC',datos.CUMC,'4','CampoUnidades') }}</td>
+                </tr>
+                <tr>
+                    <td>{{ macro.select('de Almacenaje','Etiqueta','Articulos[UMA]','Articulos_UMA',none,datos.UMA.Id,datos.UMA.fetchAll('UnidadMedida'),'Select80')}}</td>
+                    <td>{{ macro.input('de U.A. a U.B.','Etiqueta','text','Articulos[CUMA]','Articulos_CUMA',datos.CUMA,'4','CampoUnidades') }}</td>
+                </tr>
+                <tr>
+                    <td>{{ macro.select('de Venta','Etiqueta','Articulos[UMV]','Articulos_UMV',none,datos.UMV.Id,datos.UMV.fetchAll('UnidadMedida'),'Select80')}}</td>
+                    <td>{{ macro.input('de U.V. a U.B.','Etiqueta','text','Articulos[CUMV]','Articulos_CUMV',datos.CUMV,'4','CampoUnidades') }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea(none,'Etiqueta','Articulos[Caracteristicas]','Articulos_Caracteristicas',datos.Caracteristicas,none,none,'TextArea')}}
+            {{ macro.input('Fecha Ult. Precio','Etiqueta','text','Articulos[FechaUltimoPrecio]','Articulos_FechaUltimoPrecio',datos.FechaUltimoPrecio,'19','LiteralFechaHora','readonly') }}
+        </div>
+
+        {% if emp.IDVersion.IDTipo == 1 %}
+        <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.input('Mínimo Venta Alto','Etiqueta','text','Articulos[MinimoVentaAlto]','Articulos_MinimoVentaAlto',datos.MinimoVentaAlto,'6','CampoUnidades') }}
+            {{ macro.input('Mínimo Venta Ancho','Etiqueta','text','Articulos[MinimoVentaAncho]','Articulos_MinimoVentaAncho',datos.MinimoVentaAncho,'6','CampoUnidades') }}
+            {{ macro.input('Mínimo Venta','Etiqueta','text','Articulos[MinimoVenta]','Articulos_MinimoVenta',datos.MinimoVenta,'6','CampoUnidades') }}
+            {{ macro.input('Múltiplo Alto','Etiqueta','text','Articulos[MultiploAlto]','Articulos_MultiploAlto',datos.MultiploAlto,'6','CampoUnidades') }}
+            {{ macro.input('Múltiplo Ancho','Etiqueta','text','Articulos[MultiploAncho]','Articulos_MultiploAncho',datos.MultiploAncho,'6','CampoUnidades') }}
+            {{ macro.select('Recargo Energético','Etiqueta','Articulos[RecargoEnergetico]','Articulos_RecargoEnergetico',none,datos.RecargoEnergetico.IDTipo,datos.RecargoEnergetico.fetchAll('Descripcion'),'Select')}}
+        </div>
+        {% endif %}
+
+        {% if emp.IDVersion.IDTipo == 2 %}
+        <div id="tabs-4" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+
+        </div>
+        {% endif %}
+
+        <div id="tabs-5" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.select('Publicar Web','Etiqueta','Articulos[PublicarWeb]','Articulos_PublicarWeb',none,datos.PublicarWeb.IDTipo,datos.PublicarWeb.fetchAll('0'),'Select')}}
+            {{ macro.input('Url Amigable','Etiqueta','text','Articulos[UrlAmigable]','Articulos_UrlAmigable',datos.UrlAmigable,'100','CampoTextoMedio') }}
+        </div>
+
+        {% if datos.IDArticulo %}
+        <div id="tabs-6" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+        </div>
+        {% endif %}
+    </div>
+</div>

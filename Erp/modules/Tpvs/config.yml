@@ -1,0 +1,239 @@
+# Module: Tpvs
+# Document : modules\Tpvs\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 15.04.2012 01:20:43
+#
+---
+Tpvs:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Tpvs y Datáfonos
+  id_video: tpvs
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Tpvs
+  table: tpvs
+  primarykey: IDTpv
+  records_per_page: 15
+  order_by:
+    -
+      title: Sucursal a-z
+      criteria: IDSucursal ASC
+    -
+      title: Sucursal z-a
+      criteria: IDSucursal DESC
+  search_default: IDTpv
+  referenced_entities:
+    -
+      entity: Sucursales
+    -
+      entity: ValoresSN
+    -
+      entity: Datafonos
+  columns:
+    -
+      title: IDTpv
+      field: IDTpv
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: Sucursal
+      field: IDSucursal
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 1
+        caption: Sucursal
+        entity: 'Agentes,<?php echo $_SESSION['USER']['user']['id'];?>'
+        method: getSucursales
+        params: null
+        type: select
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 40
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Nombre
+      field: Nombre
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: AperturaCajon
+      field: AperturaCajon
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: SaltoPagina
+      field: SaltoPagina
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 1
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Estilo
+      field: Estilo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Datáfono1
+      field: IDDataFono1
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: YES
+        type: integer
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Datáfono2
+      field: IDDataFono2
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: YES
+        type: integer
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Datáfono3
+      field: IDDataFono3
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: YES
+        type: integer
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Datáfono4
+      field: IDDataFono4
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: YES
+        type: integer
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido

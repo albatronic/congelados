@@ -1,0 +1,82 @@
+# Module: Familias
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: Familias
+    order_by: IDFamilia ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDFamilia
+        field: IDFamilia
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Familia
+        field: Familia
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Inventario
+        field: Inventario
+        length: 1
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Trazabilidad
+        field: Trazabilidad
+        length: 1
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: PublicarWeb
+        field: PublicarWeb
+        length: 1
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: MargenWeb
+        field: MargenWeb
+        length: 5
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Caducidad
+        field: Caducidad
+        length: 3
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

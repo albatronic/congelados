@@ -1,0 +1,70 @@
+{# LOGÍSTICA #}
+{% set item = values.dashBoard.logistica %}
+
+{% if item %}
+<div id="logistica" class="dashBoard item">
+    <p>Logística</p>
+    
+    <div><h3>{% if item.entradasRetrasadas %}<b>{%endif%}Entradas retrasadas{% if item.pendienteServir %}</b>{%endif%}</h3>
+        <div style="margin:0;padding: 0;">
+        {% for pte in item.entradasRetrasadas %}
+            <div style="float: left;">
+                <div class="itemDiv"><a href="{{app.path}}/PedidosCab/edit/{{pte.IDPedido}}">{{pte.IDPedido}}</a></div>
+                <div class="itemDiv">{{pte.Fecha}}</div>
+                <div class="itemDiv" style="width: 140px; height: 15px;overflow: hidden;">{{pte.RazonSocial}}</div>
+                <div class="itemDiv" style="width: 70px; text-align: right;">{{pte.TotalBases|number_format}}</div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div><h3>{% if item.entradasHoy %}<b>{%endif%}Entradas para hoy{% if item.pendienteServir %}</b>{%endif%}</h3>
+        <div style="margin:0;padding: 0;">
+        {% for pte in item.entradasHoy %}
+            <div style="float: left;">
+                <div class="itemDiv"><a href="{{app.path}}/PedidosCab/edit/{{pte.IDPedido}}">{{pte.IDPedido}}</a></div>
+                <div class="itemDiv">{{pte.Fecha}}</div>
+                <div class="itemDiv" style="width: 140px; height: 15px;overflow: hidden;">{{pte.RazonSocial}}</div>
+                <div class="itemDiv" style="width: 70px; text-align: right;">{{pte.TotalBases|number_format}}</div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div><h3>{% if item.roturasStock %}<b>{%endif%}Roturas de stock{% if item.pendienteServir %}</b>{%endif%}</h3>
+        <div style="margin:0;padding: 0;">
+        {% for pte in item.roturasStock %}
+            <div style="float: left;">
+                <div class="itemDiv">{{pte.Codigo}}</div>
+                <div class="itemDiv" style="width: 140px; height: 15px;overflow: hidden;">{{pte.Descripcion}}</div>
+                <div class="itemDiv" style="width: 70px; text-align: right;">{{pte.pedidoMinimo|number_format}}</div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div><h3>{% if item.pendienteServir %}<b>{%endif%}Pendiente de servir{% if item.pendienteServir %}</b>{%endif%}</h3>
+        <div style="margin:0;padding: 0;">
+        {% for pte in item.pendienteServir %}
+            <div style="float: left;">
+                <div class="itemDiv"><a href="{{app.path}}/AlbaranesCab/edit/{{pte.IDAlbaran}}">{{pte.NumeroAlbaran}}</a></div>
+                <div class="itemDiv">{{pte.Fecha}}</div>
+                <div class="itemDiv" style="width: 130px; height: 15px;overflow: hidden;">{{pte.RazonSocial}}</div>
+                <div class="itemDiv" style="width: 70px; text-align: right;">{{pte.TotalBases|number_format}}</div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+            
+<script type="text/javascript"> 
+$(function(){
+    $("#logistica")
+    .accordion({
+        header: "> div > h3",
+        collapsible: true,
+        autoHeight: false,
+        active: false,
+    });
+    
+    $("#logistica").draggable({ cursor: "crosshair" });    
+});
+</script>
+{% endif %}

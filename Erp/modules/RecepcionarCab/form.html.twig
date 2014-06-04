@@ -1,0 +1,42 @@
+{# TEMPLATE RecepcionarCab/form.html.twig       #}
+{# Muestra los campos editables de la entidad #}
+
+{% import '_global/macros.html.twig' as macro %}
+
+<div class="CajaIzquierda" style="height:170px;">
+    {{ macro.etiqueta('Sucursal','Etiqueta',datos.IDSucursal.Nombre) }}
+    {{ macro.etiqueta('Almacén','Etiqueta',datos.IDAlmacen.Nombre) }}
+    {{ macro.etiqueta('Fecha','Etiqueta',datos.Fecha ) }}
+    {{ macro.etiqueta('Fecha Prev. Entrega','Etiqueta',datos.FechaEntrega ) }}
+    {{ macro.etiqueta('Fecha Entrada','Etiqueta',datos.FechaEntrada ) }}
+    {{ macro.etiqueta('Proveedor','Etiqueta',datos.IDProveedor.RazonSocial) }}
+    {{ macro.etiqueta('Agencia Tpte.','Etiqueta',datos.IDAgencia.Agencia ) }}
+    {{ macro.etiqueta('Usuario','Etiqueta',datos.IDAgente.Nombre) }}
+</div>
+
+
+<div class="CajaTotales" style="height: 170px;">
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Incidencias</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#tabs-2">{% if datos.Observaciones %}<b>{% endif %}Observaciones{% if datos.Observaciones %}</b>{% endif %}</a></li>
+        </ul>
+        <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            {% if datos.IDEstado.IDTipo == 1 %}
+                {{ macro.textarea('Incidencias Recep.','Etiqueta','RecepcionarCab[Incidencias]','RecepcionarCab_Incidencias',datos.Incidencias,none,none,'TextArea')}}
+            {% else %}
+                {{ macro.etiqueta('Incidencias Recep.','Etiqueta',datos.Incidencias) }}
+            {% endif %}
+        </div>
+        <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.etiqueta('Observaciones','Etiqueta',datos.Observaciones) }}
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+
+{% if datos.IDPedido %}
+    <iframe width="100%" height="327" scrolling="yes" style="margin-top:5px; border:0;"
+            src="{{app.path}}/RecepcionarLineas/list/{{datos.IDPedido}}">
+    </iframe>
+{% endif %}

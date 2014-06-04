@@ -1,0 +1,10 @@
+{# TEMPLATE RutasRepartoDetalle/form.html.twig #}
+{# Muestra los campos editables de la entidad #}
+
+{{ macro.select('IDRuta','Etiqueta','RutasRepartoDetalle[IDRuta]','RutasRepartoDetalle_IDRuta',none,datos.IDRuta.IDRuta,datos.IDRuta.fetchAll('IDRuta'),'Select')}}
+{{ macro.select('IDRepartidor','Etiqueta','RutasRepartoDetalle[IDRepartidor]','RutasRepartoDetalle_IDRepartidor',none,datos.IDRepartidor.IDRepartidor,datos.IDRepartidor.fetchAll('IDAgente'),'Select')}}
+{{ macro.select('Dia','Etiqueta','RutasRepartoDetalle[Dia]','RutasRepartoDetalle_Dia',none,datos.Dia.Dia,datos.Dia.fetchAll(),'Select')}}
+{{ macro.input('OrdenZona','Etiqueta','text','RutasRepartoDetalle[OrdenZona]','RutasRepartoDetalle_OrdenZona',datos.OrdenZona,'4','CampoUnidades') }}
+{{ macro.select('IDZona','Etiqueta','RutasRepartoDetalle[IDZona]','RutasRepartoDetalle_IDZona',none,datos.IDZona.IDZona,datos.IDZona.fetchAll('IDZona'),'Select')}}
+{{ macro.input('OrdenDirec','Etiqueta','text','RutasRepartoDetalle[OrdenDirec]','RutasRepartoDetalle_OrdenDirec',datos.OrdenDirec,'4','CampoUnidades') }}
+{{ macro.select('IDDirec','Etiqueta','RutasRepartoDetalle[IDDirec]','RutasRepartoDetalle_IDDirec',none,datos.IDDirec.IDDirec,datos.IDDirec.fetchAll('IDDirec'),'Select')}}

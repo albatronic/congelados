@@ -1,0 +1,6 @@
+{# TEMPLATE Tarifas/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.input('Descripcion','Etiqueta','text','Tarifas[Descripcion]','Tarifas_Descripcion',datos.Descripcion,'50','CampoTextoLargo') }}
+{{ macro.select('Tipo','Etiqueta','Tarifas[Tipo]','Tarifas_Tipo',none,datos.Tipo.IDTipo,datos.Tipo.fetchAll('Descripcion'),'Select') }}
+{{ macro.input('Valor','Etiqueta','text','Tarifas[Valor]','Tarifas_Valor',datos.Valor,'5','CampoUnidades') }}

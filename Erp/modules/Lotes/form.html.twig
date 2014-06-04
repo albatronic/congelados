@@ -1,0 +1,17 @@
+{# TEMPLATE Lotes/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{{ macro.input('Lote','Etiqueta','text','Lotes[Lote]','Lotes_Lote',datos.Lote,'25','CampoTextoMedio') }}
+<div class="Item" id="div_Lotes_IDArticulo">
+    <div class="Etiqueta">Artículo</div>
+    <input name="Lotes[IDArticulo]" id="Lotes_IDArticulo" value="{{datos.IDArticulo.IDArticulo}}" type="hidden" />
+    {% if datos.PrimaryKeyValue and datos.TieneMvtos %}
+        {{datos.IDArticulo.Descripcion}} (tiene mvtos, no se puede modificar el artículo)
+    {% else %}
+    <input value="{{datos.IDArticulo.Descripcion}}" id="Descripcion" type="text" maxlength="50" class="CampoTextoLargo"
+        onkeyup="autoCompletar('Descripcion','Lotes_IDArticulo','Descripcion','articulos','','');"/>
+    {% endif %}    
+</div>
+{{ macro.fecha('Fecha Fabricación','Etiqueta','Lotes[FechaFabricacion]','Lotes_FechaFabricacion',datos.FechaFabricacion,'10','CampoFecha') }}
+{{ macro.fecha('Fecha Caducidad','Etiqueta','Lotes[FechaCaducidad]','Lotes_FechaCaducidad',datos.FechaCaducidad,'10','CampoFecha') }}
+{{ macro.select('Vigente','Etiqueta','Lotes[Vigente]','Lotes_Vigente',none,datos.Vigente.IDTipo,datos.Vigente.fetchAll,'Select') }}

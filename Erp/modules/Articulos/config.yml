@@ -1,0 +1,965 @@
+# Module: Articulos
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Articulos:
+  login_required: YES
+  permission_control: YES
+  favourite_control: YES
+  help_file: help.html.twig
+  title: Artículos
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Articulos
+  table: articulos
+  primarykey: IDArticulo
+  records_per_page: 15
+  order_by:
+    -
+      title: Descripcion a-z
+      criteria: Descripcion ASC
+    -
+      title: Descripcion z-a
+      criteria: Descripcion DESC
+    -
+      title: Codigo a-z
+      criteria: Codigo ASC
+    -
+      title: Codigo z-a
+      criteria: Codigo DESC
+  search_default: Codigo
+  columns:
+    -
+      title: IDArticulo
+      field: IDArticulo
+      filter: NO
+      list: NO
+      form: YES
+    -
+      title: Código
+      field: Codigo
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 25
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Descripcion
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Familia
+      field: IDFamilia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 20
+        min: 1
+        max: 9999
+        message: Valor Requerido
+      aditional_filter:
+        order: 1
+        caption: Familia
+        entity: Familias
+        method: fetchAll
+        params: Familia
+        type: select
+    -
+      title: Subfamilia
+      field: IDSubfamilia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: integer
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fabricante
+      field: IDFabricante
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 20
+        min: 1
+        max: 9999
+        message: Valor Requerido
+      aditional_filter:
+        order: 2
+        caption: Fabricante
+        entity: Fabricantes
+        method: fetchAll
+        params: Fabricante
+        type: select
+    -
+      title: PVD
+      field: Pvd
+      filter: NO
+      list: yes
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: PVP
+      field: Pvp
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Margen
+      field: Margen
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Pre. Medio Compra
+      field: Pmc
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.000
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Iva
+      field: IDIva
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: 1
+        max: 9999
+        message: Valor Requerido
+      aditional_filter:
+        order: 10
+        caption: Tipo Iva
+        entity: TiposIva
+        method: fetchAll
+        params: Iva
+        type: select
+    -
+      title: Etiqueta
+      field: Etiqueta
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: EAN
+      field: CodigoEAN
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 13
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Caducidad
+      field: Caducidad
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Garantia
+      field: Garantia
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default:
+      validator:
+        nullable: YES
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Peso
+      field: Peso
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Volumen
+      field: Volumen
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Caracteristicas
+      field: Caracteristicas
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: FechaUltimoPrecio
+      field: FechaUltimoPrecio
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: datetime
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Vigente
+      field: Vigente
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 4
+        caption: Vigente
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Inventario
+      field: Inventario
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 5
+        caption: Inventario
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Trazabilidad
+      field: Trazabilidad
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 6
+        caption: Trazabilidad
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Packing Compras
+      field: PackingCompras
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Packing Ventas
+      field: PackingVentas
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 6
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Merma
+      field: Merma
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Bloqueo Stock
+      field: BloqueoStock
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 7
+        caption: Bloqueo Stock
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Estado
+      field: IDEstado
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 3
+        caption: Estado
+        entity: ArticulosEstados
+        method: fetchAll
+        params: Estado
+        type: select
+    -
+      title: Stock Minimo
+      field: StockMinimo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Stock Maximo
+      field: StockMaximo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Minimo Venta Alto
+      field: MinimoVentaAlto
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Minimo Venta Ancho
+      field: MinimoVentaAncho
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Minimo Venta
+      field: MinimoVenta
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Multiplo Alto
+      field: MultiploAlto
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Multiplo Ancho
+      field: MultiploAncho
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Recargo Energetico
+      field: RecargoEnergetico
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Udad Medida Básica
+      field: UMB
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: Udad Medida Compra
+      field: UMC
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: CUMC
+      field: CUMC
+      filter: NO
+      list: NO
+      form: NO
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Udad Medida Almacen
+      field: UMA
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: CUMA
+      field: CUMA
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Udad Medida Venta
+      field: UMV
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: CUMV
+      field: CUMV
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1.00
+      validator:
+        nullable: NO
+        type: decimal
+        length: 5
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Publicar en Web
+      field: PublicarWeb
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 9
+        caption: Pulicar Web
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Url Amigable
+      field: UrlAmigable
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 100
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Gestión Tallas/Colores
+      field: ConTallasColores
+      filter: NO
+      list: NO
+      form: YES
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 10
+        caption: Tallas/Colores
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Uso
+      field: IDUso
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 2
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 99
+        caption: Uso
+        entity: UsosArticulos
+        method: fetchAll
+        params: Descripcion
+        type: select        

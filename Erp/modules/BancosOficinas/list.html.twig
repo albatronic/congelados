@@ -1,0 +1,46 @@
+{# Template list.html.twig for BancosOficinas #}
+{# -------------------------------------------------------#}
+{% extends 'BancosOficinas/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+
+	{# include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller':'BancosOficinas','position':'izq'}#}
+
+	<table width="100%">
+            <tr class='Titulos'>
+                <td class='Item'>Oficina</td>
+                <td class='Item'>Dígito</td>
+                <td class='Item'>Dirección</td>
+                <td class='Item'>Población</td>
+                <td class='Item'>Provincia</td>
+                <td class='Item'>C.Postal</td>
+                <td class='Item'>Teléfono</td>
+            </tr>
+
+            <tbody class='Cuerpo'>
+            {% for key,objeto in values.listado.data %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+            <tr onclick="location.href='{{app.path}}/{{values.controller}}/edit/{{objeto.ID}}'" class='{{classFila}}'>
+                <td class='Item' align='center'><a href="{{app.path}}/BancosOficinas/edit/{{objeto.ID}}/{{objeto.IDBanco.IDBanco}}" title="Editar...">{{objeto.IDOficina}}</a></td>
+                <td class='Item' align='center'>{{objeto.Digito}}</td>
+                <td class='Item'>{{objeto.Direccion}}</td>
+                <td class='Item'>{{objeto.Poblacion}}</td>
+                <td class='Item'>{{objeto.IDProvincia}}</td>
+                <td class='Item' align='center'>{{objeto.CodigoPostal}}</td>
+                <td class='Item'>{{objeto.Telefono}}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan='9'>No hay informaci&oacute;n que cumpla esos criterios</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+	{# include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller':'BancosOficinas','position':'der'}#}
+
+</div>
+{% endblock %}

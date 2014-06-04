@@ -1,0 +1,70 @@
+{# TEMPLATE MvtosAlmacen/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+<div style="float: left; width: 49%">
+{{ macro.etiqueta('Tipo','Etiqueta',datos.IDTipo,25) }}
+{{ macro.etiqueta('Fecha','Etiqueta',datos.Fecha) }}
+{{ macro.etiqueta('Hora','Etiqueta',datos.Hora) }}
+{{ macro.etiqueta('Usuario','Etiqueta',datos.IDAgente) }}
+{{ macro.etiqueta('Almacén','Etiqueta',datos.IDAlmacen) }}
+{{ macro.etiqueta('Lote','Etiqueta',datos.IDLote) }}
+{{ macro.etiqueta('Ubicación','Etiqueta',datos.IDUbicacion) }}
+{{ macro.etiqueta('Artículo','Etiqueta','[' ~ datos.IDArticulo.Codigo ~ '] ' ~ datos.IDArticulo) }}
+{{ macro.etiqueta('Descripción','Etiqueta',datos.Descripcion) }}
+<div class="Item">
+    <div class="Etiqueta">Documento</div>
+    <p class="Literal"><a href="{{app.path}}/{{datos.getDocumento.getClassName}}/edit/{{datos.Documento}}" target="_blank" title="Ver Documento">{{datos.getNumeroDocumento}}</a></p>
+</div>
+</div>
+
+<div style="float: left; width: 49%">
+
+    <div style="font-size: 10px; margin-top: 15px;">
+        <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs-1">Movimiento</b></a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#tabs-2">Observaciones</b></a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#tabs-3">Documentos</b></a></li>
+            </ul>
+            <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                <div class='Listado'>
+                    <table width="100%">
+                        <tr class='Titulos'>
+                            <td class='Item'>&nbsp;</td>
+                            <td class='Item'>UMC</br>{{datos.IDArticulo.UMC}}</td>
+                            <td class='Item'>UMA</br>{{datos.IDArticulo.UMA}}</td>
+                            <td class='Item'>UMV</br>{{datos.IDArticulo.UMV}}</td>
+                            <td class='Item'>Pales</td>
+                            <td class='Item'>Cajas</td>
+                        </tr>
+                        <tbody class="Cuerpo">
+                            <tr class="ItemListado">
+                                <td class='Item'>Entrada</td>
+                                <td align="right">{{datos.IDArticulo.convertUnit('UMA','UMC',datos.UnidadesE,2)}}</td>
+                                <td align="right">{{datos.IDArticulo.convertUnit('UMC','UMC',datos.UnidadesE,2)}}</td>
+                                <td align="right">{{datos.IDArticulo.convertUnit('UMA','UMV',datos.UnidadesE,2)}}</td>
+                                <td align="right">{{datos.PalesE}}</td>
+                                <td align="right">{{datos.CajasE}}</td>
+                            </tr>
+                            <tr class="ItemListado">
+                                <td class='Item'>Salida</td>
+                                <td align="right">{{datos.IDArticulo.convertUnit('UMA','UMC',datos.UnidadesS,2)}}</td>
+                                <td align="right">{{datos.IDArticulo.convertUnit('UMC','UMC',datos.UnidadesS,2)}}</td>
+                                <td align="right">{{datos.IDArticulo.convertUnit('UMA','UMV',datos.UnidadesS,2)}}</td>
+                                <td align="right">{{datos.PalesS}}</td>
+                                <td align="right">{{datos.CajasS}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="tabs-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.textarea(none,'Etiqueta','MvtosAlmacen[Observaciones]','MvtosAlmacen_Observaciones',datos.Observaciones,none,none,'TextArea')}}
+            </div>        
+            <div id="tabs-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            {{ macro.documentos(values.controller,datos.getPrimaryKeyValue)}}
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,22 @@
+{# Template index.html.twig for RecepcionarLineas   #}
+{# -------------------------------------------------#}
+{% extends popup %}
+
+{% block content %}
+    {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+    {% include "_global/alertas.html.twig" with {'alertas': values.alertas} %}
+
+    {% block listado %}
+    {% endblock %}
+
+    {% block mensaje %}
+    <ul style="margin: 50px;">
+    {% for mensaje in values.mensajes %}
+        <li><h3>{{ mensaje }}</h3></li>
+    {% endfor %}
+    </ul>
+    {% endblock %}
+
+    <div id="notificacion"></div>
+
+{% endblock %}

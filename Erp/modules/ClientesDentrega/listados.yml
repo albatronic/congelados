@@ -1,0 +1,145 @@
+# Module: ClientesDentrega
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  - 
+    title: ClientesDentrega
+    order_by: IDDirec ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      - 
+        title: IDDirec
+        field: IDDirec
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDCliente
+        field: IDCliente
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Nombre
+        field: Nombre
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Direccion
+        field: Direccion
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDPais
+        field: IDPais
+        length: 11
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Poblacion
+        field: Poblacion
+        length: 30
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDProvincia
+        field: IDProvincia
+        length: 8
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: CodPostal
+        field: CodPostal
+        length: 10
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Telefono
+        field: Telefono
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Fax
+        field: Fax
+        length: 20
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: EMail
+        field: EMail
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Responsable
+        field: Responsable
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: Horario
+        field: Horario
+        length: 50
+        align: L
+        type: string
+        total: NO
+        formula: null
+        format: null
+      - 
+        title: IDComercial
+        field: IDComercial
+        length: 4
+        align: R
+        type: integer
+        total: NO
+        formula: null
+        format: null

@@ -1,0 +1,97 @@
+# Module: AlmacenesMapas
+# Document : modules\AlmacenesMapas\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 17.12.2011 19:00:12
+#
+---
+AlmacenesMapas:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: AlmacenesMapas
+  id_video: almacenesmapas
+  url_video: null
+  conection: 'empresas'
+  entity: AlmacenesMapas
+  table: almacenes_mapas
+  primarykey: IDUbicacion
+  linkBy: IDAlmacen
+  records_per_page: 15
+  order_by:
+    -
+      title: Ubicacion a-z
+      criteria: IDAlmacen,Ubicacion ASC
+    -
+      title: Ubicacion z-a
+      criteria: IDAlmacen,Ubicacion DESC
+  search_default: IDUbicacion
+  referenced_entities:
+    -
+      entity: Almacenes
+    -
+      entity: Agentes
+  columns:
+    -
+      title: IDUbicacion
+      field: IDUbicacion
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+    -
+      title: IDAlmacen
+      field: IDAlmacen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      aditional_filter:
+        order: 1
+        caption: IDAlmacen
+        entity: Almacenes
+        method: fetchAll
+        params: null
+        type: input
+        operator: =
+        event: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 3
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Ubicacion
+      field: Ubicacion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido

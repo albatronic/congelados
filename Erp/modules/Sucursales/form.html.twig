@@ -1,0 +1,17 @@
+{# TEMPLATE Sucursales/form.html.twig #}
+{# Muestra los campos editables de la entidad        #}
+
+{% set digitosCta = datos.IDEmpresa.DigitosCuentaContable %}
+
+{{ macro.input('Nombre','Etiqueta','text','Sucursales[Nombre]','Sucursales_Nombre',datos.Nombre,'50','CampoTextoMedio') }}
+{{ macro.input('Dirección','Etiqueta','text','Sucursales[Direccion]','Sucursales_Direccion',datos.Direccion,'50','CampoTextoMedio') }}
+{{ macro.input('Población','Etiqueta','text','Sucursales[Poblacion]','Sucursales_Poblacion',datos.Poblacion,'30','CampoTextoMedio') }}
+{{ macro.select('Provincia','Etiqueta','Sucursales[IDProvincia]','Sucursales_IDProvincia',none,datos.IDProvincia.IDProvincia,datos.IDProvincia.fetchAll('Provincia'),'Select')}}
+{{ macro.input('Código Postal','Etiqueta','text','Sucursales[CodigoPostal]','Sucursales_CodigoPostal',datos.CodigoPostal,'10','CampoCPostal') }}
+{{ macro.input('Teléfono','Etiqueta','text','Sucursales[Telefono]','Sucursales_Telefono',datos.Telefono,'30','CampoTextoMedio') }}
+{{ macro.input('Fax','Etiqueta','text','Sucursales[Fax]','Sucursales_Fax',datos.Fax,'30','CampoTextoMedio') }}
+{{ macro.input('E-Mail','Etiqueta','text','Sucursales[EMail]','Sucursales_EMail',datos.EMail,'50','CampoTextoMedio') }}
+{{ macro.select('Responsable','Etiqueta','Sucursales[IDResponsable]','Sucursales_IDResponsable',none,datos.IDResponsable.IDAgente,datos.IDResponsable.fetchAll('Nombre'),'Select') }}
+{{ macro.input('Cta Cont. Clientes','Etiqueta','text','Sucursales[CtaContableClientes]','Sucursales_CtaContableClientes',datos.CtaContableClientes,'3','CampoTextoCorto') }}
+{{ macro.input('Cta Cont. Ventas','Etiqueta','text','Sucursales[CtaContableVentas]','Sucursales_CtaContableVentas',datos.CtaContableVentas,digitosCta,'CampoTextoMedio') }}
+{{ macro.input('Cta Cont. Compras','Etiqueta','text','Sucursales[CtaContableCompras]','Sucursales_CtaContableCompras',datos.CtaContableCompras,digitosCta,'CampoTextoMedio') }}

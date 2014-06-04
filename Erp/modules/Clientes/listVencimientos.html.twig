@@ -1,0 +1,41 @@
+{# Clientes/listVencimientos.html.twig #}
+
+{% extends popup %}
+
+{% block content %}
+<div class="Listado">
+    <table width="100%">
+        <tr class='Titulos'>
+            <td width='16px'>&nbsp;</td>            
+            <td class='Item'>Factura</td>
+            <td class='Item'>Fecha</td>
+            <td class='Item'>Vencimiento</td>
+            <td class='Item'>Importe</td>
+            <td class='Item'>Estado</td>
+        </tr>
+        <tbody class="Cuerpo">
+            {% for key,recibo in values.recibos %}
+                {% if (key is even) %}
+                    {% set classFila = 'Impar' %}
+                {% else %}
+                    {% set classFila = 'Par' %}
+                {% endif %}
+                <tr class='{{classFila}}'>
+                    <td>
+                        <a href='{{app.path}}/RecibosClientes/Edit/{{recibo.IDRecibo}}' target="_blank" title='Editar Recibo ...'>
+                            <img src="{{app.path}}/images/botoneditar.png" width="16px" height="16px" />
+                        <a>
+                    </td>                    
+                    <td align="left">
+                        <a href="{{app.path}}/FemitidasCab/Edit/{{recibo.IDFactura.IDFactura}}" target="_blank">{{recibo.IDFactura}}</a>
+                    </td>
+                    <td align="center">{{recibo.Fecha}}</td>
+                    <td align="center">{{recibo.Vencimiento}}</td>
+                    <td align="right">{{recibo.Importe}}</td>
+                    <td>{{recibo.IDEstado}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

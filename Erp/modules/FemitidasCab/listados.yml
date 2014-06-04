@@ -1,0 +1,356 @@
+# Module: FemitidasCab
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+listados:
+  -
+    title: Facturas Emitidas
+    order_by: >
+      femitidas_cab.Fecha,femitidas_cab.IDFactura ASC
+    break_field: null
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Factura
+        field: NumeroFactura
+        length: 8
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cliente
+        field: IDCliente
+        length: 36
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  -
+    title: Facturas X Comercial
+    order_by: >
+      femitidas_cab.IDComercial,
+      femitidas_cab.Fecha,femitidas_cab.IDFactura ASC
+    break_field: IDComercial
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Factura
+        field: NumeroFactura
+        length: 8
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cliente
+        field: IDCliente
+        length: 36
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  -
+    title: Facturas X Sucursal
+    order_by: >
+      femitidas_cab.IDSucursal,
+      femitidas_cab.Fecha,femitidas_cab.IDFactura ASC
+    break_field: IDSucursal
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Factura
+        field: NumeroFactura
+        length: 8
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 8
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Comercial
+        field: IDComercial
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 11
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Cliente
+        field: IDCliente
+        length: 29
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+  -
+    title: Facturas X Cliente
+    order_by: >
+      femitidas_cab.IDCliente,
+      femitidas_cab.Fecha,femitidas_cab.IDFactura ASC
+    break_field: IDCliente
+    idPerfil: null
+    orientation: P
+    unit: mm
+    format: A4
+    margins: 10, 10, 15, 10
+    body_font: Courier, ,8
+    columns:
+      -
+        title: Factura
+        field: NumeroFactura
+        length: 8
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Sucursal
+        field: IDSucursal
+        length: 13
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Comercial
+        field: IDComercial
+        length: 25
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Fecha
+        field: Fecha
+        length: 10
+        align: R
+        type: date
+        total: NO
+        formula: null
+        format: null
+      -
+        title: Base Imp.
+        field: TotalBases
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Iva
+        field: TotalIva
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Cuota Rec.
+        field: TotalRecargo
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f
+      -
+        title: Total
+        field: Total
+        length: 10
+        align: R
+        type: decimal
+        total: YES
+        formula: null
+        format: %01.2f

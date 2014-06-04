@@ -1,0 +1,167 @@
+# Module: ClientesContactos
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+ClientesContactos:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Personas de Contacto
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: ClientesContactos
+  table: clientes_contactos
+  primarykey: IDContacto
+  linkBy: IDCliente
+  records_per_page: 9999
+  order_by: IDContacto
+  search_default: IDContacto
+  columns:
+    - 
+      title: IDContacto
+      field: IDContacto
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    - 
+      title: IDCliente
+      field: IDCliente
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Cargo
+      field: Cargo
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Nombre
+      field: Nombre
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Telefono
+      field: Telefono
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Fax
+      field: Fax
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Movil
+      field: Movil
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 20
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: EMail
+      field: EMail
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido

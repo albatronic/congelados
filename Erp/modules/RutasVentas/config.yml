@@ -1,0 +1,190 @@
+# Module: RutasVentas
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+RutasVentas:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Rutas de Ventas
+  id_video: rutasventas
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: RutasVentas
+  table: rutas_ventas
+  primarykey: Id
+  records_per_page: 15
+  order_by: Id
+  search_default: Id
+  referenced_entities:
+    entity: Clientes
+  columns:
+    - 
+      title: Id
+      field: Id
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+    - 
+      title: Comercial
+      field: IDComercial
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      aditional_filter:
+        order: 1
+        caption: IDComercial
+        entity: Agentes
+        method: fetchAll
+        params: [ ]
+        type: input
+        operator: =
+        event: null
+        default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Dia
+      field: Dia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      aditional_filter:
+        order: 2
+        caption: Dia
+        entity: ValoresSN
+        method: fetchAll
+        params: [ ]
+        type: select
+        operator: =
+        event: null
+        default: null
+      validator:
+        nullable: NO
+        type: tinyint
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: OrdenZona
+      field: OrdenZona
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Zona
+      field: IDZona
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      aditional_filter:
+        order: 3
+        caption: IDZona
+        entity: Zonas
+        method: fetchAll
+        params: [ ]
+        type: input
+        operator: =
+        event: null
+        default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: OrdenCliente
+      field: OrdenCliente
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    - 
+      title: Cliente
+      field: IDCliente
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      aditional_filter:
+        order: 4
+        caption: IDCliente
+        entity: Clientes
+        method: fetchAll
+        params: [ ]
+        type: input
+        operator: =
+        event: null
+        default: null
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: null
+        max: null
+        message: Valor Requerido

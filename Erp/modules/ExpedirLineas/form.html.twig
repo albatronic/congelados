@@ -1,0 +1,184 @@
+{# Template form.html.twig for ExpedirLineas   #}
+{# --------------------------------------------#}
+{% extends 'ExpedirLineas/index.html.twig' %}
+
+{% block listado %}
+
+{% if values.listado.data %}
+<div class='Listado' style="padding: 3px;">
+    <h3>Expedición del documento {{values.objetoEntidad.getNumeroDocumento}}</h3>
+    {% if (values.objetoEntidad.NotasInternas) %}
+        <h4 style="margin: 5px; color: red;">{{values.objetoEntidad.NotasInternas}}</h4>
+    {% endif %}
+    <table width='100%'>
+        <tr class='Titulos'>
+            <td class='Item'>Cantidad</td>
+            <td class='Item'>Kgrs.</td>
+            <td class='Item'>Cajas</td>
+            <td class='Item'>Pales</td>
+            <td class='Item'>Lote</td>
+            {% if values.listado.data[0].IDAlmacen.ControlUbicaciones.IDTipo == '1' %}
+            <td class='Item'>Ubicación</td>
+            {% endif %}
+            <td class='Item'>ºC</td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tbody class="Cuerpo">
+            {% set linAnt = 0 %}
+            {% set nLineas = 0 %}
+            {% for key,objeto in values.listado.data %}
+            <form name="linea{{key}}" action="" method="POST">
+                <input name="controller" value="ExpedirLineas" type="hidden" />
+                <input name="action" value="edit" type="hidden" />
+                <input name="accion" id="accion{{key}}" value="" type="hidden" />
+                <input name="entidad" value="{{values.entidad}}" type="hidden" />
+                <input name="idEntidad" value="{{values.idEntidad}}" type="hidden" />
+                <input name="Expediciones[IDLinea]" value="{{ objeto.IDLinea }}" type="hidden" />
+
+                {% set nLineas = nLineas +1 %}
+                {% if (linAnt != objeto.IDLineaEntidad.IDLinea) %}
+                <tr class="ItemListado">
+                    <td colspan="8" class="InterLinea">
+                        <div style="width: 393px; float: left;">[{{objeto.IDArticulo.Codigo}}] {{objeto.IDLineaEntidad.IDArticulo.Descripcion}}</div>
+                        <div style="width: 150px; float: left;">
+                            {{objeto.IDLineaEntidad.Unidades}} {{objeto.IDLineaEntidad.UnidadMedidaArticulo}}
+                            ({{objeto.IDArticulo.convertUnit(objeto.UnidadMedida,'UMA',objeto.IDLineaEntidad.Unidades)}} {{objeto.IDLineaEntidad.IDArticulo.UMA}})
+                        </div>
+                        {% if (objeto.FlagSinStock != '0') %}
+                        <div style="float: left; font-weight: bold; color: red;">Sin stock !!</div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endif %}
+                {% set linAnt = objeto.IDLineaEntidad.IDLinea %}
+
+                {% if ( (objeto.FlagSinStock == '0') or (objeto.IDArticulo.BloqueoStock.IDTipo == '0')  ) %}
+                <tr class="ItemListado">
+                    <td align="center"><input name="Expediciones[Unidades]" id="Expediciones_Unidades{{key}}" value="{{objeto.Unidades}}" type="text" style="width:60px;text-align:right;" /></td>
+                    <td align="center"><input name="Expediciones[Kilos]" id="Expediciones_Kilos{{key}}" value="{{objeto.Kilos}}" type="text" style="width:60px;text-align:right;" /></td>
+                    <td align="center"><input name="Expediciones[Cajas]" value="{{objeto.Cajas}}" type="text" style="width:40px;text-align:right;" /></td>
+                    <td align="center"><input name="Expediciones[Pales]" value="{{objeto.Pales}}" type="text" style="width:40px;text-align:right;" /></td>
+                    <td align="center">
+                    <div id="div_Lote{{key}}">
+                        {% if objeto.FlagTrazabilidad == '1' %}
+                            {% if (not objeto.FlagSinStock) and (objeto.Unidades > 0) %}
+                                {% set arrayLotes = objeto.IDArticulo.getLotesDisponibles(objeto.IDAlmacen.IDAlmacen) %}
+                            {% else %}
+                                {% set arrayLotes = objeto.IDLote.fetchAll(objeto.IDArticulo.IDArticulo) %}
+                            {% endif %}
+                            <select name="Expediciones[IDLote]" id="Expediciones_IDLote{{key}}" class="Select" style="width:150px;"
+                                {% if objeto.IDAlmacen.ControlUbicaciones.IDTipo == '1' %}
+                                    {% if (not objeto.FlagSinStock) and (objeto.Unidades > 0) %}
+                                        onchange="DesplegableAjax('Expediciones_IDUbicacion{{key}}','Expediciones_IDUbicacion{{key}}','Expediciones[IDUbicacion]','ubicacionesLote',this.value+'-'+'{{objeto.IDAlmacen.IDAlmacen}}');"
+                                    {% else %}
+                                        onchange="DesplegableAjax('Expediciones_IDUbicacion{{key}}','Expediciones_IDUbicacion{{key}}','Expediciones[IDUbicacion]','ubicacionesAlmacen','{{objeto.IDAlmacen.IDAlmacen}}');"
+                                    {% endif %}
+                                {% endif %}
+                            >
+                            {% for lote in arrayLotes %}
+                                <option value="{{lote.Id}}" {% if lote.Id == objeto.IDLote.IDLote %} SELECTED {% endif %}>{{lote.Value}}</option>
+                            {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+                    </td>
+                    {% if objeto.FlagUbicacion == '1' %}
+                    <td align="center">
+                    <div id="div_Ubicacion{{key}}">
+                            {% if (not objeto.FlagSinStock) %}
+                                {% set arrayUbicaciones = objeto.IDLote.getUbicaciones(objeto.IDAlmacen.IDAlmacen) %}
+                            {% else %}
+                                {% set arrayUbicaciones = objeto.IDAlmacen.getUbicaciones %}
+                            {% endif %}
+                            <select name="Expediciones[IDUbicacion]" id="Expediciones_IDUbicacion{{key}}" class="Select" style="width:110px;">
+                                {% for ubicacion in arrayUbicaciones%}
+                                <option value="{{ubicacion.Id}}" {% if ubicacion.Id == objeto.IDUbicacion.IDUbicacion %} SELECTED {% endif %}>{{ubicacion.Value}}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    </td>
+                    {% endif %}
+                    <td align="center"><input name="Expediciones[Temperatura]" value="{{objeto.Temperatura}}" type="text" style="width:43px;text-align:right;"/></td>
+                    <td align="center">
+                        <input type="image" src="{{app.path}}/images/botonsave.png" onclick="getElementById('accion{{key}}').value='G';$('#linea{{key}}').submit();" alt="Guardar" title="Guardar Linea" />
+                        <input type="image" src="{{app.path}}/images/papelera.gif" onclick="if (!confirm('Desea eliminar la línea?')) {return false;} else {getElementById('accion{{key}}').value='B';}" alt="Borrar" title="Borrar Linea" />
+                    </td>
+                </tr>
+                {% endif %}
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<div class="FormManto" style="margin-top: 10px; text-align: center;">
+    <form name="Expedir" id="expedirForm" action="" method="POST">
+        <input name="controller" value="ExpedirLineas" type="hidden" />
+        <input name="action" id="action" value="Expedir" type="hidden" />        
+        <input name="entidad" id="entidad" value="{{values.entidad}}" type="hidden" />
+        <input name="idEntidad" id="idEntidad" value="{{values.idEntidad}}" type="hidden" />
+        <div style="float: center;">
+        <input type="button" value="Expedir" class="Comando" 
+               onclick="
+                   valida({{nLineas}});
+                   $('#dialogoValidar').dialog('open');
+               "
+        />
+        </div>
+    </form>
+</div>
+
+<div id="dialogoValidar" title='Expedir el documento {{values.objetoEntidad.getNumeroDocumento}}'></div>
+    
+</div>
+{{ macro.foco('Expediciones_Kilos0') }}
+
+{% else %}
+<p style="margin: 50px; font-weight: bold;">No hay nada que expedir, posiblemente por falta de stock</p>
+{% endif %}
+
+<script language='JavaScript' type='text/javascript'>
+    function valida(nLineas) {
+        
+        var mensaje = "";
+        var valor;
+        
+        for (i=0; i<nLineas; i++) {
+            valor = $('#Expediciones_Unidades'+i).val();
+            if ( !IsNumeric(valor) || parseFloat(valor) == 0) {
+                linea = i+1;
+                mensaje += '<div style="margin-top:5px;">En la línea ' + linea + ' falta indicar las unidades</div>';
+              }
+        }
+        mensaje += '<div style="margin-top:15px;">¿ Desea realizar la expedición ?</div>';
+        $('#dialogoValidar').html(mensaje);
+    }
+    
+
+    $(function() {
+        $( "#dialog:ui-dialog" ).dialog( "destroy" );  
+       
+        $( "#dialogoValidar" ).dialog({
+                        autoOpen: false,
+                        width: 330,
+			height:240,                        
+			resizable: true,
+			modal: true,
+			buttons: {
+				"Expedir": function() {
+                                    $('#action').val('Expedir');                                    
+                                    $('#entidad').val('{{values.entidad}}');
+                                    $('#idEntidad').val('{{values.idEntidad}}');
+                                    $('#expedirForm').submit();
+                                    $( this ).dialog( "close" );
+				},
+				"Cancelar": function() {
+                                    $( this ).dialog( "close" );
+				}
+			}
+        });
+    });
+</script>    
+
+    
+{% endblock %}

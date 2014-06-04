@@ -1,0 +1,250 @@
+# Module: Almacenes
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Almacenes:
+  login_required: YES
+  permission_control: YES
+  help_file: help.html.twig
+  title: Almacenes
+  conection: empresas
+  entity: Almacenes
+  table: almacenes
+  primarykey: IDAlmacen
+  records_per_page: 10
+  order_by:
+    -
+      title: Nombre a-z
+      criteria: Nombre ASC
+    -
+      title: Nombre z-a
+      criteria: Nombre DESC
+  search_default: Nombre
+  columns:
+    -
+      title: Código
+      field: IDAlmacen
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator: null
+    -
+      title: Nombre
+      field: Nombre
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Dirección
+      field: Direccion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Población
+      field: Poblacion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Provincia
+      field: IDProvincia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: null
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 2
+        caption: Provincia
+        entity: Provincias
+        method: fetchAll
+        params: Provincia
+        type: select
+    -
+      title: Código Postal
+      field: CodigoPostal
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Teléfono
+      field: Telefono
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fax
+      field: Fax
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: EMail
+      field: EMail
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Tipo
+      field: Tipo
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: 0
+        max: 1
+        message: Valor Requerido
+      aditional_filter:
+        order: 1
+        caption: Tipo
+        entity: AlmacenesTipos
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Con Ubicaciones
+      field: ControlUbicaciones
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: 0
+        max: 1
+        message: Valor Requerido
+      aditional_filter:
+        order: 2
+        caption: Con Ubicaciones
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select

@@ -1,0 +1,77 @@
+# Module: RutasReparto
+# Document : modules\RutasReparto\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 14.05.2012 17:19:59
+#
+---
+RutasReparto:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Rutas de Reparto
+  id_video: rutasreparto
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: RutasReparto
+  table: rutas_reparto
+  primarykey: IDRuta
+  records_per_page: 15
+  order_by:
+    -
+      title: Descripción a-z
+      criteria: Descripcion ASC
+    -
+      title: Descripción z-a
+      criteria: Descripcion DESC
+  search_default: IDRuta
+  referenced_entities:
+  columns:
+    -
+      title: IDRuta
+      field: IDRuta
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default:
+    - 
+      title: Sucursal
+      field: IDSucursal
+      filter: NO
+      list: YES
+      form: YES
+      validator:
+        nullable: NO
+        type: integer
+        length: 35
+        min: 1
+        max: 9999
+        message: Valor Requerido
+    -
+      title: Descripción
+      field: Descripcion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+        link: null
+      default: 
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido

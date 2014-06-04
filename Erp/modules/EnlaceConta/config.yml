@@ -1,0 +1,21 @@
+# Module: EnlaceConta
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 19-05-2012
+#
+---
+EnlaceConta:
+  login_required: YES
+  permission_control: YES
+  favourite_control: YES
+  help_file: help.html.twig
+  title: Enlace con Contabilidad
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: 
+  table: 
+  primarykey: 
+  records_per_page: 
+  order_by:
+  search_default:
+  columns:

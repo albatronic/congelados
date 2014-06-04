@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es-ES" lang="es-ES">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link type="text/css" rel="stylesheet" href="{{app.path}}/css/inicial.css" />
+        <link type="text/css" rel="stylesheet" href="{{app.path}}/css/thickbox.css" media="screen" />
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <!-- Para que esté disponible el path de la app en todos los java scripts -->
+        <script type="text/javascript">var appPath = "{{app.path}}";</script>
+        <!-------------------------------------------------------------------------->
+        <script type="text/javascript" src="{{app.path}}/js/jquery.js"></script>
+        <script type="text/javascript" src="{{app.path}}/js/thickbox.js"></script>
+
+        <title>.: {{ app.name }} {% block title %} {{ titulo }} {% endblock %}</title>
+
+    </head>
+
+    <body>
+        <div class="contenedor">
+            <div class="cabecera">
+               {% block login %}
+                {{ values.loginMensaje }}
+                <form name="login" method="post">
+                    <input name="controller" value="Login" type="hidden">
+                    <input name="action" value="Login" type="hidden">
+                    Usuario<input type="text" name="user" class="campoinput" maxlength="50">
+                    Password<input type="password" name="password" class="campoinput">
+                    <input type="submit" value="Entrar" class="submit">
+                </form>
+                <a href="{{app.path}}/Login/forgot" class="pie">Recordar</a>
+                {% endblock %}
+            </div>
+
+            <div class="navmenu">
+                <ul>
+                    <li><a href="{{app.path}}">Inicio</a></li>
+                    <li><a href="{{app.path}}/saas">Software SaaS</a></li>
+                    <li><a href="{{app.path}}/web">Dise&ntilde;o Web</a></li>
+                    <li><a href="{{app.path}}/mantenimiento">Mantenimiento</a></li>
+                    <li><a href="{{app.path}}/contactar">Conctato</a></li>
+                </ul>
+            </div>
+
+            <div class="cuerpo">
+                    {% block content %}
+                    {% endblock %}
+            </div>
+
+            <div class="pie">
+                <div class="pieizq">
+                    <a href="{{app.path}}/avisolegal">Aviso Legal</a> |
+                    <a href="{{app.path}}/contactar">Contactar</a>
+                    <div class="debug">
+                            {% if values._debugMode %}
+                        <pre>{{values._debugValues}}</pre>
+                            {% endif %}
+                    </div>
+                </div>
+                <div class="piedch">
+                    Copyright:&nbsp;&copy;2012 ALBATRONIC, SL
+                </div>
+            </div>
+
+        </div>
+
+        <script language="JavaScript" type="text/javascript">
+        document.login.user.focus();
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,13 @@
+{# Template list.html.twig for Etiquetas #}
+{# -------------------------------------------------------#}
+{% extends 'Etiquetas/index.html.twig' %}
+
+{% block listado %}
+<div class='Listado'>
+	<div class='Cabecera'>Listado</div>
+
+	{% include '_global/paginacion.html.twig' with {'filter':values.listado.filter,'controller':'Etiquetas','position':'izq'}%}
+	{% include '_global/listGenerico.html.twig' with {'listado':values.listado} %}
+
+</div>
+{% endblock %}

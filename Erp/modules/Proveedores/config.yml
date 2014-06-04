@@ -1,0 +1,481 @@
+# Module: Proveedores
+#
+# @author Sergio Perez <sergio.perez@albatronic.com>
+# @copyright Informatica ALBATRONIC
+# @since: 27-11-2011
+#
+---
+Proveedores:
+  login_required: YES
+  permission_control: YES
+  favourite_control: YES
+  help_file: help.html.twig
+  title: Proveedores
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: Proveedores
+  table: proveedores
+  primarykey: IDProveedor
+  records_per_page: 15
+  order_by:
+    -
+      title: Razón Social a-z
+      criteria: RazonSocial ASC
+    -
+      title: Razón Social z-a
+      criteria: RazonSocial DESC
+  search_default: RazonSocial
+  columns:
+    -
+      title: Código
+      field: IDProveedor
+      filter: NO
+      list: NO
+      form: YES
+      default: null
+      validator:
+        type: string
+        length: 10
+    -
+      title: Razón Social
+      field: RazonSocial
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: Editar...
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Nombre Comercial
+      field: NombreComercial
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cif
+      field: Cif
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 15
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Dirección
+      field: Direccion
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Pais
+      field: IDPais
+      filter: NO
+      list: YES
+      form: YES
+      default: null
+      aditional_filter:
+        order: 1
+        caption: Pais
+        entity: Paises
+        method: fetchAll
+        params: Pais
+        type: select
+      validator:
+        nullable: NO
+        type: integer
+        length: 11
+        min: 1
+        max: 999999
+        message: Valor Requerido
+    -
+      title: Población
+      field: Poblacion
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: NO
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Provincia
+      field: IDProvincia
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      aditional_filter:
+        order: 2
+        caption: Provincia
+        entity: Provincias
+        method: fetchAll
+        params: Provincia
+        type: select
+      validator:
+        nullable: NO
+        type: integer
+        length: 8
+        min: 1
+        max: 999999
+        message: Valor Requerido
+    -
+      title: Cód. Postal
+      field: CodigoPostal
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Teléfono
+      field: Telefono
+      filter: YES
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Fax
+      field: Fax
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Móvil
+      field: Movil
+      filter: NO
+      list: YES
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 30
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: EMail
+      field: EMail
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: email
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Web
+      field: Web
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: 50
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cta Contable
+      field: CContable
+      filter: YES
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: YES
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Banco
+      field: IDBanco
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000
+      validator:
+        nullable: NO
+        type: string
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Oficina
+      field: IDOficina
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000
+      validator:
+        nullable: NO
+        type: string
+        length: 4
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: DC
+      field: Digito
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 00
+      validator:
+        nullable: NO
+        type: null
+        length: 2
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Cuenta
+      field: Cuenta
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0000000000
+      validator:
+        nullable: NO
+        type: string
+        length: 10
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Observaciones
+      field: Observaciones
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: null
+      validator:
+        nullable: YES
+        type: string
+        length: null
+        min: null
+        max: null
+        message: Valor Requerido
+    -
+      title: Forma de Pago
+      field: IDFP
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 0
+      validator:
+        nullable: NO
+        type: integer
+        length: 4
+        min: 1
+        max: 9999
+        message: Valor Requerido
+      aditional_filter:
+        order: 98
+        caption: Forma de Pago
+        entity: FormasPago
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Sujeto a IVA
+      field: Iva
+      filter: NO
+      list: NO
+      form: YES
+      link:
+        route: null
+        param: null
+        title: null
+        target: null
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 3
+        caption: Sujeto a IVA
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion
+        type: select
+    -
+      title: Vigente
+      field: Vigente
+      filter: NO
+      list: NO
+      form: YES
+      default: 1
+      validator:
+        nullable: NO
+        type: integer
+        length: 1
+        min: null
+        max: null
+        message: Valor Requerido
+      aditional_filter:
+        order: 99
+        caption: Vigente
+        entity: ValoresSN
+        method: fetchAll
+        params: Descripcion,1
+        type: select
+        default: 1        

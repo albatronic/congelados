@@ -9,7 +9,31 @@
     <form name="manto" action="" enctype="multipart/form-data" method="POST">
         <input name="controller" value="Articulos" type="hidden" />
         <input name="action" id="action" value="edit" type="hidden" />
-        {% include "_global/comandosSaveDelete.html.twig" %}
+        <input name="accion" id="accion" value="" type="hidden" />
+        <div class='Comandos'>
+
+            <div class="Titulo">
+
+            <div style="float: left;">
+                {% if values.permisos['A'] %}
+                <input type="image" src="{{app.path}}/images/save_cmd.png" width="24px" onclick="getElementById('accion').value='Guardar';" alt="Guardar" title="Guardar" />
+                {% endif %}
+                {% if values.permisos['B'] %}
+                <input type="image" src="{{app.path}}/images/trash_cmd.png" width="24px" onclick="if (!confirm('¿Desea borrar el registro?')) {return false;} else {getElementById('accion').value='Borrar';}" alt="Borrar" title="Borrar" />
+                {% endif %}
+                {% if values.permisos['C'] %}
+                <a href="javascript:;" onClick="window.open('{{app.path}}/_Emergente/HistoricoVentas/{{values.datos.IDArticulo}}/0','HistoricoVentas','width=850,height=500,resizable=yes,scrollbars=yes');">
+                    <img src="{{app.path}}/images/historico.png" width="24px" height="24px" alt="Historico" title="Historico de Ventas...">
+                </a>
+                {% endif %}                
+            </div>
+
+            {% include '_global/comandosAuditoria.html.twig' with {'controller': values.controller} %}
+
+            <div style="clear: both;"></div>
+
+            </div>
+        </div>
 
         <div class='Cuerpo'>
         <input name="Articulos[IDArticulo]" id="Articulos_IDArticulo" value="{{values.datos.IDArticulo}}" type="hidden" />

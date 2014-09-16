@@ -772,7 +772,7 @@ reports:
     title: Listado de Facturas por Ruta de Venta
     comment: Facturas pendientes de cobro del comercial y ruta de venta. El orden es alfabético por razón social de cliente.
     idPerfil: '4,5,6,8'
-    break_fields: RazonSocial
+    break_fields: nombre
     orientation: P
     unit: mm
     format: A4
@@ -780,7 +780,7 @@ reports:
     print_total_records: true
     print_interline:
     query: >
-      SELECT cl.RazonSocial,cl.NombreComercial,fe.NumeroFactura, DATE_FORMAT(fe.Fecha,'%d/%m/%Y') as Fecha, fe.Total, DATE_FORMAT(rc.Vencimiento,'%d/%m/%Y') as FVcto, rc.Importe
+      SELECT concat(cl.RazonSocial," - ",cl.NombreComercial) nombre,fe.NumeroFactura, DATE_FORMAT(fe.Fecha,'%d/%m/%Y') as Fecha, fe.Total, DATE_FORMAT(rc.Vencimiento,'%d/%m/%Y') as FVcto, rc.Importe
       FROM
         rutas_ventas as rv,
         clientes as cl,
@@ -1687,7 +1687,7 @@ reports:
     print_total_records: true
     print_interline:
     query: >
-      SELECT f.Familia, a.Codigo, a.Descripcion, a.StockMinimo, sum(e.Reales) as Reales, (a.StockMinimo-sum(e.Reales)) as Pedido
+      SELECT f.Familia, a.Codigo, a.Descripcion, a.StockMinimo, sum(e.Reales) as Reales, (a.StockMinimo-sum(e.Reales)) as Pedido,e.Entrando,e.Reservadas as Reservas,(a.StockMinimo-sum(e.Reales)+e.Reservadas) as PedidoOptimo
       FROM existencias e, articulos a, familias as f
       WHERE
         e.IDAlmacen = 'ALMACEN' AND
@@ -1711,7 +1711,7 @@ reports:
       -
         title: Código
         field: Codigo
-        length: 20
+        length: 10
         align: L
         type: string
         total: NO
@@ -1720,7 +1720,7 @@ reports:
       -
         title: Descripción
         field: Descripcion
-        length: 45
+        length: 40
         align: L
         type: string
         total: NO
@@ -1745,9 +1745,27 @@ reports:
         formula: null
         format: %01.2f
       -
-        title: Pedido Mínimo
+        title: Ped Mínimo
         field: Pedido
-        length: 14
+        length: 11
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: Reservas
+        field: Reservas
+        length: 11
+        align: R
+        type: decimal
+        total: NO
+        formula: null
+        format: %01.2f
+      -
+        title: Ped Optimo
+        field: PedidoOptimo
+        length: 11
         align: R
         type: decimal
         total: NO
@@ -1964,7 +1982,7 @@ reports:
     comment: >
       Informe de inventario valorado
     idPerfil: '4,5,6,8'
-    break_fields: Familia
+    break_fields: Almacen,Familia
     break_page: YES
     orientation: P
     unit: mm
@@ -1993,11 +2011,12 @@ reports:
         e.IDArticulo=a.IDArticulo and 
         a.IDFamilia=f.IDFamilia and
         a.IDFamilia like '%FAMILIA%' and
+        al.IDAlmacen like '%ALMACEN%' and
         a.UMA = u.Id and
         e.IDAlmacen=al.IDAlmacen
-      GROUP BY f.familia, a.Codigo
+      GROUP BY al.nombre,f.familia, a.Codigo
       HAVING sum(e.Reales) <> 0  
-      ORDER BY al.IDAlmacen,a.IDFamilia      
+      ORDER BY al.IDAlmacen,f.familia,a.Descripcion      
     filters:
       -
         field: ALMACEN

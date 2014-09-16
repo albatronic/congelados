@@ -14,6 +14,10 @@ class Existencias extends ExistenciasEntity {
         return $this->getId();
     }
 
+    public function getCodigoArticulo() {
+        return $this->getIDArticulo()->getCodigo();
+    }
+    
     /**
      * Devuelve un array con las existencias
      * del ARTICULO, ALMACEN (opcional), LOTE (opcional), UBICACION (opcional) y DEPOSITO (opcional) indicado.

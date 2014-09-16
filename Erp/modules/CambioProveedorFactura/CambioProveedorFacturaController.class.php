@@ -122,7 +122,7 @@ class CambioProveedorFacturaController extends Controller {
 
             // Cambiar factura
             $filtro = "NumeroFactura='{$this->request['numeroFactura']}' AND IDProveedor='{$this->request['idProveedorAnterior']}'";
-            $query = "update femitidas_cab set IDProveedor='{$this->request['idProveedorNuevo']}' where {$filtro}";
+            $query = "update frecibidas_cab set IDProveedor='{$this->request['idProveedorNuevo']}' where {$filtro}";
             $em->query($query);
             $this->values['errores'] = $em->getError();
             $okFactura = $em->getAffectedRows();
@@ -136,11 +136,11 @@ class CambioProveedorFacturaController extends Controller {
                 $em->query($query);
                 $this->values['errores'] = $em->getError();
                 $nPedidos = $em->getAffectedRows();
-                $this->values['mensaje'][] = "Se han cambiado " . $nPedidos . " albaranes.";
+                $this->values['mensaje'][] = "Se han cambiado " . $nPedidos . " pedidos.";
                 
                 // Cambiar recibos
                 $filtro = "IDFactura='{$this->request['idFactura']}' AND IDProveedor='{$this->request['idProveedorAnterior']}'";
-                $query = "update recibos_proveedors set IDProveedor='{$this->request['idProveedorNuevo']}' where {$filtro}";
+                $query = "update recibos_proveedores set IDProveedor='{$this->request['idProveedorNuevo']}' where {$filtro}";
                 $em->query($query);
                 $this->values['errores'] = $em->getError();
                 $nRecibos = $em->getAffectedRows();

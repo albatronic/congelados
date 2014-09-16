@@ -15,7 +15,8 @@ class ClientesDentrega extends ClientesDentregaEntity {
     }
 
     /**
-     * Devuelve un array con todas las direcciones de entrega de un cliente
+     * Devuelve un array con todas las direcciones de entrega 
+     * vigentes de un cliente
      *
      * Si se omite el segundo parametro, como valor a mostar se genera un string
      * concatenando la dirección, el codigo postal y la poblacion
@@ -33,7 +34,7 @@ class ClientesDentrega extends ClientesDentregaEntity {
             if ($column == '') {
                 $column = "CONCAT(Direccion,' ',CodPostal,' ',Poblacion)";
             }
-            $filtro = "WHERE (IDCliente='" . $idCliente . "') ";
+            $filtro = "WHERE (IDCliente='" . $idCliente . "') and Vigente='1'";
             $query = "SELECT IDDirec as Id,$column as Value FROM clientes_dentrega $filtro ORDER BY $column ASC;";
             $this->_em->query($query);
             $rows = $this->_em->fetchResult();
@@ -44,6 +45,30 @@ class ClientesDentrega extends ClientesDentregaEntity {
         return $rows;
     }
 
+    /**
+     * Devuelve array con los id's de las direcciones
+     * de entrega vigentes de la zona $idZona y cuyos clientes 
+     * están vigentes.
+     * 
+     * @param int $idZona
+     * @return array
+     */
+    public function getDireccionesVigentesZona($idZona) {
+        
+        $rows = array();
+        
+        $this->conecta();
+
+        if (is_resource($this->_dbLink)) {
+            $query = "SELECT t1.IDDirec FROM clientes_dentrega t1, clientes t2 WHERE t1.IDZona='{$idZona}' AND t1.Vigente='1' AND t1.IDCliente=t2.IDCliente AND t2.Vigente='1'";
+            $this->_em->query($query);
+            $rows = $this->_em->fetchResult();
+            $this->_em->desConecta();
+            unset($this->_em);
+        }  
+        
+        return $rows;
+    }
 }
 
 ?>

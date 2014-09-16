@@ -747,11 +747,11 @@ class Listado {
 
         // Primer Renglón con los títulos de las columnas
         $cvsString = "";
-        foreach ($parametros['columns'] as $column)
-            $cvsString .= '"' . $column['title'] . '",';
-        // Quito la última coma
-        $cvsString = substr($cvsString, 0, -1);
-        $cvsString .= "\n";
+        foreach ($parametros['columns'] as $column) {
+            $cvsString .= '"' . $column['title'] . '";';
+        }
+        // Quito la última coma y cambio de línea
+        $cvsString = substr($cvsString, 0, -1) . "\n";
 
         // Itero el array con los datos para generar cada renglón del listado
         $objeto = new $this->entity();
@@ -768,11 +768,11 @@ class Listado {
                 if ($formato)
                     $texto = sprintf($formato, $texto);
 
-                $cvsString .= '"' . $texto . '",';
+                $cvsString .= '"' . $texto . '";';
             }
-            // Quito la última coma
-            $cvsString = substr($cvsString, 0, -1);
-            $cvsString .= "\n";
+            // Quito la última coma y salto de línea
+            $cvsString = substr($cvsString, 0, -1) . "\n";
+
         }
         unset($objeto);
 

@@ -38,6 +38,7 @@ class RutasRepartoDetalleController extends Controller {
             $query = "SELECT t1.IDDirec as Id, t1.Nombre as Value
                         FROM clientes_dentrega as t1, clientes as t2, zonas as t3
                         WHERE t1.IDCliente=t2.IDCliente
+                        AND t2.Vigente='1'
                         AND t2.IDSucursal='{$_SESSION['suc']}'
                         AND t3.IDSucursal='{$_SESSION['suc']}'
                         AND t1.IDZona=t3.IDZona
@@ -61,6 +62,7 @@ class RutasRepartoDetalleController extends Controller {
             $query = "SELECT DISTINCT t1.IDZona as Id, t2.Zona as Value FROM clientes_dentrega as t1, zonas as t2, clientes as t3
                         WHERE t1.IDZona=t2.IDZona
                         AND t1.IDCliente=t3.IDCliente
+                        AND t3.Vigente='1'
                         AND t3.IDSucursal='{$_SESSION['suc']}'
                         AND t2.IDSucursal='{$_SESSION['suc']}'
                         AND t1.IDDirec NOT IN
@@ -162,7 +164,7 @@ class RutasRepartoDetalleController extends Controller {
                 case 'zona': //INSERTAR TODOS LAS DIRECCIONES DE ESA ZONA
                     if ($this->request['IDZona'] != '') {
                         $direc = new ClientesDentrega();
-                        $rows = $direc->cargaCondicion("IDDirec", "IDZona='{$this->request['IDZona']}'");
+                        $rows = $direc->getDireccionesVigentesZona($this->request['IDZona']);
                         unset($direc);
                         foreach ($rows as $key => $value) {
                             $datos = new $this->entity();

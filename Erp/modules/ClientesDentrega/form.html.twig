@@ -16,3 +16,4 @@
 {{ macro.input('Horario Llamadas','Etiqueta','text','ClientesDentrega[HorarioLlamadas]','ClientesDentrega_HorarioLlamadas',datos.HorarioLlamadas,'50','CampoTextoMedio') }}
 {{ macro.input('Horario Reparto','Etiqueta','text','ClientesDentrega[Horario]','ClientesDentrega_Horario',datos.Horario,'50','CampoTextoMedio') }}
 {{ macro.select('Zona de Reparto','Etiqueta','ClientesDentrega[IDZona]','ClientesDentrega_IDZona',none,datos.IDZona.IDZona,datos.IDZona.fetchAll,'Select')}}
+{{ macro.select('Vigente','Etiqueta','ClientesDentrega[Vigente]','ClientesDentrega_Vigente',none,datos.Vigente.IDTipo,datos.Vigente.fetchAll,'Select') }}

@@ -553,8 +553,8 @@ class AlbaranesCab extends AlbaranesCabEntity {
 
                 // Actualiza la cabecera del albarán
                 $this->setIDFactura($idFactura);
-                $this->setIDEstado(3);
                 $this->save();
+                $this->queryUpdate(array("IDEstado" => '3'), "IDAlbaran='{$this->IDAlbaran}'");
             }
             unset($factura);
         }

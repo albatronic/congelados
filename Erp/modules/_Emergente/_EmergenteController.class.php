@@ -284,16 +284,24 @@ class _EmergenteController {
         switch ($this->request["METHOD"]) {
             case 'GET':
                 $idArticulo = $this->request['2'];
-                if ($idArticulo == '0')
+                if ($idArticulo == '0') {
                     $idArticulo = '';
+                }
                 $idCliente = $this->request['3'];
+                if ($idCliente == '0') {
+                    $idCliente = '';
+                }
                 $periodo = $this->request['4'];
                 break;
             case 'POST':
                 $idArticulo = $this->request['idArticulo'];
-                if ($idArticulo == '0')
+                if ($idArticulo == '0') {
                     $idArticulo = '';
+                }
                 $idCliente = $this->request['idCliente'];
+                if ($idCliente == '0') {
+                    $idCliente = '';
+                }
                 $periodo = $this->request['periodo'];
                 break;
         }
@@ -321,28 +329,38 @@ class _EmergenteController {
         unset($fecha);
 
         $cliente = new Clientes($idCliente);
+        $clienteTabla = $cliente->getDataBaseName() . "." . $cliente->getTableName();
+        $articulo = new Articulos($idArticulo);
+        $articuloTabla = $articulo->getDataBaseName() . "." . $articulo->getTableName();
+        $albaran = new AlbaranesCab();
+        $albaranTabla = $albaran->getDataBaseName() . "." . $albaran->getTableName();
+        unset($albaran);
+        $lineas = new AlbaranesLineas();
+        $lineasTabla = $lineas->getDataBaseName() . "." . $lineas->getTableName();
+        unset($lineas);
 
         // Calcular el total de unidades vendidas y el precio medio de venta
         // No tiene en cuenta los albaranes que no están confirmados
-        if ($idArticulo != '') {
-            $articulo = new Articulos($idArticulo);
+        if ($idArticulo != '' or $idCliente != '') {
 
-            $em = new EntityManager("datos" . $_SESSION['emp']);
+            $em = new EntityManager($articulo->getConectionName());
             if ($em->getDbLink()) {
                 $query = "SELECT SUM(t1.Unidades) as Unidades, SUM(t1.Importe) as Importe
-                FROM albaranes_lineas as t1, albaranes_cab as t2
-                WHERE t1.IDAlbaran=t2.IDAlbaran
-                AND t2.IDCliente='{$idCliente}'
-                AND t1.IDArticulo='{$idArticulo}'
-                AND t2.IDEstado<>'0'
-                AND t2.Fecha>='{$desdeFecha}'";
-                $em->query($query);
+                FROM {$lineasTabla} as t1, {$albaranTabla} as t2";
+                $query .= " WHERE t1.IDAlbaran=t2.IDAlbaran AND t2.IDEstado<>'0' AND t2.Fecha>='{$desdeFecha}'";
+                if ($idCliente !== '') {
+                    $query .= " AND  t2.IDCliente='{$idCliente}'";
+                }
+                if ($idArticulo !== '') {
+                    $query .= " AND t1.IDArticulo='{$idArticulo}'";
+                }
+                $em->query($query); //echo $query;
                 $rows = $em->fetchResult();
                 $em->desConecta();
             }
 
-            ($rows[0]['Unidades'] != 0) ? $precioMedio = $rows[0]['Importe'] / $rows[0]['Unidades'] : $precioMedio = 0;
-            ($rows[0]['Unidades'] == '') ? $unidades = 0 : $unidades = $rows['0']['Unidades'];
+            $precioMedio = ($rows[0]['Unidades'] != 0) ? $rows[0]['Importe'] / $rows[0]['Unidades'] : 0;
+            $unidades = ($rows[0]['Unidades'] == '') ? 0 : $rows['0']['Unidades'];
         }
 
         $this->values['datos'] = array(
@@ -357,21 +375,32 @@ class _EmergenteController {
 
         // Obtener el litado histórico de ventas para el articulo y cliente
         // Solo muestra los albaranes que están confirmador o facturados
-        $em = new EntityManager("datos" . $_SESSION['emp']);
+        $em = new EntityManager($articulo->getConectionName());
         if ($em->getDbLink()) {
-            $query = "SELECT t2.IDLinea,t1.IDAlbaran,t1.NumeroAlbaran,DATE_FORMAT(t1.Fecha,'%d-%m-%Y') as Fecha,t1.IDEstado,t1.IDFactura,t4.Descripcion,t2.Unidades,t2.Precio,t2.Descuento,t2.Importe,t2.IDPromocion
-                FROM albaranes_cab as t1, albaranes_lineas as t2, clientes as t3, articulos as t4
-                WHERE t1.IDAlbaran=t2.IDAlbaran
-                AND t1.IDCliente=t3.IDCliente
-                AND t1.IDCliente='{$idCliente}'
-                AND t2.IDArticulo=t4.IDArticulo ";
-            if ($idArticulo != '')
-                $query .= "AND t2.IDArticulo='{$idArticulo}'";
+            $query = "SELECT t2.IDLinea,t1.IDAlbaran,t1.NumeroAlbaran,DATE_FORMAT(t1.Fecha,'%d-%m-%Y') as Fecha,t1.IDEstado,t1.IDFactura,t2.Descripcion,t2.Unidades,t2.Precio,t2.Descuento,t2.Importe,t2.IDPromocion
+                FROM {$albaranTabla} as t1, {$lineasTabla} as t2";
+            if ($idCliente !== '') {
+                $query .= ", {$clienteTabla} as t3";
+            }
+            if ($idArticulo !== '') {
+                $query .= ", {$articuloTabla} as t4";
+            }
+            $query .= " WHERE t1.IDAlbaran=t2.IDAlbaran";
+            if ($idCliente !== '') {
+                $query .= " AND t1.IDCliente=t3.IDCliente AND t1.IDCliente='{$idCliente}' ";
+            }
+
+            if ($idArticulo !== '') {
+                $query .= " AND t2.IDArticulo=t4.IDArticulo AND t2.IDArticulo='{$idArticulo}'";
+            }
+
             $query .= "
                 AND t1.IDEstado<>'0'
                 AND t1.Fecha>='{$desdeFecha}'
                 ORDER BY t1.Fecha DESC, t1.IDAlbaran DESC";
+
             $em->query($query);
+            //echo $query;
             $rows = $em->fetchResult();
             $em->desConecta();
         }

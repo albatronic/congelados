@@ -19,9 +19,18 @@ listados:
     body_font: Courier, ,8
     columns:
       -
+        title: Codigo
+        field: CodigoArticulo
+        length: 10
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null        
+      -
         title: Artículo
         field: IDArticulo
-        length: 35
+        length: 32
         align: L
         type: integer
         total: NO
@@ -83,7 +92,7 @@ listados:
       -
         title: Reservadas
         field: Reservadas
-        length: 10
+        length: 9
         align: R
         type: decimal
         total: YES
@@ -92,7 +101,7 @@ listados:
       -
         title: Entrando
         field: Entrando
-        length: 10
+        length: 9
         align: R
         type: decimal
         total: YES
@@ -118,6 +127,15 @@ listados:
     margins: 10, 10, 15, 10
     body_font: Courier, ,8
     columns:
+      -
+        title: Codigo
+        field: Codigo
+        length: 15
+        align: L
+        type: integer
+        total: NO
+        formula: null
+        format: null        
       -
         title: Artículo
         field: IDArticulo

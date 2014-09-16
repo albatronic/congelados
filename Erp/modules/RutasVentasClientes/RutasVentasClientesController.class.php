@@ -38,6 +38,7 @@ class RutasVentasClientesController extends Controller {
             $query = "SELECT IDCliente as Id, RazonSocial as Value FROM clientes
                         WHERE IDComercial='{$idComercial}'
                         AND IDSucursal='{$_SESSION['suc']}'
+                        AND Vigente='1'
                         AND IDCliente NOT IN
                             (SELECT IDCliente FROM rutas_ventas
                             WHERE IDComercial='{$idComercial}' AND Dia='{$dia}')
@@ -59,6 +60,7 @@ class RutasVentasClientesController extends Controller {
                         WHERE t1.IDZona=t2.IDZona
                         AND t1.IDComercial='{$idComercial}'
                         AND t1.IDSucursal='{$_SESSION['suc']}'
+                        AND t1.Vigente='1'    
                         AND t1.IDCliente NOT IN
                             (SELECT IDCliente FROM rutas_ventas
                             WHERE IDComercial='{$idComercial}' AND Dia='{$dia}')
@@ -80,6 +82,7 @@ class RutasVentasClientesController extends Controller {
             $query = "SELECT t1.Id FROM rutas_ventas as t1, clientes as t2
                         WHERE t1.IDCliente=t2.IDCliente
                         AND t2.IDSucursal='{$_SESSION['suc']}'
+                        AND t2.Vigente='1'
                         AND t1.IDComercial='{$idComercial}'
                         AND t1.Dia='{$dia}'
                         ORDER BY t1.OrdenCliente,t1.IDZona";

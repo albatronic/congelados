@@ -17,4 +17,3 @@ class EstadosPedidos extends Tipos {
         array('Id' => '3', 'Value' => 'Facturado'),
     );
 }
-?>

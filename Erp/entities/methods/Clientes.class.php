@@ -11,10 +11,11 @@
 class Clientes extends ClientesEntity {
 
     public function __toString() {
-        if ($this->RazonSocial)
-            return $this->getRazonSocial();
-        else
+        if ($this->RazonSocial) {
+            return $this->getRazonSocial() . " - " . $this->getNombreComercial();
+        } else {
             return "";
+        }
     }
 
     /**
@@ -93,12 +94,12 @@ class Clientes extends ClientesEntity {
             $rutaVenta = new RutasVentas();
             $rutaVenta->queryDelete("IDCliente='{$this->IDCliente}'");
             unset($rutaVenta);
-            
+
             // Borrar de las rutas de reparto
             $condicion = "IDDirec in (select d.IDDirec from clientes_dentrega d left join clientes c on d.IDCliente=c.IDCliente where c.IDCliente='{$this->IDCliente}')";
             $rutaReparto = new RutasRepartoDetalle();
             $rutaReparto->queryDelete($condicion);
-            unset($rutaReparto);            
+            unset($rutaReparto);
         }
     }
 
@@ -156,7 +157,7 @@ class Clientes extends ClientesEntity {
         $pteCobro = $recibos['Importe'];
         $riesgo = $this->getLimiteRiesgo();
 
-        return (($riesgo > 0) and ($pteCobro >= $riesgo));
+        return (($riesgo > 0) and ( $pteCobro >= $riesgo));
     }
 
     /**

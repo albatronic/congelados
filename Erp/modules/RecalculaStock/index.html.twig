@@ -1,0 +1,37 @@
+{# Template index.html.twig for RecalculaStock   #}
+{# ----------------------------------------------------#}
+{% extends layout %}
+
+{% block title parent() ~ ' - '  ~ values.titulo %}
+
+{% block content %}
+	<div class='Titulo'>{{ values.titulo }}
+	{% block navegador %}
+	{% endblock %}
+        {% include '_global/comandosHelp.html.twig' with {'controller':values.controller} %}
+        </div>
+
+        {% include "_global/FormErrores.html.twig" with {'errores': values.errores} %}
+
+        {% if values.resultado | length %}
+        <div style="font-size: 14px; font-weight: bold; padding: 10px;">
+            <h3>RESERVAS ACTUALIZADAS</h3>
+            {% for item in values.resultado.reservas %}
+             <p>{{item.Descripcion}} {{item.Unidades}}</p>
+            {% endfor %}
+        </div>
+        <div style="font-size: 14px; font-weight: bold; padding: 10px;">
+            <h3>ENTRADAS ACTUALIZADAS</h3>
+            {% for item in values.resultado.entrando %}
+             <p>{{item.Descripcion}} {{item.Unidades}}</p>
+            {% endfor %}
+        </div>        
+        {% endif %}
+
+	{% block filtro %}
+        {% if values.permisos.permisosModulo['UP'] %}
+            {% include 'RecalculaStock/filtro.html.twig' with {'values':values} %}
+        {% endif %}
+	{% endblock %}
+
+{% endblock %}

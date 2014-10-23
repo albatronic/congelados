@@ -158,16 +158,24 @@ class _EmergenteController {
         switch ($this->request["METHOD"]) {
             case 'GET':
                 $idArticulo = $this->request['2'];
-                if ($idArticulo == '0')
+                if ($idArticulo == '0') {
                     $idArticulo = '';
+                }
                 $idProveedor = $this->request['3'];
+                if ($idProveedor == '0') {
+                    $idProveedor = '';
+                }
                 $periodo = $this->request['4'];
                 break;
             case 'POST':
                 $idArticulo = $this->request['idArticulo'];
-                if ($idArticulo == '0')
+                if ($idArticulo == '0') {
                     $idArticulo = '';
+                }
                 $idProveedor = $this->request['idProveedor'];
+                if ($idProveedor == '0') {
+                    $idProveedor = '';
+                }
                 $periodo = $this->request['periodo'];
                 break;
         }
@@ -198,19 +206,21 @@ class _EmergenteController {
 
         // Calcular el total de unidades compradas y el precio medio de compra
         // Solo calcula los pedidos que están recepcionados o facturados
-        if ($idArticulo != '') {
+        if ($idArticulo != '' or $idProveedor != '') {
             $articulo = new Articulos($idArticulo);
 
             $em = new EntityManager("datos" . $_SESSION['emp']);
             if ($em->getDbLink()) {
-                $query = "SELECT SUM(t1.Unidades) as Unidades, SUM(t1.Importe) as Importe
-                FROM pedidos_lineas as t1, pedidos_cab as t2
-                WHERE t1.IDPedido=t2.IDPedido
-                AND t2.IDProveedor='{$idProveedor}'
-                AND t1.IDArticulo='{$idArticulo}'
-                AND t2.IDEstado>='2'
-                AND t2.FechaEntrada>='{$desdeFecha}'";
-                $em->query($query);
+                $query = "SELECT SUM(t1.UnidadesRecibidas) as Unidades, SUM(t1.Importe) as Importe
+                FROM pedidos_lineas as t1, pedidos_cab as t2";
+                $query .= " WHERE t1.IDPedido=t2.IDPedido AND t2.IDEstado>'2' AND t2.FechaEntrada>='{$desdeFecha}'";
+                if ($idProveedor !== '') {
+                    $query .= " AND  t2.IDProveedor='{$idProveedor}'";
+                }
+                if ($idArticulo !== '') {
+                    $query .= " AND t1.IDArticulo='{$idArticulo}'";
+                }
+                $em->query($query); //echo $query,"<br/>";
                 $rows = $em->fetchResult();
                 $em->desConecta();
             }
@@ -233,20 +243,28 @@ class _EmergenteController {
         // Solo muestra los pedidos que están confirmador o facturados
         $em = new EntityManager("datos" . $_SESSION['emp']);
         if ($em->getDbLink()) {
-            $query = "SELECT t2.IDLinea,t1.IDPedido,DATE_FORMAT(t1.FechaEntrada,'%d-%m-%Y') as FechaEntrada,t4.Descripcion,t2.Unidades,t2.Precio,t2.Descuento,t2.Importe
-                FROM pedidos_cab as t1, pedidos_lineas as t2, proveedores as t3, articulos as t4
-                WHERE t1.IDPedido=t2.IDPedido
-                AND t1.IDProveedor=t3.IDProveedor
-                AND t1.IDProveedor='{$idProveedor}'
-                AND t2.IDArticulo=t4.IDArticulo ";
-            if ($idArticulo != '')
-                $query .= "AND t2.IDArticulo='{$idArticulo}'";
+            $query = "SELECT t2.IDLinea,t1.IDPedido,DATE_FORMAT(t1.FechaEntrada,'%d-%m-%Y') as FechaEntrada,t4.Descripcion,t2.UnidadesRecibidas,t2.Precio,t2.Descuento,t2.Importe
+                FROM pedidos_cab as t1, pedidos_lineas as t2";
+            if ($idProveedor !== '') {
+                $query .= ", proveedores as t3";
+            }
+            if ($idArticulo !== '') {
+                $query .= ", articulos as t4";
+            }
+            $query .= " WHERE t1.IDPedido=t2.IDPedido";
+            if ($idProveedor !== '') {
+                $query .= " AND t1.IDProveedor=t3.IDProveedor AND t1.IDProveedor='{$idProveedor}' ";
+            }
+            if ($idArticulo !== '') {
+                $query .= " AND t2.IDArticulo=t4.IDArticulo AND t2.IDArticulo='{$idArticulo}'";
+            }
+
             $query .= "
                 AND t1.IDEstado>='2'
                 AND t1.FechaEntrada>='{$desdeFecha}'
-                ORDER BY t1.FechaEntrada, t1.IDPedido DESC";
+                ORDER BY t1.FechaEntrada DESC, t1.IDPedido DESC";
 
-            $em->query($query);
+            $em->query($query); //echo $query,"<br/>";
             $rows = $em->fetchResult();
             $em->desConecta();
         }

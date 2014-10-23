@@ -1,0 +1,25 @@
+# Module: RecalculaStock
+# Document : modules\RecalculaStock\config.yml
+#
+# @author Sergio Pérez <sergio.perez@albatronic.com>
+# @copyright INFORMATICA ALBATRONIC SL
+# @since 21.09.2014 00:47:17
+#
+---
+RecalculaStock:
+  login_required: YES
+  permission_control: YES
+  favourite_control: NO
+  help_file: help.html.twig
+  title: Recalcular Stock
+  id_video: recalculastock
+  url_video: null
+  conection: 'datos<?php echo $_SESSION['emp'];?>'
+  entity: RecalculaStock
+  table:
+  primarykey:
+  records_per_page: 15
+  order_by:
+  search_default:
+  referenced_entities:
+  columns:

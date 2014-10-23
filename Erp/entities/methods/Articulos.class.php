@@ -608,6 +608,7 @@ class Articulos extends ArticulosEntity {
      * Cada elemento del array es otro array con los elementos:
      * array (
      *   'IDAlbaran' =>
+     *   'NumeroAlbaran' =>
      *   'Fecha' =>
      *   'IDCliente' =>
      *   'RazonSocial =>
@@ -620,28 +621,35 @@ class Articulos extends ArticulosEntity {
     public function getReservas($idAlmacen) {
         $reservas = array();
 
+        $agente = new Agentes();
+        $dataBaseEmpresas = $agente->getDataBaseName();
+        
         $em = new EntityManager("datos" . $_SESSION['emp']);
         if ($em->getDbLink()) {
             //$query = "Call ReservasArticuloAlmacen('{$this->IDArticulo}','{$idAlmacen}');";
             $query = "select
                         cab.IDAlbaran,
+                        cab.NumeroAlbaran,
                         cab.Fecha,
                         cab.IDCliente,
                         cli.RazonSocial,
+                        age.Nombre as Comercial,
                         sum(lin.Unidades) as Reservas
                       from
                         {$this->_dataBaseName}.albaranes_cab    as cab,
                         {$this->_dataBaseName}.albaranes_lineas as lin,
-                        {$this->_dataBaseName}.clientes         as cli
+                        {$this->_dataBaseName}.clientes         as cli,
+                        {$dataBaseEmpresas}.agentes          as age
                       where
                         cab.IDAlbaran  = lin.IDAlbaran and
                         cab.IDCliente  = cli.IDCliente and
+                        cab.IDComercial  = age.IDAgente and
                         lin.IDEstado   = '1' and
                         lin.IDArticulo = '{$this->IDArticulo}' and
                         lin.IDAlmacen  = '{$idAlmacen}'
                       group by IDAlbaran
                       order by Fecha ASC";
-            $em->query($query);
+            $em->query($query);//echo $query;
             $reservas = $em->fetchResult();
             $em->desConecta();
         }
@@ -649,7 +657,64 @@ class Articulos extends ArticulosEntity {
 
         return $reservas;
     }
+    
+    /**
+     * Devuelve un array con las entradas en curso del articulo y almacen indicado
+     *
+     * Cada elemento del array es otro array con los elementos:
+     * array (
+     *   'IDPedido' =>
+     *   'Fecha' =>
+     *   'FechaEntraga' =>
+     *   'IDProveedor' =>
+     *   'RazonSocial =>
+     *   'Entrando' =>
+     * )
+     *
+     * @param integer $idAlmacen El id de almacen
+     * @return array Array con las unidades entrando
+     */
+    public function getEntrando($idAlmacen) {
+        $reservas = array();
 
+        $tablaPedidos = new PedidosCab();
+        $tablaPedidosLineas = new PedidosLineas();
+        $tablaProveedores = new Proveedores();
+
+        $em = new EntityManager("datos" . $_SESSION['emp']);
+        if ($em->getDbLink()) {
+            $query = "select
+                        cab.IDPedido,                    
+                        cab.Fecha,
+                        cab.FechaEntrega,
+                        cab.IDProveedor,
+                        prv.RazonSocial,
+                        sum(lin.Unidades) as Entrando
+                      from
+                        {$tablaPedidos->getDataBaseName()}.{$tablaPedidos->getTableName()} as cab,
+                        {$tablaPedidosLineas->getDataBaseName()}.{$tablaPedidosLineas->getTableName()} as lin,
+                        {$tablaProveedores->getDataBaseName()}.{$tablaProveedores->getTableName()} as prv
+                      where
+                        cab.IDPedido  = lin.IDPedido and
+                        cab.IDProveedor  = prv.IDProveedor and
+                        lin.IDEstado   = '1' and
+                        lin.IDArticulo = '{$this->IDArticulo}' and
+                        lin.IDAlmacen  = '{$idAlmacen}'
+                      group by IDPedido
+                      order by Fecha ASC";
+            $em->query($query);//echo $query,"<br/>";
+            $reservas = $em->fetchResult();
+            $em->desConecta();
+        }
+        unset($em);
+
+        unset($tablaPedidos);
+        unset($tablaPedidosLineas);
+        unset($tablaProveedores);
+
+        return $reservas;
+    }
+    
     /**
      * Genera la Url amigable del articulo
      * Utiliza el parametro pasado o en su defecto la descripcion del articulo

@@ -1,0 +1,30 @@
+{# Template filtro.html.twig for RecalculaStock     #}
+{# -------------------------------------------------------#}
+
+<div class='Filtro'>
+    <p style="margin-top: 10px; font-size: 12px;">
+        Mediante ésta opción se recalculan el stock 'Reservado' y el 'Entrando' en base a los albaranes y pedidos confirmados.
+    </p>
+    <p style="margin-top: 10px; font-size: 12px;">
+        Es aconsejable usarla en caso que se detecte algún descuadre en las reservas o en la unidades entrando.
+    </p>
+
+   <form name='filtro' id='filtro' action='' method='POST'>
+	<input name='controller' value='{{values.controller}}' type='hidden' />
+	<input name='action' id="action" value='Recalcular' type='hidden' />
+
+        <div style="float: left;">
+
+            <div style="margin-top: 30px;">
+                Indique el Almacén:
+                <select id="idAlmacen" name="idAlmacen">
+                    {% for almacen in values.almacenes %}
+                        <option value="{{almacen.Id}}">{{almacen.Value}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+                  
+            <input type="submit" value="Recalcular" class="Comando" style="width: 100px; font-weight: bold; margin-top: 20px;" />
+        </div>
+    </form>
+</div>

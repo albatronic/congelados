@@ -39,48 +39,110 @@
                     <tr><td colspan="9"><div class="InterLinea">{{objeto.IDAlmacen}}</div></td></tr>
                 {% endif%}
                 {% set almacenAnt = objeto.IDAlmacen.IDAlmacen %}
+                {% set reservas = objeto.IDArticulo.getReservas(objeto.IDAlmacen.IDAlmacen) %}  
+                {% set entrando = objeto.IDArticulo.getEntrando(objeto.IDAlmacen.IDAlmacen) %}                
 
-            <tr class='{{classFila}}' style="font-size: 11px;">
-                <td class='Item' title="{{objeto.IDArticulo}}">[{{objeto.IDArticulo.Codigo}}] {{objeto.IDArticulo|slice(0,23)}}</td>
-                <td class='Item'>{{objeto.IDLote}}</td>
-                <td class='Item'>{{objeto.IDUbicacion}}</td>
-                <td>
-                    <table width="100%" border="1"><tr>
-                        <td width="33%" align="center">{{objeto.IDArticulo.UMC}}</td>
-                        <td width="33%" align="center">{{objeto.IDArticulo.UMA}}</td>
-                        <td width="33%" align="center">{{objeto.IDArticulo.UMV}}</td>
-                    </tr></table>
-                </td>
-                <td>
-                    <table width='100%' border="0"><tr>
-                        <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMC',disponibles)|number_format(2)}}</td>
-                        <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMA',disponibles)|number_format(2)}}</td>
-                        <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMV',disponibles)|number_format(2)}}</td>
-                    </tr></table>
-                </td>
-                <td>
-                    <table width='100%' border="1"><tr>
-                        <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMC',objeto.Reales)|number_format(2)}}</td>
-                        <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMA',objeto.Reales)|number_format(2)}}</td>
-                        <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMV',objeto.Reales)|number_format(2)}}</td>
-                    </tr></table>
-                </td>
-                <td>
-                    <table width='100%' border="0"><tr>
-                        <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMC',objeto.Reservadas)|number_format(2)}}</td>
-                        <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMA',objeto.Reservadas)|number_format(2)}}</td>
-                        <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMV',objeto.Reservadas)|number_format(2)}}</td>
-                    </tr></table>
-                </td>
-                <td>
-                    <table width='100%' border="1"><tr>
-                        <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMC',objeto.Entrando)|number_format(2)}}</td>
-                        <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMA',objeto.Entrando)|number_format(2)}}</td>
-                        <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMV',objeto.Entrando)|number_format(2)}}</td>
-                    </tr></table>
-                </td>
-                <td align='center'>{{objeto.EnDeposito}}</td>
-            </tr>
+                <tr class='{{classFila}}' style="font-size: 11px;">
+                    <td class='Item' title="{{objeto.IDArticulo}}">[{{objeto.IDArticulo.Codigo}}] {{objeto.IDArticulo|slice(0,23)}}</td>
+                    <td class='Item'>{{objeto.IDLote}}</td>
+                    <td class='Item'>{{objeto.IDUbicacion}}</td>
+                    <td>
+                        <table width="100%" border="1"><tr>
+                            <td width="33%" align="center">{{objeto.IDArticulo.UMC}}</td>
+                            <td width="33%" align="center">{{objeto.IDArticulo.UMA}}</td>
+                            <td width="33%" align="center">{{objeto.IDArticulo.UMV}}</td>
+                        </tr></table>
+                    </td>
+                    <td>
+                        <table width='100%' border="0"><tr>
+                            <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMC',disponibles)|number_format(2)}}</td>
+                            <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMA',disponibles)|number_format(2)}}</td>
+                            <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMV',disponibles)|number_format(2)}}</td>
+                        </tr></table>
+                    </td>
+                    <td>
+                        <table width='100%' border="1"><tr>
+                            <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMC',objeto.Reales)|number_format(2)}}</td>
+                            <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMA',objeto.Reales)|number_format(2)}}</td>
+                            <td class="existencias">{{objeto.IDArticulo.convertUnit('UMA','UMV',objeto.Reales)|number_format(2)}}</td>
+                        </tr></table>
+                    </td>
+                    <td>
+                        <table width='100%' border="0"><tr>
+                            <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMC',objeto.Reservadas)|number_format(2)}}</td>
+                            <td width="33%" align="right">
+                                {% if reservas|length>0 %}
+                                    <a href="#" onclick="$('#reservas{{key}}').toggle();">{{objeto.IDArticulo.convertUnit('UMA','UMA',objeto.Reservadas)|number_format(2)}}</a>
+                                {% else %}
+                                    {{objeto.IDArticulo.convertUnit('UMA','UMA',objeto.Reservadas)|number_format(2)}}                            
+                                {% endif %}                                
+                            </td>
+                            <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMV',objeto.Reservadas)|number_format(2)}}</td>
+                        </tr></table>
+                    </td>
+                    <td>
+                        <table width='100%' border="1"><tr>
+                            <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMC',objeto.Entrando)|number_format(2)}}</td>
+                            <td width="33%" align="right">
+                                {% if entrando|length>0 %}
+                                    <a href="#" onclick="$('#entrando{{key}}').toggle();">{{objeto.IDArticulo.convertUnit('UMA','UMA',objeto.Entrando)|number_format(2)}}</a>
+                                {% else %}
+                                    {{objeto.IDArticulo.convertUnit('UMA','UMA',objeto.Entrando)|number_format(2)}}                            
+                                {% endif %}                                 
+                            </td>
+                            <td width="33%" align="right">{{objeto.IDArticulo.convertUnit('UMA','UMV',objeto.Entrando)|number_format(2)}}</td>
+                        </tr></table>
+                    </td>
+                    <td align='center'>{{objeto.EnDeposito}}</td>
+                </tr>
+                {% if reservas|length > 0 %}
+                    <tr id="reservas{{key}}" style="display:none;">
+                        <td colspan="9">
+                            <table style="width: 70%;margin-left: 30%;margin-bottom: 10px;border: 1px solid;">
+                                <tr>
+                                    <td>Albarán</td>
+                                    <td>Fecha</td>
+                                    <td style="width:60%">Cliente</td>
+                                    <td style="width:30%">Comercial</td>
+                                    <td>Reserva</td>
+                                </tr>
+                                {% for reserva in reservas %}
+                                    <tr>
+                                        <td><a href="{{app.path}}/AlbaranesCab/edit/{{reserva.IDAlbaran}}" target="_blank">{{reserva.NumeroAlbaran}}</a></td>
+                                        <td>{{reserva.Fecha}}</td>
+                                        <td>{{reserva.RazonSocial}}</td>
+                                        <td>{{reserva.Comercial}}</td>
+                                        <td>{{reserva.Reservas}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr> 
+                {% endif %}
+                {% if entrando|length > 0 %}
+                    <tr id="entrando{{key}}" style="display:none;">
+                        <td colspan="9">
+                            <table style="width: 70%;margin-left: 30%;margin-bottom: 10px;border: 1px solid;">
+                                <tr>
+                                    <td>Pedido</td>
+                                    <td>Fecha</td>
+                                    <td>Fecha Prev. Entrada</td>
+                                    <td style="width:60%">Proveedor</td>
+                                    <td>Entrando</td>
+                                </tr>
+                                {% for item in entrando %}
+                                    <tr>
+                                        <td><a href="{{app.path}}/PedidosCab/edit/{{item.IDPedido}}" target="_blank">{{item.IDPedido}}</a></td>
+                                        <td>{{item.Fecha}}</td>
+                                        <td>{{item.FechaEntrega}}</td>
+                                        <td>{{item.RazonSocial}}</td>
+                                        <td>{{item.Entrando}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                {% endif %}                
             {% else %}
             <tr><td colspan='7'>No hay informacion que cumpla esos criterios</td></tr>
             {% endfor %}

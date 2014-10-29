@@ -121,5 +121,3 @@ class rutasPDF extends FPDF {
     }
 
 }
-
-?>

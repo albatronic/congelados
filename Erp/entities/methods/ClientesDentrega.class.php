@@ -48,7 +48,7 @@ class ClientesDentrega extends ClientesDentregaEntity {
     /**
      * Devuelve array con los id's de las direcciones
      * de entrega vigentes de la zona $idZona y cuyos clientes 
-     * están vigentes.
+     * están vigentes y son de la sucursal en curso.
      * 
      * @param int $idZona
      * @return array
@@ -60,7 +60,7 @@ class ClientesDentrega extends ClientesDentregaEntity {
         $this->conecta();
 
         if (is_resource($this->_dbLink)) {
-            $query = "SELECT t1.IDDirec FROM clientes_dentrega t1, clientes t2 WHERE t1.IDZona='{$idZona}' AND t1.Vigente='1' AND t1.IDCliente=t2.IDCliente AND t2.Vigente='1'";
+            $query = "SELECT t1.IDDirec FROM clientes_dentrega t1, clientes t2 WHERE t1.IDZona='{$idZona}' AND t1.Vigente='1' AND t1.IDCliente=t2.IDCliente AND t2.Vigente='1' and t2.IDSucursal='{$_SESSION['suc']}'";
             $this->_em->query($query);
             $rows = $this->_em->fetchResult();
             $this->_em->desConecta();
@@ -71,4 +71,3 @@ class ClientesDentrega extends ClientesDentregaEntity {
     }
 }
 
-?>

@@ -243,20 +243,21 @@ class _EmergenteController {
         // Solo muestra los pedidos que están confirmador o facturados
         $em = new EntityManager("datos" . $_SESSION['emp']);
         if ($em->getDbLink()) {
-            $query = "SELECT t2.IDLinea,t1.IDPedido,DATE_FORMAT(t1.FechaEntrada,'%d-%m-%Y') as FechaEntrada,t4.Descripcion,t2.UnidadesRecibidas,t2.Precio,t2.Descuento,t2.Importe
-                FROM pedidos_cab as t1, pedidos_lineas as t2";
+            $query = "SELECT t2.IDLinea,t1.IDPedido,DATE_FORMAT(t1.FechaEntrada,'%d-%m-%Y') as FechaEntrada,t2.UnidadesRecibidas,t2.Precio,t2.Descuento,t2.Importe,t4.Descripcion ";
+
+            $query .= "FROM pedidos_cab as t1, pedidos_lineas as t2";
             if ($idProveedor !== '') {
                 $query .= ", proveedores as t3";
             }
-            if ($idArticulo !== '') {
-                $query .= ", articulos as t4";
-            }
+
+            $query .= ", articulos as t4";
             $query .= " WHERE t1.IDPedido=t2.IDPedido";
             if ($idProveedor !== '') {
                 $query .= " AND t1.IDProveedor=t3.IDProveedor AND t1.IDProveedor='{$idProveedor}' ";
             }
+            $query .= " AND t2.IDArticulo=t4.IDArticulo ";
             if ($idArticulo !== '') {
-                $query .= " AND t2.IDArticulo=t4.IDArticulo AND t2.IDArticulo='{$idArticulo}'";
+                $query .= " AND t2.IDArticulo='{$idArticulo}' ";
             }
 
             $query .= "
@@ -264,7 +265,8 @@ class _EmergenteController {
                 AND t1.FechaEntrada>='{$desdeFecha}'
                 ORDER BY t1.FechaEntrada DESC, t1.IDPedido DESC";
 
-            $em->query($query); //echo $query,"<br/>";
+            //echo $query,"<br/>";
+            $em->query($query);
             $rows = $em->fetchResult();
             $em->desConecta();
         }

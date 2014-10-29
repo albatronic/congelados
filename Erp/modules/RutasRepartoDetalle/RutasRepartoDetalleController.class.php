@@ -258,5 +258,3 @@ class RutasRepartoDetalleController extends Controller {
     }
 
 }
-
-?>

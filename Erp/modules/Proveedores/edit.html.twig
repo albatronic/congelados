@@ -23,6 +23,7 @@
             <input type="image" src="{{app.path}}/images/trash_cmd.png" width="24px" onclick="if (!confirm('¿Desea borrar el registro?')) {return false;} else {getElementById('accion').value='Borrar';}" alt="Borrar" title="Borrar" />
             {% endif %}
             {% if values.permisos['C'] %}
+            <a href="javascript:;" onClick="window.open('{{app.path}}/_Emergente/HistoricoCompras/{{values.datos.IDArticulo}}/0','HistoricoCompras','width=850,height=500,resizable=yes,scrollbars=yes');">            
             <a href="javascript:;" onClick="window.open('{{app.path}}/_Emergente/HistoricoCompras/0/{{values.datos.IDProveedor}}','HistoricoCompras','width=850,height=500,resizable=yes,scrollbars=yes');">
                 <img src="{{app.path}}/images/historico.png" width="24px" height="24px" alt="Historico" title="Historico de Compras...">
             </a>
